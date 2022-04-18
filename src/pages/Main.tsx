@@ -1,15 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import Menu from '../components/Menu';
+import mainBackgroundImg from '../assets/mainBackground.png';
 
-const Test = styled.p`
-  color: ${props => props.theme.mainColor};
+const Container = styled.div`
+  max-width: 1440px;
+  height: 500vh;
+  margin: 0 auto;
 `;
+const TestImg = styled.img.attrs({src: mainBackgroundImg})`
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
 
 const Main = () => {
   return (
-    <div>
-      <Test>Main Color</Test>
-    </div>
+    <Container>
+      <Menu/>
+      <TestImg/>
+    </Container>
   );
 };
 
