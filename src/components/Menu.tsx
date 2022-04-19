@@ -3,21 +3,22 @@ import styled from 'styled-components';
 import logoImg from '../assets/logoBasic.png';
 import talkImg from '../assets/kakaotalk.png';
 
-const MenuCotainer = styled.nav`
-  max-width: 1440px;
-  height: 80px;
-  padding: 0 30px;
-  margin: 0 auto;
-  backdrop-filter: blur(5px);
-  opacity: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+const MenuCotainer = styled.nav<{isBackgroundEnd: boolean}>`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  /* box-shadow: -5px 5px 15px #ccc; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  height: 80px;
+  padding: 0 30px;
+  margin: 0 auto;
+  color: ${props => props.isBackgroundEnd ? 'black' : 'white'};
+  backdrop-filter: ${props => props.isBackgroundEnd ? 'blur(5px)' : 'none'};
+  background-color: ${props => props.isBackgroundEnd ? 'none' : 'rgba(0,0,0,0.5)'};
+  box-shadow: ${props => props.isBackgroundEnd ? '0px 0px 20px #eee;' : 'none'};
 `;
 const Title = styled.div`
   display: flex;
@@ -43,9 +44,13 @@ const LogoSubName = styled.p`
 const Talk = styled.img.attrs({src: talkImg})`
 `;
 
-const Menu = () => {
+interface IMenu {
+  isBackgroundEnd: boolean;
+}
+
+const Menu = ({isBackgroundEnd}: IMenu) => {
   return (
-    <MenuCotainer>
+    <MenuCotainer isBackgroundEnd={isBackgroundEnd} >
       <Title>
         <LogoImage/>
         <LogoTitle>
