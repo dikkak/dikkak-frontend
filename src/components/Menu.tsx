@@ -12,13 +12,14 @@ const MenuCotainer = styled.nav<{isBackgroundEnd: boolean}>`
   align-items: center;
   justify-content: space-between;
   max-width: 1440px;
-  height: 80px;
+  height: 100px;
   padding: 0 30px;
   margin: 0 auto;
   color: ${props => props.isBackgroundEnd ? 'black' : 'white'};
   backdrop-filter: ${props => props.isBackgroundEnd ? 'blur(5px)' : 'none'};
   background-color: ${props => props.isBackgroundEnd ? 'none' : 'rgba(0,0,0,0.5)'};
   box-shadow: ${props => props.isBackgroundEnd ? '0px 0px 20px #eee;' : 'none'};
+  z-index: 100;
 `;
 const Title = styled.div`
   display: flex;
