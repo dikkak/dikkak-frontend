@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import logoImg from '../assets/logoBasic.png';
-import talkImg from '../assets/kakaotalk.png';
+import logoImg from '../assets/logoImage/logoBasic.png';
+import talkImg from '../assets/menuImage/kakaotalk.png';
 import { useRecoilValue } from 'recoil';
 import { menuToggleState } from '../atoms/mainPageAtom';
 
