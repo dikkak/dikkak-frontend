@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Menu from '../components/Menu';
 import mainBackgroundImg from '../assets/mainBackground.png';
 import blurBackgroundImg from '../assets/blurBack.png';
 import blurPin from '../assets/blurPin.png';
 import blurLogo from '../assets/blurLogo.png';
+import { useSetRecoilState } from 'recoil';
+import { menuToggleState } from '../atoms/mainPageAtom';
 
 const Container = styled.div`
   max-width: 1440px;
@@ -12,7 +14,7 @@ const Container = styled.div`
   margin: 0 auto;
   overflow-x: hidden;
 `;
-const TestImg = styled.div`
+const Jumbotron = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -124,27 +126,26 @@ const DikkakStart = styled(DikkakSignUp)`
 `;
 
 const Main = () => {
-  const backgroundRef = useRef<HTMLImageElement>(null);
-  const [isBackgroundEnd, setIsBackgroundEnd] = useState<boolean>(false);
+  const jumbotronRef = useRef<HTMLImageElement>(null);
+  const setMenuToggleState = useSetRecoilState(menuToggleState);
   const scrollEvent = (e: Event) => {
-      const backgroundBound = backgroundRef.current?.getBoundingClientRect();
+      const backgroundBound = jumbotronRef.current?.getBoundingClientRect();
       if(backgroundBound!.top<-680) {
-        setIsBackgroundEnd(true);
+        setMenuToggleState(true);
       } else {
-        setIsBackgroundEnd(false);
+        setMenuToggleState(false);
       }
     }
   useEffect(() => {
     window.addEventListener('scroll', scrollEvent);
     return () => {
       window.removeEventListener('scroll', scrollEvent);
-      
     }
-  })
+  });
   return (
     <Container>
-      <Menu isBackgroundEnd={isBackgroundEnd}/>
-      <TestImg ref={backgroundRef}>
+      <Menu/>
+      <Jumbotron ref={jumbotronRef}>
         <BlurBackground>
           <BlurPin/>
           <BlurPin/>
@@ -154,14 +155,14 @@ const Main = () => {
           <BlurText>빠르고-쉬운 디자인 아웃소싱 플랫폼</BlurText>
           <BlurButtons>
             <DikkakSignUp>
-              DIKKAK 가입하기
+              ⏰ DIKKAK 가입하기
             </DikkakSignUp>
             <DikkakStart>
               DIKKAK 시작하기
             </DikkakStart>
           </BlurButtons>
         </BlurBackground>
-      </TestImg>
+      </Jumbotron>
     </Container>
   );
 };

@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import logoImg from '../assets/logoBasic.png';
 import talkImg from '../assets/kakaotalk.png';
+import { useRecoilValue } from 'recoil';
+import { menuToggleState } from '../atoms/mainPageAtom';
 
-const MenuCotainer = styled.nav<{isBackgroundEnd: boolean}>`
+const MenuCotainer = styled.nav<{menuToggle: boolean}>`
   position: fixed;
   top: 0;
   left: 0;
@@ -15,10 +17,10 @@ const MenuCotainer = styled.nav<{isBackgroundEnd: boolean}>`
   height: 100px;
   padding: 0 30px;
   margin: 0 auto;
-  color: ${props => props.isBackgroundEnd ? 'black' : 'white'};
-  backdrop-filter: ${props => props.isBackgroundEnd ? 'blur(5px)' : 'none'};
-  background-color: ${props => props.isBackgroundEnd ? 'none' : 'rgba(0,0,0,0.5)'};
-  box-shadow: ${props => props.isBackgroundEnd ? '0px 0px 20px #eee;' : 'none'};
+  color: ${props => props.menuToggle ? 'black' : 'white'};
+  backdrop-filter: ${props => props.menuToggle ? 'blur(5px)' : 'none'};
+  background-color: ${props => props.menuToggle ? 'none' : 'rgba(0,0,0,0.5)'};
+  box-shadow: ${props => props.menuToggle ? '0px 0px 20px #eee;' : 'none'};
   z-index: 100;
 `;
 const Title = styled.div`
@@ -45,13 +47,11 @@ const LogoSubName = styled.p`
 const Talk = styled.img.attrs({src: talkImg})`
 `;
 
-interface IMenu {
-  isBackgroundEnd: boolean;
-}
 
-const Menu = ({isBackgroundEnd}: IMenu) => {
+const Menu = () => {
+  const menuToggle = useRecoilValue(menuToggleState);
   return (
-    <MenuCotainer isBackgroundEnd={isBackgroundEnd} >
+    <MenuCotainer menuToggle={menuToggle} >
       <Title>
         <LogoImage/>
         <LogoTitle>
