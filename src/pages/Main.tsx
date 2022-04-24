@@ -7,13 +7,16 @@ import blurPin from '../assets/mainPageImage/blurPin.png';
 import blurLogo from '../assets/logoImage/blurLogo.png';
 import logoImg from '../assets/logoImage/logoBasic.png';
 import firstImg from '../assets/mainPageImage/firstImage.png';
+import secondImg from '../assets/mainPageImage/secondImage.png';
+import thirdImg from '../assets/mainPageImage/thirdImage.png';
+import instagram from '../assets/mainPageImage/instagram.png';
+import facebook from '../assets/mainPageImage/facebook.png';
 import { useSetRecoilState } from 'recoil';
 import { menuToggleState } from '../atoms/mainPageAtom';
 
 // Components style code
 const Container = styled.div`
   max-width: 1440px;
-  height: 500vh;
   margin: 0 auto;
   overflow-x: hidden;
 `;
@@ -165,12 +168,13 @@ const Intro = styled.div`
     width: 50px;
   }
 `;
-const First = styled.div`
+const Section = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+  padding: 0 20em;
   margin-top: 20em;
   h3 {
     font-size: 2rem;
@@ -180,6 +184,62 @@ const First = styled.div`
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: 1.2rem;
+  }
+`;
+const MainButtons = styled(BlurButtons)`
+`;
+const MainText = styled(BlurText)`
+  color: #717171;
+  border: 2px solid #717171;
+`;
+const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 350px;
+  margin-top: 20em;
+  padding: 3em 10em;
+  background-color: #EFEFEF;
+`;
+const FooterLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 0.6rem;
+`;
+const FooterLeftFirst = styled.div`
+  display: flex;
+  p {
+    margin-right: 5em;
+    font-weight: bold;
+  }
+`;
+const FooterLeftSecond = styled(FooterLeftFirst)`
+  flex-direction: column;
+  margin-top: 5em;
+  color: #7C7C7C;
+  div {
+    display: flex;
+    p {
+      margin-right: 3em;
+      line-height: 2em;
+    }
+  }
+`;
+const FooterLeftThird = styled(FooterLeftFirst)`
+    flex-direction: column;
+    margin-top: 3em;
+    color: #7C7C7C;
+    p {
+      line-height: 1.5em;
+    }
+`;
+const FooterRight = styled.div`
+  display: flex;
+  img {
+    width: 70px;
+    height: 70px;
+    margin-right: 1.5em;
+    justify-content: center;
   }
 `;
 
@@ -228,11 +288,57 @@ const Main = () => {
         <p><b>디자인을 깎는 아웃소싱 플랫폼</b>입니다.</p>
         <img src={logoImg} alt="logoImg" />
       </Intro>
-      <First>
+      <Section>
         <h3>1. 빠르게 맡기세요</h3>
         <p>쉽게 완성되는 외주 제안서 등록을 통해 맞춤형 매칭 서비스를 경험하세요</p>
         <img src={firstImg} alt="firstImg" />
-      </First>
+      </Section>
+      <Section>
+        <h3>2. 쉽게 소통하세요</h3>
+        <p>아웃소싱에 특화된 커뮤니케이션 UI를 통해 쉽게 소통하세요</p>
+        <img src={secondImg} alt="secondImg" />
+      </Section>
+      <Section>
+        <h3>3. 쉽게 쌓으세요</h3>
+        <p>찾기도, 도전하기도 힘들었던 디자인 실무경험을 쉽게 쌓으세요</p>
+        <img src={thirdImg} alt="thirdImg" />
+      </Section>
+      <Section>
+        <MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</MainText>
+        <MainButtons>
+          <DikkakSignUp style={{boxShadow: '5px 5px 5px #bbb'}}>
+            ⏰ DIKKAK 가입하기
+          </DikkakSignUp>
+          <DikkakStart style={{boxShadow: '5px 5px 5px #bbb'}}>
+            DIKKAK 시작하기
+          </DikkakStart>
+        </MainButtons>
+      </Section>
+      <Footer>
+        <FooterLeft>
+            <FooterLeftFirst>
+              <p>이용약관</p>
+              <p>개인정보 처리방침</p>  
+            </FooterLeftFirst>
+            <FooterLeftSecond>
+              <p>서울시 OOO</p>
+              <div>
+                <p>사업자 등록 번호 : 000-00-000000</p>
+                <p>대표이사 : 염정원</p>
+                <p>정보보호책임자 : 염정원</p>
+              </div>
+            </FooterLeftSecond>
+            <FooterLeftThird>
+              <p>Contact</p>
+              <p>dekak2022@gmail.com</p>
+              <p>kakao : 디깍 플러스친구 바로가기</p>
+            </FooterLeftThird>
+        </FooterLeft>
+        <FooterRight>
+          <img src={instagram} alt="instagram" />
+          <img src={facebook} alt="facebook" />
+        </FooterRight>
+      </Footer>
     </Container>
   );
 };
