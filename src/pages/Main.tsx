@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Menu from '../components/Menu';
 import mainBackgroundImg from '../assets/mainPageImage/mainBackground.png';
-import blurBackgroundImg from '../assets/mainPageImage/blurBack.png';
 import blurPin from '../assets/mainPageImage/blurPin.png';
 import blurLogo from '../assets/logoImage/blurLogo.png';
 import logoImg from '../assets/logoImage/logoBasic.png';
@@ -24,7 +23,7 @@ const Jumbotron = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1440px;
+  width: 100%;
   height: 772px;
   background-image: url(${mainBackgroundImg});
   background-repeat: no-repeat;
@@ -32,6 +31,7 @@ const Jumbotron = styled.div`
 `;
 
 const BlurBackground = styled.div`
+  
   position: relative;
   display: flex;
   flex-direction: column;
@@ -43,10 +43,9 @@ const BlurBackground = styled.div`
   top: 25px;
   padding-left: 5em;
   padding-right: 5em;
-  background-image: url(${blurBackgroundImg});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-color: transparent;
+  backdrop-filter: blur(7px);
+  border: 10px soild #eee;
   @media screen and (min-width: 1440px){
     width: 976px;
   }
@@ -194,12 +193,19 @@ const MainText = styled(BlurText)`
 `;
 const Footer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   height: 350px;
   margin-top: 20em;
   padding: 3em 10em;
   background-color: #EFEFEF;
+`;
+const FooterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
 `;
 const FooterLeft = styled.div`
   display: flex;
@@ -262,7 +268,7 @@ const Main = () => {
     }
   });
   return (
-    <Container>
+    <>
       <Menu/>
       <Jumbotron ref={jumbotronRef}>
         <BlurBackground>
@@ -282,40 +288,44 @@ const Main = () => {
           </BlurButtons>
         </BlurBackground>
       </Jumbotron>
-      <Intro>
-        <h1>안녕하세요 <span>D</span><span>IKKAK</span> 입니다.</h1>
-        <p>디깍은 트랜드의 중심 <b>MZ세대 학생 디자이너</b>들이</p>
-        <p><b>디자인을 깎는 아웃소싱 플랫폼</b>입니다.</p>
-        <img src={logoImg} alt="logoImg" />
-      </Intro>
-      <Section>
-        <h3>1. 빠르게 맡기세요</h3>
-        <p>쉽게 완성되는 외주 제안서 등록을 통해 맞춤형 매칭 서비스를 경험하세요</p>
-        <img src={firstImg} alt="firstImg" />
-      </Section>
-      <Section>
-        <h3>2. 쉽게 소통하세요</h3>
-        <p>아웃소싱에 특화된 커뮤니케이션 UI를 통해 쉽게 소통하세요</p>
-        <img src={secondImg} alt="secondImg" />
-      </Section>
-      <Section>
-        <h3>3. 쉽게 쌓으세요</h3>
-        <p>찾기도, 도전하기도 힘들었던 디자인 실무경험을 쉽게 쌓으세요</p>
-        <img src={thirdImg} alt="thirdImg" />
-      </Section>
-      <Section>
-        <MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</MainText>
-        <MainButtons>
-          <DikkakSignUp style={{boxShadow: '5px 5px 5px #bbb'}}>
-            ⏰ DIKKAK 가입하기
-          </DikkakSignUp>
-          <DikkakStart style={{boxShadow: '5px 5px 5px #bbb'}}>
-            DIKKAK 시작하기
-          </DikkakStart>
-        </MainButtons>
-      </Section>
+      <Container>
+        <Intro>
+          <h1>안녕하세요 <span>D</span><span>IKKAK</span> 입니다.</h1>
+          <p>디깍은 트랜드의 중심 <b>MZ세대 학생 디자이너</b>들이</p>
+          <p><b>디자인을 깎는 아웃소싱 플랫폼</b>입니다.</p>
+          <img src={logoImg} alt="logoImg" />
+        </Intro>
+        <Section>
+          <h3>1. 빠르게 맡기세요</h3>
+          <p>쉽게 완성되는 외주 제안서 등록을 통해 맞춤형 매칭 서비스를 경험하세요</p>
+          <img src={firstImg} alt="firstImg" />
+        </Section>
+        <Section>
+          <h3>2. 쉽게 소통하세요</h3>
+          <p>아웃소싱에 특화된 커뮤니케이션 UI를 통해 쉽게 소통하세요</p>
+          <img src={secondImg} alt="secondImg" />
+        </Section>
+        <Section>
+          <h3>3. 쉽게 쌓으세요</h3>
+          <p>찾기도, 도전하기도 힘들었던 디자인 실무경험을 쉽게 쌓으세요</p>
+          <img src={thirdImg} alt="thirdImg" />
+        </Section>
+        <Section>
+          <MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</MainText>
+          <MainButtons>
+            <DikkakSignUp style={{boxShadow: '5px 5px 5px #bbb'}}>
+              ⏰ DIKKAK 가입하기
+            </DikkakSignUp>
+            <DikkakStart style={{boxShadow: '5px 5px 5px #bbb'}}>
+              DIKKAK 시작하기
+            </DikkakStart>
+          </MainButtons>
+        </Section>
+        
+      </Container>
       <Footer>
-        <FooterLeft>
+        <FooterContainer>
+          <FooterLeft>
             <FooterLeftFirst>
               <p>이용약관</p>
               <p>개인정보 처리방침</p>  
@@ -333,13 +343,14 @@ const Main = () => {
               <p>dekak2022@gmail.com</p>
               <p>kakao : 디깍 플러스친구 바로가기</p>
             </FooterLeftThird>
-        </FooterLeft>
-        <FooterRight>
-          <img src={instagram} alt="instagram" />
-          <img src={facebook} alt="facebook" />
-        </FooterRight>
-      </Footer>
-    </Container>
+            </FooterLeft>
+            <FooterRight>
+              <img src={instagram} alt="instagram" />
+              <img src={facebook} alt="facebook" />
+            </FooterRight>
+          </FooterContainer>
+        </Footer>
+    </>
   );
 };
 
