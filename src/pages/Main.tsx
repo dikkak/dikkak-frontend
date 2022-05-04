@@ -38,18 +38,13 @@ const Jumbotron = styled.div`
   background-size: cover;
 `;
 
-const MowImage = styled.img.attrs({src: mowImg})`
-  position: absolute;
-  bottom: 6em;
-  right: 8em;
-`;
-
 const BlurBackground = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
   width: 350px;
   height: 85%;
   padding-left: 3em;
@@ -87,6 +82,7 @@ const BlurPin = styled.img.attrs({src: blurPin})`
 const BlurLogo = styled.img.attrs({src: blurLogo})`
 `;
 const BlurInfo = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
   height: 100%;
@@ -120,6 +116,13 @@ const BlurInfo = styled.div`
       }
     }
 `;
+
+const MowImage = styled.img.attrs({src: mowImg})`
+  position: absolute;
+  bottom: 4em;
+  right: -5em;
+`;
+
 const BlurText = styled.div`
   width: 100%;
   height: 3em;
@@ -299,9 +302,9 @@ const Main = () => {
                 <p>디깍은 트렌드의 중심 <b>MZ세대 디자이너</b>들이</p>
                 <p><b>디자인을 깎는 아웃소싱 플랫폼</b>입니다.</p>
               </div>
+              <MowImage/>
             </BlurInfo>
           </BlurBackground>
-          <MowImage/>
         </Jumbotron>
       </JumboCotainer>
       <SectionContainer>
