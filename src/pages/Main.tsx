@@ -1,93 +1,124 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Menu from '../components/Menu';
-import mainBackgroundImg from '../assets/mainPageImage/mainBackground.png';
+import mainBackgroundImg from '../assets/mainPageImage/jumbotron.svg';
 import blurPin from '../assets/mainPageImage/blurPin.png';
-import blurLogo from '../assets/logoImage/blurLogo.png';
-import logoImg from '../assets/logoImage/logoBasic.png';
+import blurLogo from '../assets/logoImage/blurLogo.svg';
+import stepImg from '../assets/mainPageImage/nextStep.svg';
+import mowImg from '../assets/mainPageImage/mow.svg';
 import firstImg from '../assets/mainPageImage/firstImage.png';
 import secondImg from '../assets/mainPageImage/secondImage.png';
 import thirdImg from '../assets/mainPageImage/thirdImage.png';
+import fourthImg from '../assets/mainPageImage/fourthImage.png';
 import instagram from '../assets/mainPageImage/instagram.png';
 import facebook from '../assets/mainPageImage/facebook.png';
-import { useSetRecoilState } from 'recoil';
-import { menuToggleState } from '../atoms/mainPageAtom';
+
 
 // Components style code
-const Container = styled.div`
+
+const JumboCotainer = styled.div`
   max-width: 1440px;
+  height: 485px;
   margin: 0 auto;
+  margin-top: 150px;
+  padding: 0 80px;
   overflow-x: hidden;
 `;
+
 const Jumbotron = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 772px;
+  max-width: 1116px;
+  height: 100%;
+  margin: 0 auto;
   background-image: url(${mainBackgroundImg});
   background-repeat: no-repeat;
   background-size: cover;
 `;
 
+const MowImage = styled.img.attrs({src: mowImg})`
+  position: absolute;
+  bottom: 6em;
+  right: 8em;
+`;
+
 const BlurBackground = styled.div`
-  
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* width: 976px; */
-  width: 70vw;
-  height: 487px;
-  top: 25px;
-  padding-left: 5em;
-  padding-right: 5em;
+  width: 350px;
+  height: 85%;
+  padding-left: 3em;
+  padding-right: 3em;
   background-color: transparent;
-  backdrop-filter: blur(7px);
-  border: 10px soild #eee;
-  @media screen and (min-width: 1440px){
-    width: 976px;
-  }
-  @media screen and (max-width: 768px){
-    font-size: 1rem;
-    height: 400px;
-  }
-  @media screen and (max-width: 576px){
-    font-size: .5rem;
-    height: 350px;
+  backdrop-filter: blur(30px);
+  border: .5px solid #eee;
+  box-shadow: 5px 5px 15px #ccc;
+  &:first-child {
+    margin-right: 5rem;
   }
 `;
 
 const BlurPin = styled.img.attrs({src: blurPin})`
   position: absolute;
+  width: 25px;
+  height: 25px;
   &:nth-child(1) {
-    top: 30px;
-    left: 30px;
+    top: 20px;
+    left: 20px;
   }
   &:nth-child(2) {
-    top: 30px;
-    right: 30px;
+    top: 20px;
+    right: 20px;
   }
   &:nth-child(3) {
-    bottom: 30px;
-    left: 30px;
+    bottom: 20px;
+    left: 20px;
   }
   &:nth-child(4) {
-    bottom: 30px;
-    right: 30px;
-  }
-  @media screen and (max-width: 768px){
-    width: 20px;
+    bottom: 20px;
+    right: 20px;
   }
 `;
 const BlurLogo = styled.img.attrs({src: blurLogo})`
-  @media screen and (max-width: 768px){
-    width: 150px;
+`;
+const BlurInfo = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  h1 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    line-height: 1.7em;
+    span {
+      &:first-child {
+        color: ${props => props.theme.subColor};
+        text-decoration: underline;
+      }
+      &:last-child {
+        color: ${props => props.theme.mainColor};
+        text-decoration: underline;
+      }
+    };
   }
-  @media screen and (max-width: 576px){
-    width: 120px;
-  }
+  p {
+      color: #5b5b5b;
+      font-size: 0.7rem;
+      line-height: 2em;
+      b {
+        font-weight: 1000;
+      }
+      &:last-child {
+        margin-bottom: 4em;
+      }
+    }
 `;
 const BlurText = styled.div`
   width: 100%;
@@ -98,75 +129,43 @@ const BlurText = styled.div`
   line-height: 3em;
   color: white;
   border: 2px solid white;
-  @media screen and (max-width: 768px){
-    font-size: 1rem;
-  }
-  @media screen and (max-width: 576px){
-    font-size: .8rem;
-  }
 `;
 const BlurButtons = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
 `;
 const DikkakSignUp = styled.button`
-  width: 48%;
-  height: 3em;
-  margin-top: 2rem;
-  font-size: 1.3rem;
+  width: 100%;
+  height: 4em;
+  margin-top: 5em;
   background-color: ${props => props.theme.mainColor};
   color: white;
   border: none;
   outline: none;
   cursor: pointer;
-  box-shadow: 5px 10px 20px #333;
-  @media screen and (max-width: 768px){
-    font-size: 1.2rem;
-  }
-  @media screen and (max-width: 576px){
-    font-size: .8rem;
-  }
+  box-shadow: 5px 5px 10px #888;
 `;
 const DikkakStart = styled(DikkakSignUp)`
+  margin-top: 1em;
   background-color: ${props => props.theme.subColor};
 `;
 
-const Intro = styled.div`
+const SectionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  flex-shrink: 0;
-  width: 100%;
-  margin-top: 20em;
-  h1 {
-    font-size: 4rem;
-    font-weight: 900;
-    span {
-      &:first-child {
-        color: ${props => props.theme.subColor};
-      }
-      &:last-child {
-        color: ${props => props.theme.mainColor};
-      }
-    }
-  }
-  p {
-    font-size: 2rem;
-    line-height: 1.5em;
-    &:nth-child(2) {
-      margin-top: 2em;
-    }
-    b {
-      font-weight: 900;
-    }
-  }
-  img {
-    margin-top: 2em;
-    width: 50px;
-  }
+  max-width: 1440px;
+  margin: 0 auto;
+  overflow-x: hidden;
 `;
+
+const NextStep = styled.img.attrs({src: stepImg})`
+  width: 30px;
+  margin-top: 8em;
+`;
+
 const Section = styled.div`
   display: flex;
   flex-direction: column;
@@ -174,7 +173,8 @@ const Section = styled.div`
   align-items: center;
   width: 100%;
   padding: 0 20em;
-  margin-top: 20em;
+  margin-top: 8em;
+  margin-bottom: 1em;
   h3 {
     font-size: 2rem;
     font-weight: bold;
@@ -185,7 +185,19 @@ const Section = styled.div`
     font-size: 1.2rem;
   }
 `;
-const MainButtons = styled(BlurButtons)`
+const MainButtons = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
+const MainDikkakSignUp = styled(DikkakSignUp)`
+  width: 48%;
+  margin-top: 1.5em;
+`;
+const MainDikkakStart = styled(DikkakStart)`
+  width: 48%;
+  margin-top: 1.5em;
 `;
 const MainText = styled(BlurText)`
   color: #717171;
@@ -242,8 +254,8 @@ const FooterLeftThird = styled(FooterLeftFirst)`
 const FooterRight = styled.div`
   display: flex;
   img {
-    width: 70px;
-    height: 70px;
+    width: 30px;
+    height: 30px;
     margin-right: 1.5em;
     justify-content: center;
   }
@@ -251,78 +263,85 @@ const FooterRight = styled.div`
 
 // Main Page Component
 const Main = () => {
-  const jumbotronRef = useRef<HTMLImageElement>(null);
-  const setMenuToggleState = useSetRecoilState(menuToggleState); 
-  const scrollEvent = (e: Event) => { // 스크롤이 점보트론 높이만큼 되었다면 menuToggleState를 true로 설정, 아니면 false
-      const jumbotronBound = jumbotronRef.current?.getBoundingClientRect();
-      if(jumbotronBound!.top<-680) {
-        setMenuToggleState(true);
-      } else {
-        setMenuToggleState(false);
-      }
-    }
-  useEffect(() => {
-    window.addEventListener('scroll', scrollEvent);
-    return () => {
-      window.removeEventListener('scroll', scrollEvent);
-    }
-  });
+
   return (
     <>
       <Menu/>
-      <Jumbotron ref={jumbotronRef}>
-        <BlurBackground>
-          <BlurPin/>
-          <BlurPin/>
-          <BlurPin/>
-          <BlurPin/>
-          <BlurLogo/>
-          <BlurText>빠르고-쉬운 디자인 아웃소싱 플랫폼</BlurText>
-          <BlurButtons>
-            <DikkakSignUp>
-              ⏰ DIKKAK 가입하기
-            </DikkakSignUp>
-            <DikkakStart>
-              DIKKAK 시작하기
-            </DikkakStart>
-          </BlurButtons>
-        </BlurBackground>
-      </Jumbotron>
-      <Container>
-        <Intro>
-          <h1>안녕하세요 <span>D</span><span>IKKAK</span> 입니다.</h1>
-          <p>디깍은 트랜드의 중심 <b>MZ세대 학생 디자이너</b>들이</p>
-          <p><b>디자인을 깎는 아웃소싱 플랫폼</b>입니다.</p>
-          <img src={logoImg} alt="logoImg" />
-        </Intro>
+      <JumboCotainer>
+        <Jumbotron>
+          <BlurBackground>
+            <BlurPin/>
+            <BlurPin/>
+            <BlurPin/>
+            <BlurPin/>
+            <BlurLogo/>
+            <BlurButtons>
+              <DikkakSignUp>
+                ⏰ DIKKAK 가입하기
+              </DikkakSignUp>
+              <DikkakStart>
+                DIKKAK 시작하기
+              </DikkakStart>
+            </BlurButtons>
+          </BlurBackground>
+          <BlurBackground>
+            <BlurPin/>
+            <BlurPin/>
+            <BlurPin/>
+            <BlurPin/>
+            <BlurInfo>
+              <div style={{textAlign:'center'}}>
+                <h1>안녕하세요!</h1>
+                <h1>"빠르고 쉬운 아웃소싱 플랫폼"</h1>
+                <h1><span>D</span><span>IKKAK</span> 입니다.</h1>
+              </div>
+              <div style={{textAlign:'center'}}>
+                <p>디깍은 트렌드의 중심 <b>MZ세대 디자이너</b>들이</p>
+                <p><b>디자인을 깎는 아웃소싱 플랫폼</b>입니다.</p>
+              </div>
+            </BlurInfo>
+          </BlurBackground>
+          <MowImage/>
+        </Jumbotron>
+      </JumboCotainer>
+      <SectionContainer>
+        <NextStep/>
         <Section>
           <h3>1. 빠르게 맡기세요</h3>
           <p>쉽게 완성되는 외주 제안서 등록을 통해 맞춤형 매칭 서비스를 경험하세요</p>
           <img src={firstImg} alt="firstImg" />
         </Section>
+        <NextStep/>
         <Section>
           <h3>2. 쉽게 소통하세요</h3>
           <p>아웃소싱에 특화된 커뮤니케이션 UI를 통해 쉽게 소통하세요</p>
           <img src={secondImg} alt="secondImg" />
         </Section>
+        <NextStep/>
         <Section>
-          <h3>3. 쉽게 쌓으세요</h3>
-          <p>찾기도, 도전하기도 힘들었던 디자인 실무경험을 쉽게 쌓으세요</p>
+          <h3>3. 쉽게 관리하세요</h3>
+          <p>외주 작업에 최적화된 UI를 통해 작업/ 파일/ 시간 을 쉽게 관리하세요</p>
           <img src={thirdImg} alt="thirdImg" />
         </Section>
+        <NextStep/>
+        <Section>
+          <h3>4. 쉽게 쌓으세요</h3>
+          <p>찾기도, 도전하기도 힘들었던 디자인 실무경험을 쉽게 쌓으세요</p>
+          <img src={fourthImg} alt="fourthImg" />
+        </Section>
+
         <Section>
           <MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</MainText>
           <MainButtons>
-            <DikkakSignUp style={{boxShadow: '5px 5px 5px #bbb'}}>
+            <MainDikkakSignUp>
               ⏰ DIKKAK 가입하기
-            </DikkakSignUp>
-            <DikkakStart style={{boxShadow: '5px 5px 5px #bbb'}}>
+            </MainDikkakSignUp>
+            <MainDikkakStart>
               DIKKAK 시작하기
-            </DikkakStart>
+            </MainDikkakStart>
           </MainButtons>
-        </Section>
-        
-      </Container>
+        </Section>   
+      </SectionContainer>
       <Footer>
         <FooterContainer>
           <FooterLeft>
