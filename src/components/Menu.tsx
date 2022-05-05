@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logoImg from '../assets/logoImage/logoBasic.png';
 import talkImg from '../assets/menuImage/kakaotalk.svg';
@@ -27,6 +28,7 @@ const MenuCotainer = styled.nav`
 const Title = styled.div`
   display: flex;
   width: 150px;
+  cursor: pointer;
 `;
 const LogoImage = styled.img.attrs({src: logoImg})`
   width: 30px;
@@ -50,14 +52,16 @@ const LogoSubName = styled.p`
 `;
 const Talk = styled.img.attrs({src: talkImg})`
   width: 80px;
+  cursor: pointer;
 `;
 
 
 const Menu = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <MenuCotainer >
-        <Title>
+        <Title onClick={() => {navigate('/')}}>
           <LogoImage/>
           <LogoTitle>
             <LogoName>DIKKAK</LogoName>

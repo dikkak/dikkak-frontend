@@ -12,6 +12,7 @@ import thirdImg from '../assets/mainPageImage/thirdImage.png';
 import fourthImg from '../assets/mainPageImage/fourthImage.png';
 import instagram from '../assets/mainPageImage/instagram.png';
 import facebook from '../assets/mainPageImage/facebook.png';
+import { useNavigate } from 'react-router-dom';
 
 
 // Components style code
@@ -123,16 +124,6 @@ const MowImage = styled.img.attrs({src: mowImg})`
   right: -5em;
 `;
 
-const BlurText = styled.div`
-  width: 100%;
-  height: 3em;
-  margin-top: 2.5em;
-  font-size: 1.5rem;
-  text-align: center;
-  line-height: 3em;
-  color: white;
-  border: 2px solid white;
-`;
 const BlurButtons = styled.div`
   display: flex;
   flex-direction: column;
@@ -202,7 +193,13 @@ const MainDikkakStart = styled(DikkakStart)`
   width: 48%;
   margin-top: 1.5em;
 `;
-const MainText = styled(BlurText)`
+const MainText = styled.div`
+  width: 100%;
+  height: 3em;
+  margin-top: 2.5em;
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 3em;
   color: #717171;
   border: 2px solid #717171;
 `;
@@ -266,7 +263,7 @@ const FooterRight = styled.div`
 
 // Main Page Component
 const Main = () => {
-
+  const navigate = useNavigate();
   return (
     <>
       <Menu/>
@@ -282,7 +279,7 @@ const Main = () => {
               <DikkakSignUp>
                 ⏰ DIKKAK 가입하기
               </DikkakSignUp>
-              <DikkakStart>
+              <DikkakStart  onClick={() => {navigate('/login')}}>
                 DIKKAK 시작하기
               </DikkakStart>
             </BlurButtons>
@@ -332,7 +329,6 @@ const Main = () => {
           <p>찾기도, 도전하기도 힘들었던 디자인 실무경험을 쉽게 쌓으세요</p>
           <img src={fourthImg} alt="fourthImg" />
         </Section>
-
         <Section>
           <MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</MainText>
           <MainButtons>
@@ -367,8 +363,8 @@ const Main = () => {
             </FooterLeftThird>
             </FooterLeft>
             <FooterRight>
-              <img src={instagram} alt="instagram" />
-              <img src={facebook} alt="facebook" />
+              <img style={{cursor:'pointer'}} src={instagram} alt="instagram" />
+              <img style={{cursor:'pointer'}} src={facebook} alt="facebook" />
             </FooterRight>
           </FooterContainer>
         </Footer>
