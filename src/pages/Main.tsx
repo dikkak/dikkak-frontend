@@ -140,6 +140,9 @@ const DikkakSignUp = styled.button`
   outline: none;
   cursor: pointer;
   box-shadow: 5px 5px 10px #888;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 const DikkakStart = styled(DikkakSignUp)`
   margin-top: 1em;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import logoImg from '../assets/logoImage/logoBasic.png';
+import logoImg from '../assets/logoImage/logoBasic.svg';
 import talkImg from '../assets/menuImage/kakaotalk.svg';
 
 const Container = styled.div`
@@ -13,7 +13,7 @@ position: fixed;
   height: 50px;
   backdrop-filter: blur(5px);
   color: black;
-  box-shadow: 0px 2px 5px #eee;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 100;
 `;
 const MenuCotainer = styled.nav`
