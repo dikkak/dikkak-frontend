@@ -95,12 +95,25 @@ const FormContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-const idMessage = "가입명을 입력해주세요";
-const emailMessage = "가입시 사용한 메일을 입력해주세요";
-const idBtnMessage = "ID 찾기";
-const passwordBtnMessage = "PW 찾기";
-const iddText = "가입명";
-const pwText = "메일";
+const idInfo = {
+  idMessage: "가입명을 입력해주세요",
+  idBtnMessage: "ID 찾기",
+  nameId: "nameId",
+  phoneId: "phone1",
+  text: "가입명",
+  color: "#905DFB",
+  type: "text",
+};
+
+const pwInfo = {
+  emailMessage: "가입시 사용한 메일을 입력해주세요",
+  passwordBtnMessage: "PW 찾기",
+  emailId: "emailId",
+  phoneId: "phone2",
+  text: "메일",
+  color: "#329A29",
+  type: "email",
+};
 
 const FindAccount = () => {
   const navigate = useNavigate();
@@ -124,16 +137,22 @@ const FindAccount = () => {
             </Title>
             <FormContainer>
               <FindForm
-                btnMessage={idBtnMessage}
-                message={idMessage}
-                color="#905DFB"
-                text={iddText}
+                btnMessage={idInfo.idBtnMessage}
+                message={idInfo.idMessage}
+                color={idInfo.color}
+                text={idInfo.text}
+                registerId={idInfo.nameId}
+                phoneId={idInfo.phoneId}
+                type={idInfo.type}
               ></FindForm>
               <FindForm
-                btnMessage={passwordBtnMessage}
-                message={emailMessage}
-                color="#329A29"
-                text={pwText}
+                btnMessage={pwInfo.passwordBtnMessage}
+                message={pwInfo.emailMessage}
+                color={pwInfo.color}
+                text={pwInfo.text}
+                registerId={pwInfo.emailId}
+                phoneId={pwInfo.phoneId}
+                type={pwInfo.type}
               ></FindForm>
             </FormContainer>
           </Contents>

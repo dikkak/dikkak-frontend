@@ -6,6 +6,24 @@ interface FormProps {
   message: string;
   color: string;
   text: string;
+  registerId: string;
+  phoneId: string;
+  type: string;
+}
+
+interface ItemInputProps {
+  registerId: string;
+  message: string;
+  text: string;
+  type: string;
+}
+
+interface PhoneNumberInputProps {
+  phoneId: string;
+}
+
+interface SubmitBtnProps {
+  color: string;
 }
 
 const Form = styled.form`
@@ -15,28 +33,24 @@ const Form = styled.form`
   width: 100%;
 `;
 
-const IdLabel = styled.label.attrs({ htmlFor: "id" })``;
-
-const IdInput = styled.input.attrs((props: FormProps) => ({
-  type: "text",
-  id: "id",
-  placeholder: props.btnMessage,
-}))<FormProps>`
+//
+const TitleBox = styled.p`
   width: 87%;
   padding: 10px;
   border-radius: 5px;
   border: 0;
-  box-shadow: 0 0 0 2px ${(props) => props.color} inset;
-
-  &:focus {
-    outline: none;
-  }
+  box-shadow: 0 0 0 1px ${(props) => props.color} inset;
+  font-size: 0.87rem;
+  color: #717171;
+  font-weight: bold;
+  font-family: "Inter";
 `;
+//
 
-const ItemLabel = styled.label.attrs({
-  type: "text",
-  htmlFor: "item",
-})`
+const ItemLabel = styled.label.attrs((props: ItemInputProps) => ({
+  type: props.type,
+  htmlFor: props.registerId,
+}))<ItemInputProps>`
   font-size: 0.8rem;
   color: #717171;
   margin: 1.5em 0 0.5em 0;
@@ -45,11 +59,11 @@ const ItemLabel = styled.label.attrs({
   left: 10%;
 `;
 
-const ItemInput = styled.input.attrs((props: FormProps) => ({
-  type: "text",
-  id: "item",
+const ItemInput = styled.input.attrs((props: ItemInputProps) => ({
+  type: props.type,
+  id: props.registerId,
   placeholder: props.message,
-}))<FormProps>`
+}))<ItemInputProps>`
   width: 87%;
   padding: 10px;
   border-radius: 5px;
@@ -61,10 +75,10 @@ const ItemInput = styled.input.attrs((props: FormProps) => ({
   }
 `;
 
-const PhoneNumberLabel = styled.label.attrs({
+const PhoneNumberLabel = styled.label.attrs((props: PhoneNumberInputProps) => ({
   type: "text",
-  htmlFor: "phoneNumber",
-})`
+  htmlFor: props.phoneId,
+}))<PhoneNumberInputProps>`
   margin: 1.5em 0 0.6em 0;
   font-size: 0.8rem;
   color: #717171;
@@ -75,7 +89,6 @@ const PhoneNumberLabel = styled.label.attrs({
 
 const PhoneNumberInput = styled.input.attrs({
   type: "text",
-  id: "phoneNumber",
   placeholder: "휴대폰 번호를 입력하세요",
 })`
   width: 70%;
@@ -91,7 +104,12 @@ const PhoneNumberInput = styled.input.attrs({
   }
 `;
 
-const PrephoneNumberInput = styled.input.attrs({ type: "text" })`
+const PrephoneNumberInput = styled.input.attrs(
+  (props: PhoneNumberInputProps) => ({
+    type: "text",
+    id: props.phoneId,
+  })
+)<PhoneNumberInputProps>`
   padding: 10px;
   box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -103,7 +121,7 @@ const PrephoneNumberInput = styled.input.attrs({ type: "text" })`
   }
 `;
 
-const SubmitBtn = styled.button<FormProps>`
+const SubmitBtn = styled.button<SubmitBtnProps>`
   width: 87%;
   background-color: ${(props) => props.color};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -115,36 +133,38 @@ const SubmitBtn = styled.button<FormProps>`
   cursor: pointer;
 `;
 
-const FindForm = ({ btnMessage, message, color, text }: FormProps) => {
+const FindForm = ({
+  btnMessage,
+  message,
+  color,
+  text,
+  registerId,
+  phoneId,
+  type,
+}: FormProps) => {
   return (
     <Form>
-      <IdLabel></IdLabel>
-      <IdInput
+      <TitleBox color={color}>{btnMessage}</TitleBox>
+      <ItemLabel
+        type={type}
         message={message}
-        btnMessage={btnMessage}
-        color={color}
+        registerId={registerId}
         text={text}
-      ></IdInput>
-      <ItemLabel>{text}</ItemLabel>
+      >
+        {text}
+      </ItemLabel>
       <ItemInput
+        type={type}
         message={message}
-        btnMessage={btnMessage}
-        color={color}
+        registerId={registerId}
         text={text}
       ></ItemInput>
-      <PhoneNumberLabel>휴대폰 번호</PhoneNumberLabel>
+      <PhoneNumberLabel phoneId={phoneId}>휴대폰 번호</PhoneNumberLabel>
       <div style={{ display: "flex", width: "87%" }}>
-        <PrephoneNumberInput></PrephoneNumberInput>
+        <PrephoneNumberInput phoneId={phoneId}></PrephoneNumberInput>
         <PhoneNumberInput></PhoneNumberInput>
       </div>
-      <SubmitBtn
-        text={text}
-        btnMessage={btnMessage}
-        message={message}
-        color={color}
-      >
-        {btnMessage}
-      </SubmitBtn>
+      <SubmitBtn color={color}>{btnMessage}</SubmitBtn>
     </Form>
   );
 };
