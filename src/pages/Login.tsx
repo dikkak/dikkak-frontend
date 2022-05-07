@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import Menu from '../components/Menu';
-import blurPin from '../assets/mainPageImage/blurPin.png';
-import logoImg from '../assets/logoImage/logoBasic.svg';
-import facebook from '../assets/logoImage/facebookLogin.svg';
-import kakao from '../assets/logoImage/kakaoLogin.svg';
-import google from '../assets/logoImage/googleLogin.svg';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import Menu from "../components/Menu";
+import blurPin from "../assets/mainPageImage/blurPin.png";
+import logoImg from "../assets/logoImage/logoBasic.svg";
+import facebook from "../assets/logoImage/facebookLogin.svg";
+import kakao from "../assets/logoImage/kakaoLogin.svg";
+import google from "../assets/logoImage/googleLogin.svg";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  max-width:  1440px;
+  max-width: 1440px;
   display: flex;
   justify-content: center;
   margin: 0 auto;
@@ -24,11 +24,12 @@ const Board = styled.div`
   height: 660px;
   padding: 40px 0;
   background-color: rgba(219, 219, 219, 0.15);
-  border: 1px solid #E9E9E9;
+  border: 1px solid #e9e9e9;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(10px);
   border-radius: 5px;
 `;
+
 const BackButton = styled.div`
   position: absolute;
   top: 20px;
@@ -50,7 +51,7 @@ const BackButton = styled.div`
     color: white;
   }
 `;
-const BlurPin = styled.img.attrs({src: blurPin})`
+const BlurPin = styled.img.attrs({ src: blurPin })`
   position: absolute;
   width: 25px;
   height: 25px;
@@ -81,7 +82,7 @@ const Title = styled.div`
   font-size: 1.8rem;
   font-weight: 900;
 `;
-const LogoImage = styled.img.attrs({src: logoImg})`
+const LogoImage = styled.img.attrs({ src: logoImg })`
   margin-left: 1em;
   width: 30px;
   height: 30px;
@@ -92,26 +93,34 @@ const LogInForm = styled.form`
   width: 100%;
   margin-top: 2em;
 `;
-const EmailLabel = styled.label.attrs({htmlFor: 'email'})`
-  margin-left: .8em;
+const EmailLabel = styled.label.attrs({ htmlFor: "email" })`
+  margin-left: 0.8em;
   font-size: 0.8rem;
   color: #717171;
   margin-bottom: 1em;
 `;
-const EmailInput = styled.input.attrs({type: 'email', id: 'email', placeholder: '이메일을 입력하세요'})`
+const EmailInput = styled.input.attrs({
+  type: "email",
+  id: "email",
+  placeholder: "이메일을 입력하세요",
+})`
   padding: 10px;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   border-radius: 5px;
   outline: none;
 `;
-const PasswordLabel = styled.label.attrs({htmlFor: 'password'})`
-  margin-left: .8em;
+const PasswordLabel = styled.label.attrs({ htmlFor: "password" })`
+  margin-left: 0.8em;
   font-size: 0.8rem;
   color: #717171;
   margin-top: 1em;
   margin-bottom: 1em;
 `;
-const PasswordInput = styled(EmailInput).attrs({type: 'password', id: 'password', placeholder: '비밀번호를 입력하세요'})``;
+const PasswordInput = styled(EmailInput).attrs({
+  type: "password",
+  id: "password",
+  placeholder: "비밀번호를 입력하세요",
+})``;
 const SubmitButton = styled.button`
   width: 100%;
   background-color: black;
@@ -121,7 +130,7 @@ const SubmitButton = styled.button`
   outline: none;
   border: none;
   border-radius: 5px;
-  box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   &:hover {
     opacity: 0.8;
@@ -174,22 +183,22 @@ const Buttons = styled.div`
 
 const FindIDPW = styled.button`
   width: 100%;
-  padding: .5em;
+  padding: 0.5em;
   color: white;
-  background-color: ${props => props.theme.subColor};
+  background-color: ${(props) => props.theme.subColor};
   font-weight: 500;
-  font-size: .8rem;
+  font-size: 0.8rem;
   border: none;
   outline: none;
   border-radius: 5px;
-  box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   &:hover {
     opacity: 0.8;
   }
 `;
 const SignUp = styled(FindIDPW)`
-  background-color: ${props => props.theme.mainColor};
+  background-color: ${(props) => props.theme.mainColor};
   margin-top: 1em;
 `;
 
@@ -197,49 +206,57 @@ const Login = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Menu/>
+      <Menu />
       <Container>
         <Board>
           <BackButton onClick={() => navigate(-1)}>
             <p>◀︎</p>
             <p>이전으로 돌아가기</p>
           </BackButton>
-          <BlurPin/>
-          <BlurPin/>
-          <BlurPin/>
+          <BlurPin />
+          <BlurPin />
+          <BlurPin />
           <Contents>
             <Title>
-              <h1 style={{display: 'inline-block'}}>로그인</h1>
-              <LogoImage/>
+              <h1 style={{ display: "inline-block" }}>로그인</h1>
+              <LogoImage />
             </Title>
             <LogInForm>
               <EmailLabel>이메일</EmailLabel>
-              <EmailInput/>
+              <EmailInput />
               <PasswordLabel>비밀번호</PasswordLabel>
-              <PasswordInput/>
+              <PasswordInput />
               <SubmitButton>로그인</SubmitButton>
             </LogInForm>
             <NextText>
-              <p style={{color: '#717171', fontWeight:'900'}}>-----------------</p>
-              <p style={{color: '#717171', fontWeight:'900'}}>또는 다음으로 로그인</p>
-              <p style={{color: '#717171', fontWeight:'900'}}>-----------------</p>
+              <p style={{ color: "#717171", fontWeight: "900" }}>
+                -----------------
+              </p>
+              <p style={{ color: "#717171", fontWeight: "900" }}>
+                또는 다음으로 로그인
+              </p>
+              <p style={{ color: "#717171", fontWeight: "900" }}>
+                -----------------
+              </p>
             </NextText>
             <SocialLoginSection>
               <SocialLogin>
-                <SocialLogo src={kakao}/>
+                <SocialLogo src={kakao} />
                 <p>kakao</p>
               </SocialLogin>
               <SocialLogin>
-                <SocialLogo src={google}/>
+                <SocialLogo src={google} />
                 <p>google</p>
               </SocialLogin>
               <SocialLogin>
-                <SocialLogo src={facebook}/>
+                <SocialLogo src={facebook} />
                 <p>facebook</p>
               </SocialLogin>
             </SocialLoginSection>
             <Buttons>
-              <FindIDPW>PW/ID 찾기</FindIDPW>
+              <FindIDPW onClick={() => navigate("/findAccount")}>
+                PW/ID 찾기
+              </FindIDPW>
               <SignUp>아직 회원이 아니신가요?👉3초안에 가입하기</SignUp>
             </Buttons>
           </Contents>
