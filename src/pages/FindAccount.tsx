@@ -59,22 +59,26 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 200px;
+  width: 100%;
   height: 50px;
   top: 52px;
+  font-family: "Noto Sans KR";
   & div {
     display: flex;
     justify-content: center;
     align-items: center;
     h1 {
       font-weight: bold;
-      font-size: 1.4em;
+      text-align: center;
+      font-size: 30px;
     }
   }
   & p {
-    font-weight: 400;
-    font-size: 0.8em;
+    font-size: 18px;
     line-height: 26px;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 10px;
     padding: 8px 0;
     color: #717171;
     font-family: "Noto Sans KR";

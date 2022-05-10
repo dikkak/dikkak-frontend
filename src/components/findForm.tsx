@@ -53,7 +53,7 @@ const ItemLabel = styled.label.attrs((props: ItemInputProps) => ({
 }))<ItemInputProps>`
   font-size: 0.8rem;
   color: #717171;
-  margin: 1.5em 0 0.5em 0;
+  margin: 30px 0 0.5em 0;
   width: 100%;
   position: relative;
   left: 10%;
