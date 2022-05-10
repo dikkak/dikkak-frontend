@@ -122,7 +122,7 @@ const Title = styled.div`
 `;
 
 const LogoImage = styled.img.attrs({ src: logoImg })`
-  margin-right: 1em;
+  margin-left: 1em;
   width: 30px;
   height: 30px;
 `;
