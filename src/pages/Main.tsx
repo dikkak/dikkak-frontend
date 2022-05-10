@@ -1,19 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-import Menu from '../components/Menu';
-import mainBackgroundImg from '../assets/mainPageImage/jumbotron.svg';
-import blurPin from '../assets/mainPageImage/blurPin.png';
-import blurLogo from '../assets/logoImage/blurLogo.svg';
-import stepImg from '../assets/mainPageImage/nextStep.svg';
-import mowImg from '../assets/mainPageImage/mow.svg';
-import firstImg from '../assets/mainPageImage/firstImage.png';
-import secondImg from '../assets/mainPageImage/secondImage.png';
-import thirdImg from '../assets/mainPageImage/thirdImage.png';
-import fourthImg from '../assets/mainPageImage/fourthImage.png';
-import instagram from '../assets/mainPageImage/instagram.png';
-import facebook from '../assets/mainPageImage/facebook.png';
-import { useNavigate } from 'react-router-dom';
-
+import React from "react";
+import styled from "styled-components";
+import Menu from "../components/Menu";
+import mainBackgroundImg from "../assets/mainPageImage/jumbotron.svg";
+import blurPin from "../assets/mainPageImage/blurPin.png";
+import blurLogo from "../assets/logoImage/blurLogo.svg";
+import stepImg from "../assets/mainPageImage/nextStep.svg";
+import mowImg from "../assets/mainPageImage/mow.svg";
+import firstImg from "../assets/mainPageImage/firstImage.png";
+import secondImg from "../assets/mainPageImage/secondImage.png";
+import thirdImg from "../assets/mainPageImage/thirdImage.png";
+import fourthImg from "../assets/mainPageImage/fourthImage.png";
+import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 // Components style code
 
@@ -52,14 +50,14 @@ const BlurBackground = styled.div`
   padding-right: 3em;
   background-color: transparent;
   backdrop-filter: blur(30px);
-  border: .5px solid #eee;
+  border: 0.5px solid #eee;
   box-shadow: 5px 5px 15px #ccc;
   &:first-child {
     margin-right: 5rem;
   }
 `;
 
-const BlurPin = styled.img.attrs({src: blurPin})`
+const BlurPin = styled.img.attrs({ src: blurPin })`
   position: absolute;
   width: 25px;
   height: 25px;
@@ -80,8 +78,7 @@ const BlurPin = styled.img.attrs({src: blurPin})`
     right: 20px;
   }
 `;
-const BlurLogo = styled.img.attrs({src: blurLogo})`
-`;
+const BlurLogo = styled.img.attrs({ src: blurLogo })``;
 const BlurInfo = styled.div`
   position: relative;
   display: flex;
@@ -96,29 +93,29 @@ const BlurInfo = styled.div`
     line-height: 1.7em;
     span {
       &:first-child {
-        color: ${props => props.theme.subColor};
+        color: ${(props) => props.theme.subColor};
         text-decoration: underline;
       }
       &:last-child {
-        color: ${props => props.theme.mainColor};
+        color: ${(props) => props.theme.mainColor};
         text-decoration: underline;
-      }
-    };
-  }
-  p {
-      color: #5b5b5b;
-      font-size: 0.7rem;
-      line-height: 2em;
-      b {
-        font-weight: 1000;
-      }
-      &:last-child {
-        margin-bottom: 4em;
       }
     }
+  }
+  p {
+    color: #5b5b5b;
+    font-size: 0.7rem;
+    line-height: 2em;
+    b {
+      font-weight: 1000;
+    }
+    &:last-child {
+      margin-bottom: 4em;
+    }
+  }
 `;
 
-const MowImage = styled.img.attrs({src: mowImg})`
+const MowImage = styled.img.attrs({ src: mowImg })`
   position: absolute;
   bottom: 4em;
   right: -5em;
@@ -134,7 +131,7 @@ const DikkakSignUp = styled.button`
   width: 100%;
   height: 4em;
   margin-top: 5em;
-  background-color: ${props => props.theme.mainColor};
+  background-color: ${(props) => props.theme.mainColor};
   color: white;
   border: none;
   outline: none;
@@ -146,7 +143,7 @@ const DikkakSignUp = styled.button`
 `;
 const DikkakStart = styled(DikkakSignUp)`
   margin-top: 1em;
-  background-color: ${props => props.theme.subColor};
+  background-color: ${(props) => props.theme.subColor};
 `;
 
 const SectionContainer = styled.div`
@@ -158,7 +155,7 @@ const SectionContainer = styled.div`
   overflow-x: hidden;
 `;
 
-const NextStep = styled.img.attrs({src: stepImg})`
+const NextStep = styled.img.attrs({ src: stepImg })`
   width: 30px;
   margin-top: 8em;
 `;
@@ -206,127 +203,84 @@ const MainText = styled.div`
   color: #717171;
   border: 2px solid #717171;
 `;
-const Footer = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 350px;
-  margin-top: 20em;
-  padding: 3em 10em;
-  background-color: #EFEFEF;
-`;
-const FooterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1440px;
-  height: 100%;
-`;
-const FooterLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 0.6rem;
-`;
-const FooterLeftFirst = styled.div`
-  display: flex;
-  p {
-    margin-right: 5em;
-    font-weight: bold;
-  }
-`;
-const FooterLeftSecond = styled(FooterLeftFirst)`
-  flex-direction: column;
-  margin-top: 5em;
-  color: #7C7C7C;
-  div {
-    display: flex;
-    p {
-      margin-right: 3em;
-      line-height: 2em;
-    }
-  }
-`;
-const FooterLeftThird = styled(FooterLeftFirst)`
-    flex-direction: column;
-    margin-top: 3em;
-    color: #7C7C7C;
-    p {
-      line-height: 1.5em;
-    }
-`;
-const FooterRight = styled.div`
-  display: flex;
-  img {
-    width: 30px;
-    height: 30px;
-    margin-right: 1.5em;
-    justify-content: center;
-  }
-`;
 
 // Main Page Component
 const Main = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Menu/>
+      <Menu />
       <JumboCotainer>
         <Jumbotron>
           <BlurBackground>
-            <BlurPin/>
-            <BlurPin/>
-            <BlurPin/>
-            <BlurPin/>
-            <BlurLogo/>
+            <BlurPin />
+            <BlurPin />
+            <BlurPin />
+            <BlurPin />
+            <BlurLogo />
             <BlurButtons>
-              <DikkakSignUp>
-                ⏰ DIKKAK 가입하기
-              </DikkakSignUp>
-              <DikkakStart  onClick={() => {navigate('/login')}}>
+              <DikkakSignUp>⏰ DIKKAK 가입하기</DikkakSignUp>
+              <DikkakStart
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
                 DIKKAK 시작하기
               </DikkakStart>
             </BlurButtons>
           </BlurBackground>
           <BlurBackground>
-            <BlurPin/>
-            <BlurPin/>
-            <BlurPin/>
-            <BlurPin/>
+            <BlurPin />
+            <BlurPin />
+            <BlurPin />
+            <BlurPin />
             <BlurInfo>
-              <div style={{textAlign:'center'}}>
+              <div style={{ textAlign: "center" }}>
                 <h1>안녕하세요!</h1>
                 <h1>"빠르고 쉬운 아웃소싱 플랫폼"</h1>
-                <h1><span>D</span><span>IKKAK</span> 입니다.</h1>
+                <h1>
+                  <span>D</span>
+                  <span>IKKAK</span> 입니다.
+                </h1>
               </div>
-              <div style={{textAlign:'center'}}>
-                <p>디깍은 트렌드의 중심 <b>MZ세대 디자이너</b>들이</p>
-                <p><b>디자인을 깎는 아웃소싱 플랫폼</b>입니다.</p>
+              <div style={{ textAlign: "center" }}>
+                <p>
+                  디깍은 트렌드의 중심 <b>MZ세대 디자이너</b>들이
+                </p>
+                <p>
+                  <b>디자인을 깎는 아웃소싱 플랫폼</b>입니다.
+                </p>
               </div>
-              <MowImage/>
+              <MowImage />
             </BlurInfo>
           </BlurBackground>
         </Jumbotron>
       </JumboCotainer>
       <SectionContainer>
-        <NextStep/>
+        <NextStep />
         <Section>
           <h3>1. 빠르게 맡기세요</h3>
-          <p>쉽게 완성되는 외주 제안서 등록을 통해 맞춤형 매칭 서비스를 경험하세요</p>
+          <p>
+            쉽게 완성되는 외주 제안서 등록을 통해 맞춤형 매칭 서비스를
+            경험하세요
+          </p>
           <img src={firstImg} alt="firstImg" />
         </Section>
-        <NextStep/>
+        <NextStep />
         <Section>
           <h3>2. 쉽게 소통하세요</h3>
           <p>아웃소싱에 특화된 커뮤니케이션 UI를 통해 쉽게 소통하세요</p>
           <img src={secondImg} alt="secondImg" />
         </Section>
-        <NextStep/>
+        <NextStep />
         <Section>
           <h3>3. 쉽게 관리하세요</h3>
-          <p>외주 작업에 최적화된 UI를 통해 작업/ 파일/ 시간 을 쉽게 관리하세요</p>
+          <p>
+            외주 작업에 최적화된 UI를 통해 작업/ 파일/ 시간 을 쉽게 관리하세요
+          </p>
           <img src={thirdImg} alt="thirdImg" />
         </Section>
-        <NextStep/>
+        <NextStep />
         <Section>
           <h3>4. 쉽게 쌓으세요</h3>
           <p>찾기도, 도전하기도 힘들었던 디자인 실무경험을 쉽게 쌓으세요</p>
@@ -335,42 +289,12 @@ const Main = () => {
         <Section>
           <MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</MainText>
           <MainButtons>
-            <MainDikkakSignUp>
-              ⏰ DIKKAK 가입하기
-            </MainDikkakSignUp>
-            <MainDikkakStart>
-              DIKKAK 시작하기
-            </MainDikkakStart>
+            <MainDikkakSignUp>⏰ DIKKAK 가입하기</MainDikkakSignUp>
+            <MainDikkakStart>DIKKAK 시작하기</MainDikkakStart>
           </MainButtons>
-        </Section>   
+        </Section>
       </SectionContainer>
-      <Footer>
-        <FooterContainer>
-          <FooterLeft>
-            <FooterLeftFirst>
-              <p>이용약관</p>
-              <p>개인정보 처리방침</p>  
-            </FooterLeftFirst>
-            <FooterLeftSecond>
-              <p>서울시 OOO</p>
-              <div>
-                <p>사업자 등록 번호 : 000-00-000000</p>
-                <p>대표이사 : 염정원</p>
-                <p>정보보호책임자 : 염정원</p>
-              </div>
-            </FooterLeftSecond>
-            <FooterLeftThird>
-              <p>Contact</p>
-              <p>dekak2022@gmail.com</p>
-              <p>kakao : 디깍 플러스친구 바로가기</p>
-            </FooterLeftThird>
-            </FooterLeft>
-            <FooterRight>
-              <img style={{cursor:'pointer'}} src={instagram} alt="instagram" />
-              <img style={{cursor:'pointer'}} src={facebook} alt="facebook" />
-            </FooterRight>
-          </FooterContainer>
-        </Footer>
+      <Footer bgColor="#EFEFEF" />
     </>
   );
 };

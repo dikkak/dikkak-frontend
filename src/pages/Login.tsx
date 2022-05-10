@@ -257,7 +257,9 @@ const Login = () => {
               <FindIDPW onClick={() => navigate("/findAccount")}>
                 PW/ID 찾기
               </FindIDPW>
-              <SignUp>아직 회원이 아니신가요?👉3초안에 가입하기</SignUp>
+              <SignUp onClick={() => navigate("/signup")}>
+                아직 회원이 아니신가요?👉3초안에 가입하기
+              </SignUp>
             </Buttons>
           </Contents>
         </Board>

@@ -43,7 +43,7 @@ const BackButton = styled.div`
 const TimeLine = styled.div`
   margin: 20px auto;
   padding: 20px;
-  height: 50vh;
+  height: 80%;
 `;
 const Outer = styled.div`
   display: flex;

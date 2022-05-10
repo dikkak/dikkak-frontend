@@ -5,6 +5,8 @@ import Main from "./pages/Main";
 import FindAccount from "./pages/FindAccount";
 import EmailSignUp1 from './pages/EmailSignUp1';
 import EmailSignUp2 from './pages/EmailSignUp2';
+import SignUp from "./pages/SignUp";
+
 const Router = () => {
   return (
     <BrowserRouter>
@@ -14,6 +16,7 @@ const Router = () => {
         <Route path="/findAccount" element={<FindAccount />} />
         <Route path="/email_signup1" element={<EmailSignUp1 />} />
         <Route path="/email_signup2" element={<EmailSignUp2 />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );
