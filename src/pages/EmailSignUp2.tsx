@@ -1,10 +1,10 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import Menu from '../components/Menu';
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Menu from "../components/Menu";
 import logoImg from "../assets/logoImage/logoBasic.svg";
-import { useForm } from 'react-hook-form';
-import Footer from '../components/Footer';
+import { useForm } from "react-hook-form";
+import Footer from "../components/Footer";
 
 const Container = styled.div`
   max-width: 1440px;
@@ -63,47 +63,47 @@ const TimeLine = styled.div`
   height: 60%;
 `;
 const Outer = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-height: 51.5%;
-border-left: 1px solid ${props => props.theme.mainColor};
-h3 {
-  color: ${props => props.theme.subColor};
-  &::before {
-    background: ${props => props.theme.mainColor};
-    border: 3px solid ${props => props.theme.mainColor};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 51.5%;
+  border-left: 1px solid ${(props) => props.theme.mainColor};
+  h3 {
+    color: ${(props) => props.theme.subColor};
+    &::before {
+      background: ${(props) => props.theme.mainColor};
+      border: 3px solid ${(props) => props.theme.mainColor};
+    }
+    &:first-child:not(.not) {
+      color: ${(props) => props.theme.mainColor};
+    }
   }
-  &:first-child:not(.not) {
-    color: ${props => props.theme.mainColor};
-  }
-};
 `;
 const Outer2 = styled(Outer)`
-height: 48.5%;
-justify-content: end;
-border-left: 1px solid #C4C4C4;
-h3 {
-  color: #C4C4C4;  
-  &::before {
-    background: #C4C4C4;
-    border: 3px solid #C4C4C4;
+  height: 48.5%;
+  justify-content: end;
+  border-left: 1px solid #c4c4c4;
+  h3 {
+    color: #c4c4c4;
+    &::before {
+      background: #c4c4c4;
+      border: 3px solid #c4c4c4;
+    }
   }
-}
 `;
 
 const Step = styled.h3`
-color: black;
-position: relative;
-margin: 0 0 0 30px;
-&::before {
-  content: "";
-position: absolute;
-width: 10px;
-height: 10px;
-border-radius: 999px;
-left: -38.5px;
-}
+  color: black;
+  position: relative;
+  margin: 0 0 0 30px;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    left: -38.5px;
+  }
 `;
 
 const Title = styled.div`
@@ -165,8 +165,7 @@ const TitleBox = styled.p`
   text-align: center;
 `;
 
-
-const NextButton = styled.button.attrs({type: 'submit'})`
+const NextButton = styled.button.attrs({ type: "submit" })`
   background-color: ${(props) => props.theme.subColor};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -187,11 +186,11 @@ const InputBox = styled.div`
   margin-bottom: 1.5em;
 `;
 
-const AllCheckBox = styled.input.attrs({type: 'checkbox', id: 'allAgree'})`
+const AllCheckBox = styled.input.attrs({ type: "checkbox", id: "allAgree" })`
   width: 25px;
   height: 25px;
   margin-right: 1em;
-  background: #FAFAFA;
+  background: #fafafa;
   border: 0;
   border-radius: 5px;
   box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.25);
@@ -200,8 +199,7 @@ const AllCheckBox = styled.input.attrs({type: 'checkbox', id: 'allAgree'})`
   }
 `;
 
-const CheckBox1Label = styled.label.attrs({ htmlFor: "check1" })`
-`;
+const CheckBox1Label = styled.label.attrs({ htmlFor: "check1" })``;
 const ChekcBox1Input = styled.input.attrs({
   type: "checkbox",
   id: "check1",
@@ -218,8 +216,7 @@ const ChekcBox1Input = styled.input.attrs({
     outline: none;
   }
 `;
-const CheckBox2Label = styled.label.attrs({ htmlFor: "check2" })`
-`;
+const CheckBox2Label = styled.label.attrs({ htmlFor: "check2" })``;
 const ChekcBox2Input = styled.input.attrs({
   type: "checkbox",
   id: "check2",
@@ -260,8 +257,7 @@ const ChekcBox3Input = styled.input.attrs({
     outline: none;
   }
 `;
-const CheckBox4Label = styled.label.attrs({ htmlFor: "check4" })`
-`;
+const CheckBox4Label = styled.label.attrs({ htmlFor: "check4" })``;
 
 const CheckBox4Input = styled.input.attrs({
   type: "checkbox",
@@ -282,12 +278,11 @@ const CheckBox4Input = styled.input.attrs({
 
 const ErrorMessage = styled.span`
   position: absolute;
-  font-size: .5rem;
+  font-size: 0.5rem;
   color: red;
   margin-left: 1em;
   bottom: -2em;
 `;
-
 
 interface StateType {
   form: {
@@ -296,39 +291,46 @@ interface StateType {
     password: string;
     prePhone: string;
     phone: string;
-  }
+  };
 }
 
 const EmailSignUp2 = () => {
   const navigate = useNavigate();
+
   const preForm = (useLocation().state as StateType).form;
-  const {register, setValue, handleSubmit, getValues, formState:{errors}} = useForm();
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm();
   const checkAllBox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target.checked) {
-      setValue('check1', true);
-      setValue('check2', true);
-      setValue('check3', true);
-      setValue('check4', true);
+    if (e.target.checked) {
+      setValue("check1", true);
+      setValue("check2", true);
+      setValue("check3", true);
+      setValue("check4", true);
     } else {
-      setValue('check1', false);
-      setValue('check2', false);
-      setValue('check3', false);
-      setValue('check4', false);
+      setValue("check1", false);
+      setValue("check2", false);
+      setValue("check3", false);
+      setValue("check4", false);
     }
-  }
+  };
 
   const onValid = () => {
-    if(!errors.check1 && !errors.check2) {
+    if (!errors.check1 && !errors.check2) {
       const finalForm = {
         ...preForm,
-        ...getValues()
+        ...getValues(),
       };
       console.log(finalForm);
     }
-  }
+  };
   return (
     <>
-      <Menu/>
+      <Menu />
       <Container>
         <Wrapper>
           <BackButton onClick={() => navigate(-1)}>
@@ -338,11 +340,11 @@ const EmailSignUp2 = () => {
           <Contents>
             <TimeLine>
               <Outer>
-                <Step>계정생성</Step> 
-                <Step>약관동의</Step> 
+                <Step>계정생성</Step>
+                <Step>약관동의</Step>
               </Outer>
               <Outer2>
-                <Step className='not'>가입완료</Step>
+                <Step className="not">가입완료</Step>
               </Outer2>
             </TimeLine>
             <RightContents>
@@ -356,37 +358,67 @@ const EmailSignUp2 = () => {
               </Title>
               <FormContainer onSubmit={handleSubmit(onValid)}>
                 <InputBox>
-                  <AllCheckBox onChange={checkAllBox} type='checkbox' id='allAgree'/>
+                  <AllCheckBox
+                    onChange={checkAllBox}
+                    type="checkbox"
+                    id="allAgree"
+                  />
                   <label htmlFor="allAgree">모두 동의합니다.</label>
                 </InputBox>
                 <InputBox>
-                  <ChekcBox1Input {...register('check1', {required: '필수 선택입니다.'})} type='checkbox' id='check1'/>
+                  <ChekcBox1Input
+                    {...register("check1", { required: "필수 선택입니다." })}
+                    type="checkbox"
+                    id="check1"
+                  />
                   <CheckBox1Label>이용약관에 동의합니다. (필수)</CheckBox1Label>
                   <ErrorMessage>{errors.check1?.message}</ErrorMessage>
                 </InputBox>
                 <InputBox>
-                  <ChekcBox2Input {...register('check2', {required: '필수 선택입니다.'})} type='checkbox' id='check2'/>
-                  <CheckBox2Label>개인정보 처리 방침에 동의합니다. (필수)</CheckBox2Label>
+                  <ChekcBox2Input
+                    {...register("check2", { required: "필수 선택입니다." })}
+                    type="checkbox"
+                    id="check2"
+                  />
+                  <CheckBox2Label>
+                    개인정보 처리 방침에 동의합니다. (필수)
+                  </CheckBox2Label>
                   <ErrorMessage>{errors.check2?.message}</ErrorMessage>
                 </InputBox>
                 <InputBox>
-                  <ChekcBox3Input {...register('check3')} type='checkbox' id='check3'/>
-                  <div style={{display: 'flex', flexDirection:'column'}}>
-                    <CheckBox3Label>팝업메세지 제공에 동의합니다. (선택)</CheckBox3Label>
-                    <CheckBox3SubLabel>동의 하지 않을시 최적화된 작업환경 제공이 불가합니다.</CheckBox3SubLabel>
+                  <ChekcBox3Input
+                    {...register("check3")}
+                    type="checkbox"
+                    id="check3"
+                  />
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <CheckBox3Label>
+                      팝업메세지 제공에 동의합니다. (선택)
+                    </CheckBox3Label>
+                    <CheckBox3SubLabel>
+                      동의 하지 않을시 최적화된 작업환경 제공이 불가합니다.
+                    </CheckBox3SubLabel>
                   </div>
                 </InputBox>
                 <InputBox>
-                  <CheckBox4Input {...register('check4')} type='checkbox' id='check4'/>
-                  <CheckBox4Label>마케팅 메세지 수신에 동의합니다. (선택)</CheckBox4Label>
+                  <CheckBox4Input
+                    {...register("check4")}
+                    type="checkbox"
+                    id="check4"
+                  />
+                  <CheckBox4Label>
+                    마케팅 메세지 수신에 동의합니다. (선택)
+                  </CheckBox4Label>
                 </InputBox>
-                <NextButton>다음 단계로</NextButton>
+                <NextButton onClick={() => navigate("/service_start")}>
+                  다음 단계로
+                </NextButton>
               </FormContainer>
             </RightContents>
           </Contents>
         </Wrapper>
       </Container>
-      <Footer bgColor='transparent'/>
+      <Footer bgColor="transparent" />
     </>
   );
 };

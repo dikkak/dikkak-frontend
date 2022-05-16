@@ -19,7 +19,7 @@ const Container = styled.div`
 
 const JumboCotainer = styled.div`
   width: 100%;
-  height: 485px;
+  height: 490px;
   margin: 0 auto;
   margin-top: 150px;
   padding: 0 80px;
@@ -63,7 +63,8 @@ const Title = styled.div`
   align-items: center;
   width: 100%;
   height: 50px;
-  top: 52px;
+  top: 60px;
+
   font-family: "Noto Sans KR";
   & div {
     display: flex;
@@ -74,8 +75,8 @@ const Title = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
-      height: 100%;
       align-items: center;
+      height: 100%;
       p {
         font-size: 14px;
         font-weight: 400;
@@ -83,7 +84,6 @@ const Title = styled.div`
         line-height: 16px;
         letter-spacing: 2px;
         margin-top: 7px;
-
         color: #717171;
         font-family: "Noto Sans KR";
       }
@@ -139,7 +139,7 @@ const BlurPin = styled.img.attrs({ src: blurPin })`
 const LogoImage = styled.img.attrs({ src: logoImg })`
   margin-left: 1em;
   width: 52px;
-  margin-right: 10px;
+  margin-right: 6px;
   height: 52px;
 `;
 
@@ -149,6 +149,8 @@ const LetterLogo = styled.img.attrs({ src: letterLogo })`
 `;
 
 const PaintLogo = styled.img.attrs({ src: paintLogo })`
+  position: absolute;
+  right: 15%;
   margin-left: 5px;
   width: 140px;
   height: 90px;
@@ -157,7 +159,7 @@ const PaintLogo = styled.img.attrs({ src: paintLogo })`
 // content
 const Content = styled.div`
   position: relative;
-  top: -120px;
+  top: -110px;
   width: 100%;
   padding: 0 10%;
   height: auto;
@@ -168,11 +170,11 @@ const ContentDesc = styled.p`
   width: 100%;
   font-weight: 500;
   font-family: "Noto Sans KR";
-  font-size: 1rem;
-  text-align: left;
+  font-size: 0.95rem;
   color: #717171;
   line-height: 29px;
-  padding: 10px 0;
+  padding: 6px 0;
+  text-align: center;
 `;
 
 const Start = () => {

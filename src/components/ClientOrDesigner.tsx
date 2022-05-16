@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   position: relative;
-  top: 30px;
+  top: 20px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -15,7 +15,7 @@ const Box = styled.div`
   height: 80px;
   border-radius: 5px;
   display: flex;
-  text-align: left;
+  text-align: center;
   justify-content: center;
   flex-direction: column;
   color: #fff;
@@ -27,6 +27,9 @@ const Box = styled.div`
   & span {
     margin-top: 10px;
     font-size: 0.3rem;
+  }
+  &:hover {
+    cursor: pointer;
   }
 `;
 
