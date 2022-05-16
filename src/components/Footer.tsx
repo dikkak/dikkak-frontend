@@ -12,7 +12,7 @@ const FooterWrapper = styled.div<FooterProps>`
   justify-content: center;
   width: 100%;
   height: 350px;
-  margin-top: 20em;
+  margin-top: 10em;
   padding: 3em 10em;
   background-color: ${(props) => props.bgColor};
 `;
