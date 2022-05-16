@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Menu from "../components/Menu";
 import blurPin from "../assets/mainPageImage/blurPin.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import logoImg from "../assets/logoImage/logoBasic.svg";
 import kakaoImg from "../assets/logoImage/kakaoBtnImg.svg";
@@ -207,7 +207,7 @@ const SignUp = () => {
                 bgColor="#000"
                 textColor="#fff"
               >
-                <p>이메일로 가입하기</p>
+                <Link to={'/email_signup1'} style={{textDecoration:'none',color:"#fff"}}>이메일로 가입하기</Link>
               </Button>
             </ButtonGroup>
           </Board>
