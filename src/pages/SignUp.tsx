@@ -69,6 +69,7 @@ const BackButton = styled.div`
     color: white;
   }
 `;
+
 const BlurPin = styled.img.attrs({ src: blurPin })`
   position: absolute;
   width: 25px;
@@ -90,6 +91,7 @@ const BlurPin = styled.img.attrs({ src: blurPin })`
     right: 20px;
   }
 `;
+
 const Title = styled.div`
   position: relative;
   display: flex;
