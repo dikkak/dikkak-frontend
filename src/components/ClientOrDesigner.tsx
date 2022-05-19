@@ -1,5 +1,6 @@
 import { prependOnceListener } from "process";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -42,9 +43,10 @@ const Designer = styled(Box)`
 `;
 
 const ClientOrDesigner = () => {
+  const navigate = useNavigate();
   return (
     <Container>
-      <Client>
+      <Client onClick={() => navigate("/client_workspace1")}>
         <p>클라이언트 입니다.</p>
         <span>의뢰자입니다.</span>
       </Client>

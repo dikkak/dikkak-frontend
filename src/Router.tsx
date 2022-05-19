@@ -7,6 +7,7 @@ import EmailSignUp1 from "./pages/EmailSignUp1";
 import EmailSignUp2 from "./pages/EmailSignUp2";
 import SignUp from "./pages/SignUp";
 import Start from "./pages/Start";
+import ClientWorkPage from "./pages/ClientWorkPage";
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
         <Route path="/email_signup2" element={<EmailSignUp2 />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/service_start" element={<Start />}></Route>
+        <Route path="/client_workspace1" element={<ClientWorkPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

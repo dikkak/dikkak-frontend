@@ -1,7 +1,7 @@
-import React from 'react';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import Router from './Router';
-import { theme } from './theme';
+import React from "react";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import Router from "./Router";
+import { theme } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -51,17 +51,19 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+  a {color: #fff; text-decoration: none; outline: none}
+  a:hover, a:active {text-decoration: none;}
 `;
 
 const App = () => {
   return (
     <>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle/>
-      <Router/>
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Router />
+      </ThemeProvider>
     </>
   );
-}
+};
 
 export default App;
