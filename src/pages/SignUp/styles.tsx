@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import blurPin from "../../assets/mainPageImage/blurPin.png";
 import logoImg from "../../assets/logoImage/logoBasic.svg";
+import { KAKAO_AUTH_URL } from "../OAuth";
 
 interface ButtonColorProps {
   bgColor: string;

@@ -7,6 +7,7 @@ import kakaoImg from "../../assets/logoImage/kakaoBtnImg.svg";
 import googleImg from "../../assets/logoImage/googleBtnImg.svg";
 import facebookImg from "../../assets/logoImage/faceboonBtnImg.svg";
 import { BackButton, BlurPin, Board, BrandLogo, Button, ButtonGroup, Container, LogoImage, Title, Wrapper } from './styles';
+import { KAKAO_AUTH_URL } from "../../OAuth";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -35,7 +36,12 @@ const SignUp = () => {
               <p>디깎은 디자이너의 성장을 도모합니다</p>
             </Title>
             <ButtonGroup>
-              <Button bgColor="#f7e600" textColor="#000">
+              <Button
+                as="a"
+                href={KAKAO_AUTH_URL}
+                bgColor="#f7e600"
+                textColor="#000"
+              >
                 <BrandLogo url={kakaoImg}></BrandLogo>
                 <p>카카오톡 간편 가입하기</p>
               </Button>

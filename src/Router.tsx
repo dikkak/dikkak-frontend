@@ -21,6 +21,10 @@ const Router = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/service_start" element={<Start />}></Route>
         <Route path="/client_workspace1" element={<ClientWorkPage />}></Route>
+        <Route
+          path="/auth/kakao/callback" //http://localhost:3000//auth/kakao/callback
+          element={<Main></Main>}
+        />
       </Routes>
     </BrowserRouter>
   );
