@@ -8,6 +8,8 @@ import logoImg from "../assets/logoImage/logoBasic.svg";
 import kakaoImg from "../assets/logoImage/kakaoBtnImg.svg";
 import googleImg from "../assets/logoImage/googleBtnImg.svg";
 import facebookImg from "../assets/logoImage/faceboonBtnImg.svg";
+import GoogleLogin from '../components/GoogleLogin';
+
 
 interface ButtonColorProps {
   bgColor: string;
@@ -170,6 +172,9 @@ const BrandLogo = styled.img.attrs((props: ImgUrlProps) => ({
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const onGoogleSignIn = (res: any) => {
+    console.log(res);
+  }
   return (
     <>
       <Menu />
@@ -211,6 +216,7 @@ const SignUp = () => {
               >
                 <Link to={'/email_signup1'} style={{textDecoration:'none',color:"#fff"}}>이메일로 가입하기</Link>
               </Button>
+              <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" />
             </ButtonGroup>
           </Board>
         </Wrapper>
