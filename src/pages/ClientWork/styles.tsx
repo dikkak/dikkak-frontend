@@ -1,12 +1,7 @@
-import React from "react";
-import Menu from "../components/Menu";
-import Footer from "../components/Footer";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import logoImg from "../assets/logoImage/logoBasic.svg";
-import Document from "../components/Document";
+import logoImg from "../../assets/logoImage/logoBasic.svg";
 
-const Container = styled.div`
+export const Container = styled.div`
   max-width: 1440px;
   display: flex;
   justify-content: center;
@@ -14,7 +9,7 @@ const Container = styled.div`
   margin-top: 82px;
 `;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -25,7 +20,7 @@ const Wrapper = styled.div`
   padding: 40px 0;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -57,7 +52,7 @@ const Title = styled.div`
   }
 `;
 
-const BackButton = styled.div`
+export const BackButton = styled.div`
   position: absolute;
   top: 20px;
   left: 20px;
@@ -79,7 +74,7 @@ const BackButton = styled.div`
   }
 `;
 
-const DocumentContainer = styled.div`
+export const DocumentContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 790px;
@@ -87,13 +82,13 @@ const DocumentContainer = styled.div`
 `;
 
 //Logo
-const LogoImage = styled.img.attrs({ src: logoImg })`
+export const LogoImage = styled.img.attrs({ src: logoImg })`
   margin-left: 1em;
   width: 30px;
   height: 30px;
 `;
 
-const clientContent = {
+export const clientContent = {
   title: "제안서",
   firstContent: "20220418 디깍 로고제작",
   secondContent: "로고 제작2",
@@ -102,7 +97,7 @@ const clientContent = {
   bgColor: "#905DFB",
 };
 
-const companyContent = {
+export const companyContent = {
   title: "외주 작업실",
   firstContent: "디깍 로고 제작 / 000디자이너 / 2차 작업중",
   secondContent: "디깍 로고 제작 / 000디자이너 / 1차 작업중",
@@ -110,34 +105,3 @@ const companyContent = {
   workMenttion: "외주 작업실",
   bgColor: "#329A29",
 };
-
-const ClientWorkPage = () => {
-  const navigate = useNavigate();
-  return (
-    <>
-      <Menu></Menu>
-      <Container>
-        <Wrapper>
-          <BackButton onClick={() => navigate(-1)}>
-            <p>◀︎</p>
-            <p>이전으로 돌아가기</p>
-          </BackButton>
-          <Title>
-            <div>
-              <h1>클라이언트 작업실</h1>
-              <LogoImage></LogoImage>
-            </div>
-            <p>외주작업을 위한 000 클라이언트 작업실 입니다</p>
-          </Title>
-          <DocumentContainer>
-            <Document content={clientContent}></Document>
-            <Document content={companyContent}></Document>
-          </DocumentContainer>
-        </Wrapper>
-      </Container>
-      <Footer bgColor="#fff"></Footer>
-    </>
-  );
-};
-
-export default ClientWorkPage;

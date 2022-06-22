@@ -7,7 +7,7 @@ import EmailSignUp1 from "./pages/EmailSignUp1";
 import EmailSignUp2 from "./pages/EmailSignUp2";
 import SignUp from "./pages/SignUp";
 import Start from "./pages/Start";
-import ClientWorkPage from "./pages/ClientWorkPage";
+import ClientWorkPage from "./pages/ClientWork";
 
 const Router = () => {
   return (

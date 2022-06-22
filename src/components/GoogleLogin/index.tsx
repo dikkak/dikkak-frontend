@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import useScript from '../hooks/useScript';
+import useScript from '../../hooks/useScript';
 declare global {
   interface Window {
     google: any;

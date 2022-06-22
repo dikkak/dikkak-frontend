@@ -1,15 +1,4 @@
-import React from "react";
 import styled from "styled-components";
-
-interface FormProps {
-  btnMessage: string;
-  message: string;
-  color: string;
-  text: string;
-  registerId: string;
-  phoneId: string;
-  type: string;
-}
 
 interface ItemInputProps {
   registerId: string;
@@ -26,7 +15,7 @@ interface SubmitBtnProps {
   color: string;
 }
 
-const Form = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,7 +23,7 @@ const Form = styled.form`
 `;
 
 //
-const TitleBox = styled.p`
+export const TitleBox = styled.p`
   width: 87%;
   padding: 10px;
   border-radius: 5px;
@@ -47,7 +36,7 @@ const TitleBox = styled.p`
 `;
 //
 
-const ItemLabel = styled.label.attrs((props: ItemInputProps) => ({
+export const ItemLabel = styled.label.attrs((props: ItemInputProps) => ({
   type: props.type,
   htmlFor: props.registerId,
 }))<ItemInputProps>`
@@ -59,7 +48,7 @@ const ItemLabel = styled.label.attrs((props: ItemInputProps) => ({
   left: 10%;
 `;
 
-const ItemInput = styled.input.attrs((props: ItemInputProps) => ({
+export const ItemInput = styled.input.attrs((props: ItemInputProps) => ({
   type: props.type,
   id: props.registerId,
   placeholder: props.message,
@@ -75,7 +64,7 @@ const ItemInput = styled.input.attrs((props: ItemInputProps) => ({
   }
 `;
 
-const PhoneNumberLabel = styled.label.attrs((props: PhoneNumberInputProps) => ({
+export const PhoneNumberLabel = styled.label.attrs((props: PhoneNumberInputProps) => ({
   type: "text",
   htmlFor: props.phoneId,
 }))<PhoneNumberInputProps>`
@@ -87,7 +76,7 @@ const PhoneNumberLabel = styled.label.attrs((props: PhoneNumberInputProps) => ({
   left: 10%;
 `;
 
-const PhoneNumberInput = styled.input.attrs({
+export const PhoneNumberInput = styled.input.attrs({
   type: "text",
   placeholder: "휴대폰 번호를 입력하세요",
 })`
@@ -104,7 +93,7 @@ const PhoneNumberInput = styled.input.attrs({
   }
 `;
 
-const PrephoneNumberInput = styled.input.attrs(
+export const PrephoneNumberInput = styled.input.attrs(
   (props: PhoneNumberInputProps) => ({
     type: "text",
     id: props.phoneId,
@@ -121,7 +110,7 @@ const PrephoneNumberInput = styled.input.attrs(
   }
 `;
 
-const SubmitBtn = styled.button<SubmitBtnProps>`
+export const SubmitBtn = styled.button<SubmitBtnProps>`
   width: 87%;
   background-color: ${(props) => props.color};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -132,41 +121,3 @@ const SubmitBtn = styled.button<SubmitBtnProps>`
   padding: 8px;
   cursor: pointer;
 `;
-
-const FindForm = ({
-  btnMessage,
-  message,
-  color,
-  text,
-  registerId,
-  phoneId,
-  type,
-}: FormProps) => {
-  return (
-    <Form>
-      <TitleBox color={color}>{btnMessage}</TitleBox>
-      <ItemLabel
-        type={type}
-        message={message}
-        registerId={registerId}
-        text={text}
-      >
-        {text}
-      </ItemLabel>
-      <ItemInput
-        type={type}
-        message={message}
-        registerId={registerId}
-        text={text}
-      ></ItemInput>
-      <PhoneNumberLabel phoneId={phoneId}>휴대폰 번호</PhoneNumberLabel>
-      <div style={{ display: "flex", width: "87%" }}>
-        <PrephoneNumberInput phoneId={phoneId}></PrephoneNumberInput>
-        <PhoneNumberInput></PhoneNumberInput>
-      </div>
-      <SubmitBtn color={color}>{btnMessage}</SubmitBtn>
-    </Form>
-  );
-};
-
-export default FindForm;
