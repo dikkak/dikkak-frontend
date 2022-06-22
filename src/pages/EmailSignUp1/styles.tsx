@@ -1,33 +1,28 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Menu from '../components/Menu';
-import logoImg from "../assets/logoImage/logoBasic.svg";
-import { useForm } from 'react-hook-form';
-import Footer from '../components/Footer';
+import logoImg from "../../assets/logoImage/logoBasic.svg";
 
-const Container = styled.div`
+export const Container = styled.div`
   max-width: 1440px;
   display: flex;
   justify-content: center;
   margin: 0 auto;
   margin-top: 82px;
 `;
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   width: 70%;
   height: 660px;
 `;
-const Contents = styled.div`
+export const Contents = styled.div`
   max-width: 834px;
   width: 80%;
   height: auto;
   display: flex;
   align-items: center;
 `;
-const RightContents = styled.div`
+export const RightContents = styled.div`
   width: 80%;
   height: 100%;
   padding-right: 20%;
@@ -35,7 +30,7 @@ const RightContents = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-const BackButton = styled.div`
+export const BackButton = styled.div`
   position: absolute;
   top: 20px;
   left: 20px;
@@ -57,13 +52,13 @@ const BackButton = styled.div`
   }
 `;
 
-const TimeLine = styled.div`
+export const TimeLine = styled.div`
   width: 20%;
   margin: 0 auto;
   margin-bottom: 50px;
   height: 60%;
 `;
-const Outer = styled.div`
+export const Outer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -77,7 +72,7 @@ const Outer = styled.div`
     }  
   }
 `;
-const Outer2 = styled(Outer)`
+export const Outer2 = styled(Outer)`
   height: 52.5%;
   justify-content: space-between;
   border-left: 1px solid #C4C4C4;
@@ -90,7 +85,7 @@ const Outer2 = styled(Outer)`
   }
 `;
 
-const Step = styled.h3`
+export const Step = styled.h3`
   color: black;
   position: relative;
   margin: 0 0 0 30px;
@@ -104,7 +99,7 @@ const Step = styled.h3`
   }
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -135,13 +130,13 @@ const Title = styled.div`
   }
 `;
 
-const LogoImage = styled.img.attrs({ src: logoImg })`
+export const LogoImage = styled.img.attrs({ src: logoImg })`
   margin-left: 1em;
   width: 30px;
   height: 30px;
 `;
 
-const FormContainer = styled.form`
+export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -149,7 +144,7 @@ const FormContainer = styled.form`
   width: 80%;
   height: 100%;
 `;
-const TitleBox = styled.p`
+export const TitleBox = styled.p`
   width: 80%;
   padding: 10px;
   margin: 0 auto;
@@ -163,20 +158,20 @@ const TitleBox = styled.p`
   text-align: center;
 `;
 
-const InputBox = styled.div`
+export const InputBox = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   margin-bottom: 2em;
 `;
 
-const EmailLabel = styled.label.attrs({ htmlFor: "email" })`
+export const EmailLabel = styled.label.attrs({ htmlFor: "email" })`
   margin-left: 0.8em;
   font-size: 0.8rem;
   color: #717171;
   margin-bottom: 1em;
 `;
-const EmailInput = styled.input.attrs({
+export const EmailInput = styled.input.attrs({
   type: "email",
   id: "email",
   placeholder: "이메일을 입력하세요",
@@ -190,13 +185,13 @@ const EmailInput = styled.input.attrs({
     outline: none;
   }
 `;
-const NameLabel = styled.label.attrs({ htmlFor: "name" })`
+export const NameLabel = styled.label.attrs({ htmlFor: "name" })`
   margin-left: 0.8em;
   font-size: 0.8rem;
   color: #717171;
   margin-bottom: 1em;
 `;
-const NameInput = styled.input.attrs({
+export const NameInput = styled.input.attrs({
   type: "text",
   id: "name",
   placeholder: "이름 또는 가입명을 입력하세요",
@@ -210,13 +205,13 @@ const NameInput = styled.input.attrs({
     outline: none;
   }
 `;
-const PasswordLabel = styled.label.attrs({ htmlFor: "password" })`
+export const PasswordLabel = styled.label.attrs({ htmlFor: "password" })`
   margin-left: 0.8em;
   font-size: 0.8rem;
   color: #717171;
   margin-bottom: 1em;
 `;
-const PasswordInput = styled.input.attrs({
+export const PasswordInput = styled.input.attrs({
   type: "password",
   id: "password",
   placeholder: "비밀번호를 입력하세요",
@@ -230,7 +225,7 @@ const PasswordInput = styled.input.attrs({
     outline: none;
   }
 `;
-const PhoneNumberLabel = styled.label.attrs({
+export const PhoneNumberLabel = styled.label.attrs({
   type: "text",
   htmlFor: 'phone'
 })`
@@ -240,7 +235,7 @@ const PhoneNumberLabel = styled.label.attrs({
   margin-bottom: 1em;
 `;
 
-const PhoneNumberInput = styled.input.attrs({
+export const PhoneNumberInput = styled.input.attrs({
   type: "text",
   placeholder: "휴대폰 번호를 입력하세요",
 })`
@@ -257,7 +252,7 @@ const PhoneNumberInput = styled.input.attrs({
   }
 `;
 
-const PrephoneNumberInput = styled.input.attrs({
+export const PrephoneNumberInput = styled.input.attrs({
     type: "text",
     id: 'phone'
 })`
@@ -273,7 +268,7 @@ const PrephoneNumberInput = styled.input.attrs({
   }
 `;
 
-const ErrorMessage = styled.span`
+export const ErrorMessage = styled.span`
   position: absolute;
   font-size: .5rem;
   color: red;
@@ -281,7 +276,7 @@ const ErrorMessage = styled.span`
   bottom: -2em;
 `;
 
-const NextButton = styled.button`
+export const NextButton = styled.button`
   background-color: ${(props) => props.theme.subColor};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -295,79 +290,3 @@ const NextButton = styled.button`
   }
   
 `;
-
-const EmailSignUp1 = () => {
-  const navigate = useNavigate();
-  const {register, formState:{errors}, getValues, handleSubmit} = useForm();
-  const onNextStep = () => {
-    if(!errors.email && !errors.name && !errors.password && !errors.prePhone && !errors.phone) {
-      navigate('/email_signup2', {
-        state: {
-          form: getValues(),
-        },
-      })
-    }
-  }
-  return (
-    <>
-      <Menu/>
-      <Container>
-        <Wrapper>
-          <BackButton onClick={() => navigate(-1)}>
-            <p>◀︎</p>
-            <p>이전으로 돌아가기</p>
-          </BackButton>
-          <Contents>
-            <TimeLine>
-              <Outer>
-                <Step>계정생성</Step>  
-              </Outer>
-              <Outer2>
-                <Step>약관동의</Step>
-                <Step>가입완료</Step>
-              </Outer2>
-            </TimeLine>
-            <RightContents>
-              <Title>
-                <div>
-                  <h1>회원가입</h1>
-                  <LogoImage></LogoImage>
-                </div>
-                <p>디깍은 디자이너의 성장을 도모합니다</p>
-                <TitleBox>이메일로 가입하기</TitleBox>
-              </Title>
-              <FormContainer onSubmit={handleSubmit(onNextStep)}>
-                <InputBox>
-                  <EmailLabel>이메일</EmailLabel>
-                  <EmailInput {...register('email', {required: '이메일을 입력하세요.'})}/>
-                  <ErrorMessage>{errors.email?.message}</ErrorMessage>
-                </InputBox>
-                <InputBox>
-                  <NameLabel>이름</NameLabel>
-                  <NameInput {...register('name', {required: '이름을 입력하세요'})}/>
-                  <ErrorMessage>{errors.name?.message}</ErrorMessage>
-                </InputBox>
-                <InputBox>
-                  <PasswordLabel>비밀번호</PasswordLabel>
-                  <PasswordInput {...register('password', {required: '비밀번호를 입력하세요'})}/>
-                  <ErrorMessage>{errors.password?.message}</ErrorMessage>
-                </InputBox>
-                <PhoneNumberLabel>휴대폰 번호</PhoneNumberLabel>
-                <div style={{ display: "flex", width: "100%", position:'relative' }}>
-                  <PrephoneNumberInput {...register('prePhone', {required: '전화번호를 입력하세요'})}/>
-                  <PhoneNumberInput {...register('phone', {required: '전화번호를 입력하세요'})}/>
-                  <ErrorMessage>{(errors.prePhone || errors.phone) ? "전화번호를 입력하세요" : null}</ErrorMessage>
-                </div>
-                <NextButton>다음 단계로</NextButton>
-              </FormContainer>
-            </RightContents>            
-          </Contents>     
-        </Wrapper>
-      </Container>
-      <Footer bgColor='transparent'/>
-    </>
-  );
-};
-
-export default EmailSignUp1;
-
