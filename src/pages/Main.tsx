@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Menu from "../components/Menu";
 import mainBackgroundImg from "../assets/mainPageImage/jumbotron.svg";
@@ -12,9 +12,10 @@ import thirdImg from "../assets/mainPageImage/thirdImage.png";
 import fourthImg from "../assets/mainPageImage/fourthImage.png";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { useSetRecoilState } from "recoil";
+import { approved_code } from "../atoms";
 
 // Components style code
-
 const JumboCotainer = styled.div`
   max-width: 1440px;
   height: 485px;
@@ -207,6 +208,13 @@ const MainText = styled.div`
 // Main Page Component
 const Main = () => {
   const navigate = useNavigate();
+  const href = window.location.href;
+  let params = new URL(document.location.toString()).searchParams;
+  let code = params.get("code"); // 인가코드 받는 부분
+  const codeHandler = useSetRecoilState(approved_code);
+
+  useEffect(() => {}, []);
+
   return (
     <>
       <Menu />
