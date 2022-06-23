@@ -8,6 +8,7 @@ import EmailSignUp2 from "./pages/EmailSignUp2";
 import SignUp from "./pages/SignUp";
 import Start from "./pages/Start";
 import ClientWorkPage from "./pages/ClientWork";
+import DesignerWorkPage from './pages/DesignerWork';
 
 const Router = () => {
   return (
@@ -19,8 +20,9 @@ const Router = () => {
         <Route path="/email_signup1" element={<EmailSignUp1 />} />
         <Route path="/email_signup2" element={<EmailSignUp2 />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/service_start" element={<Start />}></Route>
-        <Route path="/client_workspace1" element={<ClientWorkPage />}></Route>
+        <Route path="/service_start" element={<Start />}/>
+        <Route path="/client_workspace1" element={<ClientWorkPage />}/>
+        <Route path="/designer_workspace1" element={<DesignerWorkPage />}/>
         <Route
           path="/auth/kakao/callback" //http://localhost:3000//auth/kakao/callback
           element={<Main></Main>}

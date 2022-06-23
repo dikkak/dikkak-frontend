@@ -1,12 +1,14 @@
 import React from "react";
 import { Container, LinkImage, List, ListContainer, MoveBtn, RemoveBtn, StartBtnContainer, Title } from './styles';
 
+interface IList {
+  id: number;
+  name: string;
+}
 interface ContentProps {
   content: {
     title: string;
-    firstContent: string;
-    secondContent: string;
-    thirdContent: string;
+    contents: IList[];
     workMenttion: string;
     bgColor: string;
   };
@@ -17,30 +19,18 @@ const Document = ({ content }: ContentProps) => {
     <Container>
       <Title>{content.title}</Title>
       <ListContainer>
-        <List>
-          <a href="#">
-            <span style={{ marginRight: "5px" }}>1</span> {content.firstContent}
-            <p></p>
-          </a>
-          <LinkImage></LinkImage>
-        </List>
-        <List>
-          <a href="#">
-            <span style={{ marginRight: "5px" }}>2 </span>
-            {content.secondContent}
-            <p></p>
-          </a>
-          <LinkImage></LinkImage>
-        </List>
-        <List>
-          <a href="#">
-            <span style={{ marginRight: "5px" }}>3</span>
-            {content.thirdContent}
-            <p></p>
-          </a>
-          <LinkImage></LinkImage>
-        </List>
-        {content.title === "제안서" ? (
+        {
+          content.contents.map(content => (
+            <List key={content.id}>
+              <a href='#'>
+                <span style={{ marginRight: "5px" }}>{content.id}</span> {content.name}
+                <p></p>
+              </a>
+              <LinkImage></LinkImage>
+            </List>
+          ))
+        }
+        {content.title === "제안서" || content.title === "완료된 작업" ? (
           <StartBtnContainer>
             <RemoveBtn>삭제하기</RemoveBtn>
           </StartBtnContainer>
