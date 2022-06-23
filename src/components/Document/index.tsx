@@ -17,6 +17,7 @@ const Document = ({ content, onDelete }: ContentProps) => {
   const onDeleteButtonClick = () => {
     if(onDelete) onDelete(checkedInput);
     setIsDelete(prev => !prev);
+    setCheckedInput([]);
   }
   return (
     <Container>
