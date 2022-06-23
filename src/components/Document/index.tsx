@@ -1,20 +1,23 @@
-import React from "react";
-import { Container, LinkImage, List, ListContainer, MoveBtn, RemoveBtn, StartBtnContainer, Title } from './styles';
+import React, { useState } from "react";
+import { IContent } from '../../pages/DesignerWork';
+import { Container, InputBox, LinkImage, List, ListContainer, MoveBtn, RemoveBtn, StartBtnContainer, Title } from './styles';
 
-interface IList {
-  id: number;
-  name: string;
-}
+
 interface ContentProps {
-  content: {
-    title: string;
-    contents: IList[];
-    workMenttion: string;
-    bgColor: string;
-  };
+  content: IContent;
+  onDelete?: (id: number[]) => void;
 }
 
-const Document = ({ content }: ContentProps) => {
+const Document = ({ content, onDelete }: ContentProps) => {
+  const [isDelete, setIsDelete] = useState(false);
+  const [checkedInput, setCheckedInput] = useState<number[]>([]);
+  const onChange = (id: number) => {
+    setCheckedInput(prev => [...prev, id]);
+  }
+  const onDeleteButtonClick = () => {
+    if(onDelete) onDelete(checkedInput);
+    setIsDelete(prev => !prev);
+  }
   return (
     <Container>
       <Title>{content.title}</Title>
@@ -26,19 +29,28 @@ const Document = ({ content }: ContentProps) => {
                 <span style={{ marginRight: "5px" }}>{content.id}</span> {content.name}
                 <p></p>
               </a>
-              <LinkImage></LinkImage>
+              {isDelete ? <InputBox type='checkbox' onChange={() => onChange(content.id)}/> : <LinkImage/>}
             </List>
           ))
         }
-        {content.title === "제안서" || content.title === "완료된 작업" ? (
+        {(content.title === "제안서" || content.title === "완료된 작업") && !isDelete && content.contents.length !== 0 ? (
           <StartBtnContainer>
-            <RemoveBtn>삭제하기</RemoveBtn>
+            <RemoveBtn onClick={() => setIsDelete(prev => !prev)}>삭제하기</RemoveBtn>
           </StartBtnContainer>
         ) : null}
       </ListContainer>
-      <MoveBtn style={{ backgroundColor: content.bgColor }}>
-        {content.workMenttion}
-      </MoveBtn>
+      {
+        isDelete? (
+          <MoveBtn onClick={onDeleteButtonClick} style={{ backgroundColor: content.bgColor }}>
+            삭제하기
+          </MoveBtn> 
+        ) : (
+          <MoveBtn style={{ backgroundColor: content.bgColor }}>
+            {content.workMenttion}
+          </MoveBtn>
+        ) 
+      }
+      
     </Container>
   );
 };

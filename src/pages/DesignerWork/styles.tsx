@@ -45,10 +45,18 @@ export const Title = styled.div`
     line-height: 26px;
     font-weight: 300;
     text-align: center;
-    margin-top: 10px;
     padding: 8px 0;
     color: #717171;
     font-family: "Noto Sans KR";
+  }
+  & p:last-child {
+    font-size: 12px;
+    padding-top: 0;
+    & a {
+      color: #717171;
+      font-weight: 900;
+      text-decoration: underline;
+    }
   }
 `;
 

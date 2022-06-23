@@ -10,7 +10,7 @@ const ClientOrDesigner = () => {
         <p>클라이언트 입니다.</p>
         <span>의뢰자입니다.</span>
       </Client>
-      <Designer>
+      <Designer onClick={() => navigate("/designer_workspace1")}>
         <p>디자이너 입니다.</p>
         <span>외주 작업자입니다.</span>
       </Designer>

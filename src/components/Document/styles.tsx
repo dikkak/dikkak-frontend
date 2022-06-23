@@ -48,6 +48,13 @@ export const List = styled.li`
   }
 `;
 
+export const InputBox = styled.input`
+  position: absolute;
+  right: 2%;
+  width: 15px;
+  height: 15px;
+`;
+
 export const LinkImage = styled.img.attrs({ src: linkImg })`
   position: absolute;
   right: 2%;
@@ -56,9 +63,12 @@ export const LinkImage = styled.img.attrs({ src: linkImg })`
 `;
 
 export const StartBtnContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 56%;
+  position: absolute;
+  width: 95%;
+  padding: 0 10px;
+  bottom: 15px;
+  left: 10px;
+  right: 0;
   display: flex;
   justify-content: center;
 `;
