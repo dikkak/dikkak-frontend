@@ -7,7 +7,7 @@ interface ContentProps {
   content: IContent;
   onDelete?: (id: number[]) => void;
 }
-
+//test
 const Document = ({ content, onDelete }: ContentProps) => {
   const [isDelete, setIsDelete] = useState(false);
   const [checkedInput, setCheckedInput] = useState<number[]>([]);
@@ -51,7 +51,6 @@ const Document = ({ content, onDelete }: ContentProps) => {
           </MoveBtn>
         ) 
       }
-      
     </Container>
   );
 };
