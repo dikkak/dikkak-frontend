@@ -5,8 +5,23 @@ import { Link, useNavigate } from "react-router-dom";
 import kakaoImg from "../../assets/logoImage/kakaoBtnImg.svg";
 import googleImg from "../../assets/logoImage/googleBtnImg.svg";
 import facebookImg from "../../assets/logoImage/faceboonBtnImg.svg";
-import { BackButton, BlurPin, Board, BrandLogo, Button, ButtonGroup, Container, LogoImage, Title, Wrapper } from './styles';
-import { KAKAO_AUTH_URL, GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL } from "../../OAuth";
+import {
+  BackButton,
+  BlurPin,
+  Board,
+  BrandLogo,
+  Button,
+  ButtonGroup,
+  Container,
+  LogoImage,
+  Title,
+  Wrapper,
+} from "./styles";
+import {
+  KAKAO_AUTH_URL,
+  GOOGLE_AUTH_URL,
+  FACEBOOK_AUTH_URL,
+} from "../../OAuth";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -43,16 +58,16 @@ const SignUp = () => {
               </Button>
               <Button
                 as="a"
-                href={GOOGLE_AUTH_URL} 
+                href={GOOGLE_AUTH_URL}
                 bgColor="#fff"
                 textColor="#000"
               >
                 <BrandLogo url={googleImg}></BrandLogo>
                 <p>구글 간편 가입하기</p>
               </Button>
-              <Button 
+              <Button
                 as="a"
-                href={FACEBOOK_AUTH_URL} 
+                href={FACEBOOK_AUTH_URL}
                 bgColor="#1877F2"
                 textColor="#fff"
               >
@@ -64,7 +79,12 @@ const SignUp = () => {
                 bgColor="#000"
                 textColor="#fff"
               >
-                <Link to={'/email_signup1'} style={{textDecoration:'none',color:"#fff"}}>이메일로 가입하기</Link>
+                <Link
+                  to={"/email_signup1"}
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  이메일로 가입하기
+                </Link>
               </Button>
             </ButtonGroup>
           </Board>

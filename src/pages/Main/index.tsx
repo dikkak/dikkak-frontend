@@ -6,7 +6,25 @@ import firstImg from "../../assets/mainPageImage/firstImage.png";
 import secondImg from "../../assets/mainPageImage/secondImage.png";
 import thirdImg from "../../assets/mainPageImage/thirdImage.png";
 import fourthImg from "../../assets/mainPageImage/fourthImage.png";
-import { BlurBackground, BlurButtons, BlurInfo, BlurLogo, BlurPin, DikkakSignUp, DikkakStart, JumboCotainer, Jumbotron, MainButtons, MainDikkakSignUp, MainDikkakStart, MainText, MowImage, NextStep, Section, SectionContainer } from './styles'
+import {
+  BlurBackground,
+  BlurButtons,
+  BlurInfo,
+  BlurLogo,
+  BlurPin,
+  DikkakSignUp,
+  DikkakStart,
+  JumboCotainer,
+  Jumbotron,
+  MainButtons,
+  MainDikkakSignUp,
+  MainDikkakStart,
+  MainText,
+  MowImage,
+  NextStep,
+  Section,
+  SectionContainer,
+} from "./styles";
 import { useSetRecoilState } from "recoil";
 import { approved_code } from "../../atoms";
 
@@ -15,7 +33,7 @@ const Main = () => {
   const href = window.location.href;
   let params = new URL(document.location.toString()).searchParams;
   let code = params.get("code"); // 인가코드 받는 부분
-  const codeHandler = useSetRecoilState(approved_code);
+
   useEffect(() => {}, []);
   return (
     <>
