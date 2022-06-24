@@ -29,7 +29,12 @@ const Main = () => {
             <BlurPin />
             <BlurLogo />
             <BlurButtons>
-              <DikkakSignUp>⏰ DIKKAK 가입하기</DikkakSignUp>
+              <DikkakSignUp
+                onClick={() => {
+                  navigate("/signup");
+                }} 
+              >
+                  ⏰ DIKKAK 가입하기</DikkakSignUp>
               <DikkakStart
                 onClick={() => {
                   navigate("/login");

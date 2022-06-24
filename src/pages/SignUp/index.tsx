@@ -1,19 +1,15 @@
 import React from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
-import GoogleLogin from '../../components/GoogleLogin';
 import { Link, useNavigate } from "react-router-dom";
 import kakaoImg from "../../assets/logoImage/kakaoBtnImg.svg";
 import googleImg from "../../assets/logoImage/googleBtnImg.svg";
 import facebookImg from "../../assets/logoImage/faceboonBtnImg.svg";
 import { BackButton, BlurPin, Board, BrandLogo, Button, ButtonGroup, Container, LogoImage, Title, Wrapper } from './styles';
-import { KAKAO_AUTH_URL } from "../../OAuth";
+import { KAKAO_AUTH_URL, GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL } from "../../OAuth";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const onGoogleSignIn = (res: any) => {
-    console.log(res);
-  }
   return (
     <>
       <Menu />
@@ -45,11 +41,21 @@ const SignUp = () => {
                 <BrandLogo url={kakaoImg}></BrandLogo>
                 <p>카카오톡 간편 가입하기</p>
               </Button>
-              <Button bgColor="#fff" textColor="#000">
+              <Button
+                as="a"
+                href={GOOGLE_AUTH_URL} 
+                bgColor="#fff"
+                textColor="#000"
+              >
                 <BrandLogo url={googleImg}></BrandLogo>
                 <p>구글 간편 가입하기</p>
               </Button>
-              <Button bgColor="#1877F2" textColor="#fff">
+              <Button 
+                as="a"
+                href={FACEBOOK_AUTH_URL} 
+                bgColor="#1877F2"
+                textColor="#fff"
+              >
                 <BrandLogo url={facebookImg}></BrandLogo>
                 <p>페이스북 간편 가입하기</p>
               </Button>
@@ -60,7 +66,6 @@ const SignUp = () => {
               >
                 <Link to={'/email_signup1'} style={{textDecoration:'none',color:"#fff"}}>이메일로 가입하기</Link>
               </Button>
-              <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="로그인" />
             </ButtonGroup>
           </Board>
         </Wrapper>

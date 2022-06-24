@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import Start from "./pages/Start";
 import ClientWorkPage from "./pages/ClientWork";
 import DesignerWorkPage from './pages/DesignerWork';
+import Redirect from './components/Redirect';
 
 const Router = () => {
   return (
@@ -25,7 +26,11 @@ const Router = () => {
         <Route path="/designer_workspace1" element={<DesignerWorkPage />}/>
         <Route
           path="/auth/kakao/callback" //http://localhost:3000//auth/kakao/callback
-          element={<Main></Main>}
+          element={<Redirect/>}
+        />
+        <Route
+          path="/oauth/google/callback" //http://localhost:3000//oauth/google/callback
+          element={<Redirect/>}
         />
       </Routes>
     </BrowserRouter>
