@@ -8,8 +8,9 @@ import EmailSignUp2 from "./pages/EmailSignUp2";
 import SignUp from "./pages/SignUp";
 import Start from "./pages/Start";
 import ClientWorkPage from "./pages/ClientWork";
-import DesignerWorkPage from './pages/DesignerWork';
-import Redirect from './components/Redirect';
+import DesignerWorkPage from "./pages/DesignerWork";
+import Redirect from "./components/Redirect";
+import WorkSpaceClient from "./pages/WorkSpace_client";
 
 const Router = () => {
   return (
@@ -21,16 +22,17 @@ const Router = () => {
         <Route path="/email_signup1" element={<EmailSignUp1 />} />
         <Route path="/email_signup2" element={<EmailSignUp2 />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/service_start" element={<Start />}/>
-        <Route path="/client_workspace1" element={<ClientWorkPage />}/>
-        <Route path="/designer_workspace1" element={<DesignerWorkPage />}/>
+        <Route path="/service_start" element={<Start />} />
+        <Route path="/client_workspace1" element={<ClientWorkPage />} />
+        <Route path="/designer_workspace1" element={<DesignerWorkPage />} />
+        <Route path="/workspace_client/title" element={<WorkSpaceClient />} />
         <Route
           path="/auth/kakao/callback" //http://localhost:3000//auth/kakao/callback
-          element={<Redirect/>}
+          element={<Redirect />}
         />
         <Route
           path="/oauth/google/callback" //http://localhost:3000//oauth/google/callback
-          element={<Redirect/>}
+          element={<Redirect />}
         />
       </Routes>
     </BrowserRouter>
