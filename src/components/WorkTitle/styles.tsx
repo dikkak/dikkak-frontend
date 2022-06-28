@@ -50,6 +50,7 @@ export const ClientMessage = styled.p`
   font-size: 15px;
   margin-bottom: 25px;
   padding-right: 20px;
+
   &::before {
     content: "";
     position: absolute;
@@ -62,6 +63,7 @@ export const ClientMessage = styled.p`
     right: -14px;
     top: 9px;
   }
+
   &::after {
     content: "";
     position: absolute;

@@ -2,8 +2,6 @@ import React, { useRef, useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
-import WorkTitle from "../../components/WorkTitle";
-import { useLocation } from "react-router-dom";
 import {
   Container,
   Wrapper,
@@ -44,9 +42,11 @@ const WorkSpaceClient = () => {
   const onFileClick = () => {
     fileRef.current?.click();
   };
+
   const onInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
   };
+
   const onSubmit = () => {
     if (input === "") return;
     setMessage(input);
@@ -63,7 +63,6 @@ const WorkSpaceClient = () => {
     textRef.current?.setAttribute("placeholder", "제목을 입력하세요");
     textRef.current?.focus();
   };
-  let { pathname } = useLocation();
 
   return (
     <>
@@ -90,31 +89,84 @@ const WorkSpaceClient = () => {
               <SideTitle>STEP</SideTitle>
               <TimeLine>
                 <Outer>
-                  <TimeStep step="now">제목입력</TimeStep>
-                  <TimeStep step="yet">작업선택</TimeStep>
-                  <TimeStep step="yet">
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(1);
+                    }}
+                    step="now"
+                  >
+                    제목입력
+                  </TimeStep>
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(2);
+                    }}
+                    step="yet"
+                  >
+                    작업선택
+                  </TimeStep>
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(3);
+                    }}
+                    step="yet"
+                  >
                     세부사항
                     <br />
                     선택
                   </TimeStep>
-                  <TimeStep step="yet">사용목적</TimeStep>
-                  <TimeStep step="yet">
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(4);
+                    }}
+                    step="yet"
+                  >
+                    사용목적
+                  </TimeStep>
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(5);
+                    }}
+                    step="yet"
+                  >
                     키워드
                     <br />
                     선택
                   </TimeStep>
-                  <TimeStep step="yet">
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(6);
+                    }}
+                    step="yet"
+                  >
                     마감기간
                     <br />
                     선택
                   </TimeStep>
-                  <TimeStep step="yet">컬러선택</TimeStep>
-                  <TimeStep step="yet">
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(7);
+                    }}
+                    step="yet"
+                  >
+                    컬러선택
+                  </TimeStep>
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(8);
+                    }}
+                    step="yet"
+                  >
                     레퍼런스
                     <br />
                     등록
                   </TimeStep>
-                  <TimeStep step="yet">
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(9);
+                    }}
+                    step="yet"
+                  >
                     기타 파일
                     <br />
                     업로드{" "}
@@ -122,7 +174,12 @@ const WorkSpaceClient = () => {
                       (선택)
                     </p>
                   </TimeStep>
-                  <TimeStep step="yet">
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(10);
+                    }}
+                    step="yet"
+                  >
                     추가요청
                     <br />
                     사항{" "}
@@ -130,7 +187,14 @@ const WorkSpaceClient = () => {
                       (선택)
                     </p>
                   </TimeStep>
-                  <TimeStep step="yet">제출하기</TimeStep>
+                  <TimeStep
+                    onClick={() => {
+                      setworkspaceNum(11);
+                    }}
+                    step="yet"
+                  >
+                    제출하기
+                  </TimeStep>
                 </Outer>
               </TimeLine>
             </BlurBackground>
