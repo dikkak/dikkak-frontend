@@ -2,32 +2,69 @@ import React, { useRef, useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
-import { BackButton, BlurBackground, BlurPin, Box, BoxContent, Circle, ClientMessage, Container, Content, Header, InputArea, LogoImage, MessageBox, NextStepButton, Outer, SideTitle, Step, StepTitle, StoreBtn, SystemMessage, TextContainer, TimeLine, TimeStep, Title, Wrapper, Text, AdditionalButtons, EmojiButton, FileButton, SubmitArea, SubmitButton, EditButton } from './styles';
+import WorkTitle from "../../components/WorkTitle";
+import { useLocation } from "react-router-dom";
+import {
+  Container,
+  Wrapper,
+  Header,
+  BackButton,
+  Title,
+  LogoImage,
+  StoreBtn,
+  Content,
+  BlurPin,
+  BlurBackground,
+  Box,
+  BoxContent,
+  TextContainer,
+  Text,
+  SideTitle,
+  TimeLine,
+  TimeStep,
+  Outer,
+  InputArea,
+  FileButton,
+  AdditionalButtons,
+  EmojiButton,
+  SubmitArea,
+  SubmitButton,
+  EditButton,
+} from "./styles";
+import WorkspaceRender from "../../components/WorkspaceRender";
 
 const WorkSpaceClient = () => {
   const navigate = useNavigate();
-  const [input, setInput] = useState('');
-  const [message, setMessage] = useState<string | undefined>();
+  const [input, setInput] = useState("");
+  const [message, setMessage] = useState<string>("");
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
+  const [workspaceNum, setworkspaceNum] = useState(1);
+
   const onFileClick = () => {
     fileRef.current?.click();
-  }
+  };
   const onInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
-  }
+  };
   const onSubmit = () => {
-    if(input === '') return;
+    if (input === "") return;
     setMessage(input);
-    setInput('');
-    textRef.current?.setAttribute('placeholder', '수정하려면 수정하기 버튼을 누르세요');
-    textRef.current?.setAttribute('disabled', 'disabled');
-  }
+    setInput("");
+    textRef.current?.setAttribute(
+      "placeholder",
+      "수정하려면 수정하기 버튼을 누르세요"
+    );
+    textRef.current?.setAttribute("disabled", "disabled");
+  };
+
   const onEdit = () => {
-    textRef.current?.removeAttribute('disabled');
-    textRef.current?.setAttribute('placeholder', '제목을 입력하세요');
+    textRef.current?.removeAttribute("disabled");
+    textRef.current?.setAttribute("placeholder", "제목을 입력하세요");
     textRef.current?.focus();
-  }
+  };
+  let { pathname } = useLocation();
+
   return (
     <>
       <Menu />
@@ -53,50 +90,73 @@ const WorkSpaceClient = () => {
               <SideTitle>STEP</SideTitle>
               <TimeLine>
                 <Outer>
-                  <TimeStep step='now'>제목입력</TimeStep>  
-                  <TimeStep step='yet'>작업선택</TimeStep>  
-                  <TimeStep step='yet'>세부사항<br/>선택</TimeStep>  
-                  <TimeStep step='yet'>사용목적</TimeStep>  
-                  <TimeStep step='yet'>키워드<br/>선택</TimeStep>  
-                  <TimeStep step='yet'>마감기간<br/>선택</TimeStep>  
-                  <TimeStep step='yet'>컬러선택</TimeStep>  
-                  <TimeStep step='yet'>레퍼런스<br/>등록</TimeStep>  
-                  <TimeStep step='yet'>기타 파일<br/>업로드 <p style={{display: 'inline' ,fontSize: '10px'}}>(선택)</p></TimeStep>  
-                  <TimeStep step='yet'>추가요청<br/>사항 <p style={{display: 'inline' ,fontSize: '10px'}}>(선택)</p></TimeStep>  
-                  <TimeStep step='yet'>제출하기</TimeStep>
+                  <TimeStep step="now">제목입력</TimeStep>
+                  <TimeStep step="yet">작업선택</TimeStep>
+                  <TimeStep step="yet">
+                    세부사항
+                    <br />
+                    선택
+                  </TimeStep>
+                  <TimeStep step="yet">사용목적</TimeStep>
+                  <TimeStep step="yet">
+                    키워드
+                    <br />
+                    선택
+                  </TimeStep>
+                  <TimeStep step="yet">
+                    마감기간
+                    <br />
+                    선택
+                  </TimeStep>
+                  <TimeStep step="yet">컬러선택</TimeStep>
+                  <TimeStep step="yet">
+                    레퍼런스
+                    <br />
+                    등록
+                  </TimeStep>
+                  <TimeStep step="yet">
+                    기타 파일
+                    <br />
+                    업로드{" "}
+                    <p style={{ display: "inline", fontSize: "10px" }}>
+                      (선택)
+                    </p>
+                  </TimeStep>
+                  <TimeStep step="yet">
+                    추가요청
+                    <br />
+                    사항{" "}
+                    <p style={{ display: "inline", fontSize: "10px" }}>
+                      (선택)
+                    </p>
+                  </TimeStep>
+                  <TimeStep step="yet">제출하기</TimeStep>
                 </Outer>
               </TimeLine>
             </BlurBackground>
             <Box>
               <BoxContent>
-                <StepTitle>
-                  <Step>제목 입력</Step>
-                </StepTitle>
-                <MessageBox>
-                  <SystemMessage>제안서의 제목을 입력해 주세요</SystemMessage>
-                  {
-                    message ? (
-                      <>
-                        <ClientMessage>{message}</ClientMessage>
-                        <div style={{display: 'flex', justifyContent: 'center'}}>
-                          <NextStepButton>
-                            <Circle color='#EFDC34'/>
-                            NEXT STEP
-                            <Circle color='#28BF1B'/>
-                          </NextStepButton>
-                        </div>
-                      </> 
-                    ) : null
-                  }
-                  
-                </MessageBox>
+                <WorkspaceRender
+                  workspaceNum={workspaceNum}
+                  message={message}
+                  setworkspaceNum={setworkspaceNum}
+                ></WorkspaceRender>
                 <TextContainer>
                   <InputArea>
-                    <Text ref={textRef} onChange={onInputChange} value={input}/>
+                    <Text
+                      ref={textRef}
+                      onChange={onInputChange}
+                      value={input}
+                    />
                     <AdditionalButtons>
-                      <FileButton onClick={onFileClick}/>
-                      <input ref={fileRef} type="file" accept="image/*" style={{display: 'none'}} />
-                      <EmojiButton/>
+                      <FileButton onClick={onFileClick} />
+                      <input
+                        ref={fileRef}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                      />
+                      <EmojiButton />
                     </AdditionalButtons>
                   </InputArea>
                   <SubmitArea>
