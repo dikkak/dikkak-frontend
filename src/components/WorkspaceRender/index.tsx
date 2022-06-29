@@ -23,7 +23,12 @@ function switchFcn(
         ></WorkTitle>
       );
     case 2:
-      return <JobChoice></JobChoice>;
+      return (
+        <JobChoice
+          workspaceNum={workspaceNum}
+          setworkspaceNum={setworkspaceNum}
+        ></JobChoice>
+      );
   }
 }
 
