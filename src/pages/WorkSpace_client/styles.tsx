@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import logoImg from "../../assets/logoImage/logoBasic.svg";
 import blurPin from "../../assets/mainPageImage/blurPin.png";
-import fileImg from '../../assets/workspaceImage/fileImg.svg';
-import emojiImg from '../../assets/workspaceImage/emojiImg.svg';
+import fileImg from "../../assets/workspaceImage/fileImg.svg";
+import emojiImg from "../../assets/workspaceImage/emojiImg.svg";
 
 export const Container = styled.div`
   max-width: 1440px;
@@ -256,17 +256,17 @@ export const ClientMessage = styled.p`
   display: flex;
   justify-content: right;
   align-items: center;
-  border: 1px solid ${props => props.theme.mainColor};
+  border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
   margin-bottom: 25px;
   padding-right: 20px;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     border-style: solid;
     border-width: 8px 0 8px 13px;
-    border-color: transparent #905DFB;
+    border-color: transparent #905dfb;
     display: block;
     width: 0;
     z-index: 0;
@@ -274,11 +274,11 @@ export const ClientMessage = styled.p`
     top: 9px;
   }
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     border-style: solid;
     border-width: 8px 0 8px 13px;
-    border-color: transparent #FFFFFF;
+    border-color: transparent #ffffff;
     display: block;
     width: 0;
     z-index: 1;
@@ -302,11 +302,11 @@ export const NextStepButton = styled.button`
     opacity: 0.8;
   }
 `;
-export const Circle = styled.div<{color: string}>`
+export const Circle = styled.div<{ color: string }>`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
 `;
 export const TextContainer = styled.div`
   display: flex;
@@ -353,23 +353,48 @@ export const Outer = styled.div`
   display: grid;
   grid-template-rows: repeat(10, 1fr);
 `;
-export const TimeStep = styled.h3<{step?: 'done' | 'now' | 'yet'}>`
-  color: ${props => props.step === 'done' ? props.theme.mainColor : props.step === 'now' ? props.theme.subColor : '#C4C4C4'};
+export const TimeStep = styled.h3<{ step: string }>`
+  color: ${(props) =>
+    props.step === "done"
+      ? props.theme.mainColor
+      : props.step === "now"
+      ? props.theme.subColor
+      : "#C4C4C4"};
   position: relative;
   padding: 0 0 0 20px;
-  font-size: ${props => props.step === 'now' ? '14px' : '12px'};
-  border-left: 1px solid ${props => props.step === 'done' ? props.theme.mainColor : '#C4C4C4'};
+  font-size: ${(props) => (props.step === "now" ? "14px" : "12px")};
+  border-left: 1px solid
+    ${(props) => (props.step === "done" ? props.theme.mainColor : "#C4C4C4")};
   &::before {
     content: "";
     position: absolute;
     width: 10px;
     height: 10px;
-    background: ${props => props.step === 'done' || props.step === 'now' ? props.theme.mainColor : '#C4C4C4'};
-    border: 3px solid ${props => props.step === 'done' || props.step === 'now' ? props.theme.mainColor : '#C4C4C4'};
+    background: ${(props) =>
+      props.step === "done" || props.step === "now"
+        ? props.theme.mainColor
+        : "#C4C4C4"};
+    border: 3px solid
+      ${(props) =>
+        props.step === "done" || props.step === "now"
+          ? props.theme.mainColor
+          : "#C4C4C4"};
     border-radius: 999px;
     left: -8.5px;
   }
 `;
+
+export const TitleTimeStep = styled(TimeStep)``;
+export const WorkTimeStep = styled(TimeStep)``;
+export const DetailTimeStep = styled(TimeStep)``;
+export const PurposeTimeStep = styled(TimeStep)``;
+export const KeyWordTimeStep = styled(TimeStep)``;
+export const DeadLineTimeStep = styled(TimeStep)``;
+export const ColorTimeStep = styled(TimeStep)``;
+export const ReferenceTimeStep = styled(TimeStep)``;
+export const EtcTimeStep = styled(TimeStep)``;
+export const AdditionTimeStep = styled(TimeStep)``;
+export const SubmitTimeStep = styled(TimeStep)``;
 
 export const InputArea = styled.div`
   flex: 0.7;
@@ -406,7 +431,7 @@ export const SubmitArea = styled.div`
 export const SubmitButton = styled.button`
   width: 150px;
   height: 70px;
-  background-color: ${props => props.theme.subColor};
+  background-color: ${(props) => props.theme.subColor};
   color: white;
   font-size: 20px;
   border: none;

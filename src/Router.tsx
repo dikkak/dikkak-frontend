@@ -25,7 +25,9 @@ const Router = () => {
         <Route path="/service_start" element={<Start />} />
         <Route path="/client_workspace1" element={<ClientWorkPage />} />
         <Route path="/designer_workspace1" element={<DesignerWorkPage />} />
-        <Route path="/workspace_client/title" element={<WorkSpaceClient />} />
+        // 작업실 라우팅
+        <Route path="/workspace_client" element={<WorkSpaceClient />} />
+        //
         <Route
           path="/oauth/kakao/callback" //http://localhost:3000//auth/kakao/callback
           element={<Redirect />}
