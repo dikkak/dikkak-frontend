@@ -27,11 +27,15 @@ const Router = () => {
         <Route path="/designer_workspace1" element={<DesignerWorkPage />} />
         <Route path="/workspace_client/title" element={<WorkSpaceClient />} />
         <Route
-          path="/auth/kakao/callback" //http://localhost:3000//auth/kakao/callback
+          path="/oauth/kakao/callback" //http://localhost:3000//auth/kakao/callback
           element={<Redirect />}
         />
         <Route
           path="/oauth/google/callback" //http://localhost:3000//oauth/google/callback
+          element={<Redirect />}
+        />
+        <Route
+          path="/oauth/facebook/callback" //http://localhost:3000//oauth/google/callback
           element={<Redirect />}
         />
       </Routes>
