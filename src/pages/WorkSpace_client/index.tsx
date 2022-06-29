@@ -27,9 +27,6 @@ import {
   SubmitArea,
   SubmitButton,
   EditButton,
-} from "./styles";
-
-import {
   TitleTimeStep,
   WorkTimeStep,
   DetailTimeStep,

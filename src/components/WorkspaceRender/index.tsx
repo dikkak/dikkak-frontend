@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import WorkTitle from "../WorkTitle/";
 import WorkChoice from "../WorkChoice";
 
-interface WorspaceNumProtection {
+interface WorkspaceNumProtection {
   workspaceNum: number | undefined;
   message: string;
   setworkspaceNum: Dispatch<SetStateAction<number>>;
@@ -73,7 +73,7 @@ const WorkspaceRender = ({
   etcStep,
   additionStep,
   submitStep,
-}: WorspaceNumProtection) => {
+}: WorkspaceNumProtection) => {
   return (
     <>
       {switchFcn(

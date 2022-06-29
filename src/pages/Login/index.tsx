@@ -5,6 +5,7 @@ import { BackButton, BlurPin, Board, Buttons, Container, Contents, EmailInput, E
 import facebook from "../../assets/logoImage/facebookLogin.svg";
 import kakao from "../../assets/logoImage/kakaoLogin.svg";
 import google from "../../assets/logoImage/googleLogin.svg";
+import { FACEBOOK_AUTH_URL, GOOGLE_AUTH_URL, KAKAO_AUTH_URL } from '../../OAuth';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -44,15 +45,15 @@ const Login = () => {
               </p>
             </NextText>
             <SocialLoginSection>
-              <SocialLogin>
+              <SocialLogin as='a' href={KAKAO_AUTH_URL}>
                 <SocialLogo src={kakao} />
                 <p>kakao</p>
               </SocialLogin>
-              <SocialLogin>
+              <SocialLogin as='a' href={GOOGLE_AUTH_URL}>
                 <SocialLogo src={google} />
                 <p>google</p>
               </SocialLogin>
-              <SocialLogin>
+              <SocialLogin as='a' href={FACEBOOK_AUTH_URL}>
                 <SocialLogo src={facebook} />
                 <p>facebook</p>
               </SocialLogin>

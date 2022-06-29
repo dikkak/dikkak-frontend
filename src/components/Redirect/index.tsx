@@ -37,6 +37,7 @@ const Redirect = () => {
     }
   };
   const onValid = (data: IForm) => {
+    console.log(data);
     registNewUser(data)
     .then(() => navigate('/service_start'))
     .catch(() => navigate('/signup'));

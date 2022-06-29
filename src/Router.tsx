@@ -25,19 +25,17 @@ const Router = () => {
         <Route path="/service_start" element={<Start />} />
         <Route path="/client_workspace1" element={<ClientWorkPage />} />
         <Route path="/designer_workspace1" element={<DesignerWorkPage />} />
-        // 작업실 라우팅
         <Route path="/workspace_client" element={<WorkSpaceClient />} />
-        //
         <Route
-          path="/oauth/kakao/callback" //http://localhost:3000//auth/kakao/callback
+          path="/oauth/kakao/callback"
           element={<Redirect />}
         />
         <Route
-          path="/oauth/google/callback" //http://localhost:3000//oauth/google/callback
+          path="/oauth/google/callback"
           element={<Redirect />}
         />
         <Route
-          path="/oauth/facebook/callback" //http://localhost:3000//oauth/google/callback
+          path="/oauth/facebook/callback"
           element={<Redirect />}
         />
       </Routes>
