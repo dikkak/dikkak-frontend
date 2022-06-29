@@ -11,7 +11,6 @@ import ClientWorkPage from "./pages/ClientWork";
 import DesignerWorkPage from "./pages/DesignerWork";
 import Redirect from "./components/Redirect";
 import WorkSpaceClient from "./pages/WorkSpace_client";
-import JobChoice from "./components/JobChoice";
 
 const Router = () => {
   return (

@@ -19,7 +19,6 @@ import {
   Text,
   SideTitle,
   TimeLine,
-  TimeStep,
   Outer,
   InputArea,
   FileButton,
@@ -28,6 +27,20 @@ import {
   SubmitArea,
   SubmitButton,
   EditButton,
+} from "./styles";
+
+import {
+  TitleTimeStep,
+  WorkTimeStep,
+  DetailTimeStep,
+  PurposeTimeStep,
+  KeyWordTimeStep,
+  DeadLineTimeStep,
+  ColorTimeStep,
+  ReferenceTimeStep,
+  EtcTimeStep,
+  AdditionTimeStep,
+  SubmitTimeStep,
 } from "./styles";
 import WorkspaceRender from "../../components/WorkspaceRender";
 
@@ -38,6 +51,20 @@ const WorkSpaceClient = () => {
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const [workspaceNum, setworkspaceNum] = useState(1);
+
+  // TimeStep 상태
+  const [titleStep, setTitleStep] = useState("now");
+  const [workStep, setWorkStep] = useState("yet");
+  const [detailStep, setDetailStep] = useState("yet");
+  const [purposeStep, setPurposeStep] = useState("yet");
+  const [keyWordStep, setKeyWordStep] = useState("yet");
+  const [deadLineStep, setDeadLineStep] = useState("yet");
+  const [colorStep, setColorStep] = useState("yet");
+  const [referenceStep, setReferenceStep] = useState("yet");
+  const [etcStep, setEtcStep] = useState("yet");
+  const [additionStep, setAdditionStep] = useState("yet");
+  const [submitStep, setSubmitStep] = useState("yet");
+  //
 
   const onFileClick = () => {
     fileRef.current?.click();
@@ -89,83 +116,83 @@ const WorkSpaceClient = () => {
               <SideTitle>STEP</SideTitle>
               <TimeLine>
                 <Outer>
-                  <TimeStep
+                  <TitleTimeStep
                     onClick={() => {
                       setworkspaceNum(1);
                     }}
-                    step="now"
+                    step={titleStep}
                   >
                     제목입력
-                  </TimeStep>
-                  <TimeStep
+                  </TitleTimeStep>
+                  <WorkTimeStep
                     onClick={() => {
                       setworkspaceNum(2);
                     }}
-                    step="yet"
+                    step={workStep}
                   >
                     작업선택
-                  </TimeStep>
-                  <TimeStep
+                  </WorkTimeStep>
+                  <DetailTimeStep
                     onClick={() => {
                       setworkspaceNum(3);
                     }}
-                    step="yet"
+                    step={detailStep}
                   >
                     세부사항
                     <br />
                     선택
-                  </TimeStep>
-                  <TimeStep
+                  </DetailTimeStep>
+                  <PurposeTimeStep
                     onClick={() => {
                       setworkspaceNum(4);
                     }}
-                    step="yet"
+                    step={purposeStep}
                   >
                     사용목적
-                  </TimeStep>
-                  <TimeStep
+                  </PurposeTimeStep>
+                  <KeyWordTimeStep
                     onClick={() => {
                       setworkspaceNum(5);
                     }}
-                    step="yet"
+                    step={keyWordStep}
                   >
                     키워드
                     <br />
                     선택
-                  </TimeStep>
-                  <TimeStep
+                  </KeyWordTimeStep>
+                  <DeadLineTimeStep
                     onClick={() => {
                       setworkspaceNum(6);
                     }}
-                    step="yet"
+                    step={deadLineStep}
                   >
                     마감기간
                     <br />
                     선택
-                  </TimeStep>
-                  <TimeStep
+                  </DeadLineTimeStep>
+                  <ColorTimeStep
                     onClick={() => {
                       setworkspaceNum(7);
                     }}
-                    step="yet"
+                    step={colorStep}
                   >
                     컬러선택
-                  </TimeStep>
-                  <TimeStep
+                  </ColorTimeStep>
+                  <ReferenceTimeStep
                     onClick={() => {
                       setworkspaceNum(8);
                     }}
-                    step="yet"
+                    step={referenceStep}
                   >
                     레퍼런스
                     <br />
                     등록
-                  </TimeStep>
-                  <TimeStep
+                  </ReferenceTimeStep>
+                  <EtcTimeStep
                     onClick={() => {
                       setworkspaceNum(9);
                     }}
-                    step="yet"
+                    step={etcStep}
                   >
                     기타 파일
                     <br />
@@ -173,12 +200,12 @@ const WorkSpaceClient = () => {
                     <p style={{ display: "inline", fontSize: "10px" }}>
                       (선택)
                     </p>
-                  </TimeStep>
-                  <TimeStep
+                  </EtcTimeStep>
+                  <AdditionTimeStep
                     onClick={() => {
                       setworkspaceNum(10);
                     }}
-                    step="yet"
+                    step={additionStep}
                   >
                     추가요청
                     <br />
@@ -186,15 +213,15 @@ const WorkSpaceClient = () => {
                     <p style={{ display: "inline", fontSize: "10px" }}>
                       (선택)
                     </p>
-                  </TimeStep>
-                  <TimeStep
+                  </AdditionTimeStep>
+                  <SubmitTimeStep
                     onClick={() => {
                       setworkspaceNum(11);
                     }}
-                    step="yet"
+                    step={submitStep}
                   >
                     제출하기
-                  </TimeStep>
+                  </SubmitTimeStep>
                 </Outer>
               </TimeLine>
             </BlurBackground>
@@ -204,6 +231,17 @@ const WorkSpaceClient = () => {
                   workspaceNum={workspaceNum}
                   message={message}
                   setworkspaceNum={setworkspaceNum}
+                  titleStep={setTitleStep}
+                  workStep={setWorkStep}
+                  detailStep={setDetailStep}
+                  purposeStep={setPurposeStep}
+                  keyWordStep={setKeyWordStep}
+                  deadLineStep={setDeadLineStep}
+                  colorStep={setColorStep}
+                  referenceStep={setReferenceStep}
+                  etcStep={setEtcStep}
+                  additionStep={setAdditionStep}
+                  submitStep={setSubmitStep}
                 ></WorkspaceRender>
                 <TextContainer>
                   <InputArea>

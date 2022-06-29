@@ -18,11 +18,15 @@ import {
 interface WorkspaceNumProtection {
   workspaceNum: number;
   setworkspaceNum: Dispatch<SetStateAction<number>>;
+  workStep: Dispatch<SetStateAction<string>>;
+  detailStep: Dispatch<SetStateAction<string>>;
 }
 
-const JobChoice = ({
+const WorkChoice = ({
   workspaceNum,
   setworkspaceNum,
+  workStep,
+  detailStep,
 }: WorkspaceNumProtection) => {
   const [isLogoActive, setIsLogoActive] = useState(false);
   const [isPackageActive, setIsPackageActive] = useState(false);
@@ -34,37 +38,39 @@ const JobChoice = ({
   const [isEtcActive, setIsEtcActive] = useState(false);
 
   const handleIsLogoClick = () => {
-    setIsLogoActive(true);
+    setIsLogoActive((cur) => !cur);
   };
 
   const handleIsPackageClick = () => {
-    setIsPackageActive(true);
+    setIsPackageActive((cur) => !cur);
   };
 
   const handleIsDetailClick = () => {
-    setIsDetailActive(true);
+    setIsDetailActive((cur) => !cur);
   };
 
   const handleIsVideoClick = () => {
-    setIsVideoActive(true);
+    setIsVideoActive((cur) => !cur);
   };
   const handleIsProductClick = () => {
-    setIsProductActive(true);
+    setIsProductActive((cur) => !cur);
   };
 
   const handleIsPosterClick = () => {
-    setIsPosterActive(true);
+    setIsPosterActive((cur) => !cur);
   };
 
   const handleIsRendingClick = () => {
-    setIsRendingActive(true);
+    setIsRendingActive((cur) => !cur);
   };
   const handleIsEtcClick = () => {
-    setIsEtcActive(true);
+    setIsEtcActive((cur) => !cur);
   };
 
   const onClick = () => {
     setworkspaceNum((workspaceNum += 1));
+    workStep("done");
+    detailStep("now");
   };
 
   return (
@@ -141,4 +147,4 @@ const JobChoice = ({
   );
 };
 
-export default JobChoice;
+export default WorkChoice;
