@@ -123,7 +123,9 @@ const WorkSpaceClient = () => {
                   </TitleTimeStep>
                   <WorkTimeStep
                     onClick={() => {
-                      setworkspaceNum(2);
+                      if (titleStep === "done") {
+                        setworkspaceNum(2);
+                      }
                     }}
                     step={workStep}
                   >
@@ -131,7 +133,9 @@ const WorkSpaceClient = () => {
                   </WorkTimeStep>
                   <DetailTimeStep
                     onClick={() => {
-                      setworkspaceNum(3);
+                      if (titleStep && workStep === "done") {
+                        setworkspaceNum(3);
+                      }
                     }}
                     step={detailStep}
                   >
@@ -141,7 +145,9 @@ const WorkSpaceClient = () => {
                   </DetailTimeStep>
                   <PurposeTimeStep
                     onClick={() => {
-                      setworkspaceNum(4);
+                      if (titleStep && workStep && detailStep === "done") {
+                        setworkspaceNum(4);
+                      }
                     }}
                     step={purposeStep}
                   >
@@ -149,7 +155,14 @@ const WorkSpaceClient = () => {
                   </PurposeTimeStep>
                   <KeyWordTimeStep
                     onClick={() => {
-                      setworkspaceNum(5);
+                      if (
+                        titleStep &&
+                        workStep &&
+                        detailStep &&
+                        purposeStep === "done"
+                      ) {
+                        setworkspaceNum(5);
+                      }
                     }}
                     step={keyWordStep}
                   >
@@ -159,7 +172,15 @@ const WorkSpaceClient = () => {
                   </KeyWordTimeStep>
                   <DeadLineTimeStep
                     onClick={() => {
-                      setworkspaceNum(6);
+                      if (
+                        titleStep &&
+                        workStep &&
+                        detailStep &&
+                        purposeStep &&
+                        keyWordStep === "done"
+                      ) {
+                        setworkspaceNum(6);
+                      }
                     }}
                     step={deadLineStep}
                   >
@@ -169,7 +190,16 @@ const WorkSpaceClient = () => {
                   </DeadLineTimeStep>
                   <ColorTimeStep
                     onClick={() => {
-                      setworkspaceNum(7);
+                      if (
+                        titleStep &&
+                        workStep &&
+                        detailStep &&
+                        purposeStep &&
+                        keyWordStep &&
+                        deadLineStep === "done"
+                      ) {
+                        setworkspaceNum(7);
+                      }
                     }}
                     step={colorStep}
                   >
@@ -177,7 +207,17 @@ const WorkSpaceClient = () => {
                   </ColorTimeStep>
                   <ReferenceTimeStep
                     onClick={() => {
-                      setworkspaceNum(8);
+                      if (
+                        titleStep &&
+                        workStep &&
+                        detailStep &&
+                        purposeStep &&
+                        keyWordStep &&
+                        deadLineStep &&
+                        colorStep === "done"
+                      ) {
+                        setworkspaceNum(8);
+                      }
                     }}
                     step={referenceStep}
                   >
@@ -187,7 +227,18 @@ const WorkSpaceClient = () => {
                   </ReferenceTimeStep>
                   <EtcTimeStep
                     onClick={() => {
-                      setworkspaceNum(9);
+                      if (
+                        titleStep &&
+                        workStep &&
+                        detailStep &&
+                        purposeStep &&
+                        keyWordStep &&
+                        deadLineStep &&
+                        colorStep &&
+                        referenceStep === "done"
+                      ) {
+                        setworkspaceNum(9);
+                      }
                     }}
                     step={etcStep}
                   >
@@ -200,7 +251,19 @@ const WorkSpaceClient = () => {
                   </EtcTimeStep>
                   <AdditionTimeStep
                     onClick={() => {
-                      setworkspaceNum(10);
+                      if (
+                        titleStep &&
+                        workStep &&
+                        detailStep &&
+                        purposeStep &&
+                        keyWordStep &&
+                        deadLineStep &&
+                        colorStep &&
+                        referenceStep &&
+                        etcStep === "done"
+                      ) {
+                        setworkspaceNum(10);
+                      }
                     }}
                     step={additionStep}
                   >
@@ -213,7 +276,20 @@ const WorkSpaceClient = () => {
                   </AdditionTimeStep>
                   <SubmitTimeStep
                     onClick={() => {
-                      setworkspaceNum(11);
+                      if (
+                        titleStep &&
+                        workStep &&
+                        detailStep &&
+                        purposeStep &&
+                        keyWordStep &&
+                        deadLineStep &&
+                        colorStep &&
+                        referenceStep &&
+                        etcStep &&
+                        additionStep === "done"
+                      ) {
+                        setworkspaceNum(11);
+                      }
                     }}
                     step={submitStep}
                   >
