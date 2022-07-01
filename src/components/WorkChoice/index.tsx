@@ -72,7 +72,6 @@ const WorkChoice = ({
   const onClick = () => {
     setworkspaceNum((workspaceNum += 1));
     workStep("done");
-    purposeStep("now");
     detailStep("now");
   };
 

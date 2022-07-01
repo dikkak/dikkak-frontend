@@ -71,7 +71,15 @@ function switchFcn(
         ></WorkChoice>
       );
     case 3:
-      return <WorkDetail></WorkDetail>;
+      return (
+      <WorkDetail
+        textRef={textRef}
+        workspaceNum={workspaceNum}
+        setworkspaceNum={setworkspaceNum}
+        purposeStep={purposeStep}
+        detailStep={detailStep}
+      ></WorkDetail>
+      );
     case 4:
       return (
         <WorkPurpose

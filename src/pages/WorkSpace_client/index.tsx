@@ -99,16 +99,16 @@ const WorkSpaceClient = () => {
     setInput(e.target.value);
   };
 
-  const onSubmit = (step: string) => {
-    if(step === 'disable') return;
+  const onSubmit = (step: number) => {
+    if(step !==1 && step !==4 && step !==5 && step !==10) return;
     switch(step) {
-      case titleStep:
+      case 1:
         setMessage(input);
         break;
-      case purposeStep:
+      case 4:
         setPurposeMessage(input);
         break;
-      case keyWordStep:
+      case 5:
         setIsTagInputClicked(true);
         tagRef.current?.setAttribute('disabled', 'disabled');
         break;
@@ -127,18 +127,18 @@ const WorkSpaceClient = () => {
     textRef.current?.setAttribute("disabled", "disabled");
   };
 
-  const onEdit = (step: string) => {
-    if(step === 'disable') return;
+  const onEdit = (step: number) => {
+    if(step !==1 && step !==4 && step !==5 && step !==10) return;
     tagRef.current?.removeAttribute('disabled');
     textRef.current?.removeAttribute("disabled");
     switch(step) {
-      case titleStep: 
+      case 1: 
         textRef.current?.setAttribute("placeholder", '제목을 입력하세요');
         break;
-      case purposeStep:
+      case 4:
         textRef.current?.setAttribute("placeholder", "디자인의 용도를 입력하세요");
         break;
-      case keyWordStep:
+      case 5:
         tagRef.current?.setAttribute('placeholder', '키워드를 입력하세요');
         break;
       default:
@@ -382,7 +382,7 @@ const WorkSpaceClient = () => {
                 <TextContainer>
                   <InputArea>
                     {
-                      keyWordStep === 'now' ?
+                      keyWordStep === 'now' && workspaceNum===5?
                       (
                         <WholeBox>
                           <TagBox>
@@ -423,8 +423,8 @@ const WorkSpaceClient = () => {
                     </AdditionalButtons>
                   </InputArea>
                   <SubmitArea>
-                    <SubmitButton onClick={() => onSubmit([titleStep, purposeStep, keyWordStep, additionStep].find(item => item==='now') || 'disable')}>전송하기</SubmitButton>
-                    <EditButton onClick={() => onEdit([titleStep, purposeStep, keyWordStep, additionStep].find(item => item==='now') || 'disable')}>수정하기</EditButton>
+                    <SubmitButton onClick={() => onSubmit(workspaceNum)}>전송하기</SubmitButton>
+                    <EditButton onClick={() => onEdit(workspaceNum)}>수정하기</EditButton>
                   </SubmitArea>
                 </TextContainer>
               </BoxContent>

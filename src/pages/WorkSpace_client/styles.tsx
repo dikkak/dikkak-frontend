@@ -508,7 +508,7 @@ export const Button = styled.button`
 `
 export const TagInput = styled.input`
   display: inline-flex;
-  min-width: 150px;
+  min-width: 200px;
   background: transparent;
   border: none;
   outline: none;
