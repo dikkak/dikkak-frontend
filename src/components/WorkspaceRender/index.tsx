@@ -1,8 +1,9 @@
 import React, { Dispatch, RefObject, SetStateAction } from "react";
 import WorkTitle from "../WorkTitle/";
 import WorkChoice from "../WorkChoice";
-import WorkPurpose from '../WokrPurpose';
-import WorkKeyword from '../WorkKeyword';
+import WorkPurpose from "../WokrPurpose";
+import WorkKeyword from "../WorkKeyword";
+import WorkDetail from "../WorkDetail";
 
 interface WorkspaceNumProtection {
   workspaceNum: number | undefined;
@@ -70,6 +71,8 @@ function switchFcn(
         ></WorkChoice>
       );
     case 3:
+      return <WorkDetail></WorkDetail>;
+    case 4:
       return (
         <WorkPurpose
           purposeMessage={purposeMessage}
@@ -81,7 +84,7 @@ function switchFcn(
           setworkspaceNum={setworkspaceNum}
         ></WorkPurpose>
       );
-    case 4:
+    case 5:
       return (
         <WorkKeyword
           message={message}
@@ -94,8 +97,7 @@ function switchFcn(
           workspaceNum={workspaceNum}
           setworkspaceNum={setworkspaceNum}
         ></WorkKeyword>
-      ) 
-    
+      );
   }
 }
 
