@@ -455,3 +455,70 @@ export const EditButton = styled.button`
     opacity: 0.8;
   }
 `;
+
+//
+
+export const WholeBox = styled.div`
+  width: 533px;
+  height: 100px;
+  background: transparent;
+  padding: 3px;
+  border: 0;
+  margin: 25px 0 0 25px;
+  font-family: Inter;
+  border-radius: 15px;
+  outline: none;
+  resize: none;
+  color: #C4C4C4;
+`;
+export const TagItem = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 5px;
+  background-color: #C4C4C4;
+  border-radius: 5px;
+  color: #717171;
+  font-size: 13px;
+`;
+export const TagText = styled.span`
+  padding-top: 2px;
+  &::before {
+    content: '#';
+    padding-top: 2px;
+    margin-right: 1px;
+  }
+`
+
+export const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  font-size: 8px;
+  font-weight: 1000;
+  background-color: #C4C4C4;
+  color: white;
+  outline: none;
+  border: none;
+  cursor: pointer;
+`
+export const TagInput = styled.input`
+  display: inline-flex;
+  min-width: 150px;
+  background: transparent;
+  border: none;
+  outline: none;
+  &:focus {
+    outline: none;
+  }
+`
+export const TagBox = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 50px;
+`

@@ -18,6 +18,7 @@ import {
 interface WorkspaceNumProtection {
   workspaceNum: number;
   setworkspaceNum: Dispatch<SetStateAction<number>>;
+  purposeStep: Dispatch<SetStateAction<string>>;
   workStep: Dispatch<SetStateAction<string>>;
   detailStep: Dispatch<SetStateAction<string>>;
 }
@@ -26,6 +27,7 @@ const WorkChoice = ({
   workspaceNum,
   setworkspaceNum,
   workStep,
+  purposeStep,
   detailStep,
 }: WorkspaceNumProtection) => {
   const [isLogoActive, setIsLogoActive] = useState(false);
@@ -70,7 +72,8 @@ const WorkChoice = ({
   const onClick = () => {
     setworkspaceNum((workspaceNum += 1));
     workStep("done");
-    detailStep("now");
+    purposeStep('now');
+    // detailStep("now");
   };
 
   return (

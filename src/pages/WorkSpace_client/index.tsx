@@ -38,6 +38,12 @@ import {
   EtcTimeStep,
   AdditionTimeStep,
   SubmitTimeStep,
+  WholeBox,
+  TagItem,
+  TagText,
+  Button,
+  TagInput,
+  TagBox,
 } from "./styles";
 import WorkspaceRender from "../../components/WorkspaceRender";
 
@@ -45,8 +51,11 @@ const WorkSpaceClient = () => {
   const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [message, setMessage] = useState<string>("");
+  const [purposeMessage, setPurposeMessage] = useState<string>("");
+  const [isTagInputClicked, setIsTagInputClicked] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
+  const tagRef = useRef<HTMLInputElement>(null);
   const [workspaceNum, setworkspaceNum] = useState(1);
 
   // TimeStep 상태
@@ -62,7 +71,26 @@ const WorkSpaceClient = () => {
   const [additionStep, setAdditionStep] = useState("yet");
   const [submitStep, setSubmitStep] = useState("yet");
   //
-
+  // Tag
+  const [tagItem, setTagItem] = useState('');
+  const [tagList, setTagList] = useState<string[]>([]);
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.currentTarget.value.length !== 0 && e.key === 'Enter' && e.nativeEvent.isComposing === false) {
+      submitTagItem();
+    }
+  }
+  const submitTagItem = () => {
+    let updatedTagList = [...tagList]
+    updatedTagList.push(tagItem)
+    setTagList(updatedTagList)
+    setTagItem('')
+  }
+  const deleteTagItem = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const deleteTagItem = (e.currentTarget.parentElement?.firstChild as HTMLSpanElement).innerText;
+    const filteredTagList = tagList.filter(tagItem => tagItem !== deleteTagItem)
+    setTagList(filteredTagList);
+  }
+  //
   const onFileClick = () => {
     fileRef.current?.click();
   };
@@ -71,10 +99,27 @@ const WorkSpaceClient = () => {
     setInput(e.target.value);
   };
 
-  const onSubmit = () => {
-    if (input === "") return;
-    setMessage(input);
+  const onSubmit = (step: string) => {
+    if(step === 'disable') return;
+    switch(step) {
+      case titleStep:
+        setMessage(input);
+        break;
+      case purposeStep:
+        setPurposeMessage(input);
+        break;
+      case keyWordStep:
+        setIsTagInputClicked(true);
+        tagRef.current?.setAttribute('disabled', 'disabled');
+        break;
+      default:
+        break;
+    }
     setInput("");
+    tagRef.current?.setAttribute(
+      'placeholder',
+      '수정하려면 수정하기 버튼을 누르세요'
+    )
     textRef.current?.setAttribute(
       "placeholder",
       "수정하려면 수정하기 버튼을 누르세요"
@@ -82,12 +127,25 @@ const WorkSpaceClient = () => {
     textRef.current?.setAttribute("disabled", "disabled");
   };
 
-  const onEdit = () => {
+  const onEdit = (step: string) => {
+    if(step === 'disable') return;
+    tagRef.current?.removeAttribute('disabled');
     textRef.current?.removeAttribute("disabled");
-    textRef.current?.setAttribute("placeholder", "제목을 입력하세요");
+    switch(step) {
+      case titleStep: 
+        textRef.current?.setAttribute("placeholder", '제목을 입력하세요');
+        break;
+      case purposeStep:
+        textRef.current?.setAttribute("placeholder", "디자인의 용도를 입력하세요");
+        break;
+      case keyWordStep:
+        tagRef.current?.setAttribute('placeholder', '키워드를 입력하세요');
+        break;
+      default:
+        break;
+    }
     textRef.current?.focus();
   };
-
   return (
     <>
       <Menu />
@@ -303,6 +361,11 @@ const WorkSpaceClient = () => {
                 <WorkspaceRender
                   workspaceNum={workspaceNum}
                   message={message}
+                  tagList={tagList}
+                  isTagInputClicked={isTagInputClicked}
+                  purposeMessage={purposeMessage}
+                  tagRef={tagRef}
+                  textRef={textRef}
                   setworkspaceNum={setworkspaceNum}
                   titleStep={setTitleStep}
                   workStep={setWorkStep}
@@ -318,11 +381,36 @@ const WorkSpaceClient = () => {
                 ></WorkspaceRender>
                 <TextContainer>
                   <InputArea>
-                    <Text
-                      ref={textRef}
-                      onChange={onInputChange}
-                      value={input}
-                    />
+                    {
+                      keyWordStep === 'now' ?
+                      (
+                        <WholeBox>
+                          <TagBox>
+                            {tagList.map((tagItem, index) => {
+                              return (
+                                <TagItem key={index}>
+                                  <TagText>{tagItem}</TagText>
+                                  <Button onClick={deleteTagItem}>X</Button>
+                                </TagItem>
+                              )
+                            })}
+                            <TagInput
+                              ref={tagRef}
+                              type='text'
+                              tabIndex={2}
+                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTagItem(e.target.value)}
+                              value={tagItem}
+                              onKeyDown={onKeyPress}
+                            />
+                          </TagBox>
+                        </WholeBox>
+                      ) : (
+                      <Text
+                        ref={textRef}
+                        onChange={onInputChange}
+                        value={input}
+                      />)
+                    }
                     <AdditionalButtons>
                       <FileButton onClick={onFileClick} />
                       <input
@@ -335,8 +423,8 @@ const WorkSpaceClient = () => {
                     </AdditionalButtons>
                   </InputArea>
                   <SubmitArea>
-                    <SubmitButton onClick={onSubmit}>전송하기</SubmitButton>
-                    <EditButton onClick={onEdit}>수정하기</EditButton>
+                    <SubmitButton onClick={() => onSubmit([titleStep, purposeStep, keyWordStep, additionStep].find(item => item==='now') || 'disable')}>전송하기</SubmitButton>
+                    <EditButton onClick={() => onEdit([titleStep, purposeStep, keyWordStep, additionStep].find(item => item==='now') || 'disable')}>수정하기</EditButton>
                   </SubmitArea>
                 </TextContainer>
               </BoxContent>

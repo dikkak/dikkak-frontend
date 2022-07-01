@@ -1,10 +1,17 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, RefObject, SetStateAction } from "react";
 import WorkTitle from "../WorkTitle/";
 import WorkChoice from "../WorkChoice";
+import WorkPurpose from '../WokrPurpose';
+import WorkKeyword from '../WorkKeyword';
 
 interface WorkspaceNumProtection {
   workspaceNum: number | undefined;
   message: string;
+  purposeMessage: string;
+  tagList: string[];
+  isTagInputClicked: boolean;
+  textRef: RefObject<HTMLTextAreaElement>;
+  tagRef: RefObject<HTMLInputElement>;
   setworkspaceNum: Dispatch<SetStateAction<number>>;
   titleStep: Dispatch<SetStateAction<string>>;
   workStep: Dispatch<SetStateAction<string>>;
@@ -22,6 +29,11 @@ interface WorkspaceNumProtection {
 function switchFcn(
   workspaceNum: number | undefined,
   message: string,
+  purposeMessage: string,
+  tagList: string[],
+  isTagInputClicked: boolean,
+  textRef: RefObject<HTMLTextAreaElement>,
+  tagRef: RefObject<HTMLInputElement>,
   setworkspaceNum: Dispatch<SetStateAction<number>>,
   titleStep: Dispatch<SetStateAction<string>>,
   workStep: Dispatch<SetStateAction<string>>,
@@ -41,6 +53,7 @@ function switchFcn(
         <WorkTitle
           workspaceNum={workspaceNum}
           message={message}
+          textRef={textRef}
           setworkspaceNum={setworkspaceNum}
           titleStep={titleStep}
           workStep={workStep}
@@ -51,16 +64,49 @@ function switchFcn(
         <WorkChoice
           workStep={workStep}
           detailStep={detailStep}
+          purposeStep={purposeStep}
           workspaceNum={workspaceNum}
           setworkspaceNum={setworkspaceNum}
         ></WorkChoice>
       );
+    case 3:
+      return (
+        <WorkPurpose
+          purposeMessage={purposeMessage}
+          textRef={textRef}
+          tagRef={tagRef}
+          purposeStep={purposeStep}
+          keywordStep={keyWordStep}
+          workspaceNum={workspaceNum}
+          setworkspaceNum={setworkspaceNum}
+        ></WorkPurpose>
+      );
+    case 4:
+      return (
+        <WorkKeyword
+          message={message}
+          tagList={tagList}
+          isTagInputClicked={isTagInputClicked}
+          textRef={textRef}
+          tagRef={tagRef}
+          keywordStep={keyWordStep}
+          deadLineStep={deadLineStep}
+          workspaceNum={workspaceNum}
+          setworkspaceNum={setworkspaceNum}
+        ></WorkKeyword>
+      ) 
+    
   }
 }
 
 const WorkspaceRender = ({
   workspaceNum,
   message,
+  purposeMessage,
+  tagList,
+  isTagInputClicked,
+  textRef,
+  tagRef,
   setworkspaceNum,
   titleStep,
   workStep,
@@ -79,6 +125,11 @@ const WorkspaceRender = ({
       {switchFcn(
         workspaceNum,
         message,
+        purposeMessage,
+        tagList,
+        isTagInputClicked,
+        textRef,
+        tagRef,
         setworkspaceNum,
         titleStep,
         workStep,

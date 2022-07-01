@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, RefObject, SetStateAction } from "react";
 import {
   MessageBox,
   SystemMessage,
@@ -10,6 +10,7 @@ import {
 interface MessageProtection {
   message: string | undefined;
   workspaceNum: number;
+  textRef: RefObject<HTMLTextAreaElement>;
   setworkspaceNum: Dispatch<SetStateAction<number>>;
   titleStep: Dispatch<SetStateAction<string>>;
   workStep: Dispatch<SetStateAction<string>>;
@@ -18,6 +19,7 @@ interface MessageProtection {
 const WorkTitle = ({
   message,
   workspaceNum,
+  textRef,
   setworkspaceNum,
   titleStep,
   workStep,
@@ -26,8 +28,8 @@ const WorkTitle = ({
     setworkspaceNum((workspaceNum += 1));
     titleStep("done");
     workStep("now");
+    textRef.current?.setAttribute('placeholder','마우스를 이용해 선택해주세요');
   };
-
   return (
     <>
       <MessageBox>
