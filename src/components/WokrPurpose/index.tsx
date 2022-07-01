@@ -1,14 +1,20 @@
-import React, { Dispatch, RefObject, SetStateAction } from 'react';
-import { Circle, ClientMessage, MessageBox, NextStepButton, SystemMessage } from './styles';
+import React, { Dispatch, RefObject, SetStateAction } from "react";
+import {
+  Circle,
+  ClientMessage,
+  MessageBox,
+  NextStepButton,
+  SystemMessage,
+} from "./styles";
 
 interface WorkSpaceNumProtection {
-  purposeMessage: string,
-  textRef: RefObject<HTMLTextAreaElement>,
+  purposeMessage: string;
+  textRef: RefObject<HTMLTextAreaElement>;
   tagRef: RefObject<HTMLInputElement>;
-  purposeStep: Dispatch<SetStateAction<string>>,
-  keywordStep: Dispatch<SetStateAction<string>>,
-  workspaceNum: number,
-  setworkspaceNum: Dispatch<SetStateAction<number>>
+  purposeStep: Dispatch<SetStateAction<string>>;
+  keywordStep: Dispatch<SetStateAction<string>>;
+  workspaceNum: number;
+  setworkspaceNum: Dispatch<SetStateAction<number>>;
 }
 
 const WorkPurpose = ({
@@ -18,14 +24,17 @@ const WorkPurpose = ({
   purposeStep,
   keywordStep,
   workspaceNum,
-  setworkspaceNum
+  setworkspaceNum,
 }: WorkSpaceNumProtection) => {
   const onClick = () => {
-    textRef.current?.setAttribute('placeholder', '마우스를 이용해 선택해주세요')
+    textRef.current?.setAttribute(
+      "placeholder",
+      "마우스를 이용해 선택해주세요"
+    );
     setworkspaceNum((workspaceNum += 1));
     purposeStep("done");
     keywordStep("now");
-  }
+  };
   return (
     <>
       <MessageBox>

@@ -72,13 +72,15 @@ function switchFcn(
       );
     case 3:
       return (
-      <WorkDetail
-        textRef={textRef}
-        workspaceNum={workspaceNum}
-        setworkspaceNum={setworkspaceNum}
-        purposeStep={purposeStep}
-        detailStep={detailStep}
-      ></WorkDetail>
+        <WorkDetail
+          textRef={textRef}
+          tagRef={tagRef}
+          workStep={workStep}
+          detailStep={detailStep}
+          purposeStep={purposeStep}
+          workspaceNum={workspaceNum}
+          setworkspaceNum={setworkspaceNum}
+        ></WorkDetail>
       );
     case 4:
       return (
