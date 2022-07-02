@@ -1,23 +1,18 @@
-import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import Menu from "../components/Menu";
-import Footer from "../components/Footer";
-import ClientOrDesigner from "../components/ClientOrDesigner";
-import mainBackgroundImg from "../assets/mainPageImage/jumbotron.svg";
-import blurPin from "../assets/mainPageImage/blurPin.png";
-import logoImg from "../assets/logoImage/logoBasic.svg";
-import letterLogo from "../assets/logoImage/letterLogo.svg";
-import paintLogo from "../assets/logoImage/pencilPaint.png";
+import mainBackgroundImg from "../../assets/mainPageImage/jumbotron.svg";
+import blurPin from "../../assets/mainPageImage/blurPin.png";
+import logoImg from "../../assets/logoImage/logoBasic.svg";
+import letterLogo from "../../assets/logoImage/letterLogo.svg";
+import paintLogo from "../../assets/logoImage/pencilPaint.png";
 
-const Container = styled.div`
+export const Container = styled.div`
   max-width: 1440px;
   height: 100%;
   position: relative;
   margin: 0 auto;
 `;
 
-const JumboCotainer = styled.div`
+export const JumboCotainer = styled.div`
   width: 100%;
   height: 490px;
   margin: 0 auto;
@@ -26,7 +21,7 @@ const JumboCotainer = styled.div`
   overflow-x: hidden;
 `;
 
-const Jumbotron = styled.div`
+export const Jumbotron = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -39,7 +34,7 @@ const Jumbotron = styled.div`
   background-size: cover;
 `;
 
-const BlurBackground = styled.div`
+export const BlurBackground = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -55,7 +50,7 @@ const BlurBackground = styled.div`
   box-shadow: 5px 5px 15px #ccc;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -91,7 +86,7 @@ const Title = styled.div`
   }
 `;
 
-const BackButton = styled.div`
+export const BackButton = styled.div`
   position: absolute;
   top: -50px;
   left: 20%;
@@ -113,7 +108,7 @@ const BackButton = styled.div`
   }
 `;
 
-const BlurPin = styled.img.attrs({ src: blurPin })`
+export const BlurPin = styled.img.attrs({ src: blurPin })`
   position: absolute;
   width: 25px;
   height: 25px;
@@ -136,19 +131,19 @@ const BlurPin = styled.img.attrs({ src: blurPin })`
 `;
 
 // logos
-const LogoImage = styled.img.attrs({ src: logoImg })`
+export const LogoImage = styled.img.attrs({ src: logoImg })`
   margin-left: 1em;
   width: 52px;
   margin-right: 6px;
   height: 52px;
 `;
 
-const LetterLogo = styled.img.attrs({ src: letterLogo })`
+export const LetterLogo = styled.img.attrs({ src: letterLogo })`
   height: 22px;
   width: auto;
 `;
 
-const PaintLogo = styled.img.attrs({ src: paintLogo })`
+export const PaintLogo = styled.img.attrs({ src: paintLogo })`
   position: absolute;
   right: 15%;
   margin-left: 5px;
@@ -157,7 +152,7 @@ const PaintLogo = styled.img.attrs({ src: paintLogo })`
 `;
 
 // content
-const Content = styled.div`
+export const Content = styled.div`
   position: relative;
   top: -110px;
   width: 100%;
@@ -165,7 +160,7 @@ const Content = styled.div`
   height: auto;
 `;
 
-const ContentDesc = styled.p`
+export const ContentDesc = styled.p`
   border: 2px solid ${(props) => props.theme.subColor};
   width: 100%;
   font-weight: 500;
@@ -176,47 +171,3 @@ const ContentDesc = styled.p`
   padding: 6px 0;
   text-align: center;
 `;
-
-const Start = () => {
-  const navigate = useNavigate();
-  return (
-    <>
-      <Menu />
-      <Container>
-        <BackButton onClick={() => navigate(-1)}>
-          <p>◀︎</p>
-          <p>이전으로 돌아가기</p>
-        </BackButton>
-        <JumboCotainer>
-          <Jumbotron>
-            <BlurBackground>
-              <BlurPin />
-              <BlurPin />
-              <BlurPin />
-              <BlurPin />
-              <Title>
-                <div>
-                  <LogoImage></LogoImage>
-                  <div>
-                    <LetterLogo></LetterLogo>
-                    <p>: 디자인을 깎다</p>
-                  </div>
-                  <PaintLogo></PaintLogo>
-                </div>
-              </Title>
-              <Content>
-                <ContentDesc>
-                  MZ가 작업하는 빠르고-쉬운 디자인 아웃소싱 플랫폼
-                </ContentDesc>
-                <ClientOrDesigner></ClientOrDesigner>
-              </Content>
-            </BlurBackground>
-          </Jumbotron>
-        </JumboCotainer>
-        <Footer bgColor="#fff" />
-      </Container>
-    </>
-  );
-};
-
-export default Start;
