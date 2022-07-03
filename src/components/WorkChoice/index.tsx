@@ -13,9 +13,10 @@ import {
   Etc,
   NextStepButton,
   Circle,
+  Title,
 } from "./styles";
 
-interface WorkspaceNumProtection {
+interface IWorkChoiceProps {
   workspaceNum: number;
   setworkspaceNum: Dispatch<SetStateAction<number>>;
   purposeStep: Dispatch<SetStateAction<string>>;
@@ -29,7 +30,7 @@ const WorkChoice = ({
   workStep,
   purposeStep,
   detailStep,
-}: WorkspaceNumProtection) => {
+}: IWorkChoiceProps) => {
   const [isLogoActive, setIsLogoActive] = useState(false);
   const [isPackageActive, setIsPackageActive] = useState(false);
   const [isDetailActive, setIsDetailActive] = useState(false);
@@ -77,6 +78,7 @@ const WorkChoice = ({
 
   return (
     <JobChoiceBox>
+      <Title><Circle color='#905DFB' style={{display: 'inline-block', marginRight: '5px'}}/>작업 선택</Title>
       <SystemMessage>맡기고자 하는 디자인 분야를 선택해주세요</SystemMessage>
       <Grid>
         <LogoOrName onClick={handleIsLogoClick} isLogoActive={isLogoActive}>

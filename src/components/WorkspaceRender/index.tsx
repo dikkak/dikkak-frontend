@@ -4,6 +4,7 @@ import WorkChoice from "../WorkChoice";
 import WorkPurpose from "../WokrPurpose";
 import WorkKeyword from "../WorkKeyword";
 import WorkDetail from "../WorkDetail";
+import WorkDeadLine from '../WorkDeadLine';
 
 interface WorkspaceNumProtection {
   workspaceNum: number | undefined;
@@ -13,6 +14,8 @@ interface WorkspaceNumProtection {
   isTagInputClicked: boolean;
   textRef: RefObject<HTMLTextAreaElement>;
   tagRef: RefObject<HTMLInputElement>;
+  deadLine: string | undefined;
+  setDeadLine: Dispatch<SetStateAction<string | undefined>>
   setworkspaceNum: Dispatch<SetStateAction<number>>;
   titleStep: Dispatch<SetStateAction<string>>;
   workStep: Dispatch<SetStateAction<string>>;
@@ -35,6 +38,8 @@ function switchFcn(
   isTagInputClicked: boolean,
   textRef: RefObject<HTMLTextAreaElement>,
   tagRef: RefObject<HTMLInputElement>,
+  deadLine: string | undefined,
+  setDeadLine: Dispatch<SetStateAction<string | undefined>>,
   setworkspaceNum: Dispatch<SetStateAction<number>>,
   titleStep: Dispatch<SetStateAction<string>>,
   workStep: Dispatch<SetStateAction<string>>,
@@ -108,6 +113,18 @@ function switchFcn(
           setworkspaceNum={setworkspaceNum}
         ></WorkKeyword>
       );
+    case 6:
+      return (
+        <WorkDeadLine
+          deadLine={deadLine}
+          setDeadLine={setDeadLine}
+          textRef={textRef}
+          deadLineStep={deadLineStep}
+          colorStep={colorStep}
+          workspaceNum={workspaceNum}
+          setworkspaceNum={setworkspaceNum}
+        ></WorkDeadLine>
+      );
   }
 }
 
@@ -119,6 +136,8 @@ const WorkspaceRender = ({
   isTagInputClicked,
   textRef,
   tagRef,
+  deadLine,
+  setDeadLine,
   setworkspaceNum,
   titleStep,
   workStep,
@@ -142,6 +161,8 @@ const WorkspaceRender = ({
         isTagInputClicked,
         textRef,
         tagRef,
+        deadLine,
+        setDeadLine,
         setworkspaceNum,
         titleStep,
         workStep,

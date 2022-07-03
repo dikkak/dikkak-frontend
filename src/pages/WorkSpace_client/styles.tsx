@@ -520,5 +520,4 @@ export const TagBox = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  min-height: 50px;
 `

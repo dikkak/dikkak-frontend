@@ -3,7 +3,6 @@ import React, {
   RefObject,
   SetStateAction,
   useEffect,
-  useState,
 } from "react";
 import {
   Circle,
@@ -13,9 +12,10 @@ import {
   SystemMessage,
   TagItem,
   TagText,
+  Title,
 } from "./styles";
 
-interface MessageProtection {
+interface IWorkKeywordProps {
   message: string;
   tagList: string[];
   isTagInputClicked: boolean;
@@ -37,8 +37,12 @@ const WorkKeyword = ({
   setworkspaceNum,
   keywordStep,
   deadLineStep,
-}: MessageProtection) => {
-  const onClick = () => {};
+}: IWorkKeywordProps) => {
+  const onClick = () => {
+    setworkspaceNum((workspaceNum += 1));
+    keywordStep("done");
+    deadLineStep("now");
+  };
   useEffect(() => {
     tagRef.current?.focus();
     tagRef.current?.setAttribute("placeholder", "키워드를 입력하세요");
@@ -47,6 +51,7 @@ const WorkKeyword = ({
   return (
     <>
       <MessageBox>
+        <Title><Circle color='#905DFB' style={{display: 'inline-block', marginRight: '5px'}}/>키워드 선택</Title>
         <SystemMessage>
           디자인 컨셉 키워드를 선정해주세요 ex) 한국적인,차분한, 밝은
         </SystemMessage>
