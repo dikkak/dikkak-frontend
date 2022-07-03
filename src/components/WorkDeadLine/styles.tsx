@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MessageBox = styled.ul`
   position: relative;
@@ -6,7 +6,9 @@ export const MessageBox = styled.ul`
   height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
+  overflow-y: scroll;
 `;
+
 export const Title = styled.h1`
   color: ${props => props.theme.subColor};
   margin-bottom: 10px;
@@ -14,7 +16,7 @@ export const Title = styled.h1`
 
 export const SystemMessage = styled.p`
   height: 35px;
-  width: 408px;
+  width: 200px;
   background-color: ${(props) => props.theme.mainColor};
   color: #fff;
   display: flex;
@@ -105,23 +107,3 @@ export const Circle = styled.div<{ color: string }>`
   border-radius: 50%;
   background-color: ${(props) => props.color};
 `;
-
-export const TagItem = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 5px;
-  padding: 5px;
-  background-color: #C4C4C4;
-  border-radius: 5px;
-  color: #717171;
-  font-size: 13px;
-`;
-export const TagText = styled.span`
-  padding-top: 2px;
-  &::before {
-    content: '#';
-    padding-top: 2px;
-    margin-right: 1px;
-  }
-`

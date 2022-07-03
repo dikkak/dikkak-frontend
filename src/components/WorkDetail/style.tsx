@@ -3,14 +3,18 @@ import styled from "styled-components";
 export const MessageBox = styled.ul`
   position: relative;
   width: 100%;
-  height: 333px;
+  height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
 `;
+export const Title = styled.h1`
+  color: ${props => props.theme.subColor};
+  margin-bottom: 10px;
+`;
 
-export const SystemMessage = styled.p`
+export const SystemMessage1 = styled.p`
   height: 35px;
-  width: 215px;
+  width: 285px;
   background-color: ${(props) => props.theme.mainColor};
   color: #fff;
   display: flex;
@@ -19,7 +23,7 @@ export const SystemMessage = styled.p`
   border-radius: 10px;
   font-size: 15px;
   margin-left: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-right: 10px;
   &::before {
     content: "";
@@ -34,6 +38,9 @@ export const SystemMessage = styled.p`
     left: -10.5px;
   }
 `;
+export const SystemMessage2 = styled(SystemMessage1)`
+  width: 345px;
+`; 
 
 export const Grid = styled.div`
   display: grid;
@@ -41,6 +48,7 @@ export const Grid = styled.div`
   grid-template-rows: repeat(1, 80px);
   grid-gap: 5px;
   margin-left: 21px;
+  margin-bottom: 20px;
 `;
 
 export const GridChildren = styled.div`

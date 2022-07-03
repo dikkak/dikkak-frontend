@@ -5,9 +5,10 @@ import {
   MessageBox,
   NextStepButton,
   SystemMessage,
+  Title,
 } from "./styles";
 
-interface WorkSpaceNumProtection {
+interface IWorkPurposeProps {
   purposeMessage: string;
   textRef: RefObject<HTMLTextAreaElement>;
   tagRef: RefObject<HTMLInputElement>;
@@ -25,12 +26,8 @@ const WorkPurpose = ({
   keywordStep,
   workspaceNum,
   setworkspaceNum,
-}: WorkSpaceNumProtection) => {
+}: IWorkPurposeProps) => {
   const onClick = () => {
-    textRef.current?.setAttribute(
-      "placeholder",
-      "마우스를 이용해 선택해주세요"
-    );
     setworkspaceNum((workspaceNum += 1));
     purposeStep("done");
     keywordStep("now");
@@ -38,6 +35,7 @@ const WorkPurpose = ({
   return (
     <>
       <MessageBox>
+        <Title><Circle color='#905DFB' style={{display: 'inline-block', marginRight: '5px'}}/>사용 목적</Title>
         <SystemMessage>디자인의 용도는 무엇인가요</SystemMessage>
         {purposeMessage ? (
           <>

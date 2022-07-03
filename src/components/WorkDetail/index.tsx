@@ -1,7 +1,8 @@
 import React, { Dispatch, SetStateAction, useState, RefObject } from "react";
 import {
   MessageBox,
-  SystemMessage,
+  SystemMessage1,
+  SystemMessage2,
   Grid,
   Logo,
   Name,
@@ -9,9 +10,10 @@ import {
   No,
   NextStepButton,
   Circle,
+  Title,
 } from "./style";
 
-interface WorkspaceNumProtection {
+interface IWorkDetailProps {
   workspaceNum: number;
   setworkspaceNum: Dispatch<SetStateAction<number>>;
   purposeStep: Dispatch<SetStateAction<string>>;
@@ -29,7 +31,7 @@ const WorkDetail = ({
   setworkspaceNum,
   textRef,
   tagRef,
-}: WorkspaceNumProtection) => {
+}: IWorkDetailProps) => {
   const [isLogoActive, setIsLogoActive] = useState(false);
   const [isNameActive, setIsNameActive] = useState(false);
   const [isYesActive, setIsYesActive] = useState(false);
@@ -62,7 +64,8 @@ const WorkDetail = ({
   return (
     <>
       <MessageBox>
-        <SystemMessage>맡기고자 하는 디자인분야를 선택해주세요</SystemMessage>
+        <Title><Circle color='#905DFB' style={{display: 'inline-block', marginRight: '5px'}}/>세부사항 선택</Title>
+        <SystemMessage1>맡기고자 하는 디자인분야를 선택해주세요</SystemMessage1>
         <Grid>
           <Logo isLogoActive={isLogoActive} onClick={handleIsLogoClick}>
             로고
@@ -71,9 +74,9 @@ const WorkDetail = ({
             명함
           </Name>
         </Grid>
-        <SystemMessage>
+        <SystemMessage2>
           인쇄과정까지 외주로 진행하실건가요?(명함 선택시)
-        </SystemMessage>
+        </SystemMessage2>
         <Grid>
           <Yes isYesActive={isYesActive} onClick={handleIsYesClick}>
             네
