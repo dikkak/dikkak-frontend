@@ -5,9 +5,10 @@ import {
   ClientMessage,
   NextStepButton,
   Circle,
+  Title,
 } from "./styles";
 
-interface MessageProtection {
+interface IWorkTitleProps {
   message: string | undefined;
   workspaceNum: number;
   textRef: RefObject<HTMLTextAreaElement>;
@@ -23,7 +24,7 @@ const WorkTitle = ({
   setworkspaceNum,
   titleStep,
   workStep,
-}: MessageProtection) => {
+}: IWorkTitleProps) => {
   const onClick = () => {
     setworkspaceNum((workspaceNum += 1));
     titleStep("done");
@@ -33,6 +34,7 @@ const WorkTitle = ({
   return (
     <>
       <MessageBox>
+        <Title><Circle color='#905DFB' style={{display: 'inline-block', marginRight: '5px'}}/>제목 입력</Title>
         <SystemMessage>제안서의 제목을 입력해 주세요</SystemMessage>
         {message ? (
           <>

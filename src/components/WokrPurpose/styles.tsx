@@ -3,14 +3,18 @@ import styled from 'styled-components';
 export const MessageBox = styled.ul`
   position: relative;
   width: 100%;
-  height: 333px;
+  height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
+`;
+export const Title = styled.h1`
+  color: ${props => props.theme.subColor};
+  margin-bottom: 10px;
 `;
 
 export const SystemMessage = styled.p`
   height: 35px;
-  width: 215px;
+  width: 200px;
   background-color: ${(props) => props.theme.mainColor};
   color: #fff;
   display: flex;
