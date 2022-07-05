@@ -73,24 +73,32 @@ const WorkSpaceClient = () => {
   const [submitStep, setSubmitStep] = useState("yet");
   //
   // Tag
-  const [tagItem, setTagItem] = useState('');
+  const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState<string[]>([]);
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.currentTarget.value.length !== 0 && e.key === 'Enter' && e.nativeEvent.isComposing === false) {
+    if (
+      e.currentTarget.value.length !== 0 &&
+      e.key === "Enter" &&
+      e.nativeEvent.isComposing === false
+    ) {
       submitTagItem();
     }
-  }
+  };
   const submitTagItem = () => {
-    let updatedTagList = [...tagList]
-    updatedTagList.push(tagItem)
-    setTagList(updatedTagList)
-    setTagItem('')
-  }
+    let updatedTagList = [...tagList];
+    updatedTagList.push(tagItem);
+    setTagList(updatedTagList);
+    setTagItem("");
+  };
   const deleteTagItem = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const deleteTagItem = (e.currentTarget.parentElement?.firstChild as HTMLSpanElement).innerText;
-    const filteredTagList = tagList.filter(tagItem => tagItem !== deleteTagItem)
+    const deleteTagItem = (
+      e.currentTarget.parentElement?.firstChild as HTMLSpanElement
+    ).innerText;
+    const filteredTagList = tagList.filter(
+      (tagItem) => tagItem !== deleteTagItem
+    );
     setTagList(filteredTagList);
-  }
+  };
   //
   const onFileClick = () => {
     fileRef.current?.click();
@@ -101,8 +109,8 @@ const WorkSpaceClient = () => {
   };
 
   const onSubmit = (step: number) => {
-    if(step !==1 && step !==4 && step !==5 && step !==10) return;
-    switch(step) {
+    if (step !== 1 && step !== 4 && step !== 5 && step !== 10) return;
+    switch (step) {
       case 1:
         setMessage(input);
         break;
@@ -111,16 +119,16 @@ const WorkSpaceClient = () => {
         break;
       case 5:
         setIsTagInputClicked(true);
-        tagRef.current?.setAttribute('disabled', 'disabled');
+        tagRef.current?.setAttribute("disabled", "disabled");
         break;
       default:
         break;
     }
     setInput("");
     tagRef.current?.setAttribute(
-      'placeholder',
-      '수정하려면 수정하기 버튼을 누르세요'
-    )
+      "placeholder",
+      "수정하려면 수정하기 버튼을 누르세요"
+    );
     textRef.current?.setAttribute(
       "placeholder",
       "수정하려면 수정하기 버튼을 누르세요"
@@ -129,18 +137,21 @@ const WorkSpaceClient = () => {
   };
 
   const onEdit = (step: number) => {
-    if(step !==1 && step !==4 && step !==5 && step !==10) return;
-    tagRef.current?.removeAttribute('disabled');
+    if (step !== 1 && step !== 4 && step !== 5 && step !== 10) return;
+    tagRef.current?.removeAttribute("disabled");
     textRef.current?.removeAttribute("disabled");
-    switch(step) {
-      case 1: 
-        textRef.current?.setAttribute("placeholder", '제목을 입력하세요');
+    switch (step) {
+      case 1:
+        textRef.current?.setAttribute("placeholder", "제목을 입력하세요");
         break;
       case 4:
-        textRef.current?.setAttribute("placeholder", "디자인의 용도를 입력하세요");
+        textRef.current?.setAttribute(
+          "placeholder",
+          "디자인의 용도를 입력하세요"
+        );
         break;
       case 5:
-        tagRef.current?.setAttribute('placeholder', '키워드를 입력하세요');
+        tagRef.current?.setAttribute("placeholder", "키워드를 입력하세요");
         break;
       default:
         break;
@@ -272,8 +283,7 @@ const WorkSpaceClient = () => {
                         detailStep &&
                         purposeStep &&
                         keyWordStep &&
-                        deadLineStep &&
-                        colorStep === "done"
+                        deadLineStep === "done"
                       ) {
                         setworkspaceNum(8);
                       }
@@ -384,36 +394,36 @@ const WorkSpaceClient = () => {
                 ></WorkspaceRender>
                 <TextContainer>
                   <InputArea>
-                    {
-                      keyWordStep === 'now' && workspaceNum===5?
-                      (
-                        <WholeBox>
-                          <TagBox>
-                            {tagList.map((tagItem, index) => {
-                              return (
-                                <TagItem key={index}>
-                                  <TagText>{tagItem}</TagText>
-                                  <Button onClick={deleteTagItem}>X</Button>
-                                </TagItem>
-                              )
-                            })}
-                            <TagInput
-                              ref={tagRef}
-                              type='text'
-                              tabIndex={2}
-                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTagItem(e.target.value)}
-                              value={tagItem}
-                              onKeyDown={onKeyPress}
-                            />
-                          </TagBox>
-                        </WholeBox>
-                      ) : (
+                    {keyWordStep === "now" && workspaceNum === 5 ? (
+                      <WholeBox>
+                        <TagBox>
+                          {tagList.map((tagItem, index) => {
+                            return (
+                              <TagItem key={index}>
+                                <TagText>{tagItem}</TagText>
+                                <Button onClick={deleteTagItem}>X</Button>
+                              </TagItem>
+                            );
+                          })}
+                          <TagInput
+                            ref={tagRef}
+                            type="text"
+                            tabIndex={2}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) => setTagItem(e.target.value)}
+                            value={tagItem}
+                            onKeyDown={onKeyPress}
+                          />
+                        </TagBox>
+                      </WholeBox>
+                    ) : (
                       <Text
                         ref={textRef}
                         onChange={onInputChange}
                         value={input}
-                      />)
-                    }
+                      />
+                    )}
                     <AdditionalButtons>
                       <FileButton onClick={onFileClick} />
                       <input
@@ -426,8 +436,12 @@ const WorkSpaceClient = () => {
                     </AdditionalButtons>
                   </InputArea>
                   <SubmitArea>
-                    <SubmitButton onClick={() => onSubmit(workspaceNum)}>전송하기</SubmitButton>
-                    <EditButton onClick={() => onEdit(workspaceNum)}>수정하기</EditButton>
+                    <SubmitButton onClick={() => onSubmit(workspaceNum)}>
+                      전송하기
+                    </SubmitButton>
+                    <EditButton onClick={() => onEdit(workspaceNum)}>
+                      수정하기
+                    </EditButton>
                   </SubmitArea>
                 </TextContainer>
               </BoxContent>

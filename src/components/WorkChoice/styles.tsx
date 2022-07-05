@@ -8,7 +8,7 @@ export const JobChoiceBox = styled.div`
   margin-bottom: 20px;
 `;
 export const Title = styled.h1`
-  color: ${props => props.theme.subColor};
+  color: ${(props) => props.theme.subColor};
   margin-bottom: 10px;
 `;
 
@@ -36,7 +36,7 @@ export const SystemMessage = styled.p`
     border-top: 10px solid transparent;
     border-left: 0px solid transparent;
     border-right: 15px solid ${(props) => props.theme.mainColor};
-    left: -11px;
+    left: -10.5px;
   }
 `;
 

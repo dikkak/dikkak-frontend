@@ -4,7 +4,8 @@ import WorkChoice from "../WorkChoice";
 import WorkPurpose from "../WokrPurpose";
 import WorkKeyword from "../WorkKeyword";
 import WorkDetail from "../WorkDetail";
-import WorkDeadLine from '../WorkDeadLine';
+import WorkDeadLine from "../WorkDeadLine";
+import WorkRef from "../WorkRef";
 
 interface WorkspaceNumProtection {
   workspaceNum: number | undefined;
@@ -15,7 +16,7 @@ interface WorkspaceNumProtection {
   textRef: RefObject<HTMLTextAreaElement>;
   tagRef: RefObject<HTMLInputElement>;
   deadLine: string | undefined;
-  setDeadLine: Dispatch<SetStateAction<string | undefined>>
+  setDeadLine: Dispatch<SetStateAction<string | undefined>>;
   setworkspaceNum: Dispatch<SetStateAction<number>>;
   titleStep: Dispatch<SetStateAction<string>>;
   workStep: Dispatch<SetStateAction<string>>;
@@ -125,6 +126,8 @@ function switchFcn(
           setworkspaceNum={setworkspaceNum}
         ></WorkDeadLine>
       );
+    case 8:
+      return <WorkRef></WorkRef>;
   }
 }
 
