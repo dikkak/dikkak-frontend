@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import firstImg from "../../assets/mainPageImage/firstImage.png";
 import secondImg from "../../assets/mainPageImage/secondImage.png";
 import thirdImg from "../../assets/mainPageImage/thirdImage.png";
 import fourthImg from "../../assets/mainPageImage/fourthImage.png";
+import { userInfo } from '../../apis/auth_login';
+import { useQuery } from 'react-query';
 import {
   BlurBackground,
   BlurButtons,
@@ -25,16 +27,11 @@ import {
   Section,
   SectionContainer,
 } from "./styles";
-import { useSetRecoilState } from "recoil";
-import { approved_code } from "../../atoms";
 
 const Main = () => {
+  const {data} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
-  const href = window.location.href;
-  let params = new URL(document.location.toString()).searchParams;
-  let code = params.get("code"); // 인가코드 받는 부분
-
-  useEffect(() => {}, []);
+  if(data) {return <Navigate to='/service_start'/>}
   return (
     <>
       <Menu />

@@ -17,7 +17,8 @@ interface IForm {
 
 const Redirect = () => {
   const {register, setValue, handleSubmit, formState: { errors }} = useForm<IForm>();
-  const [isNew, setIsNew] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isNew, setIsNew] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   let params = new URL(window.location.href).searchParams;
@@ -37,7 +38,6 @@ const Redirect = () => {
     }
   };
   const onValid = (data: IForm) => {
-    console.log(data);
     registNewUser(data)
     .then(() => navigate('/service_start'))
     .catch(() => navigate('/signup'));
@@ -45,15 +45,18 @@ const Redirect = () => {
   useEffect(() => {
     authLogin(provider, code || '')
     .then(res => {
-      axios.defaults.headers.common['Authorization'] =  `Bearer ${res.data.accessToken}`;
-      if(res.data.newUser) {
+      axios.defaults.headers.common['Authorization'] =  `Bearer ${res.accessToken}`;
+      if(!res.username) {
+        setIsLoading(false);
         setIsNew(true);
-      } else {
+      } 
+      else {
         navigate('/service_start');
-      }
+      } 
     })
-    .catch(() => navigate('/signup'))
+    .catch((err) => console.log(err))
   }, [code, navigate, provider]);
+  if(isLoading) (<div>Loading...</div>)
   return isNew ? (
     <>
       <Menu/>

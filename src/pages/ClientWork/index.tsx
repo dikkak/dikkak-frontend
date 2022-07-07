@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import Document from "../../components/Document";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { BackButton, Container, DocumentContainer, LogoImage, Title, Wrapper } from './styles';
+import { useQuery } from 'react-query';
+import { userInfo } from '../../apis/auth_login';
 
 interface IList {
   id: number;
@@ -16,6 +18,7 @@ export interface IContent {
   bgColor: string;
 }
 const ClientWorkPage = () => {
+  const {data} = useQuery('user-info', userInfo);
   const [clientContent, setClientContent] = useState<IContent>({
     title: "제안서",
     contents: [
@@ -64,6 +67,7 @@ const ClientWorkPage = () => {
       }
     })
   }
+  if(!data) {return <Navigate to='/login'/>}
   return (
     <>
       <Menu></Menu>

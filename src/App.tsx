@@ -1,6 +1,6 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
+import {ReactQueryDevtools} from 'react-query/devtools'
 import Router from "./Router";
 import { theme } from "./theme";
 
@@ -62,6 +62,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Router />
+        <ReactQueryDevtools initialIsOpen/>
       </ThemeProvider>
     </>
   );
