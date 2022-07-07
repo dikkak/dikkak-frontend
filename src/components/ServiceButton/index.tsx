@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -18,8 +19,9 @@ const ServiceButton = ({username, type}: ServiceButtonProps) => {
   const onLogout = () => {
     authLogout()
     .then(() => {
+      delete axios.defaults.headers.common['Authorization'];
       queryClient.clear();
-      window.location.href=KAKAO_AUTH_LOGOUT_URL;
+      // window.location.href=KAKAO_AUTH_LOGOUT_URL;
     });
   };
   return (

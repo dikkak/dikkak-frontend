@@ -180,7 +180,7 @@ const WorkSpaceClient = () => {
     }
     textRef.current?.focus();
   };
-  if(!data) {return <Navigate replace to='/login'/>}
+  // if(!data) {return <Navigate replace to='/login'/>}
   return (
     <>
       <Menu />

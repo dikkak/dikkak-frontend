@@ -33,7 +33,6 @@ export const registType = async(type: string) => {
 
 export const authLogout = async() => {
   const response = await axios.get('auth/logout', {withCredentials: true});
-  delete axios.defaults.headers.common['Authorization'];
   return response;
 }
 
