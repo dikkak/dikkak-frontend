@@ -47,6 +47,11 @@ import {
 } from "./styles";
 import WorkspaceRender from "../../components/WorkspaceRender";
 
+export interface IColor {
+  color: string;
+  isClicked: boolean;
+}
+
 const WorkSpaceClient = () => {
   const navigate = useNavigate();
   const [input, setInput] = useState("");
@@ -54,6 +59,20 @@ const WorkSpaceClient = () => {
   const [purposeMessage, setPurposeMessage] = useState<string>("");
   const [isTagInputClicked, setIsTagInputClicked] = useState(false);
   const [deadLine, setDeadLine] = useState<string | undefined>(); //마감기간의 state
+  const [mainColor, setMainColor] = useState<IColor>({
+    color: '',
+    isClicked: false
+  });
+  const [subColors, setSubColors] = useState<IColor[]>([
+    {
+      color: '',
+      isClicked: false
+    },
+    {
+      color: '',
+      isClicked: false
+    },
+  ]); // colorStep의 메인컬러와 서브컬러 state
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
@@ -377,6 +396,10 @@ const WorkSpaceClient = () => {
                   purposeMessage={purposeMessage}
                   deadLine={deadLine} // 마감기간 state
                   setDeadLine={setDeadLine} // 마감기간 state의 set함수
+                  mainColor={mainColor}
+                  setMainColor={setMainColor}
+                  subColors={subColors}
+                  setSubColors={setSubColors}
                   tagRef={tagRef}
                   textRef={textRef}
                   setworkspaceNum={setworkspaceNum}
