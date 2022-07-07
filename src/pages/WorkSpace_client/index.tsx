@@ -55,7 +55,7 @@ export interface IColor {
 }
 
 const WorkSpaceClient = () => {
-  const {data} = useQuery('user-info', userInfo);
+  const {data, isFetching} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [message, setMessage] = useState<string>("");
@@ -180,7 +180,7 @@ const WorkSpaceClient = () => {
     }
     textRef.current?.focus();
   };
-  if(!data) {return <Navigate replace to='/login'/>}
+  if(!isFetching && !data) {return <Navigate to='/login'/>}
   return (
     <>
       <Menu />
