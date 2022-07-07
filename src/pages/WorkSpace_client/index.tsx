@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Container,
   Wrapper,
@@ -46,6 +46,8 @@ import {
   TagBox,
 } from "./styles";
 import WorkspaceRender from "../../components/WorkspaceRender";
+import { useQuery } from 'react-query';
+import { userInfo } from '../../apis/auth_login';
 
 export interface IColor {
   color: string;
@@ -53,6 +55,7 @@ export interface IColor {
 }
 
 const WorkSpaceClient = () => {
+  const {data} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [message, setMessage] = useState<string>("");
@@ -177,6 +180,7 @@ const WorkSpaceClient = () => {
     }
     textRef.current?.focus();
   };
+  if(!data) {return <Navigate replace to='/login'/>}
   return (
     <>
       <Menu />

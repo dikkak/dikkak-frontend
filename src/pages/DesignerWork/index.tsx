@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import Document from "../../components/Document";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { BackButton, Container, DocumentContainer, LogoImage, Title, Wrapper } from './styles';
+import { useQuery } from 'react-query';
+import { userInfo } from '../../apis/auth_login';
 
 
 interface IList {
@@ -18,6 +20,7 @@ export interface IContent {
 }
 
 const DesignerWorkPage = () => {
+  const {data} = useQuery('user-info', userInfo);
   const [completeWork, setCompleteWork] = useState<IContent>({
     title: "완료된 작업",
     contents: [
@@ -62,6 +65,7 @@ const DesignerWorkPage = () => {
       }
     })
   }
+  if(!data) {return <Navigate to='/login'/>}
   return (
     <>
       <Menu></Menu>

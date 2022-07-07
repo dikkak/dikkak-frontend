@@ -1,14 +1,18 @@
 import React from "react";
 import Menu from "../../components/Menu";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { BackButton, BlurPin, Board, Buttons, Container, Contents, EmailInput, EmailLabel, FindIDPW, LogInForm, LogoImage, NextText, PasswordInput, PasswordLabel, SignUp, SocialLogin, SocialLoginSection, SocialLogo, SubmitButton, Title } from './styles';
 import facebook from "../../assets/logoImage/facebookLogin.svg";
 import kakao from "../../assets/logoImage/kakaoLogin.svg";
 import google from "../../assets/logoImage/googleLogin.svg";
 import { FACEBOOK_AUTH_URL, GOOGLE_AUTH_URL, KAKAO_AUTH_URL } from '../../OAuth';
+import { useQuery } from 'react-query';
+import { userInfo } from '../../apis/auth_login';
 
 const Login = () => {
+  const {data} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
+  if(data) {return <Navigate to='/service_start'/>}
   return (
     <>
       <Menu />

@@ -1,7 +1,7 @@
 import React from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import kakaoImg from "../../assets/logoImage/kakaoBtnImg.svg";
 import googleImg from "../../assets/logoImage/googleBtnImg.svg";
 import facebookImg from "../../assets/logoImage/faceboonBtnImg.svg";
@@ -22,9 +22,13 @@ import {
   GOOGLE_AUTH_URL,
   FACEBOOK_AUTH_URL,
 } from "../../OAuth";
+import { useQuery } from 'react-query';
+import { userInfo } from '../../apis/auth_login';
 
 const SignUp = () => {
+  const {data} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
+  if(data) {return <Navigate replace to ='/service_start'/>}
   return (
     <>
       <Menu />
