@@ -1,12 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import ClientOrDesigner from "../../components/ClientOrDesigner";
 import { BackButton, BlurBackground, BlurPin, Container, Content, ContentDesc, JumboCotainer, Jumbotron, LetterLogo, LogoImage, PaintLogo, Title } from './styles';
+import { useQuery } from 'react-query';
+import {userInfo} from '../../apis/auth_login';
+import ServiceButton from '../../components/ServiceButton';
+
 
 const Start = () => {
+  const {data} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
+  if(!data) {return <Navigate to='/login'/>}
   return (
     <>
       <Menu />
@@ -33,10 +39,23 @@ const Start = () => {
                 </div>
               </Title>
               <Content>
-                <ContentDesc>
-                  MZ가 작업하는 빠르고-쉬운 디자인 아웃소싱 플랫폼
-                </ContentDesc>
-                <ClientOrDesigner></ClientOrDesigner>
+                {
+                  data?.type ==="UNDEFINED" ? (
+                    <>
+                      <ContentDesc>
+                        MZ가 작업하는 빠르고-쉬운 디자인 아웃소싱 플랫폼
+                      </ContentDesc>
+                      <ClientOrDesigner></ClientOrDesigner>
+                    </>
+                  ) : (
+                    <>
+                      <ContentDesc>
+                        {data?.username} {data?.type}님 안녕하세요!
+                      </ContentDesc>
+                      <ServiceButton username={data.username} type={data.type}/>
+                    </>
+                )
+              }
               </Content>
             </BlurBackground>
           </Jumbotron>
