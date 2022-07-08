@@ -6,6 +6,8 @@ import WorkKeyword from "../WorkKeyword";
 import WorkDetail from "../WorkDetail";
 import WorkDeadLine from "../WorkDeadLine";
 import WorkRef from "../WorkRef";
+import { IColor } from '../../pages/WorkSpace_client';
+import WorkColor from '../WorkColor';
 
 interface WorkspaceNumProtection {
   workspaceNum: number | undefined;
@@ -17,6 +19,10 @@ interface WorkspaceNumProtection {
   tagRef: RefObject<HTMLInputElement>;
   deadLine: string | undefined;
   setDeadLine: Dispatch<SetStateAction<string | undefined>>;
+  mainColor: IColor;
+  subColors: IColor[];
+  setMainColor: Dispatch<SetStateAction<IColor>>;
+  setSubColors: Dispatch<SetStateAction<IColor[]>>;
   setworkspaceNum: Dispatch<SetStateAction<number>>;
   titleStep: Dispatch<SetStateAction<string>>;
   workStep: Dispatch<SetStateAction<string>>;
@@ -40,6 +46,10 @@ function switchFcn(
   textRef: RefObject<HTMLTextAreaElement>,
   tagRef: RefObject<HTMLInputElement>,
   deadLine: string | undefined,
+  mainColor: IColor,
+  subColors: IColor[],
+  setMainColor: Dispatch<SetStateAction<IColor>>,
+  setSubColors: Dispatch<SetStateAction<IColor[]>>,
   setDeadLine: Dispatch<SetStateAction<string | undefined>>,
   setworkspaceNum: Dispatch<SetStateAction<number>>,
   titleStep: Dispatch<SetStateAction<string>>,
@@ -126,6 +136,19 @@ function switchFcn(
           setworkspaceNum={setworkspaceNum}
         ></WorkDeadLine>
       );
+      case 7:
+        return (
+          <WorkColor
+            mainColor={mainColor}
+            setMainColor={setMainColor}
+            subColors={subColors}
+            setSubColors={setSubColors}
+            colorStep={colorStep}
+            referenceStep={referenceStep}
+            workspaceNum={workspaceNum}
+            setworkspaceNum={setworkspaceNum}
+          ></WorkColor>
+        );
     case 8:
       return <WorkRef></WorkRef>;
   }
@@ -140,6 +163,10 @@ const WorkspaceRender = ({
   textRef,
   tagRef,
   deadLine,
+  mainColor,
+  subColors,
+  setMainColor,
+  setSubColors,
   setDeadLine,
   setworkspaceNum,
   titleStep,
@@ -165,6 +192,10 @@ const WorkspaceRender = ({
         textRef,
         tagRef,
         deadLine,
+        mainColor,
+        subColors,
+        setMainColor,
+        setSubColors,
         setDeadLine,
         setworkspaceNum,
         titleStep,

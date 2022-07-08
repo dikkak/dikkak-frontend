@@ -49,14 +49,33 @@ import WorkspaceRender from "../../components/WorkspaceRender";
 import { useQuery } from 'react-query';
 import { userInfo } from '../../apis/auth_login';
 
+export interface IColor {
+  color: string;
+  isClicked: boolean;
+}
+
 const WorkSpaceClient = () => {
-  const {data} = useQuery('user-info', userInfo);
+  const {data, isFetching} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [message, setMessage] = useState<string>("");
   const [purposeMessage, setPurposeMessage] = useState<string>("");
   const [isTagInputClicked, setIsTagInputClicked] = useState(false);
   const [deadLine, setDeadLine] = useState<string | undefined>(); //마감기간의 state
+  const [mainColor, setMainColor] = useState<IColor>({
+    color: '',
+    isClicked: false
+  });
+  const [subColors, setSubColors] = useState<IColor[]>([
+    {
+      color: '',
+      isClicked: false
+    },
+    {
+      color: '',
+      isClicked: false
+    },
+  ]); // colorStep의 메인컬러와 서브컬러 state
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
@@ -161,7 +180,7 @@ const WorkSpaceClient = () => {
     }
     textRef.current?.focus();
   };
-  if(!data) {return <Navigate replace to='/login'/>}
+  if(!isFetching && !data) {return <Navigate to='/login'/>}
   return (
     <>
       <Menu />
@@ -381,6 +400,10 @@ const WorkSpaceClient = () => {
                   purposeMessage={purposeMessage}
                   deadLine={deadLine} // 마감기간 state
                   setDeadLine={setDeadLine} // 마감기간 state의 set함수
+                  mainColor={mainColor}
+                  setMainColor={setMainColor}
+                  subColors={subColors}
+                  setSubColors={setSubColors}
                   tagRef={tagRef}
                   textRef={textRef}
                   setworkspaceNum={setworkspaceNum}
