@@ -46,16 +46,21 @@ import {
   TagBox,
 } from "./styles";
 import WorkspaceRender from "../../components/WorkspaceRender";
-import { useQuery } from 'react-query';
-import { userInfo } from '../../apis/auth_login';
+import { useQuery } from "react-query";
+import { userInfo } from "../../apis/auth_login";
 
 export interface IColor {
   color: string;
   isClicked: boolean;
 }
 
+export interface IContents {
+  imgBlob: Blob;
+  description: string;
+}
+
 const WorkSpaceClient = () => {
-  const {data, isFetching} = useQuery('user-info', userInfo);
+  const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [message, setMessage] = useState<string>("");
@@ -63,19 +68,29 @@ const WorkSpaceClient = () => {
   const [isTagInputClicked, setIsTagInputClicked] = useState(false);
   const [deadLine, setDeadLine] = useState<string | undefined>(); //마감기간의 state
   const [mainColor, setMainColor] = useState<IColor>({
-    color: '',
-    isClicked: false
+    color: "",
+    isClicked: false,
   });
   const [subColors, setSubColors] = useState<IColor[]>([
     {
-      color: '',
-      isClicked: false
+      color: "",
+      isClicked: false,
     },
     {
-      color: '',
-      isClicked: false
+      color: "",
+      isClicked: false,
     },
   ]); // colorStep의 메인컬러와 서브컬러 state
+
+  const [contents, setContents] = useState<IContents[]>([
+    {
+      imgBlob: new Blob(),
+      description: "",
+    },
+  ]);
+
+  const [files, setFiles] = useState<FileList | null>(null);
+
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
@@ -180,7 +195,7 @@ const WorkSpaceClient = () => {
     }
     textRef.current?.focus();
   };
-  if(!isFetching && !data) {return <Navigate to='/login'/>}
+  // if(!isFetching && !data) {return <Navigate to='/login'/>}
   return (
     <>
       <Menu />
@@ -300,16 +315,16 @@ const WorkSpaceClient = () => {
                   </ColorTimeStep>
                   <ReferenceTimeStep
                     onClick={() => {
-                      if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep &&
-                        keyWordStep &&
-                        deadLineStep === "done"
-                      ) {
-                        setworkspaceNum(8);
-                      }
+                      // if (
+                      //   titleStep &&
+                      //   workStep &&
+                      //   detailStep &&
+                      //   purposeStep &&
+                      //   keyWordStep &&
+                      //   deadLineStep === "done"
+                      // ) {
+                      setworkspaceNum(8);
+                      //  }
                     }}
                     step={referenceStep}
                   >
@@ -418,6 +433,8 @@ const WorkSpaceClient = () => {
                   etcStep={setEtcStep}
                   additionStep={setAdditionStep}
                   submitStep={setSubmitStep}
+                  setFiles={setFiles}
+                  contents={contents}
                 ></WorkspaceRender>
                 <TextContainer>
                   <InputArea>

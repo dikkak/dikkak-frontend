@@ -7,6 +7,7 @@ export const MessageBox = styled.ul`
   background-color: transparent;
   margin-bottom: 20px;
 `;
+
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};
   margin-bottom: 10px;

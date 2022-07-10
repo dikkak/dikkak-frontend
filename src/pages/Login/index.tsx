@@ -1,18 +1,47 @@
 import React from "react";
 import Menu from "../../components/Menu";
 import { Navigate, useNavigate } from "react-router-dom";
-import { BackButton, BlurPin, Board, Buttons, Container, Contents, EmailInput, EmailLabel, FindIDPW, LogInForm, LogoImage, NextText, PasswordInput, PasswordLabel, SignUp, SocialLogin, SocialLoginSection, SocialLogo, SubmitButton, Title } from './styles';
+import {
+  BackButton,
+  BlurPin,
+  Board,
+  Buttons,
+  Container,
+  Contents,
+  EmailInput,
+  EmailLabel,
+  FindIDPW,
+  LogInForm,
+  LogoImage,
+  NextText,
+  PasswordInput,
+  PasswordLabel,
+  SignUp,
+  SocialLogin,
+  SocialLoginSection,
+  SocialLogo,
+  SubmitButton,
+  Title,
+} from "./styles";
 import facebook from "../../assets/logoImage/facebookLogin.svg";
 import kakao from "../../assets/logoImage/kakaoLogin.svg";
 import google from "../../assets/logoImage/googleLogin.svg";
-import { FACEBOOK_AUTH_URL, GOOGLE_AUTH_URL, KAKAO_AUTH_URL } from '../../OAuth';
-import { useQuery } from 'react-query';
-import { userInfo } from '../../apis/auth_login';
+import {
+  FACEBOOK_AUTH_URL,
+  GOOGLE_AUTH_URL,
+  KAKAO_AUTH_URL,
+} from "../../OAuth";
+import { useQuery } from "react-query";
+import { userInfo } from "../../apis/auth_login";
 
 const Login = () => {
-  const {data} = useQuery('user-info', userInfo);
+  const { data } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
-  if(data) {return <Navigate to='/service_start'/>}
+
+  if (data) {
+    return <Navigate to="/service_start" />;
+  }
+
   return (
     <>
       <Menu />
@@ -49,15 +78,15 @@ const Login = () => {
               </p>
             </NextText>
             <SocialLoginSection>
-              <SocialLogin as='a' href={KAKAO_AUTH_URL}>
+              <SocialLogin as="a" href={KAKAO_AUTH_URL}>
                 <SocialLogo src={kakao} />
                 <p>kakao</p>
               </SocialLogin>
-              <SocialLogin as='a' href={GOOGLE_AUTH_URL}>
+              <SocialLogin as="a" href={GOOGLE_AUTH_URL}>
                 <SocialLogo src={google} />
                 <p>google</p>
               </SocialLogin>
-              <SocialLogin as='a' href={FACEBOOK_AUTH_URL}>
+              <SocialLogin as="a" href={FACEBOOK_AUTH_URL}>
                 <SocialLogo src={facebook} />
                 <p>facebook</p>
               </SocialLogin>

@@ -22,13 +22,17 @@ import {
   GOOGLE_AUTH_URL,
   FACEBOOK_AUTH_URL,
 } from "../../OAuth";
-import { useQuery } from 'react-query';
-import { userInfo } from '../../apis/auth_login';
+import { useQuery } from "react-query";
+import { userInfo } from "../../apis/auth_login";
 
 const SignUp = () => {
-  const {data} = useQuery('user-info', userInfo);
+  const { data } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
-  if(data) {return <Navigate replace to ='/service_start'/>}
+
+  if (data) {
+    return <Navigate replace to="/service_start" />;
+  }
+
   return (
     <>
       <Menu />

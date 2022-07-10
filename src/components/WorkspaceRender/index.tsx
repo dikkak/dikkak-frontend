@@ -6,8 +6,10 @@ import WorkKeyword from "../WorkKeyword";
 import WorkDetail from "../WorkDetail";
 import WorkDeadLine from "../WorkDeadLine";
 import WorkRef from "../WorkRef";
-import { IColor } from '../../pages/WorkSpace_client';
-import WorkColor from '../WorkColor';
+import { IColor } from "../../pages/WorkSpace_client";
+import WorkColor from "../WorkColor";
+
+import { IContents } from "../../pages/WorkSpace_client";
 
 interface WorkspaceNumProtection {
   workspaceNum: number | undefined;
@@ -35,6 +37,8 @@ interface WorkspaceNumProtection {
   etcStep: Dispatch<SetStateAction<string>>;
   additionStep: Dispatch<SetStateAction<string>>;
   submitStep: Dispatch<SetStateAction<string>>;
+  setFiles: Dispatch<SetStateAction<FileList | null>>;
+  contents: IContents[];
 }
 
 function switchFcn(
@@ -62,7 +66,9 @@ function switchFcn(
   referenceStep: Dispatch<SetStateAction<string>>,
   etcStep: Dispatch<SetStateAction<string>>,
   additionStep: Dispatch<SetStateAction<string>>,
-  submitStep: Dispatch<SetStateAction<string>>
+  submitStep: Dispatch<SetStateAction<string>>,
+  setFiles: Dispatch<SetStateAction<FileList | null>>,
+  contents: IContents[]
 ) {
   switch (workspaceNum) {
     case 1:
@@ -136,21 +142,21 @@ function switchFcn(
           setworkspaceNum={setworkspaceNum}
         ></WorkDeadLine>
       );
-      case 7:
-        return (
-          <WorkColor
-            mainColor={mainColor}
-            setMainColor={setMainColor}
-            subColors={subColors}
-            setSubColors={setSubColors}
-            colorStep={colorStep}
-            referenceStep={referenceStep}
-            workspaceNum={workspaceNum}
-            setworkspaceNum={setworkspaceNum}
-          ></WorkColor>
-        );
+    case 7:
+      return (
+        <WorkColor
+          mainColor={mainColor}
+          setMainColor={setMainColor}
+          subColors={subColors}
+          setSubColors={setSubColors}
+          colorStep={colorStep}
+          referenceStep={referenceStep}
+          workspaceNum={workspaceNum}
+          setworkspaceNum={setworkspaceNum}
+        ></WorkColor>
+      );
     case 8:
-      return <WorkRef></WorkRef>;
+      return <WorkRef setFiles={setFiles} contents={contents}></WorkRef>;
   }
 }
 
@@ -180,6 +186,8 @@ const WorkspaceRender = ({
   etcStep,
   additionStep,
   submitStep,
+  setFiles,
+  contents,
 }: WorkspaceNumProtection) => {
   return (
     <>
@@ -208,7 +216,9 @@ const WorkspaceRender = ({
         referenceStep,
         etcStep,
         additionStep,
-        submitStep
+        submitStep,
+        setFiles,
+        contents
       )}
     </>
   );
