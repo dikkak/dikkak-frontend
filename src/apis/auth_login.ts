@@ -7,8 +7,8 @@ export const userInfo = async() => {
 
 export const authLogin = async(provider: string, code: string) => {
   const url = `auth/login/${provider}?code=${code}`
-  const response = await axios.get<ILogin>(url, {withCredentials: true});
-  return response.data;
+  const {data} = await axios.get<ILogin>(url, {withCredentials: true});
+  return data;
 }
 export const registNewUser = async(data: IForm) => {
   try {

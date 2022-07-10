@@ -12,7 +12,7 @@ import ServiceButton from '../../components/ServiceButton';
 const Start = () => {
   const {data} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
-  if(!data) {return <Navigate to='/login'/>}
+  if(!data) {return <Navigate to='/login'/>};
   return (
     <>
       <Menu />
