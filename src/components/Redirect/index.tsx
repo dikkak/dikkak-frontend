@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -70,14 +70,22 @@ const Redirect = () => {
   useEffect(() => {
     authLogin(provider, code || '')
     .then(res => {
-      axios.defaults.headers.common['Authorization'] =  `Bearer ${res.accessToken}`;
-      if(!res.username) {
-        setIsLoading(false);
-        setIsNew(true);
-      } 
-      else {
-        navigate('/service_start');
-      } 
+        axios.defaults.headers.common['Authorization'] =  `Bearer ${res.accessToken}`;
+        if(!res.username) {
+          setIsLoading(false);
+          setIsNew(true);
+        } 
+        else {
+          navigate('/service_start');
+        }
+        console.log(res);
+      }
+    )
+    .catch((e: AxiosError) => {
+      if(e.response?.status === 409) {
+        alert('이미 다른 소셜로 가입된 이메일입니다.');
+        navigate('/login');
+      }
     })
   }, [code, navigate, provider]);
   if(isLoading) (<div>Loading...</div>);

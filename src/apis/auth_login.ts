@@ -6,7 +6,7 @@ export const userInfo = async() => {
 }
 
 export const authLogin = async(provider: string, code: string) => {
-  const url = `auth/login/${provider}?code=${code}`
+  const url = `auth/login/${provider}?code=${code}`;
   const {data} = await axios.get<ILogin>(url, {withCredentials: true});
   return data;
 }
@@ -15,7 +15,7 @@ export const registNewUser = async(data: IForm) => {
     const response = await axios.post<IForm>('user/register', data);
     return response.data;
   } catch(error) {
-    return error;
+    return error
   };
 }
 
