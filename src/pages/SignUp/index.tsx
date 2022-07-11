@@ -87,12 +87,11 @@ const SignUp = () => {
                 bgColor="#000"
                 textColor="#fff"
               >
-                <Link
-                  to={"/email_signup1"}
+                <p
                   style={{ textDecoration: "none", color: "#fff" }}
                 >
-                  이메일로 가입하기
-                </Link>
+                  가입 문의하기
+                </p>
               </Button>
             </ButtonGroup>
           </Board>

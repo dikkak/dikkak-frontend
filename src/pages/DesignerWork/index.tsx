@@ -13,6 +13,7 @@ interface IList {
   name: string;
 }
 export interface IContent {
+  type: 'client' | 'designer' | 'workspace';
   title: string;
   contents: IList[];
   workMenttion: string;
@@ -20,8 +21,9 @@ export interface IContent {
 }
 
 const DesignerWorkPage = () => {
-  const {data} = useQuery('user-info', userInfo);
+  const {data, isFetching} = useQuery('user-info', userInfo);
   const [completeWork, setCompleteWork] = useState<IContent>({
+    type: 'designer',
     title: "완료된 작업",
     contents: [
       {
@@ -41,6 +43,7 @@ const DesignerWorkPage = () => {
     bgColor: "#905DFB",
   });
   const [companyContent, setCompanyContent] = useState<IContent>({
+    type: 'workspace',
     title: "외주 작업실",
     contents: [
       {
@@ -65,7 +68,9 @@ const DesignerWorkPage = () => {
       }
     })
   }
-  if(!data) {return <Navigate to='/login'/>}
+  if(isFetching) return (<div>Loading...</div>)
+  if(!data && !isFetching) {return <Navigate to='/login'/>}
+  if(data && !isFetching && data.type === 'CLIENT') {return <Navigate to='/service_start'/>}
   return (
     <>
       <Menu></Menu>
@@ -80,7 +85,7 @@ const DesignerWorkPage = () => {
               <h1>디자이너 작업실</h1>
               <LogoImage></LogoImage>
             </div>
-            <p>외주작업을 위한 000 디자이너 작업실 입니다</p>
+            <p>외주작업을 위한 {data?.username} 디자이너 작업실 입니다</p>
             <p>최초 사용자의 경우 <a href="https://open.kakao.com/o/gxhDqKSd">https://open.kakao.com/o/gxhDqKSd</a> 오픈채팅방에 접속해주세요!</p>
           </Title>
           <DocumentContainer>

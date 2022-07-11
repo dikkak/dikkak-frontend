@@ -12,14 +12,16 @@ interface IList {
   name: string;
 }
 export interface IContent {
+  type: 'client' | 'designer' | 'workspace';
   title: string;
   contents: IList[];
   workMenttion: string;
   bgColor: string;
 }
 const ClientWorkPage = () => {
-  const {data} = useQuery('user-info', userInfo);
+  const {data, isFetching} = useQuery('user-info', userInfo);
   const [clientContent, setClientContent] = useState<IContent>({
+    type: 'client',
     title: "제안서",
     contents: [
       {
@@ -39,6 +41,7 @@ const ClientWorkPage = () => {
     bgColor: "#905DFB",
   });
   const [companyContent, setCompanyContent] = useState<IContent>({
+    type: 'workspace',
     title: "외주 작업실",
     contents: [
       {
@@ -67,7 +70,9 @@ const ClientWorkPage = () => {
       }
     })
   }
-  if(!data) {return <Navigate to='/login'/>}
+  if(isFetching) return (<div>Loading...</div>)
+  if(!data && !isFetching) {return <Navigate to='/login'/>}
+  if(data && !isFetching && data.type === 'DESIGNER') {return <Navigate to='/service_start'/>}
   return (
     <>
       <Menu></Menu>
@@ -82,7 +87,7 @@ const ClientWorkPage = () => {
               <h1>클라이언트 작업실</h1>
               <LogoImage></LogoImage>
             </div>
-            <p>외주작업을 위한 000 클라이언트 작업실 입니다</p>
+            <p>외주작업을 위한 {data?.username} 클라이언트 작업실 입니다</p>
           </Title>
           <DocumentContainer>
             <Document content={clientContent} onDelete={onDelete}></Document>

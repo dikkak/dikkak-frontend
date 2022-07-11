@@ -9,25 +9,29 @@ export const Container = styled.div`
   margin: 0 auto;
   margin-top: 82px;
 `;
-
+export const Wrapper = styled.div`
+  width: 70%;
+  height: 100%;
+`;
 export const Board = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  width: 70%;
-  height: 660px;
+  width: 100%;
+  height: 487px;
   padding: 40px 0;
   background-color: rgba(219, 219, 219, 0.15);
   border: 1px solid #e9e9e9;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(10px);
   border-radius: 5px;
+  top: 107px;
 `;
 
 export const BackButton = styled.div`
-  position: absolute;
+  position: relative;
   top: 20px;
-  left: 20px;
+  left: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -49,6 +53,10 @@ export const BlurPin = styled.img.attrs({ src: blurPin })`
   position: absolute;
   width: 25px;
   height: 25px;
+  &:first-child {
+    top: 20px;
+    left: 20px;
+  }
   &:nth-child(2) {
     top: 20px;
     right: 20px;
@@ -73,6 +81,8 @@ export const Title = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
   font-size: 1.8rem;
   font-weight: 900;
 `;
@@ -179,7 +189,7 @@ export const FindIDPW = styled.button`
   width: 100%;
   padding: 0.5em;
   color: white;
-  background-color: ${(props) => props.theme.subColor};
+  background-color: black;
   font-weight: 500;
   font-size: 0.8rem;
   border: none;

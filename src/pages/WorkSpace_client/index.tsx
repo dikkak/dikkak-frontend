@@ -317,16 +317,17 @@ const WorkSpaceClient = () => {
                   </ColorTimeStep>
                   <ReferenceTimeStep
                     onClick={() => {
-                      // if (
-                      //   titleStep &&
-                      //   workStep &&
-                      //   detailStep &&
-                      //   purposeStep &&
-                      //   keyWordStep &&
-                      //   deadLineStep === "done"
-                      // ) {
-                      setworkspaceNum(8);
-                      //  }
+                      if (
+                        titleStep &&
+                        workStep &&
+                        detailStep &&
+                        purposeStep &&
+                        keyWordStep &&
+                        colorStep &&
+                        deadLineStep === "done"
+                      ) {
+                        setworkspaceNum(8);
+                      }
                     }}
                     step={referenceStep}
                   >

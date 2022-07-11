@@ -13,6 +13,9 @@ axios.interceptors.response.use(res => res, async (error: AxiosError) => {
       return axios(error.config);
     }
   }
+  if(error.response?.status === 409 && !refresh) {
+    return Promise.reject(error);
+  }
   refresh = false;
   return error;
 });
