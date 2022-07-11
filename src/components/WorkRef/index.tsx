@@ -1,4 +1,10 @@
-import React, { useState, Dispatch, SetStateAction, ChangeEvent } from "react";
+import React, {
+  useState,
+  Dispatch,
+  SetStateAction,
+  ChangeEvent,
+  ChangeEventHandler,
+} from "react";
 import styled from "styled-components";
 import earthImg from "../../assets/workspaceImage/earthImg.svg";
 import linkImg from "../../assets/workspaceImage/linkImage.png";
@@ -10,6 +16,7 @@ const MessageBox = styled.ul`
   height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
+  overflow-x: hidden;
   overflow-y: scroll;
 `;
 
@@ -31,6 +38,7 @@ const SystemMessage = styled.p`
   margin-left: 20px;
   margin-bottom: 10px;
   padding-right: 10px;
+
   &::before {
     content: "";
     position: relative;
@@ -61,6 +69,7 @@ const EarthImgContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const EarhImg = styled.img.attrs({
   src: earthImg,
 })`
@@ -138,13 +147,11 @@ const ContentBox = styled.div`
   justify-content: space-between;
 `;
 
-const FileUploadLabel = styled.label.attrs({
-  htmlFor: "file_upload",
-})`
+const FileUploadLabel = styled.label`
   width: 200px;
   height: 114px;
   background-color: #c4c4c4;
-  border: 1px solid #c4c4c4;
+
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -154,7 +161,6 @@ const FileUploadLabel = styled.label.attrs({
 const FileUpload = styled.input.attrs({
   type: "file",
   accept: "image/jpg, image/png, image/jpeg",
-  id: "file_upload",
 })`
   display: none;
 `;
@@ -204,20 +210,31 @@ const PlaceholderP = styled.p`
   text-align: center;
 `;
 
-interface WorkRefProtection {
-  setFiles: Dispatch<SetStateAction<FileList | null>>;
+const PreviewImg = styled.div<{ url?: string }>`
+  background-image: url(${(props) => props.url || ""});
+  width: 200px;
+  height: 114px;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+`;
+
+interface IWorkRef {
+  setContents: Dispatch<SetStateAction<IContents[]>>;
   contents: IContents[];
 }
 
-const WorkRef = ({ setFiles, contents }: WorkRefProtection) => {
+const WorkRef = ({ setContents, contents }: IWorkRef) => {
   const [focus, setFocus] = useState(true);
-  const [imgUrls, setImgUrls] = useState<string[]>([]);
 
-  const onFocus = () => {
+  const onFocus = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
     setFocus(false);
   };
 
-  const onBlur = () => {
+  const onBlur = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
     setFocus(true);
   };
 
@@ -235,10 +252,7 @@ const WorkRef = ({ setFiles, contents }: WorkRefProtection) => {
       if (files[0]) {
         fileReader.readAsDataURL(files[0]);
         const url = URL.createObjectURL(files[0]);
-        let urlList = [...imgUrls];
-
-        urlList[index] = url;
-        setImgUrls(urlList);
+        previewStore(index, url);
       }
       fileReader.onload = () => {
         console.log(fileReader.result);
@@ -247,16 +261,35 @@ const WorkRef = ({ setFiles, contents }: WorkRefProtection) => {
     return;
   };
 
-  const PreviewImg = styled.div<{ url?: string }>`
-    background-image: url(${(props) => props.url || null});
-    width: 200px;
-    height: 114px;
-    border: 1px solid #c4c4c4;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
+  const previewStore = (
+    index: number,
+    url?: string | "",
+    des?: string | ""
+  ) => {
+    let contentList = [...contents];
+    if (url) {
+      contentList[index].imgUrl = url;
+      setContents(contentList);
+    } else if (des) {
+      contentList[index].description = des;
+      setContents(contentList);
+    }
+    console.log(contentList);
+  };
+
+  const onAddClick = () => {
+    if (contents.length < 5) {
+      setContents((prev) => [...prev, { imgUrl: "", description: "" }]);
+    }
+  };
+  const onKeyBoardChange = (
+    e: ChangeEvent<HTMLTextAreaElement>,
+    index: number
+  ) => {
+    const des = e.target.value;
+    previewStore(index, "", des);
+    setFocus(false);
+  };
 
   return (
     <>
@@ -278,63 +311,48 @@ const WorkRef = ({ setFiles, contents }: WorkRefProtection) => {
           <RefLink as="a">레퍼런스 참고 페이지 알아보기</RefLink>
         </EarthImgBox>
 
+        {contents.map((item, index) => (
+          <UploadBox>
+            <UploadContainer>
+              <ContentBox>
+                <FileUploadLabel>
+                  {item.imgUrl ? (
+                    <PreviewImg url={item.imgUrl}></PreviewImg>
+                  ) : (
+                    <FileUploadImg></FileUploadImg>
+                  )}
+                  <FileUpload
+                    onChange={(
+                      e: ChangeEvent<HTMLInputElement> | undefined
+                    ) => {
+                      onLoadFile(e, index);
+                    }}
+                  ></FileUpload>
+                </FileUploadLabel>
+                <TextContainer>
+                  <Text
+                    onBlur={(e) => onBlur(e)}
+                    onFocus={(e) => onFocus(e)}
+                    onChange={(e) => onKeyBoardChange(e, index)}
+                  ></Text>
+                  {focus && (
+                    <PlaceholderP>
+                      레퍼런스에 대한<br></br> 설명을 입력해주세요
+                    </PlaceholderP>
+                  )}
+                </TextContainer>
+              </ContentBox>
+            </UploadContainer>
+          </UploadBox>
+        ))}
         <UploadBox>
-          <UploadContainer>
-            <ContentBox>
-              <FileUploadLabel>
-                {imgUrls[0] ? (
-                  <PreviewImg url={imgUrls[0]}></PreviewImg>
-                ) : (
-                  <FileUploadImg></FileUploadImg>
-                )}
-                <FileUpload
-                  onChange={(e) => {
-                    onLoadFile(e, 0);
-                  }}
-                ></FileUpload>
-              </FileUploadLabel>
-              <TextContainer>
-                <Text onFocus={onFocus} onBlur={onBlur}></Text>
-                {focus && (
-                  <PlaceholderP>
-                    레퍼런스에 대한<br></br> 설명을 입력해주세요
-                  </PlaceholderP>
-                )}
-              </TextContainer>
-            </ContentBox>
+          <UploadContainer
+            style={{ justifyContent: "center", height: "35px" }}
+            onClick={onAddClick}
+          >
+            <p style={{ color: "#905DFB", fontSize: "24px" }}>+</p>
           </UploadContainer>
         </UploadBox>
-
-        <UploadBox>
-          <UploadContainer>
-            <ContentBox>
-              <FileUploadLabel>
-                {imgUrls[1] ? (
-                  <PreviewImg url={imgUrls[1]}></PreviewImg>
-                ) : (
-                  <FileUploadImg></FileUploadImg>
-                )}
-                <FileUpload
-                  onChange={(e) => {
-                    console.log("second");
-                    onLoadFile(e, 1);
-                  }}
-                ></FileUpload>
-              </FileUploadLabel>
-              <TextContainer>
-                <Text onFocus={onFocus} onBlur={onBlur}></Text>
-                {focus && (
-                  <PlaceholderP>
-                    레퍼런스에 대한<br></br> 설명을 입력해주세요
-                  </PlaceholderP>
-                )}
-              </TextContainer>
-            </ContentBox>
-          </UploadContainer>
-        </UploadBox>
-        {/* <UploadBox style={{ justifyContent: "center" }} onClick={onAddClick}>
-          <p style={{ color: "#905DFB", fontSize: "24px" }}>+</p>
-        </UploadBox> */}
       </MessageBox>
     </>
   );

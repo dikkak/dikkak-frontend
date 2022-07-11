@@ -55,7 +55,7 @@ export interface IColor {
 }
 
 export interface IContents {
-  imgBlob: Blob;
+  imgUrl: string;
   description: string;
 }
 
@@ -84,12 +84,14 @@ const WorkSpaceClient = () => {
 
   const [contents, setContents] = useState<IContents[]>([
     {
-      imgBlob: new Blob(),
+      imgUrl: "",
+      description: "",
+    },
+    {
+      imgUrl: "",
       description: "",
     },
   ]);
-
-  const [files, setFiles] = useState<FileList | null>(null);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
@@ -108,7 +110,7 @@ const WorkSpaceClient = () => {
   const [etcStep, setEtcStep] = useState("yet");
   const [additionStep, setAdditionStep] = useState("yet");
   const [submitStep, setSubmitStep] = useState("yet");
-  //
+
   // Tag
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState<string[]>([]);
@@ -433,8 +435,8 @@ const WorkSpaceClient = () => {
                   etcStep={setEtcStep}
                   additionStep={setAdditionStep}
                   submitStep={setSubmitStep}
-                  setFiles={setFiles}
                   contents={contents}
+                  setContents={setContents}
                 ></WorkspaceRender>
                 <TextContainer>
                   <InputArea>

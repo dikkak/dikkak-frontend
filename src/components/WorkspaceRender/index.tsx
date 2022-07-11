@@ -8,10 +8,9 @@ import WorkDeadLine from "../WorkDeadLine";
 import WorkRef from "../WorkRef";
 import { IColor } from "../../pages/WorkSpace_client";
 import WorkColor from "../WorkColor";
-
 import { IContents } from "../../pages/WorkSpace_client";
 
-interface WorkspaceNumProtection {
+interface IWorkspaceNum {
   workspaceNum: number | undefined;
   message: string;
   purposeMessage: string;
@@ -37,8 +36,8 @@ interface WorkspaceNumProtection {
   etcStep: Dispatch<SetStateAction<string>>;
   additionStep: Dispatch<SetStateAction<string>>;
   submitStep: Dispatch<SetStateAction<string>>;
-  setFiles: Dispatch<SetStateAction<FileList | null>>;
   contents: IContents[];
+  setContents: Dispatch<SetStateAction<IContents[]>>;
 }
 
 function switchFcn(
@@ -67,8 +66,8 @@ function switchFcn(
   etcStep: Dispatch<SetStateAction<string>>,
   additionStep: Dispatch<SetStateAction<string>>,
   submitStep: Dispatch<SetStateAction<string>>,
-  setFiles: Dispatch<SetStateAction<FileList | null>>,
-  contents: IContents[]
+  contents: IContents[],
+  setContents: Dispatch<SetStateAction<IContents[]>>
 ) {
   switch (workspaceNum) {
     case 1:
@@ -156,7 +155,7 @@ function switchFcn(
         ></WorkColor>
       );
     case 8:
-      return <WorkRef setFiles={setFiles} contents={contents}></WorkRef>;
+      return <WorkRef setContents={setContents} contents={contents}></WorkRef>;
   }
 }
 
@@ -186,9 +185,9 @@ const WorkspaceRender = ({
   etcStep,
   additionStep,
   submitStep,
-  setFiles,
   contents,
-}: WorkspaceNumProtection) => {
+  setContents,
+}: IWorkspaceNum) => {
   return (
     <>
       {switchFcn(
@@ -217,8 +216,8 @@ const WorkspaceRender = ({
         etcStep,
         additionStep,
         submitStep,
-        setFiles,
-        contents
+        contents,
+        setContents
       )}
     </>
   );
