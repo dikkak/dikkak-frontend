@@ -180,7 +180,7 @@ const WorkSpaceClient = () => {
     }
     textRef.current?.focus();
   };
-  if(!isFetching && !data) {return <Navigate to='/login'/>}
+  // if(!isFetching && !data) {return <Navigate to='/login'/>}
   return (
     <>
       <Menu />

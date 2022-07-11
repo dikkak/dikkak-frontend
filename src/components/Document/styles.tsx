@@ -99,4 +99,8 @@ export const MoveBtn = styled.button`
   font-family: Noto Sans KR;
   font-weight: 700;
   margin-top: 40px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;

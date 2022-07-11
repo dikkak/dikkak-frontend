@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { IContent } from "../../pages/DesignerWork";
 import {
   Container,
@@ -18,6 +19,7 @@ interface ContentProps {
 }
 
 const Document = ({ content, onDelete }: ContentProps) => {
+  const navigate = useNavigate();
   const [isDelete, setIsDelete] = useState(false);
   const [checkedInput, setCheckedInput] = useState<number[]>([]);
   const onChange = (id: number) => {
@@ -28,6 +30,11 @@ const Document = ({ content, onDelete }: ContentProps) => {
     setIsDelete((prev) => !prev);
     setCheckedInput([]);
   };
+  const onMoveButtonClick = () => {
+    if(content.type === 'client') {
+      navigate('/workspace_client');
+    }
+  }
   return (
     <Container>
       <Title>{content.title}</Title>
@@ -64,7 +71,7 @@ const Document = ({ content, onDelete }: ContentProps) => {
           삭제하기
         </MoveBtn>
       ) : (
-        <MoveBtn style={{ backgroundColor: content.bgColor }}>
+        <MoveBtn onClick={onMoveButtonClick} style={{ backgroundColor: content.bgColor }}>
           {content.workMenttion}
         </MoveBtn>
       )}
