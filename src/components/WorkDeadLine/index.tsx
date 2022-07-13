@@ -1,4 +1,4 @@
-import React, { Dispatch, RefObject, SetStateAction, useEffect, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import moment from 'moment';
 import './calendar.css';
@@ -9,25 +9,29 @@ import {
   SystemMessage,
   Title,
 } from "./styles";
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { deadLineAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
 interface IWorkDeadLineProps {
-  workspaceNum: number;
-  deadLine: string | undefined;
-  setDeadLine: Dispatch<SetStateAction<string | undefined>>;
   textRef: RefObject<HTMLTextAreaElement>;
-  deadLineStep: Dispatch<SetStateAction<string>>;
-  colorStep: Dispatch<SetStateAction<string>>;
-  setworkspaceNum: Dispatch<SetStateAction<number>>;
 }
-const WorkDeadLine = ({deadLine, setDeadLine, textRef, deadLineStep, colorStep, setworkspaceNum, workspaceNum}: IWorkDeadLineProps) => {
+const WorkDeadLine = ({ textRef }: IWorkDeadLineProps) => {
+  const setWorkStep = useSetRecoilState(workStepAtom);
+  const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
+  const [deadLine, setDeadLine] = useRecoilState(deadLineAtom);
   const [value, setValue] = useState(new Date());
   const onChange = (e: any) => {
     setValue(e);
     setDeadLine(moment(e).format('YYYY-MM-DD'));
   }
   const onClick = () => {
-    setworkspaceNum((workspaceNum += 1));
-    deadLineStep("done");
-    colorStep("now");
+    setWorkspaceNum(prev => prev+1);
+    setWorkStep(prev => {
+      return {
+        ...prev,
+        deadLineStep: 'done',
+        colorStep: 'now'
+      }
+    })
   }
   useEffect(() => {
     textRef.current?.setAttribute(

@@ -1,4 +1,6 @@
-import React, { Dispatch, RefObject, SetStateAction } from "react";
+import React from "react";
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { purponseMessageAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
 import {
   Circle,
   ClientMessage,
@@ -8,29 +10,19 @@ import {
   Title,
 } from "./styles";
 
-interface IWorkPurposeProps {
-  purposeMessage: string;
-  textRef: RefObject<HTMLTextAreaElement>;
-  tagRef: RefObject<HTMLInputElement>;
-  purposeStep: Dispatch<SetStateAction<string>>;
-  keywordStep: Dispatch<SetStateAction<string>>;
-  workspaceNum: number;
-  setworkspaceNum: Dispatch<SetStateAction<number>>;
-}
-
-const WorkPurpose = ({
-  purposeMessage,
-  textRef,
-  tagRef,
-  purposeStep,
-  keywordStep,
-  workspaceNum,
-  setworkspaceNum,
-}: IWorkPurposeProps) => {
+const WorkPurpose = () => {
+  const setWorkStep = useSetRecoilState(workStepAtom);
+  const purposeMessage = useRecoilValue(purponseMessageAtom);
+  const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const onClick = () => {
-    setworkspaceNum((workspaceNum += 1));
-    purposeStep("done");
-    keywordStep("now");
+    setWorkspaceNum(prev => prev+1);
+    setWorkStep(prev => {
+      return {
+        ...prev,
+        purposeStep: 'done',
+        keyWordStep: 'now'
+      }
+    })
   };
   return (
     <>

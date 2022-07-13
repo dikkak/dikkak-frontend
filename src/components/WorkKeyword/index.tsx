@@ -1,9 +1,6 @@
-import React, {
-  Dispatch,
-  RefObject,
-  SetStateAction,
-  useEffect,
-} from "react";
+import React, { RefObject, useEffect } from "react";
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { keyWordListAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
 import {
   Circle,
   ClientMessage,
@@ -16,32 +13,23 @@ import {
 } from "./styles";
 
 interface IWorkKeywordProps {
-  message: string;
-  tagList: string[];
   isTagInputClicked: boolean;
-  workspaceNum: number;
-  textRef: RefObject<HTMLTextAreaElement>;
   tagRef: RefObject<HTMLInputElement>;
-  setworkspaceNum: Dispatch<SetStateAction<number>>;
-  keywordStep: Dispatch<SetStateAction<string>>;
-  deadLineStep: Dispatch<SetStateAction<string>>;
 }
 
-const WorkKeyword = ({
-  message,
-  tagList,
-  isTagInputClicked,
-  workspaceNum,
-  textRef,
-  tagRef,
-  setworkspaceNum,
-  keywordStep,
-  deadLineStep,
-}: IWorkKeywordProps) => {
+const WorkKeyword = ({ isTagInputClicked, tagRef }: IWorkKeywordProps) => {
+  const setWorkStep = useSetRecoilState(workStepAtom);
+  const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
+  const keywordList = useRecoilValue(keyWordListAtom);
   const onClick = () => {
-    setworkspaceNum((workspaceNum += 1));
-    keywordStep("done");
-    deadLineStep("now");
+    setWorkspaceNum(prev => prev+1);
+    setWorkStep(prev => {
+      return {
+        ...prev,
+        keyWordStep: 'done',
+        deadLineStep: 'now'
+      }
+    })
   };
   useEffect(() => {
     tagRef.current?.focus();
@@ -58,7 +46,7 @@ const WorkKeyword = ({
         {isTagInputClicked ? (
           <>
             <ClientMessage>
-              {tagList.map((tagItem, index) => {
+              {keywordList.map((tagItem, index) => {
                 return (
                   <TagItem key={index}>
                     <TagText>{tagItem}</TagText>

@@ -1,7 +1,7 @@
 import React from "react";
 import Menu from "../../components/Menu";
 import { Navigate, useNavigate } from "react-router-dom";
-import { BackButton, BlurPin, Board, Buttons, Container, Contents, EmailInput, EmailLabel, FindIDPW, LogInForm, LogoImage, NextText, PasswordInput, PasswordLabel, SignUp, SocialLogin, SocialLoginSection, SocialLogo, SubmitButton, Title, Wrapper } from './styles';
+import { BackButton, BlurPin, Board, Buttons, Container, Contents, FindIDPW, LogoImage, SignUp, SocialLogin, SocialLoginSection, SocialLogo, Title, Wrapper } from './styles';
 import facebook from "../../assets/logoImage/facebookLogin.svg";
 import kakao from "../../assets/logoImage/kakaoLogin.svg";
 import google from "../../assets/logoImage/googleLogin.svg";
@@ -11,8 +11,9 @@ import { userInfo } from '../../apis/auth_login';
 import Footer from '../../components/Footer';
 
 const Login = () => {
-  const {data} = useQuery('user-info', userInfo);
+  const {data, isFetching} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
+  if(isFetching) return (<div>Loading...</div>)
   if(data) {return <Navigate to='/service_start'/>}
   return (
     <>

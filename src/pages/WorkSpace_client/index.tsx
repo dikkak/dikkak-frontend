@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Wrapper,
@@ -48,55 +48,26 @@ import {
 import WorkspaceRender from "../../components/WorkspaceRender";
 import { useQuery } from 'react-query';
 import { userInfo } from '../../apis/auth_login';
-
-export interface IColor {
-  color: string;
-  isClicked: boolean;
-}
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { keyWordListAtom, purponseMessageAtom, titleMessageAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
+import NavigationGuard from '../../components/NavigationGuard/NavigationGuard';
 
 const WorkSpaceClient = () => {
   const {data, isFetching} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
   const [input, setInput] = useState("");
-  const [message, setMessage] = useState<string>("");
-  const [purposeMessage, setPurposeMessage] = useState<string>("");
+  const setTitleMessage = useSetRecoilState(titleMessageAtom);
+  const setPurposeMessage = useSetRecoilState(purponseMessageAtom);
   const [isTagInputClicked, setIsTagInputClicked] = useState(false);
-  const [deadLine, setDeadLine] = useState<string | undefined>(); //마감기간의 state
-  const [mainColor, setMainColor] = useState<IColor>({
-    color: '',
-    isClicked: false
-  });
-  const [subColors, setSubColors] = useState<IColor[]>([
-    {
-      color: '',
-      isClicked: false
-    },
-    {
-      color: '',
-      isClicked: false
-    },
-  ]); // colorStep의 메인컬러와 서브컬러 state
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
-  const [workspaceNum, setworkspaceNum] = useState(1);
-
-  // TimeStep 상태
-  const [titleStep, setTitleStep] = useState("now");
-  const [workStep, setWorkStep] = useState("yet");
-  const [detailStep, setDetailStep] = useState("yet");
-  const [purposeStep, setPurposeStep] = useState("yet");
-  const [keyWordStep, setKeyWordStep] = useState("yet");
-  const [deadLineStep, setDeadLineStep] = useState("yet");
-  const [colorStep, setColorStep] = useState("yet");
-  const [referenceStep, setReferenceStep] = useState("yet");
-  const [etcStep, setEtcStep] = useState("yet");
-  const [additionStep, setAdditionStep] = useState("yet");
-  const [submitStep, setSubmitStep] = useState("yet");
+  const [workspaceNum, setworkspaceNum] = useRecoilState(workspaceNumAtom);
+  const workStep = useRecoilValue(workStepAtom);
   //
   // Tag
   const [tagItem, setTagItem] = useState("");
-  const [tagList, setTagList] = useState<string[]>([]);
+  const [keywordList, setKeywordList] = useRecoilState(keyWordListAtom);
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (
       e.currentTarget.value.length !== 0 &&
@@ -107,19 +78,19 @@ const WorkSpaceClient = () => {
     }
   };
   const submitTagItem = () => {
-    let updatedTagList = [...tagList];
-    updatedTagList.push(tagItem);
-    setTagList(updatedTagList);
+    let updatedKeywordList = [...keywordList];
+    updatedKeywordList.push(tagItem);
+    setKeywordList(updatedKeywordList);
     setTagItem("");
   };
   const deleteTagItem = (e: React.MouseEvent<HTMLButtonElement>) => {
     const deleteTagItem = (
       e.currentTarget.parentElement?.firstChild as HTMLSpanElement
     ).innerText;
-    const filteredTagList = tagList.filter(
+    const filteredKeywordList = keywordList.filter(
       (tagItem) => tagItem !== deleteTagItem
     );
-    setTagList(filteredTagList);
+    setKeywordList(filteredKeywordList);
   };
   //
   const onFileClick = () => {
@@ -134,7 +105,7 @@ const WorkSpaceClient = () => {
     if (step !== 1 && step !== 4 && step !== 5 && step !== 10) return;
     switch (step) {
       case 1:
-        setMessage(input);
+        setTitleMessage(input);
         break;
       case 4:
         setPurposeMessage(input);
@@ -181,6 +152,7 @@ const WorkSpaceClient = () => {
     textRef.current?.focus();
   };
   // if(!isFetching && !data) {return <Navigate to='/login'/>}
+  // if(!isFetching && data && data.type === 'DESIGNER') {return <Navigate to='/service_start'/>}
   return (
     <>
       <Menu />
@@ -210,27 +182,27 @@ const WorkSpaceClient = () => {
                     onClick={() => {
                       setworkspaceNum(1);
                     }}
-                    step={titleStep}
+                    step={workStep.titleStep}
                   >
                     제목입력
                   </TitleTimeStep>
                   <WorkTimeStep
                     onClick={() => {
-                      if (titleStep === "done") {
+                      if (workStep.titleStep === "done") {
                         setworkspaceNum(2);
                       }
                     }}
-                    step={workStep}
+                    step={workStep.workChoiceStep}
                   >
                     작업선택
                   </WorkTimeStep>
                   <DetailTimeStep
                     onClick={() => {
-                      if (titleStep && workStep === "done") {
+                      if (workStep.titleStep && workStep.workChoiceStep === "done") {
                         setworkspaceNum(3);
                       }
                     }}
-                    step={detailStep}
+                    step={workStep.detailStep}
                   >
                     세부사항
                     <br />
@@ -238,26 +210,26 @@ const WorkSpaceClient = () => {
                   </DetailTimeStep>
                   <PurposeTimeStep
                     onClick={() => {
-                      if (titleStep && workStep && detailStep === "done") {
+                      if (workStep.titleStep && workStep.workChoiceStep && workStep.detailStep === "done") {
                         setworkspaceNum(4);
                       }
                     }}
-                    step={purposeStep}
+                    step={workStep.purposeStep}
                   >
                     사용목적
                   </PurposeTimeStep>
                   <KeyWordTimeStep
                     onClick={() => {
                       if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep === "done"
+                        workStep.titleStep &&
+                        workStep.workChoiceStep &&
+                        workStep.detailStep &&
+                        workStep.purposeStep === "done"
                       ) {
                         setworkspaceNum(5);
                       }
                     }}
-                    step={keyWordStep}
+                    step={workStep.keyWordStep}
                   >
                     키워드
                     <br />
@@ -266,16 +238,16 @@ const WorkSpaceClient = () => {
                   <DeadLineTimeStep
                     onClick={() => {
                       if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep &&
-                        keyWordStep === "done"
+                        workStep.titleStep &&
+                        workStep.workChoiceStep &&
+                        workStep.detailStep &&
+                        workStep.purposeStep &&
+                        workStep.keyWordStep === "done"
                       ) {
                         setworkspaceNum(6);
                       }
                     }}
-                    step={deadLineStep}
+                    step={workStep.deadLineStep}
                   >
                     마감기간
                     <br />
@@ -284,34 +256,34 @@ const WorkSpaceClient = () => {
                   <ColorTimeStep
                     onClick={() => {
                       if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep &&
-                        keyWordStep &&
-                        deadLineStep === "done"
+                        workStep.titleStep &&
+                        workStep.workChoiceStep &&
+                        workStep.detailStep &&
+                        workStep.purposeStep &&
+                        workStep.keyWordStep &&
+                        workStep.deadLineStep === "done"
                       ) {
                         setworkspaceNum(7);
                       }
                     }}
-                    step={colorStep}
+                    step={workStep.colorStep}
                   >
                     컬러선택
                   </ColorTimeStep>
                   <ReferenceTimeStep
                     onClick={() => {
                       if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep &&
-                        keyWordStep &&
-                        deadLineStep === "done"
+                        workStep.titleStep &&
+                        workStep.workChoiceStep &&
+                        workStep.detailStep &&
+                        workStep.purposeStep &&
+                        workStep.keyWordStep &&
+                        workStep.deadLineStep === "done"
                       ) {
                         setworkspaceNum(8);
                       }
                     }}
-                    step={referenceStep}
+                    step={workStep.referenceStep}
                   >
                     레퍼런스
                     <br />
@@ -320,19 +292,19 @@ const WorkSpaceClient = () => {
                   <EtcTimeStep
                     onClick={() => {
                       if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep &&
-                        keyWordStep &&
-                        deadLineStep &&
-                        colorStep &&
-                        referenceStep === "done"
+                        workStep.titleStep &&
+                        workStep.workChoiceStep &&
+                        workStep.detailStep &&
+                        workStep.purposeStep &&
+                        workStep.keyWordStep &&
+                        workStep.deadLineStep &&
+                        workStep.colorStep &&
+                        workStep.referenceStep === "done"
                       ) {
                         setworkspaceNum(9);
                       }
                     }}
-                    step={etcStep}
+                    step={workStep.etcStep}
                   >
                     기타 파일
                     <br />
@@ -344,20 +316,20 @@ const WorkSpaceClient = () => {
                   <AdditionTimeStep
                     onClick={() => {
                       if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep &&
-                        keyWordStep &&
-                        deadLineStep &&
-                        colorStep &&
-                        referenceStep &&
-                        etcStep === "done"
+                        workStep.titleStep &&
+                        workStep.workChoiceStep &&
+                        workStep.detailStep &&
+                        workStep.purposeStep &&
+                        workStep.keyWordStep &&
+                        workStep.deadLineStep &&
+                        workStep.colorStep &&
+                        workStep.referenceStep &&
+                        workStep.etcStep === "done"
                       ) {
                         setworkspaceNum(10);
                       }
                     }}
-                    step={additionStep}
+                    step={workStep.additionStep}
                   >
                     추가요청
                     <br />
@@ -369,21 +341,21 @@ const WorkSpaceClient = () => {
                   <SubmitTimeStep
                     onClick={() => {
                       if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep &&
-                        keyWordStep &&
-                        deadLineStep &&
-                        colorStep &&
-                        referenceStep &&
-                        etcStep &&
-                        additionStep === "done"
+                        workStep.titleStep &&
+                        workStep.workChoiceStep &&
+                        workStep.detailStep &&
+                        workStep.purposeStep &&
+                        workStep.keyWordStep &&
+                        workStep.deadLineStep &&
+                        workStep.colorStep &&
+                        workStep.referenceStep &&
+                        workStep.etcStep &&
+                        workStep.additionStep === "done"
                       ) {
                         setworkspaceNum(11);
                       }
                     }}
-                    step={submitStep}
+                    step={workStep.submitStep}
                   >
                     제출하기
                   </SubmitTimeStep>
@@ -394,40 +366,19 @@ const WorkSpaceClient = () => {
               <BoxContent>
                 <WorkspaceRender
                   workspaceNum={workspaceNum}
-                  message={message}
-                  tagList={tagList}
                   isTagInputClicked={isTagInputClicked}
-                  purposeMessage={purposeMessage}
-                  deadLine={deadLine} // 마감기간 state
-                  setDeadLine={setDeadLine} // 마감기간 state의 set함수
-                  mainColor={mainColor}
-                  setMainColor={setMainColor}
-                  subColors={subColors}
-                  setSubColors={setSubColors}
                   tagRef={tagRef}
                   textRef={textRef}
-                  setworkspaceNum={setworkspaceNum}
-                  titleStep={setTitleStep}
-                  workStep={setWorkStep}
-                  detailStep={setDetailStep}
-                  purposeStep={setPurposeStep}
-                  keyWordStep={setKeyWordStep}
-                  deadLineStep={setDeadLineStep}
-                  colorStep={setColorStep}
-                  referenceStep={setReferenceStep}
-                  etcStep={setEtcStep}
-                  additionStep={setAdditionStep}
-                  submitStep={setSubmitStep}
                 ></WorkspaceRender>
                 <TextContainer>
                   <InputArea>
-                    {keyWordStep === "now" && workspaceNum === 5 ? (
+                    {workspaceNum === 5 ? (
                       <WholeBox>
                         <TagBox>
-                          {tagList.map((tagItem, index) => {
+                          {keywordList.map((keywordItem, index) => {
                             return (
                               <TagItem key={index}>
-                                <TagText>{tagItem}</TagText>
+                                <TagText>{keywordItem}</TagText>
                                 <Button onClick={deleteTagItem}>X</Button>
                               </TagItem>
                             );
@@ -484,6 +435,7 @@ const WorkSpaceClient = () => {
         </Wrapper>
       </Container>
       <Footer bgColor="#fff"></Footer>
+      <NavigationGuard when={true} />
     </>
   );
 };

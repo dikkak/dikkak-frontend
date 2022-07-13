@@ -1,20 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import ClientOrDesigner from "../../components/ClientOrDesigner";
 import { BackButton, BlurBackground, BlurPin, Container, Content, ContentDesc, JumboCotainer, Jumbotron, LetterLogo, LogoImage, PaintLogo, Title } from './styles';
-import { useQuery } from 'react-query';
-import {userInfo} from '../../apis/auth_login';
+import { useQuery, useQueryClient } from 'react-query';
+import {authLogout, userInfo} from '../../apis/auth_login';
 import ServiceButton from '../../components/ServiceButton';
+import LogoutModal from '../../components/LogoutModal';
+import axios from 'axios';
+import { KAKAO_AUTH_LOGOUT_URL } from '../../OAuth';
 
 
 const Start = () => {
   const {data} = useQuery('user-info', userInfo);
+  const queryClient = useQueryClient();
+  const [isLogoutClicked, setIsLogoutClicked] = useState(false);
   const navigate = useNavigate();
+  const onLogout = () => {
+    authLogout()
+    .then(() => {
+      delete axios.defaults.headers.common['Authorization'];
+      queryClient.clear();
+      localStorage.removeItem('recoil-persist');
+      window.location.href=KAKAO_AUTH_LOGOUT_URL;
+    });
+  };
   if(!data) {return <Navigate to='/login'/>};
   return (
     <>
+      {
+        isLogoutClicked && (
+          <LogoutModal onLogout={onLogout} setIsLogoutClicked={setIsLogoutClicked}/>
+        )
+      }
       <Menu />
       <Container>
         <BackButton onClick={() => navigate(-1)}>
@@ -52,7 +71,11 @@ const Start = () => {
                       <ContentDesc>
                         {data?.username} {data?.type}님 안녕하세요!
                       </ContentDesc>
-                      <ServiceButton username={data.username} type={data.type}/>
+                      <ServiceButton 
+                        username={data.username} 
+                        type={data.type} 
+                        setIsLogoutClicked={setIsLogoutClicked}
+                        onLogout={onLogout}/>
                     </>
                 )
               }

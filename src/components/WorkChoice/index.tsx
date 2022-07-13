@@ -1,4 +1,6 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { useState } from "react";
+import { useSetRecoilState } from 'recoil';
+import { workspaceNumAtom, workStepAtom } from '../../atoms';
 import {
   JobChoiceBox,
   SystemMessage,
@@ -16,21 +18,9 @@ import {
   Title,
 } from "./styles";
 
-interface IWorkChoiceProps {
-  workspaceNum: number;
-  setworkspaceNum: Dispatch<SetStateAction<number>>;
-  purposeStep: Dispatch<SetStateAction<string>>;
-  workStep: Dispatch<SetStateAction<string>>;
-  detailStep: Dispatch<SetStateAction<string>>;
-}
-
-const WorkChoice = ({
-  workspaceNum,
-  setworkspaceNum,
-  workStep,
-  purposeStep,
-  detailStep,
-}: IWorkChoiceProps) => {
+const WorkChoice = () => {
+  const setWorkStep = useSetRecoilState(workStepAtom);
+  const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const [isLogoActive, setIsLogoActive] = useState(false);
   const [isPackageActive, setIsPackageActive] = useState(false);
   const [isDetailActive, setIsDetailActive] = useState(false);
@@ -71,9 +61,14 @@ const WorkChoice = ({
   };
 
   const onClick = () => {
-    setworkspaceNum((workspaceNum += 1));
-    workStep("done");
-    detailStep("now");
+    setWorkspaceNum(prev => prev+1);
+    setWorkStep(prev => {
+      return {
+        ...prev,
+        workChoiceStep: 'done',
+        detailStep: 'now'
+      }
+    })
   };
 
   return (

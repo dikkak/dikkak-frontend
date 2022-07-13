@@ -1,29 +1,15 @@
-import React, { Dispatch, Fragment, SetStateAction } from 'react';
+import React, {  Fragment } from 'react';
+import _ from 'lodash';
 import { SketchPicker } from 'react-color';
-import { IColor } from '../../pages/WorkSpace_client';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { mainColorAtom, subColorsAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
 import { Box, Circle, ClientMessage, ColorBox, ColorText, DeleteButton, InnerContainer, MessageBox, NextStepButton, SystemMessage, Title } from './styles';
 
-interface IWorkColorProps {
-  mainColor: IColor;
-  setMainColor: Dispatch<SetStateAction<IColor>>;
-  subColors: IColor[];
-  setSubColors: Dispatch<SetStateAction<IColor[]>>;
-  colorStep: Dispatch<SetStateAction<string>>;
-  referenceStep: Dispatch<SetStateAction<string>>;
-  workspaceNum: number;
-  setworkspaceNum: Dispatch<SetStateAction<number>>;
-}
-
-const WorkColor = ({
-  mainColor,
-  setMainColor,
-  subColors,
-  setSubColors,
-  colorStep,
-  referenceStep,
-  workspaceNum,
-  setworkspaceNum,
-}: IWorkColorProps) => {
+const WorkColor = () => {
+  const setWorkStep = useSetRecoilState(workStepAtom);
+  const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
+  const [mainColor, setMainColor] = useRecoilState(mainColorAtom);
+  const [subColors, setSubColors] = useRecoilState(subColorsAtom);
   const handleColorChange = (color: string, index?: number) => {
     if(index !== 0 && !index) {
       setMainColor(prev => {
@@ -31,7 +17,7 @@ const WorkColor = ({
       });
       return;
     } else {
-      const newList = [...subColors];
+      const newList = _.cloneDeep(subColors);
       newList[index].color = color;
       setSubColors(newList);
     }
@@ -44,7 +30,7 @@ const WorkColor = ({
         });
         return;
       } else {
-        const newList = [...subColors];
+        const newList = _.cloneDeep(subColors);
         newList.map(item => item.isClicked=false);
         setSubColors(newList);
         setMainColor(prev => {
@@ -53,7 +39,7 @@ const WorkColor = ({
       }
     }
     else {
-      const newList = [...subColors];
+      const newList = _.cloneDeep(subColors);
       if(newList[index].isClicked) {
         newList[index].isClicked = false;
         setSubColors(newList);
@@ -76,9 +62,14 @@ const WorkColor = ({
     setSubColors(prev => [...prev, {color: '', isClicked: false}]);
   }
   const onNextStep = () => {
-    setworkspaceNum((workspaceNum += 1));
-    colorStep("done");
-    referenceStep("now");
+    setWorkspaceNum(prev => prev+1);
+    setWorkStep(prev => {
+      return {
+        ...prev,
+        colorStep: 'done',
+        referenceStep: 'now'
+      }
+    })
   }
   return (
     <>
