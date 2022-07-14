@@ -1,11 +1,6 @@
-import React, {
-  useState,
-  Dispatch,
-  SetStateAction,
-  ChangeEvent,
-  ChangeEventHandler,
-} from "react";
+import React, { useState, Dispatch, SetStateAction, ChangeEvent } from "react";
 import styled from "styled-components";
+import { isNullOrUndefined } from "util";
 import earthImg from "../../assets/workspaceImage/earthImg.svg";
 import linkImg from "../../assets/workspaceImage/linkImage.png";
 import { IContents } from "../../pages/WorkSpace_client";
@@ -100,6 +95,7 @@ const UploadBox = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 22px;
+  cursor: pointer;
 `;
 
 const UploadContainer = styled.div`
@@ -147,11 +143,11 @@ const ContentBox = styled.div`
   justify-content: space-between;
 `;
 
-const FileUploadLabel = styled.label`
+const FileUploadLabel = styled.label<{ bgcolor?: string }>`
   width: 200px;
   height: 114px;
   background-color: #c4c4c4;
-
+  cursor: pointer;
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -181,18 +177,18 @@ const TextContainer = styled.div`
   border: 0px;
 `;
 
-const Text = styled.textarea`
+const Text = styled.textarea<{ bgcolor?: string; borderColor?: string }>`
   width: 426px;
   height: 114px;
   background-color: #c4c4c4;
-  border: 1px solid #5f5151;
+  border: 1px solid ${(props) => props.borderColor};
   padding: 10px;
   outline: none;
   border: 0;
   color: #717171;
   resize: none;
   border-radius: 5px;
-
+  cursor: pointer;
   &:focus {
     outline: none;
     background: transparent;
@@ -219,24 +215,58 @@ const PreviewImg = styled.div<{ url?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
 `;
 
-interface IWorkRef {
+const NextStepButton = styled.button`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 440px;
+  height: 30px;
+  background-color: #717171;
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const TextFirst = styled(Text)``;
+const TextSecond = styled(Text)``;
+const TextThird = styled(Text)``;
+const TextFourth = styled(Text)``;
+const TextFifth = styled(Text)``;
+
+interface IWorkRefProps {
   setContents: Dispatch<SetStateAction<IContents[]>>;
   contents: IContents[];
+  workspaceNum: number;
+  setworkspaceNum: Dispatch<SetStateAction<number>>;
+  referenceStep: Dispatch<SetStateAction<string>>;
+  setEtcStep: Dispatch<SetStateAction<string>>;
 }
 
-const WorkRef = ({ setContents, contents }: IWorkRef) => {
-  const [focus, setFocus] = useState(true);
+let count = 0;
 
-  const onFocus = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
-    setFocus(false);
-  };
-
-  const onBlur = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
-    setFocus(true);
-  };
+const WorkRef = ({
+  setContents,
+  contents,
+  workspaceNum,
+  setworkspaceNum,
+  referenceStep,
+  setEtcStep,
+}: IWorkRefProps) => {
+  const [focusFirst, setFocusFirst] = useState(false);
+  const [focusSecond, setFocusSecond] = useState(false);
+  const [focusThird, setFocusThird] = useState(false);
+  const [focusFourth, setFocusFourth] = useState(false);
+  const [focusFifth, setFocusFifth] = useState(false);
 
   const onLoadFile = (
     e: ChangeEvent<HTMLInputElement> | undefined,
@@ -286,9 +316,191 @@ const WorkRef = ({ setContents, contents }: IWorkRef) => {
     e: ChangeEvent<HTMLTextAreaElement>,
     index: number
   ) => {
-    const des = e.target.value;
+    let des = e.target.value;
     previewStore(index, "", des);
-    setFocus(false);
+  };
+
+  const onNextStep = () => {
+    setworkspaceNum((workspaceNum += 1));
+    referenceStep("done");
+    setEtcStep("now");
+  };
+
+  const onFocusFirst = (e?: ChangeEvent<HTMLTextAreaElement> | undefined) => {
+    setFocusFirst(true);
+  };
+
+  const onBlurFirst = (e?: ChangeEvent<HTMLTextAreaElement> | undefined) => {
+    setFocusFirst(false);
+  };
+
+  const onFocusSecond = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
+    setFocusSecond(true);
+  };
+
+  const onBlurSecond = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
+    setFocusSecond(false);
+  };
+
+  const onFocusThird = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
+    setFocusThird(true);
+  };
+
+  const onBlurThird = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
+    setFocusThird(false);
+  };
+
+  const onFocusFourth = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
+    setFocusFourth(true);
+  };
+
+  const onBlurFourth = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
+    setFocusFourth(false);
+  };
+  const onFocusFifth = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
+    setFocusFifth(true);
+  };
+
+  const onBlurFifth = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
+    setFocusFifth(false);
+  };
+
+  const switchFcn = (index: number) => {
+    switch (index) {
+      case 0:
+        return (
+          <>
+            <TextFirst
+              onBlur={(e) => onBlurFirst(e)}
+              onFocus={(e) => onFocusFirst(e)}
+              onChange={(e) => onKeyBoardChange(e, index)}
+              // bgcolor={
+              //   contents[index].imgUrl !== "" ||
+              //   contents[index].description !== ""
+              //     ? "#C4C4C4"
+              //     : "#fff"
+              // }
+              // borderColor={
+              //   contents[index].imgUrl !== "" ||
+              //   contents[index].description !== ""
+              //     ? "#905DFB"
+              //     : "#C4C4C4"
+              // }
+            />
+            {!focusFirst && contents[index].description === "" ? (
+              <PlaceholderP
+                onClick={() => {
+                  onBlurFirst();
+                }}
+              >
+                레퍼런스에 대한
+                <br />
+                설명을 입력해 주세요
+              </PlaceholderP>
+            ) : null}
+          </>
+        );
+        let count = 0;
+      case 1:
+        return (
+          <>
+            <TextSecond
+              onBlur={(e) => onBlurSecond(e)}
+              onFocus={(e) => onFocusSecond(e)}
+              onChange={(e) => onKeyBoardChange(e, index)}
+              // bgcolor={
+              //   contents[index].imgUrl !== "" ||
+              //   contents[index].description !== ""
+              //     ? "#fff"
+              //     : "#C4C4C4"
+              // }
+            />
+            {!focusSecond && contents[index].description === "" ? (
+              <PlaceholderP
+                onClick={() => {
+                  setFocusSecond(true);
+                }}
+              >
+                레퍼런스에 대한
+                <br />
+                설명을 입력해 주세요
+              </PlaceholderP>
+            ) : null}
+          </>
+        );
+
+      case 2:
+        return (
+          <>
+            <TextThird
+              onBlur={(e) => onBlurThird(e)}
+              onFocus={(e) => onFocusThird(e)}
+              onChange={(e) => onKeyBoardChange(e, index)}
+              // bgcolor={
+              //   contents[index].imgUrl !== "" ||
+              //   contents[index].description !== ""
+              //     ? "#fff"
+              //     : "#C4C4C4"
+              // }
+            />
+            {!focusThird && contents[index].description === "" ? (
+              <PlaceholderP onClick={() => setFocusThird(true)}>
+                레퍼런스에 대한
+                <br />
+                설명을 입력해 주세요
+              </PlaceholderP>
+            ) : null}
+          </>
+        );
+
+      case 3:
+        return (
+          <>
+            <TextFourth
+              onBlur={(e) => onBlurFourth(e)}
+              onFocus={(e) => onFocusFourth(e)}
+              onChange={(e) => onKeyBoardChange(e, index)}
+              // bgcolor={
+              //   contents[index].imgUrl !== "" ||
+              //   contents[index].description !== ""
+              //     ? "#fff"
+              //     : "#C4C4C4"
+              // }
+            />
+            {!focusFourth && contents[index].description === "" ? (
+              <PlaceholderP onClick={() => setFocusFourth(false)}>
+                레퍼런스에 대한
+                <br />
+                설명을 입력해 주세요
+              </PlaceholderP>
+            ) : null}
+          </>
+        );
+
+      case 4:
+        return (
+          <>
+            <TextFifth
+              onBlur={(e) => onBlurFifth(e)}
+              onFocus={(e) => onFocusFifth(e)}
+              onChange={(e) => onKeyBoardChange(e, index)}
+              // bgcolor={
+              //   contents[index].imgUrl !== "" ||
+              //   contents[index].description !== ""
+              //     ? "#fff"
+              //     : "#C4C4C4"
+              // }
+            />
+            {!focusFifth && contents[index].description === "" ? (
+              <PlaceholderP onClick={() => setFocusFifth(false)}>
+                레퍼런스에 대한
+                <br />
+                설명을 입력해 주세요
+              </PlaceholderP>
+            ) : null}
+          </>
+        );
+    }
   };
 
   return (
@@ -315,7 +527,14 @@ const WorkRef = ({ setContents, contents }: IWorkRef) => {
           <UploadBox>
             <UploadContainer>
               <ContentBox>
-                <FileUploadLabel>
+                <FileUploadLabel
+                  bgcolor={
+                    contents[index].imgUrl !== "" ||
+                    contents[index].description !== ""
+                      ? "#fff"
+                      : "#C4C4C4"
+                  }
+                >
                   {item.imgUrl ? (
                     <PreviewImg url={item.imgUrl}></PreviewImg>
                   ) : (
@@ -329,18 +548,7 @@ const WorkRef = ({ setContents, contents }: IWorkRef) => {
                     }}
                   ></FileUpload>
                 </FileUploadLabel>
-                <TextContainer>
-                  <Text
-                    onBlur={(e) => onBlur(e)}
-                    onFocus={(e) => onFocus(e)}
-                    onChange={(e) => onKeyBoardChange(e, index)}
-                  ></Text>
-                  {focus && (
-                    <PlaceholderP>
-                      레퍼런스에 대한<br></br> 설명을 입력해주세요
-                    </PlaceholderP>
-                  )}
-                </TextContainer>
+                <TextContainer>{switchFcn(index)}</TextContainer>
               </ContentBox>
             </UploadContainer>
           </UploadBox>
@@ -353,6 +561,28 @@ const WorkRef = ({ setContents, contents }: IWorkRef) => {
             <p style={{ color: "#905DFB", fontSize: "24px" }}>+</p>
           </UploadContainer>
         </UploadBox>
+        {contents.map((item) => {
+          if (item.description !== "" && item.imgUrl !== "") {
+            count += 1;
+          }
+          return null;
+        })}
+
+        {count >= 2 ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "20px 0 10px 0 ",
+            }}
+          >
+            <NextStepButton onClick={onNextStep}>
+              <Circle color="#EFDC34" />
+              NEXT STEP
+              <Circle color="#28BF1B" />
+            </NextStepButton>
+          </div>
+        ) : null}
       </MessageBox>
     </>
   );
