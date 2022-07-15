@@ -10,7 +10,7 @@ import {
   Title,
 } from "./styles";
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { deadLineAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
+import { deadLineAtom, workspaceNumAtom, workStepAtom } from '../../../atoms';
 interface IWorkDeadLineProps {
   textRef: RefObject<HTMLTextAreaElement>;
 }

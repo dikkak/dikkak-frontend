@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSetRecoilState } from 'recoil';
-import { workspaceNumAtom, workStepAtom } from '../../atoms';
+import { workspaceNumAtom, workStepAtom } from '../../../atoms';
 import {
   JobChoiceBox,
   SystemMessage,

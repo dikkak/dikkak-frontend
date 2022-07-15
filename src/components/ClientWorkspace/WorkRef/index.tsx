@@ -1,9 +1,10 @@
-import React, { useState, Dispatch, SetStateAction, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
+import _ from 'lodash';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from "styled-components";
-import { isNullOrUndefined } from "util";
-import earthImg from "../../assets/workspaceImage/earthImg.svg";
-import linkImg from "../../assets/workspaceImage/linkImage.png";
-import { IContents } from "../../pages/WorkSpace_client";
+import earthImg from "../../../assets/workspaceImage/earthImg.svg";
+import linkImg from "../../../assets/workspaceImage/linkImage.png";
+import { referenceContentsAtom, workspaceNumAtom, workStepAtom } from '../../../atoms';
 
 const MessageBox = styled.ul`
   position: relative;
@@ -243,25 +244,13 @@ const TextThird = styled(Text)``;
 const TextFourth = styled(Text)``;
 const TextFifth = styled(Text)``;
 
-interface IWorkRefProps {
-  setContents: Dispatch<SetStateAction<IContents[]>>;
-  contents: IContents[];
-  workspaceNum: number;
-  setworkspaceNum: Dispatch<SetStateAction<number>>;
-  referenceStep: Dispatch<SetStateAction<string>>;
-  setEtcStep: Dispatch<SetStateAction<string>>;
-}
 
 let count = 0;
 
-const WorkRef = ({
-  setContents,
-  contents,
-  workspaceNum,
-  setworkspaceNum,
-  referenceStep,
-  setEtcStep,
-}: IWorkRefProps) => {
+const WorkRef = () => {
+  const [referenceContents, setReferenceContents] = useRecoilState(referenceContentsAtom);
+  const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
+  const setWorkStep = useSetRecoilState(workStepAtom);
   const [focusFirst, setFocusFirst] = useState(false);
   const [focusSecond, setFocusSecond] = useState(false);
   const [focusThird, setFocusThird] = useState(false);
@@ -272,7 +261,6 @@ const WorkRef = ({
     e: ChangeEvent<HTMLInputElement> | undefined,
     index: number
   ) => {
-    console.log(index);
     if (e) {
       const files = e.target.files!;
       console.log(files[0].name);
@@ -296,20 +284,20 @@ const WorkRef = ({
     url?: string | "",
     des?: string | ""
   ) => {
-    let contentList = [...contents];
+    let contentList = _.cloneDeep(referenceContents);
     if (url) {
       contentList[index].imgUrl = url;
-      setContents(contentList);
+      setReferenceContents(contentList);
     } else if (des) {
       contentList[index].description = des;
-      setContents(contentList);
+      setReferenceContents(contentList);
     }
     console.log(contentList);
   };
 
   const onAddClick = () => {
-    if (contents.length < 5) {
-      setContents((prev) => [...prev, { imgUrl: "", description: "" }]);
+    if (referenceContents.length < 5) {
+      setReferenceContents((prev) => [...prev, { imgUrl: "", description: "" }]);
     }
   };
   const onKeyBoardChange = (
@@ -321,9 +309,14 @@ const WorkRef = ({
   };
 
   const onNextStep = () => {
-    setworkspaceNum((workspaceNum += 1));
-    referenceStep("done");
-    setEtcStep("now");
+    setWorkspaceNum(prev => prev+1);
+    setWorkStep(prev => {
+      return {
+        ...prev,
+        referenceStep: 'done',
+        etcStep: 'now'
+      }
+    })
   };
 
   const onFocusFirst = (e?: ChangeEvent<HTMLTextAreaElement> | undefined) => {
@@ -387,7 +380,7 @@ const WorkRef = ({
               //     : "#C4C4C4"
               // }
             />
-            {!focusFirst && contents[index].description === "" ? (
+            {!focusFirst && referenceContents[index].description === "" ? (
               <PlaceholderP
                 onClick={() => {
                   onBlurFirst();
@@ -400,7 +393,6 @@ const WorkRef = ({
             ) : null}
           </>
         );
-        let count = 0;
       case 1:
         return (
           <>
@@ -415,7 +407,7 @@ const WorkRef = ({
               //     : "#C4C4C4"
               // }
             />
-            {!focusSecond && contents[index].description === "" ? (
+            {!focusSecond && referenceContents[index].description === "" ? (
               <PlaceholderP
                 onClick={() => {
                   setFocusSecond(true);
@@ -443,7 +435,7 @@ const WorkRef = ({
               //     : "#C4C4C4"
               // }
             />
-            {!focusThird && contents[index].description === "" ? (
+            {!focusThird && referenceContents[index].description === "" ? (
               <PlaceholderP onClick={() => setFocusThird(true)}>
                 레퍼런스에 대한
                 <br />
@@ -467,7 +459,7 @@ const WorkRef = ({
               //     : "#C4C4C4"
               // }
             />
-            {!focusFourth && contents[index].description === "" ? (
+            {!focusFourth && referenceContents[index].description === "" ? (
               <PlaceholderP onClick={() => setFocusFourth(false)}>
                 레퍼런스에 대한
                 <br />
@@ -491,7 +483,7 @@ const WorkRef = ({
               //     : "#C4C4C4"
               // }
             />
-            {!focusFifth && contents[index].description === "" ? (
+            {!focusFifth && referenceContents[index].description === "" ? (
               <PlaceholderP onClick={() => setFocusFifth(false)}>
                 레퍼런스에 대한
                 <br />
@@ -523,14 +515,14 @@ const WorkRef = ({
           <RefLink as="a">레퍼런스 참고 페이지 알아보기</RefLink>
         </EarthImgBox>
 
-        {contents.map((item, index) => (
+        {referenceContents.map((item, index) => (
           <UploadBox>
             <UploadContainer>
               <ContentBox>
                 <FileUploadLabel
                   bgcolor={
-                    contents[index].imgUrl !== "" ||
-                    contents[index].description !== ""
+                    referenceContents[index].imgUrl !== "" ||
+                    referenceContents[index].description !== ""
                       ? "#fff"
                       : "#C4C4C4"
                   }
@@ -561,7 +553,7 @@ const WorkRef = ({
             <p style={{ color: "#905DFB", fontSize: "24px" }}>+</p>
           </UploadContainer>
         </UploadBox>
-        {contents.map((item) => {
+        {referenceContents.map((item) => {
           if (item.description !== "" && item.imgUrl !== "") {
             count += 1;
           }
@@ -578,7 +570,7 @@ const WorkRef = ({
           >
             <NextStepButton onClick={onNextStep}>
               <Circle color="#EFDC34" />
-              NEXT STEP
+                NEXT STEP
               <Circle color="#28BF1B" />
             </NextStepButton>
           </div>

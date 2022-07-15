@@ -1,6 +1,6 @@
 import React, { RefObject, useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { keyWordListAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
+import { keyWordListAtom, workspaceNumAtom, workStepAtom } from '../../../atoms';
 import {
   Circle,
   ClientMessage,

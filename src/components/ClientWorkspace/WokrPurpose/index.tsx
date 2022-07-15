@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { purponseMessageAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
+import { purponseMessageAtom, workspaceNumAtom, workStepAtom } from '../../../atoms';
 import {
   Circle,
   ClientMessage,

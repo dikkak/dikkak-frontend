@@ -1,16 +1,15 @@
 import React, { RefObject } from "react";
-import WorkTitle from "../WorkTitle/";
+import WorkTitle from "../WorkTitle";
 import WorkChoice from "../WorkChoice";
 import WorkPurpose from "../WokrPurpose";
 import WorkKeyword from "../WorkKeyword";
 import WorkDetail from "../WorkDetail";
 import WorkDeadLine from "../WorkDeadLine";
 import WorkRef from "../WorkRef";
-import AddRequirement from "../AddRequirement";
-import Submit from "../Submit";
-import { IColor } from "../../pages/WorkSpace_client";
+import WorkAddRequirement from "../WorkAddRequirement";
+import WorkSubmit from "../WorkSubmit";
 import WorkColor from "../WorkColor";
-import { IContents } from "../../pages/WorkSpace_client";
+import WorkEtc from '../WorkEtc';
 
 interface WorkspaceNumProtection {
   workspaceNum: number;
@@ -69,31 +68,25 @@ function switchFcn(
     case 8:
       return (
         <WorkRef
-          workspaceNum={workspaceNum}
-          setworkspaceNum={setworkspaceNum}
-          referenceStep={referenceStep}
-          setEtcStep={setEtcStep}
-          setContents={setContents}
-          contents={contents}
         ></WorkRef>
+      );
+    case 9:
+      return (
+        <WorkEtc
+          textRef={textRef}
+        ></WorkEtc>
       );
     case 10:
       return (
-        <AddRequirement
-          workspaceNum={workspaceNum}
-          requestMessage={requestMessage}
+        <WorkAddRequirement
           textRef={textRef}
-          setworkspaceNum={setworkspaceNum}
-        ></AddRequirement>
+        ></WorkAddRequirement>
       );
     case 11:
       return (
-        <Submit
-          workspaceNum={workspaceNum}
+        <WorkSubmit
           textRef={textRef}
-          setworkspaceNum={setworkspaceNum}
-          isDone={isDone}
-        ></Submit>
+        ></WorkSubmit>
       );
   }
 }

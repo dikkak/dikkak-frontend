@@ -45,18 +45,14 @@ import {
   TagInput,
   TagBox,
 } from "./styles";
-import WorkspaceRender from "../../components/WorkspaceRender";
+import WorkspaceRender from "../../components/ClientWorkspace/WorkspaceRender";
 import { useQuery } from 'react-query';
 import { userInfo } from '../../apis/auth_login';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { keyWordListAtom, purponseMessageAtom, titleMessageAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
+import { isDoneAtom, keyWordListAtom, purponseMessageAtom, requestMessageAtom, titleMessageAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
 import NavigationGuard from '../../components/NavigationGuard/NavigationGuard';
 import Done from "../Done";
 
-export interface IContents {
-  imgUrl: string;
-  description: string;
-}
 const WorkSpaceClient = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
@@ -64,17 +60,8 @@ const WorkSpaceClient = () => {
   const setTitleMessage = useSetRecoilState(titleMessageAtom);
   const setPurposeMessage = useSetRecoilState(purponseMessageAtom);
   const [isTagInputClicked, setIsTagInputClicked] = useState(false);
-  const [contents, setContents] = useState<IContents[]>([
-    {
-      imgUrl: "",
-      description: "",
-    },
-    {
-      imgUrl: "",
-      description: "",
-    },
-  ]);
-  const [done, isDone] = useState(false);
+  const setRequestMessage = useSetRecoilState(requestMessageAtom);
+  const done = useRecoilValue(isDoneAtom);
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);

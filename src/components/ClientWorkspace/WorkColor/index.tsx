@@ -2,7 +2,7 @@ import React, {  Fragment } from 'react';
 import _ from 'lodash';
 import { SketchPicker } from 'react-color';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { mainColorAtom, subColorsAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
+import { mainColorAtom, subColorsAtom, workspaceNumAtom, workStepAtom } from '../../../atoms';
 import { Box, Circle, ClientMessage, ColorBox, ColorText, DeleteButton, InnerContainer, MessageBox, NextStepButton, SystemMessage, Title } from './styles';
 
 const WorkColor = () => {

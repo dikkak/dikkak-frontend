@@ -1,6 +1,6 @@
 import React, { RefObject } from "react";
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { titleMessageAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
+import { titleMessageAtom, workspaceNumAtom, workStepAtom } from '../../../atoms';
 import {
   MessageBox,
   SystemMessage,

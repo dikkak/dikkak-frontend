@@ -44,12 +44,35 @@ export const subColorsAtom = atom<IColor[]>({
   ],
   effects_UNSTABLE: [persistAtom]
 })
+export const referenceContentsAtom = atom<IReferenceContents[]>({
+  key: 'referece_contents',
+  default: [
+    {
+      imgUrl: "",
+      description: "",
+    },
+    {
+      imgUrl: "",
+      description: "",
+    },
+  ],
+  effects_UNSTABLE: [persistAtom],
+})
 export const workspaceNumAtom = atom<number>({
   key: 'workspaceNum',
   default: 1,
   effects_UNSTABLE: [persistAtom]
 })
-
+export const requestMessageAtom = atom<string>({
+  key: 'request_message',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+})
+export const isDoneAtom = atom<boolean>({
+  key: 'isDone',
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+})
 export const workStepAtom = atom<IWorkStep>({
   key: 'workStep',
   default: {
@@ -68,9 +91,15 @@ export const workStepAtom = atom<IWorkStep>({
   effects_UNSTABLE: [persistAtom],
 })
 
+
 export interface IColor {
   color: string;
   isClicked: boolean;
+}
+
+export interface IReferenceContents {
+  imgUrl: string;
+  description: string;
 }
 
 export type StepState = 'now' | 'done' | 'yet';
