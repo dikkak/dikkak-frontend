@@ -302,12 +302,14 @@ export const NextStepButton = styled.button`
     opacity: 0.8;
   }
 `;
+
 export const Circle = styled.div<{ color: string }>`
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
 `;
+
 export const TextContainer = styled.div`
   display: flex;
   width: 100%;
@@ -469,7 +471,7 @@ export const WholeBox = styled.div`
   border-radius: 15px;
   outline: none;
   resize: none;
-  color: #C4C4C4;
+  color: #c4c4c4;
 `;
 export const TagItem = styled.span`
   display: flex;
@@ -477,7 +479,7 @@ export const TagItem = styled.span`
   justify-content: space-between;
   margin: 5px;
   padding: 5px;
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   border-radius: 5px;
   color: #717171;
   font-size: 13px;
@@ -485,11 +487,11 @@ export const TagItem = styled.span`
 export const TagText = styled.span`
   padding-top: 2px;
   &::before {
-    content: '#';
+    content: "#";
     padding-top: 2px;
     margin-right: 1px;
   }
-`
+`;
 
 export const Button = styled.button`
   display: flex;
@@ -500,12 +502,12 @@ export const Button = styled.button`
   margin-left: 5px;
   font-size: 8px;
   font-weight: 1000;
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   color: white;
   outline: none;
   border: none;
   cursor: pointer;
-`
+`;
 export const TagInput = styled.input`
   display: inline-flex;
   min-width: 200px;
@@ -515,9 +517,9 @@ export const TagInput = styled.input`
   &:focus {
     outline: none;
   }
-`
+`;
 export const TagBox = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-`
+`;

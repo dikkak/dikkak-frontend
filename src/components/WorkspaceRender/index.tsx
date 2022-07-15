@@ -6,7 +6,11 @@ import WorkKeyword from "../WorkKeyword";
 import WorkDetail from "../WorkDetail";
 import WorkDeadLine from "../WorkDeadLine";
 import WorkRef from "../WorkRef";
-import WorkColor from '../WorkColor';
+import AddRequirement from "../AddRequirement";
+import Submit from "../Submit";
+import { IColor } from "../../pages/WorkSpace_client";
+import WorkColor from "../WorkColor";
+import { IContents } from "../../pages/WorkSpace_client";
 
 interface WorkspaceNumProtection {
   workspaceNum: number;
@@ -63,7 +67,34 @@ function switchFcn(
           ></WorkColor>
         );
     case 8:
-      return <WorkRef></WorkRef>;
+      return (
+        <WorkRef
+          workspaceNum={workspaceNum}
+          setworkspaceNum={setworkspaceNum}
+          referenceStep={referenceStep}
+          setEtcStep={setEtcStep}
+          setContents={setContents}
+          contents={contents}
+        ></WorkRef>
+      );
+    case 10:
+      return (
+        <AddRequirement
+          workspaceNum={workspaceNum}
+          requestMessage={requestMessage}
+          textRef={textRef}
+          setworkspaceNum={setworkspaceNum}
+        ></AddRequirement>
+      );
+    case 11:
+      return (
+        <Submit
+          workspaceNum={workspaceNum}
+          textRef={textRef}
+          setworkspaceNum={setworkspaceNum}
+          isDone={isDone}
+        ></Submit>
+      );
   }
 }
 

@@ -15,7 +15,7 @@ export const Title = styled.h1`
 
 export const SystemMessage = styled.p`
   height: 35px;
-  width: 215px;
+  width: 505px;
   background-color: ${(props) => props.theme.mainColor};
   color: #fff;
   display: flex;
@@ -36,7 +36,7 @@ export const SystemMessage = styled.p`
     border-top: 10px solid transparent;
     border-left: 0px solid transparent;
     border-right: 15px solid ${(props) => props.theme.mainColor};
-    left: -9.5px;
+    left: -14px;
   }
 `;
 

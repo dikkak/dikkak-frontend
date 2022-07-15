@@ -51,14 +51,30 @@ import { userInfo } from '../../apis/auth_login';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { keyWordListAtom, purponseMessageAtom, titleMessageAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
 import NavigationGuard from '../../components/NavigationGuard/NavigationGuard';
+import Done from "../Done";
 
+export interface IContents {
+  imgUrl: string;
+  description: string;
+}
 const WorkSpaceClient = () => {
-  const {data, isFetching} = useQuery('user-info', userInfo);
+  const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
   const [input, setInput] = useState("");
   const setTitleMessage = useSetRecoilState(titleMessageAtom);
   const setPurposeMessage = useSetRecoilState(purponseMessageAtom);
   const [isTagInputClicked, setIsTagInputClicked] = useState(false);
+  const [contents, setContents] = useState<IContents[]>([
+    {
+      imgUrl: "",
+      description: "",
+    },
+    {
+      imgUrl: "",
+      description: "",
+    },
+  ]);
+  const [done, isDone] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
@@ -114,6 +130,9 @@ const WorkSpaceClient = () => {
         setIsTagInputClicked(true);
         tagRef.current?.setAttribute("disabled", "disabled");
         break;
+      case 10:
+        setRequestMessage(input);
+        break;
       default:
         break;
     }
@@ -146,11 +165,18 @@ const WorkSpaceClient = () => {
       case 5:
         tagRef.current?.setAttribute("placeholder", "키워드를 입력하세요");
         break;
+      case 10:
+        textRef.current?.setAttribute(
+          "placeholder",
+          "작업후 원본파일도 함께 받고 싶습니다"
+        );
+        break;
       default:
         break;
     }
     textRef.current?.focus();
   };
+
   // if(!isFetching && !data) {return <Navigate to='/login'/>}
   // if(!isFetching && data && data.type === 'DESIGNER') {return <Navigate to='/service_start'/>}
   return (
@@ -363,6 +389,7 @@ const WorkSpaceClient = () => {
               </TimeLine>
             </BlurBackground>
             <Box>
+              {!done ? (
               <BoxContent>
                 <WorkspaceRender
                   workspaceNum={workspaceNum}
@@ -423,6 +450,9 @@ const WorkSpaceClient = () => {
                   </SubmitArea>
                 </TextContainer>
               </BoxContent>
+              ) : (
+                <Done></Done>
+              )}
             </Box>
             <BlurBackground>
               <BlurPin />
