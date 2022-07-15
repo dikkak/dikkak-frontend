@@ -1,7 +1,7 @@
 import React, { RefObject } from "react";
 import WorkTitle from "../WorkTitle";
 import WorkChoice from "../WorkChoice";
-import WorkPurpose from "../WokrPurpose";
+import WorkPurpose from "../WorkPurpose";
 import WorkKeyword from "../WorkKeyword";
 import WorkDetail from "../WorkDetail";
 import WorkDeadLine from "../WorkDeadLine";
