@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import logoImg from "../../assets/logoImage/logoBasic.svg";
 
 export const Container = styled.div`
@@ -63,24 +63,24 @@ export const Outer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 47.5%;
-  border-left: 1px solid #C4C4C4;
+  border-left: 1px solid #c4c4c4;
   h3 {
-    color: ${props => props.theme.subColor};
+    color: ${(props) => props.theme.subColor};
     &::before {
-      background: ${props => props.theme.mainColor};
-      border: 3px solid ${props => props.theme.mainColor};
-    }  
+      background: ${(props) => props.theme.mainColor};
+      border: 3px solid ${(props) => props.theme.mainColor};
+    }
   }
 `;
 export const Outer2 = styled(Outer)`
   height: 52.5%;
   justify-content: space-between;
-  border-left: 1px solid #C4C4C4;
+  border-left: 1px solid #c4c4c4;
   h3 {
-    color: #C4C4C4;  
+    color: #c4c4c4;
     &::before {
-      background: #C4C4C4;
-      border: 3px solid #C4C4C4;
+      background: #c4c4c4;
+      border: 3px solid #c4c4c4;
     }
   }
 `;
@@ -91,11 +91,11 @@ export const Step = styled.h3`
   margin: 0 0 0 30px;
   &::before {
     content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  left: -38.5px;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    left: -38.5px;
   }
 `;
 
@@ -227,7 +227,7 @@ export const PasswordInput = styled.input.attrs({
 `;
 export const PhoneNumberLabel = styled.label.attrs({
   type: "text",
-  htmlFor: 'phone'
+  htmlFor: "phone",
 })`
   margin-left: 0.8em;
   font-size: 0.8rem;
@@ -253,8 +253,8 @@ export const PhoneNumberInput = styled.input.attrs({
 `;
 
 export const PrephoneNumberInput = styled.input.attrs({
-    type: "text",
-    id: 'phone'
+  type: "text",
+  id: "phone",
 })`
   padding: 10px;
   background-color: #fafafa;
@@ -270,7 +270,7 @@ export const PrephoneNumberInput = styled.input.attrs({
 
 export const ErrorMessage = styled.span`
   position: absolute;
-  font-size: .5rem;
+  font-size: 0.5rem;
   color: red;
   margin-left: 1em;
   bottom: -2em;
@@ -288,5 +288,4 @@ export const NextButton = styled.button`
   &:hover {
     opacity: 0.8;
   }
-  
 `;

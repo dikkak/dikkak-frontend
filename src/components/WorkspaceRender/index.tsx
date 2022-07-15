@@ -6,10 +6,13 @@ import WorkKeyword from "../WorkKeyword";
 import WorkDetail from "../WorkDetail";
 import WorkDeadLine from "../WorkDeadLine";
 import WorkRef from "../WorkRef";
-import { IColor } from '../../pages/WorkSpace_client';
-import WorkColor from '../WorkColor';
+import AddRequirement from "../AddRequirement";
+import Submit from "../Submit";
+import { IColor } from "../../pages/WorkSpace_client";
+import WorkColor from "../WorkColor";
+import { IContents } from "../../pages/WorkSpace_client";
 
-interface WorkspaceNumProtection {
+interface IWorkspaceNumProps {
   workspaceNum: number | undefined;
   message: string;
   purposeMessage: string;
@@ -24,6 +27,7 @@ interface WorkspaceNumProtection {
   setMainColor: Dispatch<SetStateAction<IColor>>;
   setSubColors: Dispatch<SetStateAction<IColor[]>>;
   setworkspaceNum: Dispatch<SetStateAction<number>>;
+  setEtcStep: Dispatch<SetStateAction<string>>;
   titleStep: Dispatch<SetStateAction<string>>;
   workStep: Dispatch<SetStateAction<string>>;
   detailStep: Dispatch<SetStateAction<string>>;
@@ -35,6 +39,10 @@ interface WorkspaceNumProtection {
   etcStep: Dispatch<SetStateAction<string>>;
   additionStep: Dispatch<SetStateAction<string>>;
   submitStep: Dispatch<SetStateAction<string>>;
+  contents: IContents[];
+  setContents: Dispatch<SetStateAction<IContents[]>>;
+  requestMessage: string;
+  isDone: Dispatch<SetStateAction<boolean>>;
 }
 
 function switchFcn(
@@ -52,6 +60,7 @@ function switchFcn(
   setSubColors: Dispatch<SetStateAction<IColor[]>>,
   setDeadLine: Dispatch<SetStateAction<string | undefined>>,
   setworkspaceNum: Dispatch<SetStateAction<number>>,
+  setEtcStep: Dispatch<SetStateAction<string>>,
   titleStep: Dispatch<SetStateAction<string>>,
   workStep: Dispatch<SetStateAction<string>>,
   detailStep: Dispatch<SetStateAction<string>>,
@@ -62,7 +71,11 @@ function switchFcn(
   referenceStep: Dispatch<SetStateAction<string>>,
   etcStep: Dispatch<SetStateAction<string>>,
   additionStep: Dispatch<SetStateAction<string>>,
-  submitStep: Dispatch<SetStateAction<string>>
+  submitStep: Dispatch<SetStateAction<string>>,
+  contents: IContents[],
+  setContents: Dispatch<SetStateAction<IContents[]>>,
+  requestMessage: string,
+  isDone: Dispatch<SetStateAction<boolean>>
 ) {
   switch (workspaceNum) {
     case 1:
@@ -136,21 +149,48 @@ function switchFcn(
           setworkspaceNum={setworkspaceNum}
         ></WorkDeadLine>
       );
-      case 7:
-        return (
-          <WorkColor
-            mainColor={mainColor}
-            setMainColor={setMainColor}
-            subColors={subColors}
-            setSubColors={setSubColors}
-            colorStep={colorStep}
-            referenceStep={referenceStep}
-            workspaceNum={workspaceNum}
-            setworkspaceNum={setworkspaceNum}
-          ></WorkColor>
-        );
+    case 7:
+      return (
+        <WorkColor
+          mainColor={mainColor}
+          setMainColor={setMainColor}
+          subColors={subColors}
+          setSubColors={setSubColors}
+          colorStep={colorStep}
+          referenceStep={referenceStep}
+          workspaceNum={workspaceNum}
+          setworkspaceNum={setworkspaceNum}
+        ></WorkColor>
+      );
     case 8:
-      return <WorkRef></WorkRef>;
+      return (
+        <WorkRef
+          workspaceNum={workspaceNum}
+          setworkspaceNum={setworkspaceNum}
+          referenceStep={referenceStep}
+          setEtcStep={setEtcStep}
+          setContents={setContents}
+          contents={contents}
+        ></WorkRef>
+      );
+    case 10:
+      return (
+        <AddRequirement
+          workspaceNum={workspaceNum}
+          requestMessage={requestMessage}
+          textRef={textRef}
+          setworkspaceNum={setworkspaceNum}
+        ></AddRequirement>
+      );
+    case 11:
+      return (
+        <Submit
+          workspaceNum={workspaceNum}
+          textRef={textRef}
+          setworkspaceNum={setworkspaceNum}
+          isDone={isDone}
+        ></Submit>
+      );
   }
 }
 
@@ -169,6 +209,7 @@ const WorkspaceRender = ({
   setSubColors,
   setDeadLine,
   setworkspaceNum,
+  setEtcStep,
   titleStep,
   workStep,
   detailStep,
@@ -180,7 +221,11 @@ const WorkspaceRender = ({
   etcStep,
   additionStep,
   submitStep,
-}: WorkspaceNumProtection) => {
+  contents,
+  setContents,
+  requestMessage,
+  isDone,
+}: IWorkspaceNumProps) => {
   return (
     <>
       {switchFcn(
@@ -198,6 +243,7 @@ const WorkspaceRender = ({
         setSubColors,
         setDeadLine,
         setworkspaceNum,
+        setEtcStep,
         titleStep,
         workStep,
         detailStep,
@@ -208,7 +254,11 @@ const WorkspaceRender = ({
         referenceStep,
         etcStep,
         additionStep,
-        submitStep
+        submitStep,
+        contents,
+        setContents,
+        requestMessage,
+        isDone
       )}
     </>
   );

@@ -46,36 +46,56 @@ import {
   TagBox,
 } from "./styles";
 import WorkspaceRender from "../../components/WorkspaceRender";
-import { useQuery } from 'react-query';
-import { userInfo } from '../../apis/auth_login';
+import Done from "../Done";
+import { useQuery } from "react-query";
+import { userInfo } from "../../apis/auth_login";
 
 export interface IColor {
   color: string;
   isClicked: boolean;
 }
 
+export interface IContents {
+  imgUrl: string;
+  description: string;
+}
+
 const WorkSpaceClient = () => {
-  const {data, isFetching} = useQuery('user-info', userInfo);
+  const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [message, setMessage] = useState<string>("");
   const [purposeMessage, setPurposeMessage] = useState<string>("");
+  const [requestMessage, setRequestMessage] = useState<string>("");
   const [isTagInputClicked, setIsTagInputClicked] = useState(false);
   const [deadLine, setDeadLine] = useState<string | undefined>(); //마감기간의 state
+  const [done, isDone] = useState(false);
   const [mainColor, setMainColor] = useState<IColor>({
-    color: '',
-    isClicked: false
+    color: "",
+    isClicked: false,
   });
   const [subColors, setSubColors] = useState<IColor[]>([
     {
-      color: '',
-      isClicked: false
+      color: "",
+      isClicked: false,
     },
     {
-      color: '',
-      isClicked: false
+      color: "",
+      isClicked: false,
     },
   ]); // colorStep의 메인컬러와 서브컬러 state
+
+  const [contents, setContents] = useState<IContents[]>([
+    {
+      imgUrl: "",
+      description: "",
+    },
+    {
+      imgUrl: "",
+      description: "",
+    },
+  ]);
+
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
@@ -93,7 +113,7 @@ const WorkSpaceClient = () => {
   const [etcStep, setEtcStep] = useState("yet");
   const [additionStep, setAdditionStep] = useState("yet");
   const [submitStep, setSubmitStep] = useState("yet");
-  //
+
   // Tag
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState<string[]>([]);
@@ -143,6 +163,9 @@ const WorkSpaceClient = () => {
         setIsTagInputClicked(true);
         tagRef.current?.setAttribute("disabled", "disabled");
         break;
+      case 10:
+        setRequestMessage(input);
+        break;
       default:
         break;
     }
@@ -175,11 +198,18 @@ const WorkSpaceClient = () => {
       case 5:
         tagRef.current?.setAttribute("placeholder", "키워드를 입력하세요");
         break;
+      case 10:
+        textRef.current?.setAttribute(
+          "placeholder",
+          "작업후 원본파일도 함께 받고 싶습니다"
+        );
+        break;
       default:
         break;
     }
     textRef.current?.focus();
   };
+
   // if(!isFetching && !data) {return <Navigate to='/login'/>}
   return (
     <>
@@ -300,16 +330,17 @@ const WorkSpaceClient = () => {
                   </ColorTimeStep>
                   <ReferenceTimeStep
                     onClick={() => {
-                      if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep &&
-                        keyWordStep &&
-                        deadLineStep === "done"
-                      ) {
-                        setworkspaceNum(8);
-                      }
+                      // if (
+                      // titleStep &&
+                      // workStep &&
+                      // detailStep &&
+                      // purposeStep &&
+                      // keyWordStep &&
+                      // colorStep &&
+                      // deadLineStep === "done"
+                      // ) {
+                      setworkspaceNum(8);
+                      //}
                     }}
                     step={referenceStep}
                   >
@@ -343,19 +374,19 @@ const WorkSpaceClient = () => {
                   </EtcTimeStep>
                   <AdditionTimeStep
                     onClick={() => {
-                      if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep &&
-                        keyWordStep &&
-                        deadLineStep &&
-                        colorStep &&
-                        referenceStep &&
-                        etcStep === "done"
-                      ) {
-                        setworkspaceNum(10);
-                      }
+                      // if (
+                      //   titleStep &&
+                      //   workStep &&
+                      //   detailStep &&
+                      //   purposeStep &&
+                      //   keyWordStep &&
+                      //   deadLineStep &&
+                      //   colorStep &&
+                      //   referenceStep &&
+                      //   etcStep === "done"
+                      // ) {
+                      setworkspaceNum(10);
+                      //  }
                     }}
                     step={additionStep}
                   >
@@ -368,20 +399,20 @@ const WorkSpaceClient = () => {
                   </AdditionTimeStep>
                   <SubmitTimeStep
                     onClick={() => {
-                      if (
-                        titleStep &&
-                        workStep &&
-                        detailStep &&
-                        purposeStep &&
-                        keyWordStep &&
-                        deadLineStep &&
-                        colorStep &&
-                        referenceStep &&
-                        etcStep &&
-                        additionStep === "done"
-                      ) {
-                        setworkspaceNum(11);
-                      }
+                      // if (
+                      //   titleStep &&
+                      //   workStep &&
+                      //   detailStep &&
+                      //   purposeStep &&
+                      //   keyWordStep &&
+                      //   deadLineStep &&
+                      //   colorStep &&
+                      //   referenceStep &&
+                      //   etcStep &&
+                      //   additionStep === "done"
+                      // ) {
+                      setworkspaceNum(11);
+                      //}
                     }}
                     step={submitStep}
                   >
@@ -391,87 +422,96 @@ const WorkSpaceClient = () => {
               </TimeLine>
             </BlurBackground>
             <Box>
-              <BoxContent>
-                <WorkspaceRender
-                  workspaceNum={workspaceNum}
-                  message={message}
-                  tagList={tagList}
-                  isTagInputClicked={isTagInputClicked}
-                  purposeMessage={purposeMessage}
-                  deadLine={deadLine} // 마감기간 state
-                  setDeadLine={setDeadLine} // 마감기간 state의 set함수
-                  mainColor={mainColor}
-                  setMainColor={setMainColor}
-                  subColors={subColors}
-                  setSubColors={setSubColors}
-                  tagRef={tagRef}
-                  textRef={textRef}
-                  setworkspaceNum={setworkspaceNum}
-                  titleStep={setTitleStep}
-                  workStep={setWorkStep}
-                  detailStep={setDetailStep}
-                  purposeStep={setPurposeStep}
-                  keyWordStep={setKeyWordStep}
-                  deadLineStep={setDeadLineStep}
-                  colorStep={setColorStep}
-                  referenceStep={setReferenceStep}
-                  etcStep={setEtcStep}
-                  additionStep={setAdditionStep}
-                  submitStep={setSubmitStep}
-                ></WorkspaceRender>
-                <TextContainer>
-                  <InputArea>
-                    {keyWordStep === "now" && workspaceNum === 5 ? (
-                      <WholeBox>
-                        <TagBox>
-                          {tagList.map((tagItem, index) => {
-                            return (
-                              <TagItem key={index}>
-                                <TagText>{tagItem}</TagText>
-                                <Button onClick={deleteTagItem}>X</Button>
-                              </TagItem>
-                            );
-                          })}
-                          <TagInput
-                            ref={tagRef}
-                            type="text"
-                            tabIndex={2}
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>
-                            ) => setTagItem(e.target.value)}
-                            value={tagItem}
-                            onKeyDown={onKeyPress}
-                          />
-                        </TagBox>
-                      </WholeBox>
-                    ) : (
-                      <Text
-                        ref={textRef}
-                        onChange={onInputChange}
-                        value={input}
-                      />
-                    )}
-                    <AdditionalButtons>
-                      <FileButton onClick={onFileClick} />
-                      <input
-                        ref={fileRef}
-                        type="file"
-                        accept="image/*"
-                        style={{ display: "none" }}
-                      />
-                      <EmojiButton />
-                    </AdditionalButtons>
-                  </InputArea>
-                  <SubmitArea>
-                    <SubmitButton onClick={() => onSubmit(workspaceNum)}>
-                      전송하기
-                    </SubmitButton>
-                    <EditButton onClick={() => onEdit(workspaceNum)}>
-                      수정하기
-                    </EditButton>
-                  </SubmitArea>
-                </TextContainer>
-              </BoxContent>
+              {!done ? (
+                <BoxContent>
+                  <WorkspaceRender
+                    workspaceNum={workspaceNum}
+                    message={message}
+                    tagList={tagList}
+                    isTagInputClicked={isTagInputClicked}
+                    purposeMessage={purposeMessage}
+                    deadLine={deadLine} // 마감기간 state
+                    setDeadLine={setDeadLine} // 마감기간 state의 set함수
+                    mainColor={mainColor}
+                    setMainColor={setMainColor}
+                    subColors={subColors}
+                    setSubColors={setSubColors}
+                    setEtcStep={setEtcStep}
+                    tagRef={tagRef}
+                    textRef={textRef}
+                    setworkspaceNum={setworkspaceNum}
+                    titleStep={setTitleStep}
+                    workStep={setWorkStep}
+                    detailStep={setDetailStep}
+                    purposeStep={setPurposeStep}
+                    keyWordStep={setKeyWordStep}
+                    deadLineStep={setDeadLineStep}
+                    colorStep={setColorStep}
+                    referenceStep={setReferenceStep}
+                    etcStep={setEtcStep}
+                    additionStep={setAdditionStep}
+                    submitStep={setSubmitStep}
+                    contents={contents}
+                    setContents={setContents}
+                    requestMessage={requestMessage}
+                    isDone={isDone}
+                  ></WorkspaceRender>
+                  <TextContainer>
+                    <InputArea>
+                      {keyWordStep === "now" && workspaceNum === 5 ? (
+                        <WholeBox>
+                          <TagBox>
+                            {tagList.map((tagItem, index) => {
+                              return (
+                                <TagItem key={index}>
+                                  <TagText>{tagItem}</TagText>
+                                  <Button onClick={deleteTagItem}>X</Button>
+                                </TagItem>
+                              );
+                            })}
+                            <TagInput
+                              ref={tagRef}
+                              type="text"
+                              tabIndex={2}
+                              onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                              ) => setTagItem(e.target.value)}
+                              value={tagItem}
+                              onKeyDown={onKeyPress}
+                            />
+                          </TagBox>
+                        </WholeBox>
+                      ) : (
+                        <Text
+                          ref={textRef}
+                          onChange={onInputChange}
+                          value={input}
+                        />
+                      )}
+                      <AdditionalButtons>
+                        <FileButton onClick={onFileClick} />
+                        <input
+                          ref={fileRef}
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                        />
+                        <EmojiButton />
+                      </AdditionalButtons>
+                    </InputArea>
+                    <SubmitArea>
+                      <SubmitButton onClick={() => onSubmit(workspaceNum)}>
+                        전송하기
+                      </SubmitButton>
+                      <EditButton onClick={() => onEdit(workspaceNum)}>
+                        수정하기
+                      </EditButton>
+                    </SubmitArea>
+                  </TextContainer>
+                </BoxContent>
+              ) : (
+                <Done></Done>
+              )}
             </Box>
             <BlurBackground>
               <BlurPin />
@@ -483,7 +523,7 @@ const WorkSpaceClient = () => {
           </Content>
         </Wrapper>
       </Container>
-      <Footer bgColor="#fff"></Footer>
+      <Footer bgColor="#fff"></Footer>)
     </>
   );
 };

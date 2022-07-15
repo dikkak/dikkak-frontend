@@ -16,7 +16,7 @@ export const Title = styled.h1`
 export const SystemMessage = styled.p`
   height: 35px;
   width: 258px;
-  background-color: ${props => props.theme.mainColor};
+  background-color: ${(props) => props.theme.mainColor};
   color: #fff;
   display: flex;
   justify-content: center;
@@ -50,23 +50,25 @@ export const ClientMessage = styled.div`
   display: flex;
   justify-content: right;
   align-items: center;
-  border: 1px solid ${props => props.theme.mainColor};
+  border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
   margin-bottom: 25px;
   padding-right: 20px;
+
   &::before {
     content: "";
     position: absolute;
     border-style: solid;
     border-width: 8px 0 8px 13px;
-    border-color: transparent ${props => props.theme.mainColor};
+    border-color: transparent ${(props) => props.theme.mainColor};
     display: block;
     width: 0;
     z-index: 0;
     right: -14px;
     top: 9px;
   }
+
   &::after {
     content: "";
     position: absolute;
@@ -112,13 +114,13 @@ export const InnerContainer = styled.div`
   padding: 10px;
   width: 100%;
 `;
-export const Box = styled.div<{bgcolor?: string}>`
+export const Box = styled.div<{ bgcolor?: string }>`
   display: flex;
   flex-basis: 60%;
   align-items: center;
   justify-content: center;
   height: 15px;
-  background-color: ${props => props.bgcolor};
+  background-color: ${(props) => props.bgcolor};
   cursor: pointer;
 `;
 export const DeleteButton = styled.button`
@@ -134,7 +136,7 @@ export const DeleteButton = styled.button`
   border-radius: 50%;
   font-weight: 900;
   cursor: pointer;
-  transition: transform .2s ease-in;
+  transition: transform 0.2s ease-in;
   &:hover {
     transform: scale(1.2);
   }
