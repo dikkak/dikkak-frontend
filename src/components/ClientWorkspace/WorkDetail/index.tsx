@@ -1,4 +1,6 @@
-import React, { Dispatch, SetStateAction, useState, RefObject } from "react";
+import React, { useState, RefObject } from "react";
+import { useSetRecoilState } from 'recoil';
+import { workspaceNumAtom, workStepAtom } from '../../../atoms';
 import {
   MessageBox,
   SystemMessage1,
@@ -14,24 +16,12 @@ import {
 } from "./style";
 
 interface IWorkDetailProps {
-  workspaceNum: number;
-  setworkspaceNum: Dispatch<SetStateAction<number>>;
-  purposeStep: Dispatch<SetStateAction<string>>;
-  workStep: Dispatch<SetStateAction<string>>;
-  detailStep: Dispatch<SetStateAction<string>>;
   textRef: RefObject<HTMLTextAreaElement>;
-  tagRef: RefObject<HTMLInputElement>;
 }
 
-const WorkDetail = ({
-  workStep,
-  detailStep,
-  purposeStep,
-  workspaceNum,
-  setworkspaceNum,
-  textRef,
-  tagRef,
-}: IWorkDetailProps) => {
+const WorkDetail = ({textRef}: IWorkDetailProps) => {
+  const setWorkStep = useSetRecoilState(workStepAtom);
+  const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const [isLogoActive, setIsLogoActive] = useState(false);
   const [isNameActive, setIsNameActive] = useState(false);
   const [isYesActive, setIsYesActive] = useState(false);
@@ -53,12 +43,17 @@ const WorkDetail = ({
     setIsNoActive((cur) => !cur);
   };
   const onClick = () => {
-    setworkspaceNum((workspaceNum += 1));
-    purposeStep("now");
-    detailStep("done");
     textRef.current?.removeAttribute("disabled");
     textRef.current?.setAttribute("placeholder", "디자인 용도를 입력해주세요");
     textRef.current?.focus();
+    setWorkStep(prev => {
+      return {
+        ...prev,
+        detailStep: 'done',
+        purposeStep: 'now'
+      }
+    });
+    setWorkspaceNum(prev => prev+1);
   };
 
   return (

@@ -1,4 +1,6 @@
-import React, { RefObject, Dispatch, SetStateAction } from "react";
+import React, { RefObject } from "react";
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { requestMessageAtom, workspaceNumAtom, workStepAtom } from '../../../atoms';
 import {
   MessageBox,
   SystemMessage,
@@ -8,25 +10,27 @@ import {
   Title,
 } from "./styles";
 
-interface IAddRequirement {
-  requestMessage: string | undefined;
-  workspaceNum: number;
+interface IAddRequirementProps {
   textRef: RefObject<HTMLTextAreaElement>;
-  setworkspaceNum: Dispatch<SetStateAction<number>>;
 }
 
-const AddRequirement = ({
-  requestMessage,
-  workspaceNum,
-  textRef,
-  setworkspaceNum,
-}: IAddRequirement) => {
+const WorkAddRequirement = ({textRef}: IAddRequirementProps) => {
+  const requestMessage = useRecoilValue(requestMessageAtom);
+  const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
+  const setWorkStep = useSetRecoilState(workStepAtom);
   const onClick = () => {
-    setworkspaceNum((workspaceNum += 1));
     textRef.current?.setAttribute(
       "placeholder",
       "마우스를 이용해 선택해주세요"
-    );
+      );
+    setWorkspaceNum(prev => prev+1);
+    setWorkStep(prev => {
+      return {
+        ...prev,
+        additionStep: 'done',
+        submitStep: 'now'
+      }
+    })
   };
 
   return (
@@ -47,7 +51,7 @@ const AddRequirement = ({
       <div style={{ display: "flex", justifyContent: "center" }}>
         <NextStepButton onClick={onClick}>
           <Circle color="#EFDC34" />
-          NEXT STEP
+            NEXT STEP
           <Circle color="#28BF1B" />
         </NextStepButton>
       </div>
@@ -55,4 +59,4 @@ const AddRequirement = ({
   );
 };
 
-export default AddRequirement;
+export default WorkAddRequirement;

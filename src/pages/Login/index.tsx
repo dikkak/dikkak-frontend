@@ -37,13 +37,10 @@ import { userInfo } from "../../apis/auth_login";
 import Footer from "../../components/Footer";
 
 const Login = () => {
-  const { data } = useQuery("user-info", userInfo);
+  const {data, isFetching} = useQuery('user-info', userInfo);
   const navigate = useNavigate();
-
-  if (data) {
-    return <Navigate to="/service_start" />;
-  }
-
+  if(isFetching) return (<div>Loading...</div>)
+  if(data) {return <Navigate to='/service_start'/>}
   return (
     <>
       <Menu />
