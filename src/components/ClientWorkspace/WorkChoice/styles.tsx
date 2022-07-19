@@ -12,9 +12,9 @@ export const Title = styled.h1`
   margin-bottom: 10px;
 `;
 
-export const SystemMessage = styled.p`
+export const SystemMessage = styled.div`
   height: 35px;
-  width: 289px;
+  width: 547px;
   background-color: ${(props) => props.theme.mainColor};
   color: #fff;
   display: flex;
@@ -107,12 +107,12 @@ export const Poster = styled(GridChildren)<{
   background-color: ${(props) =>
     props.isPosterActive === true ? props.theme.mainColor : "#fff"};
 `;
-export const Rending = styled(GridChildren)<{
-  isRendingActive?: true | false;
+export const Landing = styled(GridChildren)<{
+  isLandingActive?: true | false;
 }>`
-  color: ${(props) => (props.isRendingActive === true ? "#fff" : "#C4C4C4")};
+  color: ${(props) => (props.isLandingActive === true ? "#fff" : "#C4C4C4")};
   background-color: ${(props) =>
-    props.isRendingActive === true ? props.theme.mainColor : "#fff"};
+    props.isLandingActive === true ? props.theme.mainColor : "#fff"};
 `;
 export const Etc = styled(GridChildren)<{
   isEtcActive?: true | false;

@@ -8,7 +8,7 @@ export const MessageBox = styled.ul`
   margin-bottom: 20px;
 `;
 export const Title = styled.h1`
-  color: ${props => props.theme.subColor};
+  color: ${(props) => props.theme.subColor};
   margin-bottom: 10px;
 `;
 
@@ -47,13 +47,13 @@ export const ClientMessage = styled.p`
   background-color: white;
   color: #717171;
   display: flex;
-  justify-content: right;
+  justify-content: left;
   align-items: center;
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
   margin-bottom: 25px;
-  padding-right: 20px;
+  padding-left: 20px;
 
   &::before {
     content: "";
@@ -112,7 +112,7 @@ export const TagItem = styled.span`
   justify-content: space-between;
   margin: 5px;
   padding: 5px;
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   border-radius: 5px;
   color: #717171;
   font-size: 13px;
@@ -120,8 +120,8 @@ export const TagItem = styled.span`
 export const TagText = styled.span`
   padding-top: 2px;
   &::before {
-    content: '#';
+    content: "#";
     padding-top: 2px;
     margin-right: 1px;
   }
-`
+`;

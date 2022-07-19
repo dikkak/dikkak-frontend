@@ -48,13 +48,13 @@ export const ClientMessage = styled.p`
   background-color: white;
   color: #717171;
   display: flex;
-  justify-content: right;
+  justify-content: left;
   align-items: center;
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
   margin-bottom: 25px;
-  padding-right: 20px;
+  padding-left: 20px;
 
   &::before {
     content: "";

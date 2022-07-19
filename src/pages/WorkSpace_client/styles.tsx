@@ -367,6 +367,10 @@ export const TimeStep = styled.h3<{ step: string }>`
   font-size: ${(props) => (props.step === "now" ? "14px" : "12px")};
   border-left: 1px solid
     ${(props) => (props.step === "done" ? props.theme.mainColor : "#C4C4C4")};
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
   &::before {
     content: "";
     position: absolute;

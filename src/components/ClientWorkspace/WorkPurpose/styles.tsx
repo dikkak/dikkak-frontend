@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const MessageBox = styled.ul`
   position: relative;
@@ -8,7 +8,7 @@ export const MessageBox = styled.ul`
   margin-bottom: 20px;
 `;
 export const Title = styled.h1`
-  color: ${props => props.theme.subColor};
+  color: ${(props) => props.theme.subColor};
   margin-bottom: 10px;
 `;
 
@@ -23,7 +23,7 @@ export const SystemMessage = styled.p`
   border-radius: 10px;
   font-size: 15px;
   margin-left: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-right: 10px;
   &::before {
     content: "";
@@ -47,11 +47,12 @@ export const ClientMessage = styled.p`
   background-color: white;
   color: #717171;
   display: flex;
-  justify-content: right;
+  justify-content: left;
   align-items: center;
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
+  padding-left: 15px;
   margin-bottom: 25px;
   padding-right: 20px;
 
@@ -79,6 +80,20 @@ export const ClientMessage = styled.p`
     z-index: 1;
     right: -12px;
     top: 9px;
+  }
+`;
+export const SystemMessage2 = styled(ClientMessage)`
+  left: 20px;
+  color: ${(props) => props.theme.mainColor};
+  &::before {
+    right: 0;
+    left: -11px;
+    border-width: 8px 11px 8px 0;
+  }
+  &::after {
+    border-width: 8px 11px 8px 0;
+    right: 0;
+    left: -9px;
   }
 `;
 
