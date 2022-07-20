@@ -36,13 +36,8 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
     for (const property in copyArr) {
       copyArr[property as keyof IWorkDetail] = false;
     }
+    copyArr[detail] = true;
     setWorkDetail(copyArr);
-    setWorkDetail((prev) => {
-      return {
-        ...prev,
-        [detail]: true,
-      };
-    });
   };
 
   const onClick = () => {

@@ -34,13 +34,8 @@ const WorkChoice = () => {
     for (const property in copyArr) {
       copyArr[property as keyof IWorkChoice] = false;
     }
+    copyArr[workName] = true;
     setWorkChoice(copyArr);
-    setWorkChoice((prev) => {
-      return {
-        ...prev,
-        [workName]: true,
-      };
-    });
   };
 
   const onClick = () => {
