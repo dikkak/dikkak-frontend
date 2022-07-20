@@ -42,7 +42,7 @@ export const SystemMessage = styled.p`
 export const ClientMessage = styled.p`
   position: relative;
   right: -45px;
-  height: 35px;
+  min-height: 15px;
   width: 679px;
   background-color: white;
   color: #717171;
@@ -52,10 +52,10 @@ export const ClientMessage = styled.p`
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
-  padding-left: 15px;
   margin-bottom: 25px;
-  padding-right: 20px;
-
+  padding: 10px 20px;
+  white-space: pre-wrap;
+  word-break: break-all;
   &::before {
     content: "";
     position: absolute;

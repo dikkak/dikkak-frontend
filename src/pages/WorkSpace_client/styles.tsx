@@ -334,6 +334,7 @@ export const Text = styled.textarea.attrs({
   outline: none;
   resize: none;
   color: #717171;
+  white-space: pre-wrap;
   &:focus {
     outline: none;
   }
@@ -476,6 +477,7 @@ export const WholeBox = styled.div`
   outline: none;
   resize: none;
   color: #c4c4c4;
+  overflow: scroll;
 `;
 export const TagItem = styled.span`
   display: flex;
