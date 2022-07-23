@@ -46,11 +46,20 @@ import {
   TagBox,
 } from "./styles";
 import WorkspaceRender from "../../components/ClientWorkspace/WorkspaceRender";
-import { useQuery } from 'react-query';
-import { userInfo } from '../../apis/auth_login';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { isDoneAtom, keyWordListAtom, purponseMessageAtom, requestMessageAtom, titleMessageAtom, workspaceNumAtom, workStepAtom } from '../../atoms';
-import NavigationGuard from '../../components/NavigationGuard/NavigationGuard';
+import { useQuery } from "react-query";
+import { userInfo } from "../../apis/auth_login";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  isDoneAtom,
+  keyWordListAtom,
+  purponseMessageAtom,
+  requestMessageAtom,
+  titleMessageAtom,
+  workChoiceAtom,
+  workspaceNumAtom,
+  workStepAtom,
+} from "../../atoms";
+import NavigationGuard from "../../components/NavigationGuard/NavigationGuard";
 import Done from "../Done";
 
 const WorkSpaceClient = () => {
@@ -58,6 +67,7 @@ const WorkSpaceClient = () => {
   const navigate = useNavigate();
   const [input, setInput] = useState("");
   const setTitleMessage = useSetRecoilState(titleMessageAtom);
+  const workChoice = useRecoilValue(workChoiceAtom);
   const setPurposeMessage = useSetRecoilState(purponseMessageAtom);
   const [isTagInputClicked, setIsTagInputClicked] = useState(false);
   const setRequestMessage = useSetRecoilState(requestMessageAtom);
@@ -211,7 +221,11 @@ const WorkSpaceClient = () => {
                   </WorkTimeStep>
                   <DetailTimeStep
                     onClick={() => {
-                      if (workStep.titleStep && workStep.workChoiceStep === "done") {
+                      if (workChoice.other) setworkspaceNum(4);
+                      else if (
+                        workStep.titleStep &&
+                        workStep.workChoiceStep === "done"
+                      ) {
                         setworkspaceNum(3);
                       }
                     }}
@@ -223,7 +237,11 @@ const WorkSpaceClient = () => {
                   </DetailTimeStep>
                   <PurposeTimeStep
                     onClick={() => {
-                      if (workStep.titleStep && workStep.workChoiceStep && workStep.detailStep === "done") {
+                      if (
+                        workStep.titleStep &&
+                        workStep.workChoiceStep &&
+                        workStep.detailStep === "done"
+                      ) {
                         setworkspaceNum(4);
                       }
                     }}
@@ -377,66 +395,66 @@ const WorkSpaceClient = () => {
             </BlurBackground>
             <Box>
               {!done ? (
-              <BoxContent>
-                <WorkspaceRender
-                  workspaceNum={workspaceNum}
-                  isTagInputClicked={isTagInputClicked}
-                  tagRef={tagRef}
-                  textRef={textRef}
-                ></WorkspaceRender>
-                <TextContainer>
-                  <InputArea>
-                    {workspaceNum === 5 ? (
-                      <WholeBox>
-                        <TagBox>
-                          {keywordList.map((keywordItem, index) => {
-                            return (
-                              <TagItem key={index}>
-                                <TagText>{keywordItem}</TagText>
-                                <Button onClick={deleteTagItem}>X</Button>
-                              </TagItem>
-                            );
-                          })}
-                          <TagInput
-                            ref={tagRef}
-                            type="text"
-                            tabIndex={2}
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>
-                            ) => setTagItem(e.target.value)}
-                            value={tagItem}
-                            onKeyDown={onKeyPress}
-                          />
-                        </TagBox>
-                      </WholeBox>
-                    ) : (
-                      <Text
-                        ref={textRef}
-                        onChange={onInputChange}
-                        value={input}
-                      />
-                    )}
-                    <AdditionalButtons>
-                      <FileButton onClick={onFileClick} />
-                      <input
-                        ref={fileRef}
-                        type="file"
-                        accept="image/*"
-                        style={{ display: "none" }}
-                      />
-                      <EmojiButton />
-                    </AdditionalButtons>
-                  </InputArea>
-                  <SubmitArea>
-                    <SubmitButton onClick={() => onSubmit(workspaceNum)}>
-                      전송하기
-                    </SubmitButton>
-                    <EditButton onClick={() => onEdit(workspaceNum)}>
-                      수정하기
-                    </EditButton>
-                  </SubmitArea>
-                </TextContainer>
-              </BoxContent>
+                <BoxContent>
+                  <WorkspaceRender
+                    workspaceNum={workspaceNum}
+                    isTagInputClicked={isTagInputClicked}
+                    tagRef={tagRef}
+                    textRef={textRef}
+                  ></WorkspaceRender>
+                  <TextContainer>
+                    <InputArea>
+                      {workspaceNum === 5 ? (
+                        <WholeBox>
+                          <TagBox>
+                            {keywordList.map((keywordItem, index) => {
+                              return (
+                                <TagItem key={index}>
+                                  <TagText>{keywordItem}</TagText>
+                                  <Button onClick={deleteTagItem}>X</Button>
+                                </TagItem>
+                              );
+                            })}
+                            <TagInput
+                              ref={tagRef}
+                              type="text"
+                              tabIndex={2}
+                              onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                              ) => setTagItem(e.target.value)}
+                              value={tagItem}
+                              onKeyDown={onKeyPress}
+                            />
+                          </TagBox>
+                        </WholeBox>
+                      ) : (
+                        <Text
+                          ref={textRef}
+                          onChange={onInputChange}
+                          value={input}
+                        />
+                      )}
+                      <AdditionalButtons>
+                        <FileButton onClick={onFileClick} />
+                        <input
+                          ref={fileRef}
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                        />
+                        <EmojiButton />
+                      </AdditionalButtons>
+                    </InputArea>
+                    <SubmitArea>
+                      <SubmitButton onClick={() => onSubmit(workspaceNum)}>
+                        전송하기
+                      </SubmitButton>
+                      <EditButton onClick={() => onEdit(workspaceNum)}>
+                        수정하기
+                      </EditButton>
+                    </SubmitArea>
+                  </TextContainer>
+                </BoxContent>
               ) : (
                 <Done></Done>
               )}

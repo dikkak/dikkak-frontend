@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import questionBox from "../../../assets/workspaceImage/questionBox.png";
 
 export const MessageBox = styled.ul`
   position: relative;
@@ -8,13 +9,13 @@ export const MessageBox = styled.ul`
   margin-bottom: 20px;
 `;
 export const Title = styled.h1`
-  color: ${props => props.theme.subColor};
+  color: ${(props) => props.theme.subColor};
   margin-bottom: 10px;
 `;
 
-export const SystemMessage1 = styled.p`
+export const SystemMessage = styled.div<{ width: string }>`
   height: 35px;
-  width: 285px;
+  width: ${(props) => props.width};
   background-color: ${(props) => props.theme.mainColor};
   color: #fff;
   display: flex;
@@ -38,14 +39,30 @@ export const SystemMessage1 = styled.p`
     left: -10.5px;
   }
 `;
-export const SystemMessage2 = styled(SystemMessage1)`
-  width: 345px;
-`; 
-
+export const ModelingDesc = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  margin-bottom: 10px;
+`;
+export const QuestionBox = styled.img.attrs({ src: questionBox })`
+  width: 30px;
+  height: 30px;
+`;
+export const DescList = styled.ul`
+  transform: translateX(20px);
+  color: ${(props) => props.theme.mainColor};
+  font-size: 10px;
+  list-style: disc;
+  font-weight: 900;
+  & > li {
+    line-height: 15px;
+  }
+`;
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 160px);
-  grid-template-rows: repeat(1, 80px);
+  grid-template-columns: repeat(4, 80px);
+  grid-template-rows: repeat(2, 80px);
   grid-gap: 5px;
   margin-left: 21px;
   margin-bottom: 20px;
@@ -64,36 +81,10 @@ export const GridChildren = styled.div`
   }
 `;
 
-export const Logo = styled(GridChildren)<{
-  isLogoActive?: true | false;
-}>`
-  color: ${(props) => (props.isLogoActive === true ? "#fff" : "#C4C4C4")};
+export const GridItem = styled(GridChildren)<{ isActive?: boolean }>`
+  color: ${(props) => (props.isActive ? "#fff" : "#C4C4C4")};
   background-color: ${(props) =>
-    props.isLogoActive === true ? props.theme.mainColor : "#fff"};
-`;
-
-export const Name = styled(GridChildren)<{
-  isNameActive?: true | false;
-}>`
-  color: ${(props) => (props.isNameActive === true ? "#fff" : "#C4C4C4")};
-  background-color: ${(props) =>
-    props.isNameActive === true ? props.theme.mainColor : "#fff"};
-`;
-
-export const Yes = styled(GridChildren)<{
-  isYesActive?: true | false;
-}>`
-  color: ${(props) => (props.isYesActive === true ? "#fff" : "#C4C4C4")};
-  background-color: ${(props) =>
-    props.isYesActive === true ? props.theme.mainColor : "#fff"};
-`;
-
-export const No = styled(GridChildren)<{
-  isNoActive?: true | false;
-}>`
-  color: ${(props) => (props.isNoActive === true ? "#fff" : "#C4C4C4")};
-  background-color: ${(props) =>
-    props.isNoActive === true ? props.theme.mainColor : "#fff"};
+    props.isActive ? props.theme.mainColor : "#fff"};
 `;
 
 export const NextStepButton = styled.button`

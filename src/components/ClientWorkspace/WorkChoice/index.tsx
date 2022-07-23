@@ -1,6 +1,12 @@
-import React, { useState } from "react";
-import { useSetRecoilState } from 'recoil';
-import { workspaceNumAtom, workStepAtom } from '../../../atoms';
+import React from "react";
+import _ from "lodash";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  IWorkChoice,
+  workChoiceAtom,
+  workspaceNumAtom,
+  workStepAtom,
+} from "../../../atoms";
 import {
   JobChoiceBox,
   SystemMessage,
@@ -11,7 +17,7 @@ import {
   Video,
   Product,
   Poster,
-  Rending,
+  Landing,
   Etc,
   NextStepButton,
   Circle,
@@ -21,62 +27,60 @@ import {
 const WorkChoice = () => {
   const setWorkStep = useSetRecoilState(workStepAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
-  const [isLogoActive, setIsLogoActive] = useState(false);
-  const [isPackageActive, setIsPackageActive] = useState(false);
-  const [isDetailActive, setIsDetailActive] = useState(false);
-  const [isVideoActive, setIsVideoActive] = useState(false);
-  const [isProductActive, setIsProductActive] = useState(false);
-  const [isPosterActive, setIsPosterActive] = useState(false);
-  const [isRendingActive, setIsRendingActive] = useState(false);
-  const [isEtcActive, setIsEtcActive] = useState(false);
+  const [workChoice, setWorkChoice] = useRecoilState(workChoiceAtom);
 
-  const handleIsLogoClick = () => {
-    setIsLogoActive((cur) => !cur);
-  };
-
-  const handleIsPackageClick = () => {
-    setIsPackageActive((cur) => !cur);
-  };
-
-  const handleIsDetailClick = () => {
-    setIsDetailActive((cur) => !cur);
-  };
-
-  const handleIsVideoClick = () => {
-    setIsVideoActive((cur) => !cur);
-  };
-  const handleIsProductClick = () => {
-    setIsProductActive((cur) => !cur);
-  };
-
-  const handleIsPosterClick = () => {
-    setIsPosterActive((cur) => !cur);
-  };
-
-  const handleIsRendingClick = () => {
-    setIsRendingActive((cur) => !cur);
-  };
-  const handleIsEtcClick = () => {
-    setIsEtcActive((cur) => !cur);
+  const onClickWork = (workName: keyof IWorkChoice) => {
+    let copyArr = _.cloneDeep(workChoice);
+    for (const property in copyArr) {
+      copyArr[property as keyof IWorkChoice] = false;
+    }
+    copyArr[workName] = true;
+    setWorkChoice(copyArr);
   };
 
   const onClick = () => {
-    setWorkspaceNum(prev => prev+1);
-    setWorkStep(prev => {
-      return {
-        ...prev,
-        workChoiceStep: 'done',
-        detailStep: 'now'
-      }
-    })
+    if (workChoice.other) {
+      setWorkspaceNum((prev) => prev + 2);
+      setWorkStep((prev) => {
+        return {
+          ...prev,
+          workChoiceStep: "done",
+          detailStep: "done",
+          purposeStep: "now",
+        };
+      });
+    } else {
+      setWorkspaceNum((prev) => prev + 1);
+      setWorkStep((prev) => {
+        return {
+          ...prev,
+          workChoiceStep: "done",
+          detailStep: "now",
+        };
+      });
+    }
   };
 
   return (
     <JobChoiceBox>
-      <Title><Circle color='#905DFB' style={{display: 'inline-block', marginRight: '5px'}}/>작업 선택</Title>
-      <SystemMessage>맡기고자 하는 디자인 분야를 선택해주세요</SystemMessage>
+      <Title>
+        <Circle
+          color="#905DFB"
+          style={{ display: "inline-block", marginRight: "5px" }}
+        />
+        작업 선택
+      </Title>
+      <SystemMessage>
+        맡기고자 하는 디자인 분야를 선택해주세요
+        <p style={{ fontSize: "10px", marginTop: "3px" }}>
+          &nbsp;(기타를 선택한 경우 해당 내용을 사용 목적 단계에 적어주세요)
+        </p>
+      </SystemMessage>
       <Grid>
-        <LogoOrName onClick={handleIsLogoClick} isLogoActive={isLogoActive}>
+        <LogoOrName
+          onClick={() => onClickWork("logoOrCard")}
+          isLogoActive={workChoice.logoOrCard}
+        >
           로고
           <br />
           or
@@ -84,56 +88,68 @@ const WorkChoice = () => {
           명함
         </LogoOrName>
         <Package
-          onClick={handleIsPackageClick}
-          isPackageActive={isPackageActive}
+          onClick={() => onClickWork("package")}
+          isPackageActive={workChoice.package}
         >
           패키지
         </Package>
-        <Detail onClick={handleIsDetailClick} isDetailActive={isDetailActive}>
+        <Detail
+          onClick={() => onClickWork("detailPage")}
+          isDetailActive={workChoice.detailPage}
+        >
           상세
           <br />
           페이지
         </Detail>
-        <Video onClick={handleIsVideoClick} isVideoActive={isVideoActive}>
+        <Video
+          onClick={() => onClickWork("videoEditing")}
+          isVideoActive={workChoice.videoEditing}
+        >
           영상
           <br />
           편집
         </Video>
         <Product
-          onClick={handleIsProductClick}
-          isProductActive={isProductActive}
+          onClick={() => onClickWork("product3D")}
+          isProductActive={workChoice.product3D}
         >
           제품
           <br />
           (3D)
         </Product>
-        <Poster onClick={handleIsPosterClick} isPosterActive={isPosterActive}>
+        <Poster
+          onClick={() => onClickWork("posterLeaflet")}
+          isPosterActive={workChoice.posterLeaflet}
+        >
           포스터
           <br />
           or
           <br />
           리플렛
         </Poster>
-        <Rending
-          onClick={handleIsRendingClick}
-          isRendingActive={isRendingActive}
+        <Landing
+          onClick={() => onClickWork("landingPage")}
+          isLandingActive={workChoice.landingPage}
         >
           렌딩
           <br />
           페이지
-        </Rending>
-        <Etc onClick={handleIsEtcClick} isEtcActive={isEtcActive}>
+        </Landing>
+        <Etc
+          onClick={() => onClickWork("other")}
+          isEtcActive={workChoice.other}
+        >
           기타
         </Etc>
       </Grid>
-      {isLogoActive ||
-      isPackageActive ||
-      isDetailActive ||
-      isVideoActive ||
-      isProductActive ||
-      isPosterActive ||
-      isRendingActive ||
-      isEtcActive ? (
+      {workChoice.logoOrCard ||
+      workChoice.package ||
+      workChoice.detailPage ||
+      workChoice.videoEditing ||
+      workChoice.product3D ||
+      workChoice.posterLeaflet ||
+      workChoice.landingPage ||
+      workChoice.other ? (
         <div style={{ display: "flex", justifyContent: "center" }}>
           <NextStepButton onClick={onClick}>
             <Circle color="#EFDC34" />

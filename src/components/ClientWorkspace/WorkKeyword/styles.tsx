@@ -6,9 +6,10 @@ export const MessageBox = styled.ul`
   height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
+  overflow: scroll;
 `;
 export const Title = styled.h1`
-  color: ${props => props.theme.subColor};
+  color: ${(props) => props.theme.subColor};
   margin-bottom: 10px;
 `;
 
@@ -42,19 +43,21 @@ export const SystemMessage = styled.p`
 export const ClientMessage = styled.p`
   position: relative;
   right: -45px;
-  height: 35px;
+  min-height: 15px;
   width: 679px;
   background-color: white;
   color: #717171;
   display: flex;
-  justify-content: right;
+  justify-content: left;
   align-items: center;
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
   margin-bottom: 25px;
-  padding-right: 20px;
-
+  padding: 10px 20px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  flex-wrap: wrap;
   &::before {
     content: "";
     position: absolute;
@@ -112,7 +115,7 @@ export const TagItem = styled.span`
   justify-content: space-between;
   margin: 5px;
   padding: 5px;
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   border-radius: 5px;
   color: #717171;
   font-size: 13px;
@@ -120,8 +123,8 @@ export const TagItem = styled.span`
 export const TagText = styled.span`
   padding-top: 2px;
   &::before {
-    content: '#';
+    content: "#";
     padding-top: 2px;
     margin-right: 1px;
   }
-`
+`;

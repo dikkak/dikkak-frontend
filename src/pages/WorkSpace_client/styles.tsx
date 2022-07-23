@@ -334,6 +334,7 @@ export const Text = styled.textarea.attrs({
   outline: none;
   resize: none;
   color: #717171;
+  white-space: pre-wrap;
   &:focus {
     outline: none;
   }
@@ -367,6 +368,10 @@ export const TimeStep = styled.h3<{ step: string }>`
   font-size: ${(props) => (props.step === "now" ? "14px" : "12px")};
   border-left: 1px solid
     ${(props) => (props.step === "done" ? props.theme.mainColor : "#C4C4C4")};
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
   &::before {
     content: "";
     position: absolute;
@@ -472,6 +477,7 @@ export const WholeBox = styled.div`
   outline: none;
   resize: none;
   color: #c4c4c4;
+  overflow: scroll;
 `;
 export const TagItem = styled.span`
   display: flex;

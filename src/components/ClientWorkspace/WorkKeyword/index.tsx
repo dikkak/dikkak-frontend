@@ -1,6 +1,10 @@
 import React, { RefObject, useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { keyWordListAtom, workspaceNumAtom, workStepAtom } from '../../../atoms';
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  keyWordListAtom,
+  workspaceNumAtom,
+  workStepAtom,
+} from "../../../atoms";
 import {
   Circle,
   ClientMessage,
@@ -22,14 +26,14 @@ const WorkKeyword = ({ isTagInputClicked, tagRef }: IWorkKeywordProps) => {
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const keywordList = useRecoilValue(keyWordListAtom);
   const onClick = () => {
-    setWorkspaceNum(prev => prev+1);
-    setWorkStep(prev => {
+    setWorkspaceNum((prev) => prev + 1);
+    setWorkStep((prev) => {
       return {
         ...prev,
-        keyWordStep: 'done',
-        deadLineStep: 'now'
-      }
-    })
+        keyWordStep: "done",
+        deadLineStep: "now",
+      };
+    });
   };
   useEffect(() => {
     tagRef.current?.focus();
@@ -39,11 +43,17 @@ const WorkKeyword = ({ isTagInputClicked, tagRef }: IWorkKeywordProps) => {
   return (
     <>
       <MessageBox>
-        <Title><Circle color='#905DFB' style={{display: 'inline-block', marginRight: '5px'}}/>키워드 선택</Title>
+        <Title>
+          <Circle
+            color="#905DFB"
+            style={{ display: "inline-block", marginRight: "5px" }}
+          />
+          키워드 선택
+        </Title>
         <SystemMessage>
           디자인 컨셉 키워드를 선정해주세요 ex) 한국적인,차분한, 밝은
         </SystemMessage>
-        {isTagInputClicked ? (
+        {isTagInputClicked && keywordList.length > 0 ? (
           <>
             <ClientMessage>
               {keywordList.map((tagItem, index) => {

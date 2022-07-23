@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { RecoilRoot } from 'recoil';
-import App from './App';
-import './apis/axios';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RecoilRoot } from "recoil";
+import App from "./App";
+import "./apis/axios";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const client = new QueryClient({
   defaultOptions: {
@@ -11,16 +11,16 @@ const client = new QueryClient({
       refetchOnMount: false,
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
-    }
-  }
-})
+    },
+  },
+});
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
-    <RecoilRoot>
-      <QueryClientProvider client={client}>
-        <App />
-      </QueryClientProvider>
-    </RecoilRoot>
+  <RecoilRoot>
+    <QueryClientProvider client={client}>
+      <App />
+    </QueryClientProvider>
+  </RecoilRoot>
 );
