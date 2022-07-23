@@ -3,7 +3,9 @@ import _ from "lodash";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   IWorkChoice,
+  IWorkDetail,
   workChoiceAtom,
+  workDetailAtom,
   workspaceNumAtom,
   workStepAtom,
 } from "../../../atoms";
@@ -25,39 +27,49 @@ import {
 } from "./styles";
 
 const WorkChoice = () => {
-  const setWorkStep = useSetRecoilState(workStepAtom);
+  const [workStep, setWorkStep] = useRecoilState(workStepAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const [workChoice, setWorkChoice] = useRecoilState(workChoiceAtom);
+  const [workDetail, setWorkDetail] = useRecoilState(workDetailAtom);
 
   const onClickWork = (workName: keyof IWorkChoice) => {
-    let copyArr = _.cloneDeep(workChoice);
-    for (const property in copyArr) {
-      copyArr[property as keyof IWorkChoice] = false;
+    let copyChoiceArr = _.cloneDeep(workChoice);
+    let copyDetailArr = _.cloneDeep(workDetail);
+    for (const property in copyChoiceArr) {
+      copyChoiceArr[property as keyof IWorkChoice] = false;
     }
-    copyArr[workName] = true;
-    setWorkChoice(copyArr);
+    for (const property in copyDetailArr) {
+      copyDetailArr[property as keyof IWorkDetail] = false;
+    }
+    copyChoiceArr[workName] = true;
+    setWorkDetail(copyDetailArr);
+    setWorkChoice(copyChoiceArr);
   };
 
   const onClick = () => {
-    if (workChoice.other) {
+    if (workChoice.OTHER) {
       setWorkspaceNum((prev) => prev + 2);
-      setWorkStep((prev) => {
-        return {
-          ...prev,
-          workChoiceStep: "done",
-          detailStep: "done",
-          purposeStep: "now",
-        };
-      });
+      if (workStep.workChoiceStep !== "done") {
+        setWorkStep((prev) => {
+          return {
+            ...prev,
+            workChoiceStep: "done",
+            detailStep: "done",
+            purposeStep: "now",
+          };
+        });
+      }
     } else {
       setWorkspaceNum((prev) => prev + 1);
-      setWorkStep((prev) => {
-        return {
-          ...prev,
-          workChoiceStep: "done",
-          detailStep: "now",
-        };
-      });
+      if (workStep.workChoiceStep !== "done") {
+        setWorkStep((prev) => {
+          return {
+            ...prev,
+            workChoiceStep: "done",
+            detailStep: "now",
+          };
+        });
+      }
     }
   };
 
@@ -78,8 +90,8 @@ const WorkChoice = () => {
       </SystemMessage>
       <Grid>
         <LogoOrName
-          onClick={() => onClickWork("logoOrCard")}
-          isLogoActive={workChoice.logoOrCard}
+          onClick={() => onClickWork("LOGO_OR_CARD")}
+          isLogoActive={workChoice.LOGO_OR_CARD}
         >
           로고
           <br />
@@ -88,38 +100,38 @@ const WorkChoice = () => {
           명함
         </LogoOrName>
         <Package
-          onClick={() => onClickWork("package")}
-          isPackageActive={workChoice.package}
+          onClick={() => onClickWork("PACKAGE")}
+          isPackageActive={workChoice.PACKAGE}
         >
           패키지
         </Package>
         <Detail
-          onClick={() => onClickWork("detailPage")}
-          isDetailActive={workChoice.detailPage}
+          onClick={() => onClickWork("DETAIL_PAGE")}
+          isDetailActive={workChoice.DETAIL_PAGE}
         >
           상세
           <br />
           페이지
         </Detail>
         <Video
-          onClick={() => onClickWork("videoEditing")}
-          isVideoActive={workChoice.videoEditing}
+          onClick={() => onClickWork("VIDEO_EDITING")}
+          isVideoActive={workChoice.VIDEO_EDITING}
         >
           영상
           <br />
           편집
         </Video>
         <Product
-          onClick={() => onClickWork("product3D")}
-          isProductActive={workChoice.product3D}
+          onClick={() => onClickWork("PRODUCT_3D")}
+          isProductActive={workChoice.PRODUCT_3D}
         >
           제품
           <br />
           (3D)
         </Product>
         <Poster
-          onClick={() => onClickWork("posterLeaflet")}
-          isPosterActive={workChoice.posterLeaflet}
+          onClick={() => onClickWork("POSTER_LEAFLET")}
+          isPosterActive={workChoice.POSTER_LEAFLET}
         >
           포스터
           <br />
@@ -128,28 +140,28 @@ const WorkChoice = () => {
           리플렛
         </Poster>
         <Landing
-          onClick={() => onClickWork("landingPage")}
-          isLandingActive={workChoice.landingPage}
+          onClick={() => onClickWork("LANDING_PAGE")}
+          isLandingActive={workChoice.LANDING_PAGE}
         >
           렌딩
           <br />
           페이지
         </Landing>
         <Etc
-          onClick={() => onClickWork("other")}
-          isEtcActive={workChoice.other}
+          onClick={() => onClickWork("OTHER")}
+          isEtcActive={workChoice.OTHER}
         >
           기타
         </Etc>
       </Grid>
-      {workChoice.logoOrCard ||
-      workChoice.package ||
-      workChoice.detailPage ||
-      workChoice.videoEditing ||
-      workChoice.product3D ||
-      workChoice.posterLeaflet ||
-      workChoice.landingPage ||
-      workChoice.other ? (
+      {workChoice.LOGO_OR_CARD ||
+      workChoice.PACKAGE ||
+      workChoice.DETAIL_PAGE ||
+      workChoice.VIDEO_EDITING ||
+      workChoice.PRODUCT_3D ||
+      workChoice.POSTER_LEAFLET ||
+      workChoice.LANDING_PAGE ||
+      workChoice.OTHER ? (
         <div style={{ display: "flex", justifyContent: "center" }}>
           <NextStepButton onClick={onClick}>
             <Circle color="#EFDC34" />

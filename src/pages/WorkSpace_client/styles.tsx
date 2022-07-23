@@ -7,6 +7,7 @@ import emojiImg from "../../assets/workspaceImage/emojiImg.svg";
 export const Container = styled.div`
   max-width: 1440px;
   width: 100%;
+  margin: 0 auto;
   margin-top: 82px;
   height: auto;
 `;

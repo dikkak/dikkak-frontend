@@ -52,7 +52,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   isDoneAtom,
   keyWordListAtom,
-  purponseMessageAtom,
+  purposeMessageAtom,
   requestMessageAtom,
   titleMessageAtom,
   workChoiceAtom,
@@ -68,7 +68,7 @@ const WorkSpaceClient = () => {
   const [input, setInput] = useState("");
   const setTitleMessage = useSetRecoilState(titleMessageAtom);
   const workChoice = useRecoilValue(workChoiceAtom);
-  const setPurposeMessage = useSetRecoilState(purponseMessageAtom);
+  const setPurposeMessage = useSetRecoilState(purposeMessageAtom);
   const [isTagInputClicked, setIsTagInputClicked] = useState(false);
   const setRequestMessage = useSetRecoilState(requestMessageAtom);
   const done = useRecoilValue(isDoneAtom);
@@ -221,7 +221,7 @@ const WorkSpaceClient = () => {
                   </WorkTimeStep>
                   <DetailTimeStep
                     onClick={() => {
-                      if (workChoice.other) setworkspaceNum(4);
+                      if (workChoice.OTHER) setworkspaceNum(4);
                       else if (
                         workStep.titleStep &&
                         workStep.workChoiceStep === "done"

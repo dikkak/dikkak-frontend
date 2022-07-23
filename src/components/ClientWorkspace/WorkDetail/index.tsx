@@ -26,7 +26,7 @@ interface IWorkDetailProps {
 }
 
 const WorkDetail = ({ textRef }: IWorkDetailProps) => {
-  const setWorkStep = useSetRecoilState(workStepAtom);
+  const [workStep, setWorkStep] = useRecoilState(workStepAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const [workDetail, setWorkDetail] = useRecoilState(workDetailAtom);
   const workChoice = useRecoilValue(workChoiceAtom);
@@ -44,13 +44,15 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
     textRef.current?.removeAttribute("disabled");
     textRef.current?.setAttribute("placeholder", "디자인 용도를 입력해주세요");
     textRef.current?.focus();
-    setWorkStep((prev) => {
-      return {
-        ...prev,
-        detailStep: "done",
-        purposeStep: "now",
-      };
-    });
+    if (workStep.detailStep !== "done") {
+      setWorkStep((prev) => {
+        return {
+          ...prev,
+          detailStep: "done",
+          purposeStep: "now",
+        };
+      });
+    }
     setWorkspaceNum((prev) => prev + 1);
   };
   return (
@@ -63,7 +65,7 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
           />
           세부사항 선택
         </Title>
-        {workChoice.logoOrCard && (
+        {workChoice.LOGO_OR_CARD && (
           <>
             <SystemMessage width="290px">
               맡기고자 하는 디자인 분야를 선택해주세요
@@ -84,7 +86,7 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
             </Grid>
           </>
         )}
-        {workChoice.package && (
+        {workChoice.PACKAGE && (
           <>
             <SystemMessage width="290px">
               맡기고자 하는 디자인 범위를 선택해주세요
@@ -111,7 +113,7 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
             </Grid>
           </>
         )}
-        {workChoice.posterLeaflet && (
+        {workChoice.POSTER_LEAFLET && (
           <>
             <SystemMessage width="290px">
               맡기고자 하는 디자인 분야를 선택해주세요
@@ -132,7 +134,7 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
             </Grid>
           </>
         )}
-        {workChoice.landingPage && (
+        {workChoice.LANDING_PAGE && (
           <>
             <SystemMessage width="290px">
               맡기고자 하는 작업의 범위를 선택해주세요
@@ -155,7 +157,7 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
             </Grid>
           </>
         )}
-        {workChoice.detailPage && (
+        {workChoice.DETAIL_PAGE && (
           <>
             <SystemMessage width="320px">
               맡기고자 하는 제품의 촬영 유무를 선택해주세요
@@ -176,7 +178,7 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
             </Grid>
           </>
         )}
-        {workChoice.videoEditing && (
+        {workChoice.VIDEO_EDITING && (
           <>
             <SystemMessage width="609px">
               맡기고자 하는 제품의 영상 원본 길이를 선택해주세요
@@ -235,7 +237,7 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
             </Grid>
           </>
         )}
-        {workChoice.product3D && (
+        {workChoice.PRODUCT_3D && (
           <>
             <SystemMessage width="451px">
               어떤 모델링이 필요한가요?
@@ -280,7 +282,24 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
             </Grid>
           </>
         )}
-        {
+        {workDetail.advanced ||
+        workDetail.basic ||
+        workDetail.designAndMake ||
+        workDetail.designAndPublishing ||
+        workDetail.intermediate ||
+        workDetail.leaflet ||
+        workDetail.logo ||
+        workDetail.nameCard ||
+        workDetail.noRequirePhoto ||
+        workDetail.onlyDesign ||
+        workDetail.other ||
+        workDetail.poster ||
+        workDetail.requirePhoto ||
+        workDetail.within10minutes ||
+        workDetail.within1hour ||
+        workDetail.within2hours ||
+        workDetail.within30minutes ||
+        workDetail.within5minutes ? (
           <div style={{ display: "flex", justifyContent: "center" }}>
             <NextStepButton onClick={onClick}>
               <Circle color="#EFDC34" />
@@ -288,7 +307,7 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
               <Circle color="#28BF1B" />
             </NextStepButton>
           </div>
-        }
+        ) : null}
       </MessageBox>
     </>
   );

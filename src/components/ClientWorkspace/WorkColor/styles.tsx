@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const MessageBox = styled.ul`
-  /* position: relative; */
   width: 100%;
   height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
   overflow-y: scroll;
+  padding: 13px;
 `;
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `;
 
 export const SystemMessage = styled.p`
@@ -24,7 +24,7 @@ export const SystemMessage = styled.p`
   border-radius: 10px;
   font-size: 15px;
   margin-left: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding-right: 10px;
   &::before {
     content: "";
@@ -53,7 +53,7 @@ export const ClientMessage = styled.div`
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   padding-right: 20px;
 
   &::before {

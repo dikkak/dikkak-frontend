@@ -6,10 +6,11 @@ export const MessageBox = styled.ul`
   height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
+  padding: 13px;
 `;
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `;
 
 export const SystemMessage = styled.p`
@@ -52,7 +53,7 @@ export const ClientMessage = styled.p`
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   padding: 10px 20px;
   white-space: pre-wrap;
   word-break: break-all;
@@ -85,6 +86,7 @@ export const ClientMessage = styled.p`
 export const SystemMessage2 = styled(ClientMessage)`
   left: 20px;
   color: ${(props) => props.theme.mainColor};
+  margin-bottom: 15px;
   &::before {
     right: 0;
     left: -11px;

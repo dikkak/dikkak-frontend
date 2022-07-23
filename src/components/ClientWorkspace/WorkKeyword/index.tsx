@@ -1,5 +1,5 @@
 import React, { RefObject, useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   keyWordListAtom,
   workspaceNumAtom,
@@ -22,18 +22,20 @@ interface IWorkKeywordProps {
 }
 
 const WorkKeyword = ({ isTagInputClicked, tagRef }: IWorkKeywordProps) => {
-  const setWorkStep = useSetRecoilState(workStepAtom);
+  const [workStep, setWorkStep] = useRecoilState(workStepAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const keywordList = useRecoilValue(keyWordListAtom);
   const onClick = () => {
     setWorkspaceNum((prev) => prev + 1);
-    setWorkStep((prev) => {
-      return {
-        ...prev,
-        keyWordStep: "done",
-        deadLineStep: "now",
-      };
-    });
+    if (workStep.keyWordStep !== "done") {
+      setWorkStep((prev) => {
+        return {
+          ...prev,
+          keyWordStep: "done",
+          deadLineStep: "now",
+        };
+      });
+    }
   };
   useEffect(() => {
     tagRef.current?.focus();

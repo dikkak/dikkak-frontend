@@ -10,11 +10,12 @@ export const MessageBox = styled.ul`
   margin-bottom: 20px;
   overflow-x: hidden;
   overflow-y: scroll;
+  padding: 13px;
 `;
 
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `;
 
 export const SystemMessage = styled.p`
@@ -91,8 +92,11 @@ export const UploadBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 22px;
+  margin-top: 10px;
   cursor: pointer;
+  &:first-child {
+    margin-top: 15px;
+  }
 `;
 
 export const UploadContainer = styled.div`

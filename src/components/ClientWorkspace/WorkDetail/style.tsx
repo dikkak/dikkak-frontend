@@ -7,10 +7,11 @@ export const MessageBox = styled.ul`
   height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
+  padding: 13px;
 `;
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `;
 
 export const SystemMessage = styled.div<{ width: string }>`
@@ -61,8 +62,8 @@ export const DescList = styled.ul`
 `;
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 80px);
-  grid-template-rows: repeat(2, 80px);
+  grid-template-columns: repeat(6, 80px);
+  grid-template-rows: repeat(1, 80px);
   grid-gap: 5px;
   margin-left: 21px;
   margin-bottom: 20px;
