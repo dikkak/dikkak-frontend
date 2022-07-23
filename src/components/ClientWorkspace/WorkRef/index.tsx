@@ -30,6 +30,7 @@ import {
   Title,
   UploadBox,
   UploadContainer,
+  DeleteButton,
 } from "./style";
 
 const WorkRef = () => {
@@ -51,11 +52,13 @@ const WorkRef = () => {
     if (e) {
       const files = e.target.files!;
       const fileReader = new FileReader();
+      const name = files[0].name;
+
       if (files[0]) {
         fileReader.readAsDataURL(files[0]);
       }
       fileReader.onload = () => {
-        previewStore(index, fileReader.result as string, files[0]);
+        previewStore(index, name, fileReader.result as string, files[0]);
       };
     }
     return;
@@ -63,6 +66,7 @@ const WorkRef = () => {
 
   const previewStore = (
     index: number,
+    name: string,
     url?: string,
     file?: File,
     des?: string
@@ -70,6 +74,7 @@ const WorkRef = () => {
     let contentList = _.cloneDeep(referenceContents);
     if (url) {
       contentList[index].imgUrl = url;
+      contentList[index].imgName = name;
       contentList[index].file = file;
       setReferenceContents(contentList);
     } else if (des) {
@@ -85,7 +90,7 @@ const WorkRef = () => {
     if (referenceContents.length < 5) {
       setReferenceContents((prev) => [
         ...prev,
-        { file: undefined, imgUrl: "", description: "" },
+        { file: undefined, imgUrl: "", imgName: "", description: "" },
       ]);
     }
   };
@@ -94,7 +99,7 @@ const WorkRef = () => {
     index: number
   ) => {
     let des = e.target.value;
-    previewStore(index, "", undefined, des);
+    previewStore(index, "", "", undefined, des);
   };
 
   const onNextStep = () => {
@@ -146,6 +151,12 @@ const WorkRef = () => {
 
   const onBlurFifth = (e: ChangeEvent<HTMLTextAreaElement> | undefined) => {
     setFocusFifth(false);
+  };
+
+  const onDelete = (index: number) => {
+    let newList = _.cloneDeep(referenceContents);
+    newList = referenceContents.filter((item, idx) => idx !== index);
+    setReferenceContents(newList);
   };
 
   const switchFcn = (index: number) => {
@@ -336,6 +347,9 @@ const WorkRef = () => {
                 </FileUploadLabel>
                 <TextContainer>{switchFcn(index)}</TextContainer>
               </ContentBox>
+              {index > 2 ? (
+                <DeleteButton onClick={() => onDelete(index)}>X</DeleteButton>
+              ) : null}
             </UploadContainer>
           </UploadBox>
         ))}

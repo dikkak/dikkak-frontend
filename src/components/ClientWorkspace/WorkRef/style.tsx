@@ -238,6 +238,25 @@ export const NextStepButton = styled.button`
   }
 `;
 
+export const DeleteButton = styled.button`
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  width: 17px;
+  height: 17px;
+  padding: 0;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s ease-in;
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
+
 export const TextFirst = styled(Text)``;
 export const TextSecond = styled(Text)``;
 export const TextThird = styled(Text)``;

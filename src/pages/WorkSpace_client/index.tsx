@@ -44,6 +44,8 @@ import {
   Button,
   TagInput,
   TagBox,
+  FileContainer,
+  EtcFileContainer,
 } from "./styles";
 import WorkspaceRender from "../../components/ClientWorkspace/WorkspaceRender";
 import { useQuery } from "react-query";
@@ -58,6 +60,8 @@ import {
   workChoiceAtom,
   workspaceNumAtom,
   workStepAtom,
+  workEtcAtom,
+  referenceContentsAtom,
 } from "../../atoms";
 import NavigationGuard from "../../components/NavigationGuard/NavigationGuard";
 import Done from "../Done";
@@ -70,6 +74,11 @@ const WorkSpaceClient = () => {
   const workChoice = useRecoilValue(workChoiceAtom);
   const setPurposeMessage = useSetRecoilState(purposeMessageAtom);
   const [isTagInputClicked, setIsTagInputClicked] = useState(false);
+  const [referenceContents, setReferenceContents] = useRecoilState(
+    referenceContentsAtom
+  );
+  const [workEtc, setWorkEtc] = useRecoilState(workEtcAtom);
+
   const setRequestMessage = useSetRecoilState(requestMessageAtom);
   const done = useRecoilValue(isDoneAtom);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -77,6 +86,9 @@ const WorkSpaceClient = () => {
   const tagRef = useRef<HTMLInputElement>(null);
   const [workspaceNum, setworkspaceNum] = useRecoilState(workspaceNumAtom);
   const workStep = useRecoilValue(workStepAtom);
+  const [fileClickState, setFileClickState] = useState(false);
+  const [etcClickState, setEtcClickState] = useState(false);
+
   //
   // Tag
   const [tagItem, setTagItem] = useState("");
@@ -172,6 +184,15 @@ const WorkSpaceClient = () => {
         break;
     }
     textRef.current?.focus();
+  };
+  const refFileRenderFnc = () => {
+    const trueOrFalse = referenceContents.find((item) => item.imgName !== "");
+    return trueOrFalse ? true : false;
+  };
+
+  const etcFileRenderFnc = () => {
+    const trueOrFalse = workEtc.find((item) => item.fileName !== "");
+    return trueOrFalse ? true : false;
   };
 
   // if(!isFetching && !data) {return <Navigate to='/login'/>}
@@ -465,6 +486,56 @@ const WorkSpaceClient = () => {
               <BlurPin />
               <BlurPin />
               <SideTitle>FILE</SideTitle>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "relative",
+                  top: "10px",
+                  height: "75%",
+                  // overflowY: "scroll",
+                  // overflowX: "hidden",
+                }}
+              >
+                {refFileRenderFnc() ? (
+                  <FileContainer>
+                    <h3
+                      onClick={() => {
+                        setFileClickState((prev) => !prev);
+                      }}
+                    >
+                      레퍼런스
+                      <br />
+                      등록
+                    </h3>
+                    {fileClickState &&
+                      referenceContents.map((item) => {
+                        return item.imgName !== "" ? (
+                          <li>{item.imgName.slice(0, 19)}</li>
+                        ) : null;
+                      })}
+                  </FileContainer>
+                ) : null}
+                {etcFileRenderFnc() ? (
+                  <EtcFileContainer>
+                    <h3
+                      onClick={() => {
+                        setEtcClickState((prev) => !prev);
+                      }}
+                    >
+                      기타 파일
+                      <br />
+                      업로드(선택)
+                    </h3>
+                    {etcClickState &&
+                      workEtc.map((item) => {
+                        return item.fileName !== "" ? (
+                          <li>{item.fileName.slice(0, 19)}</li>
+                        ) : null;
+                      })}
+                  </EtcFileContainer>
+                ) : null}
+              </div>
             </BlurBackground>
           </Content>
         </Wrapper>
