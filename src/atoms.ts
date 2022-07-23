@@ -11,14 +11,14 @@ export const titleMessageAtom = atom<string>({
 export const workChoiceAtom = atom<IWorkChoice>({
   key: 'workChoice',
   default: {
-    logoOrCard: false,
-    package: false,
-    detailPage: false,
-    videoEditing: false,
-    product3D: false,
-    posterLeaflet: false,
-    landingPage: false,
-    other: false,
+    LOGO_OR_CARD: false,
+    PACKAGE: false,
+    DETAIL_PAGE: false,
+    VIDEO_EDITING: false,
+    PRODUCT_3D: false,
+    POSTER_LEAFLET: false,
+    LANDING_PAGE: false,
+    OTHER: false,
   },
   effects_UNSTABLE: [persistAtom]
 })
@@ -46,7 +46,7 @@ export const workDetailAtom = atom<IWorkDetail>({
   },
   effects_UNSTABLE: [persistAtom]
 })
-export const purponseMessageAtom = atom<string>({
+export const purposeMessageAtom = atom<string>({
   key: 'purposeMessage',
   default: "",
   effects_UNSTABLE: [persistAtom]
@@ -87,10 +87,17 @@ export const referenceContentsAtom = atom<IReferenceContents[]>({
   default: [
     {
       imgUrl: "",
+      file: undefined,
       description: "",
     },
     {
       imgUrl: "",
+      file: undefined,
+      description: "",
+    },
+    {
+      imgUrl: "",
+      file: undefined,
       description: "",
     },
   ],
@@ -136,14 +143,14 @@ export interface IColor {
 }
 
 export interface IWorkChoice {
-  logoOrCard: boolean;
-  package: boolean;
-  detailPage: boolean;
-  videoEditing: boolean;
-  product3D: boolean;
-  posterLeaflet: boolean;
-  landingPage: boolean;
-  other: boolean;
+  LOGO_OR_CARD: boolean;
+  PACKAGE: boolean;
+  DETAIL_PAGE: boolean;
+  VIDEO_EDITING: boolean;
+  PRODUCT_3D: boolean;
+  POSTER_LEAFLET: boolean;
+  LANDING_PAGE: boolean;
+  OTHER: boolean;
 }
 
 export interface IWorkDetail {
@@ -169,7 +176,8 @@ export interface IWorkDetail {
 
 export interface IReferenceContents {
   imgUrl: string;
-  description: string;
+  file: File | undefined;
+  description: string | null;
 }
 
 export type StepState = 'now' | 'done' | 'yet';

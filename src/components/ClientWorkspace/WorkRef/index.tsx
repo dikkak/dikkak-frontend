@@ -1,15 +1,43 @@
 import React, { useState, ChangeEvent } from "react";
-import _ from 'lodash';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { referenceContentsAtom, workspaceNumAtom, workStepAtom } from '../../../atoms';
-import { Circle, ContentBox, EarhImg, EarthImgBox, EarthImgContainer, FileUpload, FileUploadImg, FileUploadLabel, MessageBox, NextStepButton, PlaceholderP, PreviewImg, RefLink, SystemMessage, TextContainer, TextFifth, TextFirst, TextFourth, TextSecond, TextThird, Title, UploadBox, UploadContainer } from './style';
-
-let count = 0;
+import _ from "lodash";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  referenceContentsAtom,
+  workspaceNumAtom,
+  workStepAtom,
+} from "../../../atoms";
+import {
+  Circle,
+  ContentBox,
+  EarhImg,
+  EarthImgBox,
+  EarthImgContainer,
+  FileUpload,
+  FileUploadImg,
+  FileUploadLabel,
+  MessageBox,
+  NextStepButton,
+  PlaceholderP,
+  PreviewImg,
+  RefLink,
+  SystemMessage,
+  TextContainer,
+  TextFifth,
+  TextFirst,
+  TextFourth,
+  TextSecond,
+  TextThird,
+  Title,
+  UploadBox,
+  UploadContainer,
+} from "./style";
 
 const WorkRef = () => {
-  const [referenceContents, setReferenceContents] = useRecoilState(referenceContentsAtom);
+  const [referenceContents, setReferenceContents] = useRecoilState(
+    referenceContentsAtom
+  );
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
-  const setWorkStep = useSetRecoilState(workStepAtom);
+  const [workStep, setWorkStep] = useRecoilState(workStepAtom);
   const [focusFirst, setFocusFirst] = useState(false);
   const [focusSecond, setFocusSecond] = useState(false);
   const [focusThird, setFocusThird] = useState(false);
@@ -22,17 +50,12 @@ const WorkRef = () => {
   ) => {
     if (e) {
       const files = e.target.files!;
-      console.log(files[0].name);
-
       const fileReader = new FileReader();
-
       if (files[0]) {
         fileReader.readAsDataURL(files[0]);
-        const url = URL.createObjectURL(files[0]);
-        previewStore(index, url);
       }
       fileReader.onload = () => {
-        console.log(fileReader.result);
+        previewStore(index, fileReader.result as string, files[0]);
       };
     }
     return;
@@ -40,23 +63,30 @@ const WorkRef = () => {
 
   const previewStore = (
     index: number,
-    url?: string | "",
-    des?: string | ""
+    url?: string,
+    file?: File,
+    des?: string
   ) => {
     let contentList = _.cloneDeep(referenceContents);
     if (url) {
       contentList[index].imgUrl = url;
+      contentList[index].file = file;
       setReferenceContents(contentList);
     } else if (des) {
       contentList[index].description = des;
       setReferenceContents(contentList);
+    } else if (!des) {
+      contentList[index].description = "";
+      setReferenceContents(contentList);
     }
-    console.log(contentList);
   };
 
   const onAddClick = () => {
     if (referenceContents.length < 5) {
-      setReferenceContents((prev) => [...prev, { imgUrl: "", description: "" }]);
+      setReferenceContents((prev) => [
+        ...prev,
+        { file: undefined, imgUrl: "", description: "" },
+      ]);
     }
   };
   const onKeyBoardChange = (
@@ -64,20 +94,21 @@ const WorkRef = () => {
     index: number
   ) => {
     let des = e.target.value;
-    previewStore(index, "", des);
+    previewStore(index, "", undefined, des);
   };
 
   const onNextStep = () => {
-    setWorkspaceNum(prev => prev+1);
-    setWorkStep(prev => {
-      return {
-        ...prev,
-        referenceStep: 'done',
-        etcStep: 'now'
-      }
-    })
+    setWorkspaceNum((prev) => prev + 1);
+    if (workStep.referenceStep !== "done") {
+      setWorkStep((prev) => {
+        return {
+          ...prev,
+          referenceStep: "done",
+          etcStep: "now",
+        };
+      });
+    }
   };
-
   const onFocusFirst = (e?: ChangeEvent<HTMLTextAreaElement> | undefined) => {
     setFocusFirst(true);
   };
@@ -123,6 +154,7 @@ const WorkRef = () => {
         return (
           <>
             <TextFirst
+              value={referenceContents[index].description || ""}
               onBlur={(e) => onBlurFirst(e)}
               onFocus={(e) => onFocusFirst(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
@@ -156,6 +188,7 @@ const WorkRef = () => {
         return (
           <>
             <TextSecond
+              value={referenceContents[index].description || ""}
               onBlur={(e) => onBlurSecond(e)}
               onFocus={(e) => onFocusSecond(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
@@ -184,6 +217,7 @@ const WorkRef = () => {
         return (
           <>
             <TextThird
+              value={referenceContents[index].description || ""}
               onBlur={(e) => onBlurThird(e)}
               onFocus={(e) => onFocusThird(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
@@ -208,6 +242,7 @@ const WorkRef = () => {
         return (
           <>
             <TextFourth
+              value={referenceContents[index].description || ""}
               onBlur={(e) => onBlurFourth(e)}
               onFocus={(e) => onFocusFourth(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
@@ -232,6 +267,7 @@ const WorkRef = () => {
         return (
           <>
             <TextFifth
+              value={referenceContents[index].description || ""}
               onBlur={(e) => onBlurFifth(e)}
               onFocus={(e) => onFocusFifth(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
@@ -253,7 +289,6 @@ const WorkRef = () => {
         );
     }
   };
-
   return (
     <>
       <MessageBox>
@@ -312,14 +347,19 @@ const WorkRef = () => {
             <p style={{ color: "#905DFB", fontSize: "24px" }}>+</p>
           </UploadContainer>
         </UploadBox>
-        {referenceContents.map((item) => {
+        {/* {referenceContents.map((item) => {
           if (item.description !== "" && item.imgUrl !== "") {
-            count += 1;
+            setCount((prev) => prev + 1);
           }
           return null;
-        })}
+        })} */}
 
-        {count >= 2 ? (
+        {referenceContents[0].description &&
+        referenceContents[0].imgUrl &&
+        referenceContents[1].description &&
+        referenceContents[1].imgUrl &&
+        referenceContents[2].description &&
+        referenceContents[2].imgUrl ? (
           <div
             style={{
               display: "flex",
@@ -329,7 +369,7 @@ const WorkRef = () => {
           >
             <NextStepButton onClick={onNextStep}>
               <Circle color="#EFDC34" />
-                NEXT STEP
+              NEXT STEP
               <Circle color="#28BF1B" />
             </NextStepButton>
           </div>

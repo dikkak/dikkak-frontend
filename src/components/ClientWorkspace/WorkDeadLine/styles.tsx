@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const MessageBox = styled.ul`
   position: relative;
@@ -7,11 +7,12 @@ export const MessageBox = styled.ul`
   background-color: transparent;
   margin-bottom: 20px;
   overflow-y: scroll;
+  padding: 13px;
 `;
 
 export const Title = styled.h1`
-  color: ${props => props.theme.subColor};
-  margin-bottom: 10px;
+  color: ${(props) => props.theme.subColor};
+  margin-bottom: 15px;
 `;
 
 export const SystemMessage = styled.p`
@@ -25,7 +26,7 @@ export const SystemMessage = styled.p`
   border-radius: 10px;
   font-size: 15px;
   margin-left: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-right: 10px;
   &::before {
     content: "";
@@ -38,49 +39,6 @@ export const SystemMessage = styled.p`
     border-left: 0px solid transparent;
     border-right: 15px solid ${(props) => props.theme.mainColor};
     left: -10.5px;
-  }
-`;
-
-export const ClientMessage = styled.p`
-  position: relative;
-  right: -45px;
-  height: 35px;
-  width: 679px;
-  background-color: white;
-  color: #717171;
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  border: 1px solid ${(props) => props.theme.mainColor};
-  border-radius: 10px;
-  font-size: 15px;
-  margin-bottom: 25px;
-  padding-right: 20px;
-
-  &::before {
-    content: "";
-    position: absolute;
-    border-style: solid;
-    border-width: 8px 0 8px 13px;
-    border-color: transparent #905dfb;
-    display: block;
-    width: 0;
-    z-index: 0;
-    right: -14px;
-    top: 9px;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    border-style: solid;
-    border-width: 8px 0 8px 13px;
-    border-color: transparent #ffffff;
-    display: block;
-    width: 0;
-    z-index: 1;
-    right: -12px;
-    top: 9px;
   }
 `;
 

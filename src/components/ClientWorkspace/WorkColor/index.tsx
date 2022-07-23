@@ -1,12 +1,29 @@
-import React, {  Fragment } from 'react';
-import _ from 'lodash';
-import { SketchPicker } from 'react-color';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { mainColorAtom, subColorsAtom, workspaceNumAtom, workStepAtom } from '../../../atoms';
-import { Box, Circle, ClientMessage, ColorBox, ColorText, DeleteButton, InnerContainer, MessageBox, NextStepButton, SystemMessage, Title } from './styles';
+import React, { Fragment } from "react";
+import _ from "lodash";
+import { SketchPicker } from "react-color";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  mainColorAtom,
+  subColorsAtom,
+  workspaceNumAtom,
+  workStepAtom,
+} from "../../../atoms";
+import {
+  Box,
+  Circle,
+  ClientMessage,
+  ColorBox,
+  ColorText,
+  DeleteButton,
+  InnerContainer,
+  MessageBox,
+  NextStepButton,
+  SystemMessage,
+  Title,
+} from "./styles";
 
 const WorkColor = () => {
-  const setWorkStep = useSetRecoilState(workStepAtom);
+  const [workStep, setWorkStep] = useRecoilState(workStepAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const [mainColor, setMainColor] = useRecoilState(mainColorAtom);
   const [subColors, setSubColors] = useRecoilState(subColorsAtom);
@@ -31,16 +48,15 @@ const WorkColor = () => {
         return;
       } else {
         const newList = _.cloneDeep(subColors);
-        newList.map(item => item.isClicked=false);
+        newList.map((item) => (item.isClicked = false));
         setSubColors(newList);
         setMainColor((prev) => {
           return { ...prev, isClicked: true };
         });
       }
-    }
-    else {
+    } else {
       const newList = _.cloneDeep(subColors);
-      if(newList[index].isClicked) {
+      if (newList[index].isClicked) {
         newList[index].isClicked = false;
         setSubColors(newList);
         return;
@@ -62,15 +78,17 @@ const WorkColor = () => {
     setSubColors((prev) => [...prev, { color: "", isClicked: false }]);
   };
   const onNextStep = () => {
-    setWorkspaceNum(prev => prev+1);
-    setWorkStep(prev => {
-      return {
-        ...prev,
-        colorStep: 'done',
-        referenceStep: 'now'
-      }
-    })
-  }
+    setWorkspaceNum((prev) => prev + 1);
+    if (workStep.colorStep !== "done") {
+      setWorkStep((prev) => {
+        return {
+          ...prev,
+          colorStep: "done",
+          referenceStep: "now",
+        };
+      });
+    }
+  };
   return (
     <>
       <MessageBox>
@@ -132,7 +150,7 @@ const WorkColor = () => {
           </Fragment>
         ))}
         <ClientMessage
-          style={{ justifyContent: "center" }}
+          style={{ justifyContent: "center", marginBottom: "20px" }}
           onClick={onAddClick}
         >
           <p style={{ color: "#905DFB", fontSize: "24px" }}>+</p>

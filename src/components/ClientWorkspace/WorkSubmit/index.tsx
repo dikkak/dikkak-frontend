@@ -1,6 +1,21 @@
+import axios from "axios";
 import React, { RefObject } from "react";
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { deadLineAtom, isDoneAtom, keyWordListAtom, mainColorAtom, purponseMessageAtom, referenceContentsAtom, requestMessageAtom, subColorsAtom, titleMessageAtom } from '../../../atoms';
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  deadLineAtom,
+  isDoneAtom,
+  IWorkChoice,
+  IWorkDetail,
+  keyWordListAtom,
+  mainColorAtom,
+  purposeMessageAtom,
+  referenceContentsAtom,
+  requestMessageAtom,
+  subColorsAtom,
+  titleMessageAtom,
+  workChoiceAtom,
+  workDetailAtom,
+} from "../../../atoms";
 import {
   MessageBox,
   Title,
@@ -13,33 +28,69 @@ interface ISubmitProps {
   textRef: RefObject<HTMLTextAreaElement>;
 }
 
-const WorkSubmit = ({textRef}: ISubmitProps) => {
+const WorkSubmit = ({ textRef }: ISubmitProps) => {
   const titleMessage = useRecoilValue(titleMessageAtom);
-  const purposeMessage = useRecoilValue(purponseMessageAtom);
+  const workChoice = useRecoilValue(workChoiceAtom);
+  const workDetail = useRecoilValue(workDetailAtom);
+  const purposeMessage = useRecoilValue(purposeMessageAtom);
   const keyWordList = useRecoilValue(keyWordListAtom);
   const deadLine = useRecoilValue(deadLineAtom);
   const mainColor = useRecoilValue(mainColorAtom);
   const subColors = useRecoilValue(subColorsAtom);
   const referenceContents = useRecoilValue(referenceContentsAtom);
   const requestMessage = useRecoilValue(requestMessageAtom);
-
   const setIsDone = useSetRecoilState(isDoneAtom);
+
+  // 데이터 가공
+  let category;
+  for (let cat in workChoice) {
+    if (workChoice[cat as keyof IWorkChoice]) category = cat;
+  }
+  let detail;
+  for (let det in workDetail) {
+    if (workDetail[det as keyof IWorkDetail]) detail = det;
+  }
+  let subColorsData: string[] = [];
+  subColors.map((item) => {
+    return subColorsData.push(item.color);
+  });
+  let referenceDesc: string[] = [];
+  referenceContents.map((item) => {
+    return referenceDesc.push(item.description || "");
+  });
+  let referenceFile: File[] = [];
+  referenceContents.map((item) => {
+    return referenceFile.push(item.file!);
+  });
+  //
+  const jsonData = {
+    title: titleMessage,
+    category,
+    detail,
+    purpose: purposeMessage,
+    keywords: keyWordList,
+    deadline: deadLine,
+    mainColor: mainColor.color,
+    subColors: subColorsData,
+    referenceDesc,
+    additionalDesc: requestMessage,
+  };
+
+  let formData = new FormData();
+  formData.append(
+    "jsonData",
+    new Blob([JSON.stringify(jsonData)], { type: "application/json" })
+  );
+  referenceContents.map((item) => formData.append("referenceFile", item.file!));
   const onClick = () => {
-    console.log({
-      title: titleMessage,
-      purpose: purposeMessage,
-      keyWord: keyWordList,
-      deadLine,
-      mainColor,
-      subColors,
-      referenceContents,
-      requestMessage
-    })
-    setIsDone((prev) => !prev);
-    textRef.current?.setAttribute(
-      "placeholder",
-      "마우스를 이용해 선택해주세요"
-    );
+    axios.post("/proposal", formData).then((res) => {
+      console.log(res);
+      setIsDone((prev) => !prev);
+      textRef.current?.setAttribute(
+        "placeholder",
+        "마우스를 이용해 선택해주세요"
+      );
+    });
   };
   return (
     <MessageBox>
@@ -56,7 +107,7 @@ const WorkSubmit = ({textRef}: ISubmitProps) => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <NextStepButton onClick={onClick}>
           <Circle color="#EFDC34" />
-            제출하기
+          제출하기
           <Circle color="#28BF1B" />
         </NextStepButton>
       </div>

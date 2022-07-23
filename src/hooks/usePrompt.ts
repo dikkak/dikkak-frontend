@@ -63,7 +63,6 @@ export function usePrompt(when: boolean) {
   const [confirmedNavigation, setConfirmedNavigation] = useState(false);
 
   const cancelNavigation = useCallback(() => {
-    console.log('안나감');
     setShowPrompt(false);
   }, []);
 

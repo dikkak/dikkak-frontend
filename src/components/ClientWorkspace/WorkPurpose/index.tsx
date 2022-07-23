@@ -1,7 +1,7 @@
 import React from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  purponseMessageAtom,
+  purposeMessageAtom,
   workspaceNumAtom,
   workStepAtom,
 } from "../../../atoms";
@@ -16,18 +16,20 @@ import {
 } from "./styles";
 
 const WorkPurpose = () => {
-  const setWorkStep = useSetRecoilState(workStepAtom);
-  const purposeMessage = useRecoilValue(purponseMessageAtom);
+  const [workStep, setWorkStep] = useRecoilState(workStepAtom);
+  const purposeMessage = useRecoilValue(purposeMessageAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const onClick = () => {
     setWorkspaceNum((prev) => prev + 1);
-    setWorkStep((prev) => {
-      return {
-        ...prev,
-        purposeStep: "done",
-        keyWordStep: "now",
-      };
-    });
+    if (workStep.purposeStep !== "done") {
+      setWorkStep((prev) => {
+        return {
+          ...prev,
+          purposeStep: "done",
+          keyWordStep: "now",
+        };
+      });
+    }
   };
   return (
     <>

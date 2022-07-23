@@ -6,10 +6,11 @@ export const JobChoiceBox = styled.div`
   height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
+  padding: 13px;
 `;
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `;
 
 export const SystemMessage = styled.div`
@@ -23,7 +24,7 @@ export const SystemMessage = styled.div`
   border-radius: 10px;
   font-size: 15px;
   margin-left: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-right: 10px;
 
   &::before {
