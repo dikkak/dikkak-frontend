@@ -465,7 +465,6 @@ export const EditButton = styled.button`
 `;
 
 //
-
 export const WholeBox = styled.div`
   width: 533px;
   height: 100px;
@@ -529,4 +528,58 @@ export const TagBox = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+`;
+
+export const FileContainer = styled.ul`
+  width: 90px;
+  & h3 {
+    color: ${(props) => props.theme.subColor};
+    font-size: 14px;
+    line-height: 1.08rem;
+    padding: 0 0 0 20px;
+    position: relative;
+    font-family: "Inter";
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: ${(props) => props.theme.mainColor};
+      border: 3px solid ${(props) => props.theme.mainColor};
+      border-radius: 999px;
+      left: -7.5px;
+      top: 6px;
+    }
+  }
+  & li {
+    border-left: 1px solid #c4c4c4;
+    color: #c4c4c4;
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 12.5px;
+    padding: 22px 0 0 18px;
+    position: relative;
+    top: -12px;
+    max-width: 83px;
+    max-height: 42px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 6.5px;
+      height: 6.5px;
+      background: #329a29;
+      border-radius: 999px;
+      left: -3.5px;
+      top: 82.5%;
+    }
+  }
+`;
+
+export const EtcFileContainer = styled(FileContainer)`
+  margin-top: 18px;
 `;

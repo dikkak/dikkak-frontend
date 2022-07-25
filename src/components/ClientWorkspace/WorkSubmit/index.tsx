@@ -15,6 +15,7 @@ import {
   titleMessageAtom,
   workChoiceAtom,
   workDetailAtom,
+  workEtcAtom,
 } from "../../../atoms";
 import {
   MessageBox,
@@ -40,6 +41,7 @@ const WorkSubmit = ({ textRef }: ISubmitProps) => {
   const referenceContents = useRecoilValue(referenceContentsAtom);
   const requestMessage = useRecoilValue(requestMessageAtom);
   const setIsDone = useSetRecoilState(isDoneAtom);
+  const workEtcContents = useRecoilValue(workEtcAtom);
 
   // 데이터 가공
   let category;
@@ -62,6 +64,11 @@ const WorkSubmit = ({ textRef }: ISubmitProps) => {
   referenceContents.map((item) => {
     return referenceFile.push(item.file!);
   });
+  let workEtcFile: File[] = [];
+  workEtcContents.map((item) => {
+    return workEtcFile.push(item.file!);
+  });
+
   //
   const jsonData = {
     title: titleMessage,
@@ -81,7 +88,10 @@ const WorkSubmit = ({ textRef }: ISubmitProps) => {
     "jsonData",
     new Blob([JSON.stringify(jsonData)], { type: "application/json" })
   );
+
   referenceContents.map((item) => formData.append("referenceFile", item.file!));
+  workEtcContents.map((item) => formData.append("etcFile", item.file!));
+
   const onClick = () => {
     axios.post("/proposal", formData).then((res) => {
       console.log(res);
@@ -92,6 +102,7 @@ const WorkSubmit = ({ textRef }: ISubmitProps) => {
       );
     });
   };
+
   return (
     <MessageBox>
       <Title>

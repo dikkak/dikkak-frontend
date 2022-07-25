@@ -144,10 +144,14 @@ export const ContentBox = styled.div`
   justify-content: space-between;
 `;
 
-export const FileUploadLabel = styled.label<{ bgcolor?: string }>`
+export const FileUploadLabel = styled.label<{
+  bgcolor?: string;
+  borderColor?: string;
+}>`
   width: 200px;
   height: 114px;
-  background-color: #c4c4c4;
+  background-color: ${(props) => props.bgcolor};
+  border: 1px solid ${(props) => props.borderColor};
   cursor: pointer;
   border-radius: 5px;
   display: flex;
@@ -170,7 +174,6 @@ export const FileUploadImg = styled.img.attrs({ src: linkImg })`
 export const TextContainer = styled.div`
   width: 426px;
   height: 114px;
-  background-color: #c4c4c4;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -181,18 +184,18 @@ export const TextContainer = styled.div`
 export const Text = styled.textarea<{ bgcolor?: string; borderColor?: string }>`
   width: 426px;
   height: 114px;
-  background-color: #c4c4c4;
+  background-color: ${(props) => props.bgcolor};
   border: 1px solid ${(props) => props.borderColor};
   padding: 10px;
-  outline: none;
-  border: 0;
+
   color: #717171;
   resize: none;
   border-radius: 5px;
   cursor: pointer;
   &:focus {
     outline: none;
-    background: transparent;
+    border: 1px solid ${(props) => props.borderColor};
+    background: #fff;
   }
 `;
 
@@ -210,8 +213,8 @@ export const PlaceholderP = styled.p`
 export const PreviewImg = styled.div<{ url?: string }>`
   background-image: url(${(props) => props.url || ""});
   width: 200px;
-  height: 114px;
-  border: 1px solid #c4c4c4;
+  height: 112px;
+  border: 0;
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -235,6 +238,25 @@ export const NextStepButton = styled.button`
   cursor: pointer;
   &:hover {
     opacity: 0.8;
+  }
+`;
+
+export const DeleteButton = styled.button`
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  width: 17px;
+  height: 17px;
+  padding: 0;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s ease-in;
+  &:hover {
+    transform: scale(1.2);
   }
 `;
 

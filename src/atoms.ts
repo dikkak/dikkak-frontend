@@ -1,15 +1,15 @@
 import { atom } from "recoil";
-import {recoilPersist} from 'recoil-persist';
+import { recoilPersist } from "recoil-persist";
 
-const {persistAtom} = recoilPersist();
+const { persistAtom } = recoilPersist();
 
 export const titleMessageAtom = atom<string>({
-  key: 'titleMessage',
+  key: "titleMessage",
   default: "",
-  effects_UNSTABLE: [persistAtom]
-})
+  effects_UNSTABLE: [persistAtom],
+});
 export const workChoiceAtom = atom<IWorkChoice>({
-  key: 'workChoice',
+  key: "workChoice",
   default: {
     LOGO_OR_CARD: false,
     PACKAGE: false,
@@ -20,10 +20,10 @@ export const workChoiceAtom = atom<IWorkChoice>({
     LANDING_PAGE: false,
     OTHER: false,
   },
-  effects_UNSTABLE: [persistAtom]
-})
+  effects_UNSTABLE: [persistAtom],
+});
 export const workDetailAtom = atom<IWorkDetail>({
-  key: 'workDetail',
+  key: "workDetail",
   default: {
     logo: false,
     nameCard: false,
@@ -44,98 +44,117 @@ export const workDetailAtom = atom<IWorkDetail>({
     advanced: false,
     other: false,
   },
-  effects_UNSTABLE: [persistAtom]
-})
+  effects_UNSTABLE: [persistAtom],
+});
 export const purposeMessageAtom = atom<string>({
-  key: 'purposeMessage',
+  key: "purposeMessage",
   default: "",
-  effects_UNSTABLE: [persistAtom]
-})
+  effects_UNSTABLE: [persistAtom],
+});
 
 export const keyWordListAtom = atom<string[]>({
-  key: 'keyWordList',
+  key: "keyWordList",
   default: [],
-  effects_UNSTABLE: [persistAtom]
-})
+  effects_UNSTABLE: [persistAtom],
+});
 
 export const deadLineAtom = atom<string | undefined>({
-  key: 'deadLine',
+  key: "deadLine",
   default: "",
-  effects_UNSTABLE: [persistAtom]
-})
+  effects_UNSTABLE: [persistAtom],
+});
 export const mainColorAtom = atom<IColor>({
-  key: 'mainColor',
-  default: {color: '', isClicked: false},
-  effects_UNSTABLE: [persistAtom]
-})
+  key: "mainColor",
+  default: { color: "", isClicked: false },
+  effects_UNSTABLE: [persistAtom],
+});
 export const subColorsAtom = atom<IColor[]>({
-  key: 'subColors',
+  key: "subColors",
   default: [
     {
-      color: '',
-      isClicked: false
+      color: "",
+      isClicked: false,
     },
     {
-      color: '',
-      isClicked: false
+      color: "",
+      isClicked: false,
     },
   ],
-  effects_UNSTABLE: [persistAtom]
-})
+  effects_UNSTABLE: [persistAtom],
+});
 export const referenceContentsAtom = atom<IReferenceContents[]>({
-  key: 'referece_contents',
+  key: "referece_contents",
   default: [
     {
       imgUrl: "",
       file: undefined,
+      imgName: "",
       description: "",
     },
     {
       imgUrl: "",
       file: undefined,
+      imgName: "",
       description: "",
     },
     {
       imgUrl: "",
       file: undefined,
+      imgName: "",
       description: "",
     },
   ],
   effects_UNSTABLE: [persistAtom],
-})
-export const workspaceNumAtom = atom<number>({
-  key: 'workspaceNum',
-  default: 1,
-  effects_UNSTABLE: [persistAtom]
-})
-export const requestMessageAtom = atom<string>({
-  key: 'request_message',
-  default: '',
+});
+
+export const workEtcAtom = atom<IEtc[]>({
+  key: "workEtc",
+  default: [
+    {
+      fileName: "",
+      file: undefined,
+    },
+  ],
   effects_UNSTABLE: [persistAtom],
-})
+});
+
+export const workspaceNumAtom = atom<number>({
+  key: "workspaceNum",
+  default: 1,
+  effects_UNSTABLE: [persistAtom],
+});
+export const requestMessageAtom = atom<string>({
+  key: "request_message",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
 export const isDoneAtom = atom<boolean>({
-  key: 'isDone',
+  key: "isDone",
   default: false,
   effects_UNSTABLE: [persistAtom],
-})
+});
 export const workStepAtom = atom<IWorkStep>({
-  key: 'workStep',
+  key: "workStep",
   default: {
-    titleStep: 'now',
-    workChoiceStep: 'yet',
-    detailStep: 'yet',
-    purposeStep: 'yet',
-    keyWordStep: 'yet',
-    deadLineStep: 'yet',
-    colorStep: 'yet',
-    referenceStep: 'yet',
-    etcStep: 'yet',
-    additionStep: 'yet',
-    submitStep: 'yet',
+    titleStep: "now",
+    workChoiceStep: "yet",
+    detailStep: "yet",
+    purposeStep: "yet",
+    keyWordStep: "yet",
+    deadLineStep: "yet",
+    colorStep: "yet",
+    referenceStep: "yet",
+    etcStep: "yet",
+    additionStep: "yet",
+    submitStep: "yet",
   },
   effects_UNSTABLE: [persistAtom],
-})
+});
 
+export interface IEtc {
+  fileName: string;
+  file: File | undefined;
+}
 
 export interface IColor {
   color: string;
@@ -176,11 +195,12 @@ export interface IWorkDetail {
 
 export interface IReferenceContents {
   imgUrl: string;
+  imgName: string;
   file: File | undefined;
   description: string | null;
 }
 
-export type StepState = 'now' | 'done' | 'yet';
+export type StepState = "now" | "done" | "yet";
 
 export interface IWorkStep {
   titleStep: StepState;
