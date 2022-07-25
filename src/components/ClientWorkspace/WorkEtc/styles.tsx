@@ -46,7 +46,7 @@ export const SystemMessage = styled.p`
 
 export const ClientMessage = styled.p`
   position: relative;
-  right: -45px;
+  left: 32px;
   height: 35px;
   width: 679px;
   background-color: white;
@@ -98,8 +98,6 @@ export const NextStepButton = styled.button`
   font-size: 20px;
   border: none;
   border-radius: 5px;
-  opacity: 0.2;
-
   cursor: pointer;
   &:hover {
     opacity: 0.8;

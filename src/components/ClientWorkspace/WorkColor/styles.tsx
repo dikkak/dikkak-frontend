@@ -6,7 +6,9 @@ export const MessageBox = styled.ul`
   background-color: transparent;
   margin-bottom: 20px;
   overflow-y: scroll;
+  overflow-x: hidden;
   padding: 13px;
+  min-width: 750px;
 `;
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};
@@ -42,7 +44,7 @@ export const SystemMessage = styled.p`
 
 export const ClientMessage = styled.div`
   position: relative;
-  right: -45px;
+  left: 32px;
   height: 35px;
   width: 679px;
   background-color: white;

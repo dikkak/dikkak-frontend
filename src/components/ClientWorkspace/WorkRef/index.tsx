@@ -169,18 +169,14 @@ const WorkRef = () => {
               onBlur={(e) => onBlurFirst(e)}
               onFocus={(e) => onFocusFirst(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
-              // bgcolor={
-              //   contents[index].imgUrl !== "" ||
-              //   contents[index].description !== ""
-              //     ? "#C4C4C4"
-              //     : "#fff"
-              // }
-              // borderColor={
-              //   contents[index].imgUrl !== "" ||
-              //   contents[index].description !== ""
-              //     ? "#905DFB"
-              //     : "#C4C4C4"
-              // }
+              bgcolor={
+                referenceContents[index].description == "" ? "#C4C4C4" : "#fff"
+              }
+              borderColor={
+                referenceContents[index].description == ""
+                  ? "#C4C4C4"
+                  : "#905DFB"
+              }
             />
             {!focusFirst && referenceContents[index].description === "" ? (
               <PlaceholderP
@@ -203,12 +199,14 @@ const WorkRef = () => {
               onBlur={(e) => onBlurSecond(e)}
               onFocus={(e) => onFocusSecond(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
-              // bgcolor={
-              //   contents[index].imgUrl !== "" ||
-              //   contents[index].description !== ""
-              //     ? "#fff"
-              //     : "#C4C4C4"
-              // }
+              bgcolor={
+                referenceContents[index].description == "" ? "#C4C4C4" : "#fff"
+              }
+              borderColor={
+                referenceContents[index].description == ""
+                  ? "#C4C4C4"
+                  : "#905DFB"
+              }
             />
             {!focusSecond && referenceContents[index].description === "" ? (
               <PlaceholderP
@@ -232,12 +230,14 @@ const WorkRef = () => {
               onBlur={(e) => onBlurThird(e)}
               onFocus={(e) => onFocusThird(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
-              // bgcolor={
-              //   contents[index].imgUrl !== "" ||
-              //   contents[index].description !== ""
-              //     ? "#fff"
-              //     : "#C4C4C4"
-              // }
+              bgcolor={
+                referenceContents[index].description == "" ? "#C4C4C4" : "#fff"
+              }
+              borderColor={
+                referenceContents[index].description == ""
+                  ? "#C4C4C4"
+                  : "#905DFB"
+              }
             />
             {!focusThird && referenceContents[index].description === "" ? (
               <PlaceholderP onClick={() => setFocusThird(true)}>
@@ -257,12 +257,14 @@ const WorkRef = () => {
               onBlur={(e) => onBlurFourth(e)}
               onFocus={(e) => onFocusFourth(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
-              // bgcolor={
-              //   contents[index].imgUrl !== "" ||
-              //   contents[index].description !== ""
-              //     ? "#fff"
-              //     : "#C4C4C4"
-              // }
+              bgcolor={
+                referenceContents[index].description == "" ? "#C4C4C4" : "#fff"
+              }
+              borderColor={
+                referenceContents[index].description == ""
+                  ? "#C4C4C4"
+                  : "#905DFB"
+              }
             />
             {!focusFourth && referenceContents[index].description === "" ? (
               <PlaceholderP onClick={() => setFocusFourth(false)}>
@@ -282,12 +284,14 @@ const WorkRef = () => {
               onBlur={(e) => onBlurFifth(e)}
               onFocus={(e) => onFocusFifth(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
-              // bgcolor={
-              //   contents[index].imgUrl !== "" ||
-              //   contents[index].description !== ""
-              //     ? "#fff"
-              //     : "#C4C4C4"
-              // }
+              bgcolor={
+                referenceContents[index].description == "" ? "#C4C4C4" : "#fff"
+              }
+              borderColor={
+                referenceContents[index].description == ""
+                  ? "#C4C4C4"
+                  : "#905DFB"
+              }
             />
             {!focusFifth && referenceContents[index].description === "" ? (
               <PlaceholderP onClick={() => setFocusFifth(false)}>
@@ -326,9 +330,11 @@ const WorkRef = () => {
               <ContentBox>
                 <FileUploadLabel
                   bgcolor={
-                    referenceContents[index].imgUrl !== "" ||
-                    referenceContents[index].description !== ""
-                      ? "#fff"
+                    referenceContents[index].imgUrl !== "" ? "#fff" : "#C4C4C4"
+                  }
+                  borderColor={
+                    referenceContents[index].imgUrl !== ""
+                      ? "#905DFB"
                       : "#C4C4C4"
                   }
                 >
