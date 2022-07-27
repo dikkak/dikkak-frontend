@@ -15,9 +15,13 @@ import {
   ColorBox,
   ColorText,
   DeleteButton,
+  EarhImg,
+  EarthImgBox,
+  EarthImgContainer,
   InnerContainer,
   MessageBox,
   NextStepButton,
+  RefLink,
   SystemMessage,
   Title,
 } from "./styles";
@@ -100,6 +104,18 @@ const WorkColor = () => {
           컬러 선택
         </Title>
         <SystemMessage>디자인에 활용할 컬러를 선택해주세요</SystemMessage>
+        <EarthImgBox>
+          <EarthImgContainer>
+            <EarhImg></EarhImg>
+          </EarthImgContainer>
+          <RefLink as="a">색조합 보러가기</RefLink>
+        </EarthImgBox>
+        <EarthImgBox style={{ marginBottom: "15px" }}>
+          <EarthImgContainer>
+            <EarhImg></EarhImg>
+          </EarthImgContainer>
+          <RefLink as="a">색 별 의미 (영어주의😂)</RefLink>
+        </EarthImgBox>
         <ClientMessage>
           <InnerContainer>
             <Box

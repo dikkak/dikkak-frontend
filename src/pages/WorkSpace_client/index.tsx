@@ -62,6 +62,7 @@ import {
   workStepAtom,
   workEtcAtom,
   referenceContentsAtom,
+  isTagInputSubmittedAtom,
 } from "../../atoms";
 import NavigationGuard from "../../components/NavigationGuard/NavigationGuard";
 import Done from "../Done";
@@ -73,11 +74,9 @@ const WorkSpaceClient = () => {
   const setTitleMessage = useSetRecoilState(titleMessageAtom);
   const workChoice = useRecoilValue(workChoiceAtom);
   const setPurposeMessage = useSetRecoilState(purposeMessageAtom);
-  const [isTagInputClicked, setIsTagInputClicked] = useState(false);
-  const [referenceContents, setReferenceContents] = useRecoilState(
-    referenceContentsAtom
-  );
-  const [workEtc, setWorkEtc] = useRecoilState(workEtcAtom);
+  const setIsTagInputSubmitted = useSetRecoilState(isTagInputSubmittedAtom);
+  const referenceContents = useRecoilValue(referenceContentsAtom);
+  const workEtc = useRecoilValue(workEtcAtom);
 
   const setRequestMessage = useSetRecoilState(requestMessageAtom);
   const done = useRecoilValue(isDoneAtom);
@@ -136,7 +135,7 @@ const WorkSpaceClient = () => {
         setPurposeMessage(input);
         break;
       case 5:
-        setIsTagInputClicked(true);
+        setIsTagInputSubmitted(true);
         tagRef.current?.setAttribute("disabled", "disabled");
         break;
       case 10:
@@ -423,7 +422,6 @@ const WorkSpaceClient = () => {
                 <BoxContent>
                   <WorkspaceRender
                     workspaceNum={workspaceNum}
-                    isTagInputClicked={isTagInputClicked}
                     tagRef={tagRef}
                     textRef={textRef}
                   ></WorkspaceRender>

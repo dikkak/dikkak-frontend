@@ -1,6 +1,7 @@
 import React, { RefObject, useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  isTagInputSubmittedAtom,
   keyWordListAtom,
   workspaceNumAtom,
   workStepAtom,
@@ -17,13 +18,13 @@ import {
 } from "./styles";
 
 interface IWorkKeywordProps {
-  isTagInputClicked: boolean;
   tagRef: RefObject<HTMLInputElement>;
 }
 
-const WorkKeyword = ({ isTagInputClicked, tagRef }: IWorkKeywordProps) => {
+const WorkKeyword = ({ tagRef }: IWorkKeywordProps) => {
   const [workStep, setWorkStep] = useRecoilState(workStepAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
+  const isTagInputSubmitted = useRecoilValue(isTagInputSubmittedAtom);
   const keywordList = useRecoilValue(keyWordListAtom);
   const onClick = () => {
     setWorkspaceNum((prev) => prev + 1);
@@ -55,7 +56,7 @@ const WorkKeyword = ({ isTagInputClicked, tagRef }: IWorkKeywordProps) => {
         <SystemMessage>
           디자인 컨셉 키워드를 선정해주세요 ex) 한국적인,차분한, 밝은
         </SystemMessage>
-        {isTagInputClicked && keywordList.length > 0 ? (
+        {isTagInputSubmitted && keywordList.length > 0 ? (
           <>
             <ClientMessage>
               {keywordList.map((tagItem, index) => {
