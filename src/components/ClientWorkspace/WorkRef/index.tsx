@@ -170,10 +170,10 @@ const WorkRef = () => {
               onFocus={(e) => onFocusFirst(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
               bgcolor={
-                referenceContents[index].description == "" ? "#C4C4C4" : "#fff"
+                referenceContents[index].description === "" ? "#C4C4C4" : "#fff"
               }
               borderColor={
-                referenceContents[index].description == ""
+                referenceContents[index].description === ""
                   ? "#C4C4C4"
                   : "#905DFB"
               }
@@ -200,10 +200,10 @@ const WorkRef = () => {
               onFocus={(e) => onFocusSecond(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
               bgcolor={
-                referenceContents[index].description == "" ? "#C4C4C4" : "#fff"
+                referenceContents[index].description === "" ? "#C4C4C4" : "#fff"
               }
               borderColor={
-                referenceContents[index].description == ""
+                referenceContents[index].description === ""
                   ? "#C4C4C4"
                   : "#905DFB"
               }
@@ -231,10 +231,10 @@ const WorkRef = () => {
               onFocus={(e) => onFocusThird(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
               bgcolor={
-                referenceContents[index].description == "" ? "#C4C4C4" : "#fff"
+                referenceContents[index].description === "" ? "#C4C4C4" : "#fff"
               }
               borderColor={
-                referenceContents[index].description == ""
+                referenceContents[index].description === ""
                   ? "#C4C4C4"
                   : "#905DFB"
               }
@@ -258,10 +258,10 @@ const WorkRef = () => {
               onFocus={(e) => onFocusFourth(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
               bgcolor={
-                referenceContents[index].description == "" ? "#C4C4C4" : "#fff"
+                referenceContents[index].description === "" ? "#C4C4C4" : "#fff"
               }
               borderColor={
-                referenceContents[index].description == ""
+                referenceContents[index].description === ""
                   ? "#C4C4C4"
                   : "#905DFB"
               }
@@ -285,10 +285,10 @@ const WorkRef = () => {
               onFocus={(e) => onFocusFifth(e)}
               onChange={(e) => onKeyBoardChange(e, index)}
               bgcolor={
-                referenceContents[index].description == "" ? "#C4C4C4" : "#fff"
+                referenceContents[index].description === "" ? "#C4C4C4" : "#fff"
               }
               borderColor={
-                referenceContents[index].description == ""
+                referenceContents[index].description === ""
                   ? "#C4C4C4"
                   : "#905DFB"
               }

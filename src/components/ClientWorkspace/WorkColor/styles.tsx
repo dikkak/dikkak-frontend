@@ -145,8 +145,8 @@ export const DeleteButton = styled.button`
 `;
 export const ColorBox = styled.div`
   position: absolute;
-  right: 130px;
-  top: 270px;
+  right: -30px;
+  top: 200px;
   z-index: 100;
 `;
 export const ColorText = styled.span`

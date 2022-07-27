@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { RefObject } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { submitProposal } from "../../../apis/proposal";
 import {
   deadLineAtom,
   isDoneAtom,
@@ -93,7 +93,7 @@ const WorkSubmit = ({ textRef }: ISubmitProps) => {
   workEtcContents.map((item) => formData.append("etcFile", item.file!));
 
   const onClick = () => {
-    axios.post("/proposal", formData).then((res) => {
+    submitProposal(formData).then((res) => {
       console.log(res);
       setIsDone((prev) => !prev);
       textRef.current?.setAttribute(

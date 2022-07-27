@@ -6,8 +6,8 @@ import firstImg from "../../assets/mainPageImage/firstImage.png";
 import secondImg from "../../assets/mainPageImage/secondImage.png";
 import thirdImg from "../../assets/mainPageImage/thirdImage.png";
 import fourthImg from "../../assets/mainPageImage/fourthImage.png";
-import { userInfo } from '../../apis/auth_login';
-import { useQuery } from 'react-query';
+import { userInfo } from "../../apis/auth_login";
+import { useQuery } from "react-query";
 import {
   BlurBackground,
   BlurButtons,
@@ -29,9 +29,12 @@ import {
 } from "./styles";
 
 const Main = () => {
-  const {data} = useQuery('user-info', userInfo);
+  const { data, isLoading } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
-  if(data) {return <Navigate to='/service_start'/>}
+  if (isLoading) <div>Loading...</div>;
+  if (data) {
+    return <Navigate to="/service_start" />;
+  }
   return (
     <>
       <Menu />
@@ -47,9 +50,10 @@ const Main = () => {
               <DikkakSignUp
                 onClick={() => {
                   navigate("/signup");
-                }} 
+                }}
               >
-                  ⏰ DIKKAK 가입하기</DikkakSignUp>
+                ⏰ DIKKAK 가입하기
+              </DikkakSignUp>
               <DikkakStart
                 onClick={() => {
                   navigate("/login");

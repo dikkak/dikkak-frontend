@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -194,7 +194,11 @@ const WorkSpaceClient = () => {
     const trueOrFalse = workEtc.find((item) => item.fileName !== "");
     return trueOrFalse ? true : false;
   };
-
+  useEffect(() => {
+    if (done) {
+      localStorage.removeItem("recoil-persist");
+    }
+  }, [done]);
   // if(!isFetching && !data) {return <Navigate to='/login'/>}
   // if(!isFetching && data && data.type === 'DESIGNER') {return <Navigate to='/service_start'/>}
   return (

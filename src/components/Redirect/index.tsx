@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { authLogin, registNewUser } from "../../apis/auth_login";
 import Menu from "../Menu";
 import {
@@ -160,6 +160,9 @@ const Redirect = () => {
       .catch((e: AxiosError) => {
         if (e.response?.status === 409) {
           alert("이미 다른 소셜로 가입된 이메일입니다.");
+          navigate("/login");
+        }
+        if (e.response?.status === 400) {
           navigate("/login");
         }
       });
