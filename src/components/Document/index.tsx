@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { IContent } from "../../pages/DesignerWork";
 import {
   Container,
@@ -31,29 +31,34 @@ const Document = ({ content, onDelete }: ContentProps) => {
     setCheckedInput([]);
   };
   const onMoveButtonClick = () => {
-    if(content.type === 'client') {
-      navigate('/workspace_client');
+    if (content.type === "CLIENT") {
+      navigate("/workspace_client");
     }
-  }
+  };
   return (
     <Container>
       <Title>{content.title}</Title>
       <ListContainer>
-        {content.contents.map((content) => (
-          <List key={content.id}>
-            <a href="#">
-              <span style={{ marginRight: "5px" }}>{content.id}</span>{" "}
-              {content.name}
-              <p></p>
-            </a>
-            {isDelete ? (
-              <InputBox type="checkbox" onChange={() => onChange(content.id)} />
-            ) : (
-              <LinkImage />
-            )}
-          </List>
-        ))}
+        {content.contents &&
+          content.contents.map((content, index) => (
+            <List key={content.id}>
+              <a href="#">
+                <span style={{ marginRight: "5px" }}>{index + 1}</span>{" "}
+                {content.title}
+                <p></p>
+              </a>
+              {isDelete ? (
+                <InputBox
+                  type="checkbox"
+                  onChange={() => onChange(content.id)}
+                />
+              ) : (
+                <LinkImage />
+              )}
+            </List>
+          ))}
         {(content.title === "제안서" || content.title === "완료된 작업") &&
+        content.contents &&
         !isDelete &&
         content.contents.length !== 0 ? (
           <StartBtnContainer>
@@ -71,7 +76,10 @@ const Document = ({ content, onDelete }: ContentProps) => {
           삭제하기
         </MoveBtn>
       ) : (
-        <MoveBtn onClick={onMoveButtonClick} style={{ backgroundColor: content.bgColor }}>
+        <MoveBtn
+          onClick={onMoveButtonClick}
+          style={{ backgroundColor: content.bgColor }}
+        >
           {content.workMenttion}
         </MoveBtn>
       )}

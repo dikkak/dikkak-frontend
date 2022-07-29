@@ -39,6 +39,7 @@ export const authLogout = async() => {
 interface IUserInfo {
   username: string;
   type: string;
+  provider: string;
 }
 
 interface ILogin {

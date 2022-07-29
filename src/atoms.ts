@@ -58,6 +58,12 @@ export const keyWordListAtom = atom<string[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const isTagInputSubmittedAtom =atom<boolean>({
+  key: "isTagInputSubmitted",
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+})
+
 export const deadLineAtom = atom<string | undefined>({
   key: "deadLine",
   default: "",

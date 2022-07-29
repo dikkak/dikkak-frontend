@@ -13,6 +13,7 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
+  position: relative;
   max-width: 1178px;
   min-width: 960px;
   height: 650px;

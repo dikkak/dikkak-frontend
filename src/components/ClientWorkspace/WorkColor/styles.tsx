@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import earthImg from "../../../assets/workspaceImage/earthImg.svg";
 
 export const MessageBox = styled.ul`
   width: 100%;
@@ -26,7 +27,7 @@ export const SystemMessage = styled.p`
   border-radius: 10px;
   font-size: 15px;
   margin-left: 20px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   padding-right: 10px;
   &::before {
     content: "";
@@ -40,6 +41,40 @@ export const SystemMessage = styled.p`
     border-right: 15px solid ${(props) => props.theme.mainColor};
     left: -9.5px;
   }
+`;
+export const EarthImgContainer = styled.div`
+  background-color: #c4c4c4;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const EarhImg = styled.img.attrs({
+  src: earthImg,
+})`
+  width: 20px;
+  height: 18px;
+`;
+
+export const EarthImgBox = styled.span`
+  width: 100%;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+
+export const RefLink = styled.button`
+  color: ${(props) => props.theme.mainColor};
+  border-bottom: 0.5px solid ${(props) => props.theme.mainColor};
+  font-size: 10px;
+  line-height: 14.48px;
+  margin-left: 10px;
+  font-weight: 700;
+  cursor: pointer;
 `;
 
 export const ClientMessage = styled.div`
@@ -145,8 +180,8 @@ export const DeleteButton = styled.button`
 `;
 export const ColorBox = styled.div`
   position: absolute;
-  right: 130px;
-  top: 270px;
+  right: -30px;
+  top: 200px;
   z-index: 100;
 `;
 export const ColorText = styled.span`

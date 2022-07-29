@@ -3,37 +3,77 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import ClientOrDesigner from "../../components/ClientOrDesigner";
-import { BackButton, BlurBackground, BlurPin, Container, Content, ContentDesc, JumboCotainer, Jumbotron, LetterLogo, LogoImage, PaintLogo, Title } from './styles';
-import { useQuery, useQueryClient } from 'react-query';
-import {authLogout, userInfo} from '../../apis/auth_login';
-import ServiceButton from '../../components/ServiceButton';
-import LogoutModal from '../../components/LogoutModal';
-import axios from 'axios';
-import { KAKAO_AUTH_LOGOUT_URL } from '../../OAuth';
-
+import {
+  BackButton,
+  BlurBackground,
+  BlurPin,
+  Container,
+  Content,
+  ContentDesc,
+  JumboCotainer,
+  Jumbotron,
+  LetterLogo,
+  LogoImage,
+  PaintLogo,
+  Title,
+} from "./styles";
+import { useQuery, useQueryClient } from "react-query";
+import { authLogout, userInfo } from "../../apis/auth_login";
+import ServiceButton from "../../components/ServiceButton";
+import LogoutModal from "../../components/LogoutModal";
+import axios from "axios";
+import {
+  FACEBOOK_AUTH_URL,
+  GOOGLE_AUTH_URL,
+  KAKAO_AUTH_LOGOUT_URL,
+  KAKAO_AUTH_URL,
+} from "../../OAuth";
 
 const Start = () => {
-  const {data} = useQuery('user-info', userInfo);
+  const [checkUserLoading, setCheckUserLoading] = useState(false);
+  const { data, isLoading } = useQuery("user-info", userInfo);
   const queryClient = useQueryClient();
   const [isLogoutClicked, setIsLogoutClicked] = useState(false);
   const navigate = useNavigate();
   const onLogout = () => {
-    authLogout()
-    .then(() => {
-      delete axios.defaults.headers.common['Authorization'];
+    authLogout().then(() => {
+      delete axios.defaults.headers.common["Authorization"];
       queryClient.clear();
-      localStorage.removeItem('recoil-persist');
-      window.location.href=KAKAO_AUTH_LOGOUT_URL;
+      localStorage.removeItem("recoil-persist");
+      window.location.href = KAKAO_AUTH_LOGOUT_URL;
     });
   };
-  if(!data) {return <Navigate to='/login'/>};
+  const getProviderUrl = (provider: string) => {
+    switch (provider) {
+      case "KAKAO":
+        return KAKAO_AUTH_URL;
+      case "GOOGLE":
+        return GOOGLE_AUTH_URL;
+      case "FACEBOOK":
+        return FACEBOOK_AUTH_URL;
+      default:
+        return "err";
+    }
+  };
+  if (!data) {
+    return <Navigate to="/login" />;
+  }
+  if (!data.type || !data.username) {
+    setCheckUserLoading(true);
+    let authURL = getProviderUrl(data.provider);
+    if (authURL === "err") return <Navigate to="/login" />;
+    window.location.href = getProviderUrl(data.provider);
+    setCheckUserLoading(false);
+  }
+  if (isLoading || checkUserLoading) <div>Loading...</div>;
   return (
     <>
-      {
-        isLogoutClicked && (
-          <LogoutModal onLogout={onLogout} setIsLogoutClicked={setIsLogoutClicked}/>
-        )
-      }
+      {isLogoutClicked && (
+        <LogoutModal
+          onLogout={onLogout}
+          setIsLogoutClicked={setIsLogoutClicked}
+        />
+      )}
       <Menu />
       <Container>
         <BackButton onClick={() => navigate(-1)}>
@@ -58,27 +98,26 @@ const Start = () => {
                 </div>
               </Title>
               <Content>
-                {
-                  data?.type ==="UNDEFINED" ? (
-                    <>
-                      <ContentDesc>
-                        MZ가 작업하는 빠르고-쉬운 디자인 아웃소싱 플랫폼
-                      </ContentDesc>
-                      <ClientOrDesigner></ClientOrDesigner>
-                    </>
-                  ) : (
-                    <>
-                      <ContentDesc>
-                        {data?.username} {data?.type}님 안녕하세요!
-                      </ContentDesc>
-                      <ServiceButton 
-                        username={data.username} 
-                        type={data.type} 
-                        setIsLogoutClicked={setIsLogoutClicked}
-                        onLogout={onLogout}/>
-                    </>
-                )
-              }
+                {data?.type === "UNDEFINED" ? (
+                  <>
+                    <ContentDesc>
+                      MZ가 작업하는 빠르고-쉬운 디자인 아웃소싱 플랫폼
+                    </ContentDesc>
+                    <ClientOrDesigner></ClientOrDesigner>
+                  </>
+                ) : (
+                  <>
+                    <ContentDesc>
+                      {data?.username} {data?.type}님 안녕하세요!
+                    </ContentDesc>
+                    <ServiceButton
+                      username={data.username}
+                      type={data.type}
+                      setIsLogoutClicked={setIsLogoutClicked}
+                      onLogout={onLogout}
+                    />
+                  </>
+                )}
               </Content>
             </BlurBackground>
           </Jumbotron>
