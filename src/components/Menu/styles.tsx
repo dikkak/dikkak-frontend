@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import logoImg from '../../assets/logoImage/logoBasic.svg';
-import talkImg from '../../assets/menuImage/kakaotalk.svg';
+import styled from "styled-components";
+import logoImg from "../../assets/logoImage/logoBasic.svg";
+import talkImg from "../../assets/menuImage/kakaotalk.svg";
 
 export const Container = styled.div`
   position: fixed;
@@ -28,10 +28,10 @@ export const Title = styled.div`
   width: 150px;
   cursor: pointer;
 `;
-export const LogoImage = styled.img.attrs({src: logoImg})`
+export const LogoImage = styled.img.attrs({ src: logoImg })`
   width: 30px;
   height: 30px;
-  margin-right: .3em;
+  margin-right: 0.3em;
 `;
 export const LogoTitle = styled.div`
   flex-grow: 1;
@@ -39,7 +39,7 @@ export const LogoTitle = styled.div`
   flex-direction: column;
 `;
 export const LogoName = styled.p`
-margin-bottom: 0.2em;
+  margin-bottom: 0.2em;
   font-size: 15px;
   font-weight: 100;
   color: #717171;
@@ -48,7 +48,7 @@ export const LogoSubName = styled.p`
   font-size: 10px;
   color: #717171;
 `;
-export const Talk = styled.img.attrs({src: talkImg})`
+export const Talk = styled.img.attrs({ src: talkImg })`
   width: 80px;
   cursor: pointer;
 `;

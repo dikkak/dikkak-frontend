@@ -11,6 +11,7 @@ import ClientWorkPage from "./pages/ClientWork";
 import DesignerWorkPage from "./pages/DesignerWork";
 import Redirect from "./components/Redirect";
 import WorkSpaceClient from "./pages/WorkSpace_client";
+import Proposal from "./pages/Proposal";
 
 const Router = () => {
   return (
@@ -26,18 +27,10 @@ const Router = () => {
         <Route path="/client_workspace1" element={<ClientWorkPage />} />
         <Route path="/designer_workspace1" element={<DesignerWorkPage />} />
         <Route path="/workspace_client" element={<WorkSpaceClient />} />
-        <Route
-          path="/oauth/kakao/callback"
-          element={<Redirect />}
-        />
-        <Route
-          path="/oauth/google/callback"
-          element={<Redirect />}
-        />
-        <Route
-          path="/oauth/facebook/callback"
-          element={<Redirect />}
-        />
+        <Route path="/proposal/:id" element={<Proposal />} />
+        <Route path="/oauth/kakao/callback" element={<Redirect />} />
+        <Route path="/oauth/google/callback" element={<Redirect />} />
+        <Route path="/oauth/facebook/callback" element={<Redirect />} />
       </Routes>
     </BrowserRouter>
   );

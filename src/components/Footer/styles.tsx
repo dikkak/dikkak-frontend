@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface FooterProps {
   bgColor: string;
@@ -8,9 +8,10 @@ export const FooterWrapper = styled.div<FooterProps>`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 350px;
+  height: 250px;
   margin-top: 10em;
   padding: 3em 10em;
+  padding-bottom: 0;
   background-color: ${(props) => props.bgColor};
 `;
 export const FooterContainer = styled.div`

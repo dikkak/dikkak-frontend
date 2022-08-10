@@ -29,9 +29,9 @@ import {
 } from "./styles";
 
 const Main = () => {
-  const { data, isLoading } = useQuery("user-info", userInfo);
+  const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
-  if (isLoading) <div>Loading...</div>;
+  if (isFetching) <div>Loading...</div>;
   if (data) {
     return <Navigate to="/service_start" />;
   }

@@ -65,3 +65,18 @@ export const Circle = styled.div<{ color: string }>`
   border-radius: 50%;
   background-color: ${(props) => props.color};
 `;
+
+export const DateBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 40px;
+  border: 1px solid ${(props) => props.theme.mainColor};
+  border-radius: 10px;
+  margin-left: 20px;
+  color: ${(props) => props.theme.mainColor};
+  font-size: 15px;
+  font-weight: 900;
+  margin-bottom: 20px;
+`;
