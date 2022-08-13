@@ -135,8 +135,26 @@ export const ButtonGroup = styled.div`
 export const Button = styled.button<ButtonColorProps>`
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.textColor};
-  width: 37%;
-  max-width: 373px;
+  width: 373px;
+  font-size: 15px;
+  height: 38px;
+  border: 0;
+  margin-bottom: 10px;
+  padding: 7px 0px;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  font-weight: 700;
+`;
+
+export const GoogleButton = styled.button<ButtonColorProps>`
+  background-color: ${(props) => props.bgColor};
+  color: ${(props) => props.textColor};
+  width: 373px;
   font-size: 15px;
   height: 38px;
   border: 0;

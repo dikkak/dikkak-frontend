@@ -1,40 +1,40 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const userInfo = async() => {
-  const response = await axios.get<IUserInfo>('user/info');
+export const userInfo = async () => {
+  const response = await axios.get<IUserInfo>("user/info");
   return response.data;
-}
+};
 
-export const authLogin = async(provider: string, code: string) => {
+export const authLogin = async (provider: string, code: string) => {
   const url = `auth/login/${provider}?code=${code}`;
-  const {data} = await axios.get<ILogin>(url, {withCredentials: true});
+  const { data } = await axios.get<ILogin>(url, { withCredentials: true });
   return data;
-}
-export const registNewUser = async(data: IForm) => {
+};
+export const registNewUser = async (data: IForm) => {
   try {
-    const response = await axios.post<IForm>('user/register', data);
+    const response = await axios.post<IForm>("user/register", data);
     return response.data;
-  } catch(error) {
-    return error
-  };
-}
+  } catch (error) {
+    return error;
+  }
+};
 
-export const registType = async(type: string) => {
+export const registType = async (type: string) => {
   const data = {
-    type
-  }
+    type,
+  };
   try {
-    const response = await axios.post<IType>('/user/type', data);
+    const response = await axios.post<IType>("/user/type", data);
     return response.data;
-  } catch(error) {
-    return error
+  } catch (error) {
+    return error;
   }
-}
+};
 
-export const authLogout = async() => {
-  const response = await axios.get('auth/logout', {withCredentials: true});
+export const authLogout = async () => {
+  const response = await axios.get("auth/logout", { withCredentials: true });
   return response;
-}
+};
 
 interface IUserInfo {
   username: string;
