@@ -4,12 +4,12 @@ import linkImg from "../../../assets/workspaceImage/linkImage.png";
 export const MessageBox = styled.ul`
   position: relative;
   width: 100%;
-  height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
   padding: 13px;
   overflow-x: hidden;
   overflow-y: scroll;
+  flex: 1;
 `;
 
 export const Title = styled.h1`
@@ -57,7 +57,7 @@ export const ClientMessage = styled.div`
   border-radius: 10px;
   font-size: 15px;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-right: 20px;
 
   &::before {

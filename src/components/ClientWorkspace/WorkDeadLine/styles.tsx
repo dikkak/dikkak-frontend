@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const MessageBox = styled.ul`
+  flex: 1;
   position: relative;
   width: 100%;
-  height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
   overflow-y: scroll;

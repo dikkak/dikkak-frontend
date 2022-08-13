@@ -172,6 +172,9 @@ export const Box = styled.div`
 `;
 
 export const BoxContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
   padding: 12px;
@@ -238,12 +241,22 @@ export const NextStepButton = styled.button`
 `;
 
 export const TextContainer = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
-  height: 195px;
+  height: 140px;
   background: rgba(240, 240, 240, 0.5);
   box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(4px);
+  border-radius: 15px;
+`;
+export const TextOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.25);
   border-radius: 15px;
 `;
 

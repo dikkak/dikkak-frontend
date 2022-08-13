@@ -1,4 +1,4 @@
-import React from "react";
+import React, { RefObject, useEffect } from "react";
 import _ from "lodash";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
@@ -26,7 +26,11 @@ import {
   Title,
 } from "./styles";
 
-const WorkChoice = () => {
+interface IWorkChoiceProps {
+  textRef: RefObject<HTMLTextAreaElement>;
+}
+
+const WorkChoice = ({ textRef }: IWorkChoiceProps) => {
   const [workStep, setWorkStep] = useRecoilState(workStepAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const [workChoice, setWorkChoice] = useRecoilState(workChoiceAtom);
@@ -72,6 +76,13 @@ const WorkChoice = () => {
       }
     }
   };
+  useEffect(() => {
+    textRef.current?.setAttribute("disabled", "disabled");
+    textRef.current?.setAttribute(
+      "placeholder",
+      "마우스를 이용해 선택해주세요"
+    );
+  }, [textRef]);
 
   return (
     <JobChoiceBox>

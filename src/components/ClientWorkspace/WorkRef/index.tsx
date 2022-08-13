@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, RefObject, useEffect } from "react";
 import _ from "lodash";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
@@ -33,7 +33,11 @@ import {
   DeleteButton,
 } from "./style";
 
-const WorkRef = () => {
+interface IWorkRefProps {
+  textRef: RefObject<HTMLTextAreaElement>;
+}
+
+const WorkRef = ({ textRef }: IWorkRefProps) => {
   const [referenceContents, setReferenceContents] = useRecoilState(
     referenceContentsAtom
   );
@@ -304,6 +308,13 @@ const WorkRef = () => {
         );
     }
   };
+  useEffect(() => {
+    textRef.current?.setAttribute("disabled", "disabled");
+    textRef.current?.setAttribute(
+      "placeholder",
+      "마우스를 이용해 선택해주세요"
+    );
+  }, [textRef]);
   return (
     <>
       <MessageBox>
