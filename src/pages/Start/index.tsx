@@ -35,7 +35,7 @@ const Start = () => {
   const queryClient = useQueryClient();
   const [isLogoutClicked, setIsLogoutClicked] = useState(false);
   const navigate = useNavigate();
-  console.log(data);
+
   const onLogout = () => {
     authLogout().then(() => {
       delete axios.defaults.headers.common["Authorization"];

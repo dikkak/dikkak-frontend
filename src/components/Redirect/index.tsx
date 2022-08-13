@@ -37,7 +37,6 @@ import {
   TitleBox,
   CheckBoxBackground,
 } from "./styles";
-import { gapi } from "gapi-script";
 
 interface IForm {
   username: string;
@@ -154,11 +153,6 @@ const Redirect = () => {
           setIsLoading(false);
           setIsNew(true);
         } else {
-          if (provider === "GOOGLE") {
-            gapi.load("auth2", function () {
-              gapi.auth2.init();
-            });
-          }
           navigate("/service_start");
         }
         console.log(res);

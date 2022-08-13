@@ -6,8 +6,6 @@ export const userInfo = async () => {
 };
 
 export const authLogin = async (provider: string, code: string) => {
-  if (provider === "GOOGLE") {
-  }
   const url = `auth/login/${provider}?code=${code}`;
   const { data } = await axios.get<ILogin>(url, { withCredentials: true });
   return data;
