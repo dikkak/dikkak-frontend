@@ -3,13 +3,13 @@ import earthImg from "../../../assets/workspaceImage/earthImg.svg";
 
 export const MessageBox = styled.ul`
   width: 100%;
-  height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 13px;
   min-width: 750px;
+  flex: 1;
 `;
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};

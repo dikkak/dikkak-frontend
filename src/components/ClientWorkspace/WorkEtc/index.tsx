@@ -1,5 +1,5 @@
-import React, { RefObject, ChangeEvent } from "react";
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
+import React, { RefObject, ChangeEvent, useEffect } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { workspaceNumAtom, workStepAtom, workEtcAtom } from "../../../atoms";
 
 import {
@@ -79,6 +79,14 @@ const WorkTitle = ({ textRef }: IWorkTitleProps) => {
     setWorkEtc(newList);
   };
 
+  useEffect(() => {
+    textRef.current?.setAttribute("disabled", "disabled");
+    textRef.current?.setAttribute(
+      "placeholder",
+      "마우스를 이용해 선택해주세요"
+    );
+  }, [textRef]);
+
   return (
     <>
       <MessageBox>
@@ -108,8 +116,6 @@ const WorkTitle = ({ textRef }: IWorkTitleProps) => {
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     onLoadFile(e, index);
                   }}
-                  // bgcolor={mainColor.color || "#C4C4C4"}
-                  // onClick={() => onClick()}
                 ></InputBox>
               </InputBoxLabel>
             </InnerContainer>
@@ -118,7 +124,7 @@ const WorkTitle = ({ textRef }: IWorkTitleProps) => {
             ) : null}
           </ClientMessage>
         ))}
-        <ClientMessage>
+        <ClientMessage style={{ marginBottom: "20px" }}>
           <InnerContainer>
             <Box onClick={onAddClick}>+</Box>
           </InnerContainer>

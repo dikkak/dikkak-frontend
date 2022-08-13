@@ -5,12 +5,12 @@ import linkImg from "../../../assets/workspaceImage/linkImage.png";
 export const MessageBox = styled.ul`
   position: relative;
   width: 100%;
-  height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 13px;
+  flex: 1;
 `;
 
 export const Title = styled.h1`

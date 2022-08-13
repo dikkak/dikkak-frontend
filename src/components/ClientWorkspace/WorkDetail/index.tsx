@@ -1,5 +1,5 @@
 import _ from "lodash";
-import React, { RefObject } from "react";
+import React, { RefObject, useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   IWorkDetail,
@@ -55,6 +55,13 @@ const WorkDetail = ({ textRef }: IWorkDetailProps) => {
     }
     setWorkspaceNum((prev) => prev + 1);
   };
+  useEffect(() => {
+    textRef.current?.setAttribute("disabled", "disabled");
+    textRef.current?.setAttribute(
+      "placeholder",
+      "마우스를 이용해 선택해주세요"
+    );
+  }, [textRef]);
   return (
     <>
       <MessageBox>

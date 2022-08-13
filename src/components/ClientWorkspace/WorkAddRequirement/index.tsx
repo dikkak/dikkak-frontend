@@ -1,4 +1,4 @@
-import React, { RefObject } from "react";
+import React, { RefObject, useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   requestMessageAtom,
@@ -38,6 +38,10 @@ const WorkAddRequirement = ({ textRef }: IAddRequirementProps) => {
       });
     }
   };
+  useEffect(() => {
+    textRef.current?.removeAttribute("disabled");
+    textRef.current?.setAttribute("placeholder", "추가 요청 사항을 입력하세요");
+  }, [textRef]);
 
   return (
     <MessageBox>

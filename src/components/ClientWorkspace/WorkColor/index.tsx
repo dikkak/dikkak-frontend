@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, RefObject, useEffect } from "react";
 import _ from "lodash";
 import { SketchPicker } from "react-color";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -26,7 +26,11 @@ import {
   Title,
 } from "./styles";
 
-const WorkColor = () => {
+interface IWorkColorProps {
+  textRef: RefObject<HTMLTextAreaElement>;
+}
+
+const WorkColor = ({ textRef }: IWorkColorProps) => {
   const [workStep, setWorkStep] = useRecoilState(workStepAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const [mainColor, setMainColor] = useRecoilState(mainColorAtom);
@@ -93,6 +97,13 @@ const WorkColor = () => {
       });
     }
   };
+  useEffect(() => {
+    textRef.current?.setAttribute("disabled", "disabled");
+    textRef.current?.setAttribute(
+      "placeholder",
+      "마우스를 이용해 선택해주세요"
+    );
+  }, [textRef]);
   return (
     <>
       <MessageBox>

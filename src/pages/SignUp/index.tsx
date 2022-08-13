@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import kakaoImg from "../../assets/logoImage/kakaoBtnImg.svg";
 import googleImg from "../../assets/logoImage/googleBtnImg.svg";
 import facebookImg from "../../assets/logoImage/faceboonBtnImg.svg";

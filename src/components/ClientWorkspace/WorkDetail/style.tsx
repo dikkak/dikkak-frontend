@@ -4,10 +4,10 @@ import questionBox from "../../../assets/workspaceImage/questionBox.png";
 export const MessageBox = styled.ul`
   position: relative;
   width: 100%;
-  height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
   padding: 13px;
+  flex: 1;
 `;
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};
