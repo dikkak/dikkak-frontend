@@ -1,9 +1,11 @@
 import React, { RefObject, useEffect, useState } from "react";
 import Calendar from "react-calendar";
-import moment from "moment";
+import "moment/locale/ko";
+import * as moment from "moment";
 import "./calendar.css";
 import {
   Circle,
+  DateBox,
   MessageBox,
   NextStepButton,
   SystemMessage,
@@ -14,6 +16,7 @@ import { deadLineAtom, workspaceNumAtom, workStepAtom } from "../../../atoms";
 interface IWorkDeadLineProps {
   textRef: RefObject<HTMLTextAreaElement>;
 }
+moment.locale("ko");
 const WorkDeadLine = ({ textRef }: IWorkDeadLineProps) => {
   const setWorkStep = useSetRecoilState(workStepAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
@@ -21,7 +24,7 @@ const WorkDeadLine = ({ textRef }: IWorkDeadLineProps) => {
   const [value, setValue] = useState(new Date());
   const onChange = (e: any) => {
     setValue(e);
-    setDeadLine(moment(e).format("YYYY-MM-DD"));
+    setDeadLine(moment.default(e).format("YYYY-MM-DD"));
   };
   const onClick = () => {
     setWorkspaceNum((prev) => prev + 1);
@@ -40,8 +43,6 @@ const WorkDeadLine = ({ textRef }: IWorkDeadLineProps) => {
     );
     textRef.current?.setAttribute("disabled", "disabled");
   }, [textRef]);
-  console.log(deadLine);
-  console.log(value);
   return (
     <>
       <MessageBox>
@@ -56,16 +57,26 @@ const WorkDeadLine = ({ textRef }: IWorkDeadLineProps) => {
         <Calendar
           onChange={onChange}
           value={value}
-          formatDay={(locale, date) => moment(date).format("DD")}
+          formatDay={(locale, date) => moment.default(date).format("DD")}
         />
+
         {deadLine ? (
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <NextStepButton onClick={onClick}>
-              <Circle color="#EFDC34" />
-              NEXT STEP
-              <Circle color="#28BF1B" />
-            </NextStepButton>
-          </div>
+          <>
+            <DateBox>
+              {` 희망 마감일: ${moment
+                .default(deadLine)
+                .format("YYYY년 M월 DD일")} (${moment
+                .default(deadLine)
+                .format("dddd")})`}
+            </DateBox>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <NextStepButton onClick={onClick}>
+                <Circle color="#EFDC34" />
+                NEXT STEP
+                <Circle color="#28BF1B" />
+              </NextStepButton>
+            </div>
+          </>
         ) : null}
       </MessageBox>
     </>

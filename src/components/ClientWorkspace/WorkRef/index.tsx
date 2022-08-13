@@ -321,7 +321,17 @@ const WorkRef = () => {
           <EarthImgContainer>
             <EarhImg></EarhImg>
           </EarthImgContainer>
-          <RefLink as="a">레퍼런스 참고 페이지 알아보기</RefLink>
+          <RefLink
+            as="a"
+            onClick={() =>
+              window.open(
+                "https://di-kkak.notion.site/b45ac65c15c5495fad9539ea616172ef",
+                "_blank"
+              )
+            }
+          >
+            레퍼런스 참고 페이지 알아보기
+          </RefLink>
         </EarthImgBox>
 
         {referenceContents.map((item, index) => (
@@ -332,11 +342,7 @@ const WorkRef = () => {
                   bgcolor={
                     referenceContents[index].imgUrl !== "" ? "#fff" : "#C4C4C4"
                   }
-                  borderColor={
-                    referenceContents[index].imgUrl !== ""
-                      ? "#905DFB"
-                      : "#C4C4C4"
-                  }
+                  borderColor="#C4C4C4"
                 >
                   {item.imgUrl ? (
                     <PreviewImg url={item.imgUrl}></PreviewImg>

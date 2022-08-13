@@ -27,9 +27,10 @@ import {
 
 interface ISubmitProps {
   textRef: RefObject<HTMLTextAreaElement>;
+  setProposalId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const WorkSubmit = ({ textRef }: ISubmitProps) => {
+const WorkSubmit = ({ textRef, setProposalId }: ISubmitProps) => {
   const titleMessage = useRecoilValue(titleMessageAtom);
   const workChoice = useRecoilValue(workChoiceAtom);
   const workDetail = useRecoilValue(workDetailAtom);
@@ -94,7 +95,7 @@ const WorkSubmit = ({ textRef }: ISubmitProps) => {
 
   const onClick = () => {
     submitProposal(formData).then((res) => {
-      console.log(res);
+      setProposalId(res.proposalId);
       setIsDone((prev) => !prev);
       textRef.current?.setAttribute(
         "placeholder",

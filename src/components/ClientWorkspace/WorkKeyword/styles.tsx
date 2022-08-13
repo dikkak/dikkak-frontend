@@ -25,7 +25,7 @@ export const SystemMessage = styled.p`
   border-radius: 10px;
   font-size: 15px;
   margin-left: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-right: 10px;
   &::before {
     content: "";
@@ -43,7 +43,6 @@ export const SystemMessage = styled.p`
 
 export const ClientMessage = styled.p`
   position: relative;
-  right: -45px;
   min-height: 15px;
   width: 679px;
   background-color: white;
@@ -54,6 +53,7 @@ export const ClientMessage = styled.p`
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
+  margin: 0 auto;
   margin-bottom: 15px;
   padding: 0px 20px;
   white-space: pre-wrap;
@@ -83,6 +83,22 @@ export const ClientMessage = styled.p`
     z-index: 1;
     right: -12px;
     top: 9px;
+  }
+`;
+
+export const SystemMessage2 = styled(ClientMessage)`
+  left: 20px;
+  color: ${(props) => props.theme.mainColor};
+  margin-bottom: 15px;
+  &::before {
+    right: 0;
+    left: -11px;
+    border-width: 8px 11px 8px 0;
+  }
+  &::after {
+    border-width: 8px 11px 8px 0;
+    right: 0;
+    left: -9px;
   }
 `;
 

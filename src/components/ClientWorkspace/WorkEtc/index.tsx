@@ -92,8 +92,8 @@ const WorkTitle = ({ textRef }: IWorkTitleProps) => {
         <SystemMessage>
           디자인 작업에 참고할 레퍼런스를 등록해주세요
         </SystemMessage>
-        {workEtc.map((item, index) => (
-          <ClientMessage>
+        {workEtc.map((_, index) => (
+          <ClientMessage key={index}>
             <InnerContainer>
               <InputBoxLabel>
                 <FileImgContainer>

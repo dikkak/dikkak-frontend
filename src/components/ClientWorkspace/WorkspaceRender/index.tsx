@@ -15,12 +15,14 @@ interface WorkspaceNumProtection {
   workspaceNum: number;
   textRef: RefObject<HTMLTextAreaElement>;
   tagRef: RefObject<HTMLInputElement>;
+  setProposalId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function switchFcn(
   workspaceNum: number,
   textRef: RefObject<HTMLTextAreaElement>,
-  tagRef: RefObject<HTMLInputElement>
+  tagRef: RefObject<HTMLInputElement>,
+  setProposalId: React.Dispatch<React.SetStateAction<string>>
 ) {
   switch (workspaceNum) {
     case 1:
@@ -44,7 +46,12 @@ function switchFcn(
     case 10:
       return <WorkAddRequirement textRef={textRef}></WorkAddRequirement>;
     case 11:
-      return <WorkSubmit textRef={textRef}></WorkSubmit>;
+      return (
+        <WorkSubmit
+          textRef={textRef}
+          setProposalId={setProposalId}
+        ></WorkSubmit>
+      );
   }
 }
 
@@ -52,8 +59,9 @@ const WorkspaceRender = ({
   workspaceNum,
   textRef,
   tagRef,
+  setProposalId,
 }: WorkspaceNumProtection) => {
-  return <>{switchFcn(workspaceNum, textRef, tagRef)}</>;
+  return <>{switchFcn(workspaceNum, textRef, tagRef, setProposalId)}</>;
 };
 
 export default WorkspaceRender;

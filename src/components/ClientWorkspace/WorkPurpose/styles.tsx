@@ -42,7 +42,6 @@ export const SystemMessage = styled.p`
 
 export const ClientMessage = styled.p`
   position: relative;
-  right: -45px;
   min-height: 15px;
   width: 679px;
   background-color: white;
@@ -53,6 +52,7 @@ export const ClientMessage = styled.p`
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
+  margin: 0 auto;
   margin-bottom: 20px;
   padding: 10px 20px;
   white-space: pre-wrap;
@@ -84,7 +84,6 @@ export const ClientMessage = styled.p`
   }
 `;
 export const SystemMessage2 = styled(ClientMessage)`
-  left: 20px;
   color: ${(props) => props.theme.mainColor};
   margin-bottom: 15px;
   &::before {

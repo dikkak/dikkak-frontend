@@ -6,6 +6,7 @@ import {
   workspaceNumAtom,
   workStepAtom,
 } from "../../../atoms";
+import { SystemMessage2 } from "../WorkPurpose/styles";
 import {
   Circle,
   ClientMessage,
@@ -56,6 +57,10 @@ const WorkKeyword = ({ tagRef }: IWorkKeywordProps) => {
         <SystemMessage>
           디자인 컨셉 키워드를 선정해주세요 ex) 한국적인,차분한, 밝은
         </SystemMessage>
+        <SystemMessage2>
+          키워드 작성은 ‘Enter’로 다음 STEP 전환은 ‘전송하기’ 버튼을 통해
+          동작해주세요!
+        </SystemMessage2>
         {isTagInputSubmitted && keywordList.length > 0 ? (
           <>
             <ClientMessage>

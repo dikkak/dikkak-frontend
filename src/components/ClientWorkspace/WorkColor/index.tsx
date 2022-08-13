@@ -108,13 +108,28 @@ const WorkColor = () => {
           <EarthImgContainer>
             <EarhImg></EarhImg>
           </EarthImgContainer>
-          <RefLink as="a">색조합 보러가기</RefLink>
+          <RefLink
+            as="a"
+            onClick={() => window.open("https://colorhunt.co/", "_blank")}
+          >
+            색조합 보러가기
+          </RefLink>
         </EarthImgBox>
         <EarthImgBox style={{ marginBottom: "15px" }}>
           <EarthImgContainer>
             <EarhImg></EarhImg>
           </EarthImgContainer>
-          <RefLink as="a">색 별 의미 (영어주의😂)</RefLink>
+          <RefLink
+            as="a"
+            onClick={() =>
+              window.open(
+                "http://xtremebrandmakeover.com/color-meaning-chart/",
+                "_blank"
+              )
+            }
+          >
+            색 별 의미 (영어주의😂)
+          </RefLink>
         </EarthImgBox>
         <ClientMessage>
           <InnerContainer>

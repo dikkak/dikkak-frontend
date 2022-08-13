@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IContent } from "../../pages/DesignerWork";
 import {
   Container,
@@ -42,11 +42,11 @@ const Document = ({ content, onDelete }: ContentProps) => {
         {content.contents &&
           content.contents.map((content, index) => (
             <List key={content.id}>
-              <a href="#">
+              <Link to={`/proposal/${content.id}`}>
                 <span style={{ marginRight: "5px" }}>{index + 1}</span>{" "}
                 {content.title}
                 <p></p>
-              </a>
+              </Link>
               {isDelete ? (
                 <InputBox
                   type="checkbox"

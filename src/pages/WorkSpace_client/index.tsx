@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   Container,
   Wrapper,
@@ -70,6 +70,8 @@ import Done from "../Done";
 const WorkSpaceClient = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
+  const [navigateGuard, setNavigateGuard] = useState(true);
+  const [proposalId, setProposalId] = useState("");
   const [input, setInput] = useState("");
   const setTitleMessage = useSetRecoilState(titleMessageAtom);
   const workChoice = useRecoilValue(workChoiceAtom);
@@ -195,11 +197,15 @@ const WorkSpaceClient = () => {
   };
   useEffect(() => {
     if (done) {
-      localStorage.removeItem("recoil-persist");
+      setNavigateGuard(false);
     }
   }, [done]);
-  // if(!isFetching && !data) {return <Navigate to='/login'/>}
-  // if(!isFetching && data && data.type === 'DESIGNER') {return <Navigate to='/service_start'/>}
+  if (!isFetching && !data) {
+    return <Navigate to="/login" />;
+  }
+  if (!isFetching && data && data.type === "DESIGNER") {
+    return <Navigate to="/service_start" />;
+  }
   return (
     <>
       <Menu />
@@ -424,6 +430,7 @@ const WorkSpaceClient = () => {
                     workspaceNum={workspaceNum}
                     tagRef={tagRef}
                     textRef={textRef}
+                    setProposalId={setProposalId}
                   ></WorkspaceRender>
                   <TextContainer>
                     <InputArea>
@@ -479,7 +486,7 @@ const WorkSpaceClient = () => {
                   </TextContainer>
                 </BoxContent>
               ) : (
-                <Done></Done>
+                <Done proposalId={proposalId}></Done>
               )}
             </Box>
             <BlurBackground>
@@ -543,7 +550,7 @@ const WorkSpaceClient = () => {
         </Wrapper>
       </Container>
       <Footer bgColor="#fff"></Footer>
-      <NavigationGuard when={true} />
+      <NavigationGuard when={navigateGuard} />
     </>
   );
 };
