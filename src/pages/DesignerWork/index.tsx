@@ -28,6 +28,7 @@ export interface IContent {
 
 const DesignerWorkPage = () => {
   const { data: userData, isFetching } = useQuery("user-info", userInfo);
+  console.log(userData);
   const [completeWork, setCompleteWork] = useState<IContent>({
     type: "designer",
     title: "완료된 작업",

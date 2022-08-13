@@ -8,19 +8,12 @@ import {
   Buttons,
   Container,
   Contents,
-  EmailInput,
-  EmailLabel,
   FindIDPW,
-  LogInForm,
   LogoImage,
-  NextText,
-  PasswordInput,
-  PasswordLabel,
   SignUp,
   SocialLogin,
   SocialLoginSection,
   SocialLogo,
-  SubmitButton,
   Title,
   Wrapper,
 } from "./styles";
@@ -37,10 +30,13 @@ import { userInfo } from "../../apis/auth_login";
 import Footer from "../../components/Footer";
 
 const Login = () => {
-  const {data, isFetching} = useQuery('user-info', userInfo);
+  const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
-  if(isFetching) return (<div>Loading...</div>)
-  if(data) {return <Navigate to='/service_start'/>}
+  if (isFetching) return <div>Loading...</div>;
+  if (data) {
+    return <Navigate to="/service_start" />;
+  }
+
   return (
     <>
       <Menu />
@@ -69,6 +65,7 @@ const Login = () => {
                   <SocialLogo src={google} />
                   <p>google</p>
                 </SocialLogin>
+
                 <SocialLogin as="a" href={FACEBOOK_AUTH_URL}>
                   <SocialLogo src={facebook} />
                   <p>facebook</p>

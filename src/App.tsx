@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import {ReactQueryDevtools} from 'react-query/devtools'
+import { ReactQueryDevtools } from "react-query/devtools";
 import Router from "./Router";
 import { theme } from "./theme";
 
@@ -62,7 +62,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Router />
-        <ReactQueryDevtools initialIsOpen/>
+        <ReactQueryDevtools initialIsOpen />
       </ThemeProvider>
     </>
   );

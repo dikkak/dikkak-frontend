@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
@@ -35,14 +35,24 @@ const Start = () => {
   const queryClient = useQueryClient();
   const [isLogoutClicked, setIsLogoutClicked] = useState(false);
   const navigate = useNavigate();
+  console.log(data);
   const onLogout = () => {
     authLogout().then(() => {
       delete axios.defaults.headers.common["Authorization"];
       queryClient.clear();
       localStorage.removeItem("recoil-persist");
-      window.location.href = KAKAO_AUTH_LOGOUT_URL;
+
+      switch (data?.provider) {
+        case "KAKAO":
+          return (window.location.href = KAKAO_AUTH_LOGOUT_URL);
+        case "GOOGLE":
+          return navigate("/signup");
+        case "FACEBOOK":
+          return (window.location.href = KAKAO_AUTH_LOGOUT_URL);
+      }
     });
   };
+
   const getProviderUrl = (provider: string) => {
     switch (provider) {
       case "KAKAO":
@@ -65,6 +75,7 @@ const Start = () => {
     window.location.href = getProviderUrl(data.provider);
     setCheckUserLoading(false);
   }
+
   if (isLoading || checkUserLoading) <div>Loading...</div>;
   return (
     <>
