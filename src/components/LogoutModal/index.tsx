@@ -9,7 +9,6 @@ import {
   PopupLogo,
 } from "./styles";
 import { useQuery } from "react-query";
-import { gapi } from "gapi-script";
 
 interface ILogoutModal {
   onLogout: () => void;

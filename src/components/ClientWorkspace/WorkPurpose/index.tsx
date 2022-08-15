@@ -1,4 +1,4 @@
-import React from "react";
+import React, { RefObject, useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   purposeMessageAtom,
@@ -15,7 +15,11 @@ import {
   Title,
 } from "./styles";
 
-const WorkPurpose = () => {
+interface IWorkPurposeProps {
+  textRef: RefObject<HTMLTextAreaElement>;
+}
+
+const WorkPurpose = ({ textRef }: IWorkPurposeProps) => {
   const [workStep, setWorkStep] = useRecoilState(workStepAtom);
   const purposeMessage = useRecoilValue(purposeMessageAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
@@ -31,6 +35,10 @@ const WorkPurpose = () => {
       });
     }
   };
+  useEffect(() => {
+    textRef.current?.removeAttribute("disabled");
+    textRef.current?.setAttribute("placeholder", "사용 목적을 입력하세요");
+  }, [textRef]);
   return (
     <>
       <MessageBox>

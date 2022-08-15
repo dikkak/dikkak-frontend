@@ -1,4 +1,4 @@
-import React, { RefObject } from "react";
+import React, { RefObject, useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   titleMessageAtom,
@@ -33,11 +33,11 @@ const WorkTitle = ({ textRef }: IWorkTitleProps) => {
         };
       });
     }
-    textRef.current?.setAttribute(
-      "placeholder",
-      "마우스를 이용해 선택해주세요"
-    );
   };
+  useEffect(() => {
+    textRef.current?.removeAttribute("disabled");
+    textRef.current?.setAttribute("placeholder", "제목을 입력하세요");
+  }, [textRef]);
   return (
     <>
       <MessageBox>

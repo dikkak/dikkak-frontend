@@ -3,10 +3,10 @@ import styled from "styled-components";
 export const JobChoiceBox = styled.div`
   position: relative;
   width: 100%;
-  height: 63%;
   background-color: transparent;
   margin-bottom: 20px;
   padding: 13px;
+  flex: 1;
 `;
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};

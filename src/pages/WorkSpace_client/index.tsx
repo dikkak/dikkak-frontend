@@ -21,12 +21,8 @@ import {
   TimeLine,
   Outer,
   InputArea,
-  FileButton,
-  AdditionalButtons,
-  EmojiButton,
   SubmitArea,
   SubmitButton,
-  EditButton,
   TitleTimeStep,
   WorkTimeStep,
   DetailTimeStep,
@@ -46,6 +42,7 @@ import {
   TagBox,
   FileContainer,
   EtcFileContainer,
+  TextOverlay,
 } from "./styles";
 import WorkspaceRender from "../../components/ClientWorkspace/WorkspaceRender";
 import { useQuery } from "react-query";
@@ -82,7 +79,6 @@ const WorkSpaceClient = () => {
 
   const setRequestMessage = useSetRecoilState(requestMessageAtom);
   const done = useRecoilValue(isDoneAtom);
-  const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
   const [workspaceNum, setworkspaceNum] = useRecoilState(workspaceNumAtom);
@@ -93,7 +89,8 @@ const WorkSpaceClient = () => {
   //
   // Tag
   const [tagItem, setTagItem] = useState("");
-  const [keywordList, setKeywordList] = useRecoilState(keyWordListAtom);
+  const setKeywordList = useSetRecoilState(keyWordListAtom);
+  const [inputList, setInputList] = useState<string[]>([]);
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (
       e.currentTarget.value.length !== 0 &&
@@ -104,23 +101,17 @@ const WorkSpaceClient = () => {
     }
   };
   const submitTagItem = () => {
-    let updatedKeywordList = [...keywordList];
-    updatedKeywordList.push(tagItem);
-    setKeywordList(updatedKeywordList);
+    setInputList((prev) => [...prev, tagItem]);
     setTagItem("");
   };
   const deleteTagItem = (e: React.MouseEvent<HTMLButtonElement>) => {
     const deleteTagItem = (
       e.currentTarget.parentElement?.firstChild as HTMLSpanElement
     ).innerText;
-    const filteredKeywordList = keywordList.filter(
+    const filteredKeywordList = inputList.filter(
       (tagItem) => tagItem !== deleteTagItem
     );
-    setKeywordList(filteredKeywordList);
-  };
-  //
-  const onFileClick = () => {
-    fileRef.current?.click();
+    setInputList(filteredKeywordList);
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -138,7 +129,7 @@ const WorkSpaceClient = () => {
         break;
       case 5:
         setIsTagInputSubmitted(true);
-        tagRef.current?.setAttribute("disabled", "disabled");
+        setKeywordList(inputList);
         break;
       case 10:
         setRequestMessage(input);
@@ -147,45 +138,8 @@ const WorkSpaceClient = () => {
         break;
     }
     setInput("");
-    tagRef.current?.setAttribute(
-      "placeholder",
-      "수정하려면 수정하기 버튼을 누르세요"
-    );
-    textRef.current?.setAttribute(
-      "placeholder",
-      "수정하려면 수정하기 버튼을 누르세요"
-    );
-    textRef.current?.setAttribute("disabled", "disabled");
   };
 
-  const onEdit = (step: number) => {
-    if (step !== 1 && step !== 4 && step !== 5 && step !== 10) return;
-    tagRef.current?.removeAttribute("disabled");
-    textRef.current?.removeAttribute("disabled");
-    switch (step) {
-      case 1:
-        textRef.current?.setAttribute("placeholder", "제목을 입력하세요");
-        break;
-      case 4:
-        textRef.current?.setAttribute(
-          "placeholder",
-          "디자인의 용도를 입력하세요"
-        );
-        break;
-      case 5:
-        tagRef.current?.setAttribute("placeholder", "키워드를 입력하세요");
-        break;
-      case 10:
-        textRef.current?.setAttribute(
-          "placeholder",
-          "작업후 원본파일도 함께 받고 싶습니다"
-        );
-        break;
-      default:
-        break;
-    }
-    textRef.current?.focus();
-  };
   const refFileRenderFnc = () => {
     const trueOrFalse = referenceContents.find((item) => item.imgName !== "");
     return trueOrFalse ? true : false;
@@ -339,7 +293,8 @@ const WorkSpaceClient = () => {
                         workStep.detailStep &&
                         workStep.purposeStep &&
                         workStep.keyWordStep &&
-                        workStep.deadLineStep === "done"
+                        workStep.deadLineStep &&
+                        workStep.colorStep === "done"
                       ) {
                         setworkspaceNum(8);
                       }
@@ -433,11 +388,17 @@ const WorkSpaceClient = () => {
                     setProposalId={setProposalId}
                   ></WorkspaceRender>
                   <TextContainer>
+                    {(workspaceNum === 2 ||
+                      workspaceNum === 3 ||
+                      workspaceNum === 6 ||
+                      workspaceNum === 7 ||
+                      workspaceNum === 8 ||
+                      workspaceNum === 9) && <TextOverlay></TextOverlay>}
                     <InputArea>
                       {workspaceNum === 5 ? (
                         <WholeBox>
                           <TagBox>
-                            {keywordList.map((keywordItem, index) => {
+                            {inputList.map((keywordItem, index) => {
                               return (
                                 <TagItem key={index}>
                                   <TagText>{keywordItem}</TagText>
@@ -464,24 +425,14 @@ const WorkSpaceClient = () => {
                           value={input}
                         />
                       )}
-                      <AdditionalButtons>
-                        <FileButton onClick={onFileClick} />
-                        <input
-                          ref={fileRef}
-                          type="file"
-                          accept="image/*"
-                          style={{ display: "none" }}
-                        />
-                        <EmojiButton />
-                      </AdditionalButtons>
                     </InputArea>
                     <SubmitArea>
                       <SubmitButton onClick={() => onSubmit(workspaceNum)}>
                         전송하기
                       </SubmitButton>
-                      <EditButton onClick={() => onEdit(workspaceNum)}>
+                      {/* <EditButton onClick={() => onEdit(workspaceNum)}>
                         수정하기
-                      </EditButton>
+                      </EditButton> */}
                     </SubmitArea>
                   </TextContainer>
                 </BoxContent>

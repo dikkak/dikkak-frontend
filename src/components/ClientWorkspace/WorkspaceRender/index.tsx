@@ -28,19 +28,19 @@ function switchFcn(
     case 1:
       return <WorkTitle textRef={textRef}></WorkTitle>;
     case 2:
-      return <WorkChoice></WorkChoice>;
+      return <WorkChoice textRef={textRef}></WorkChoice>;
     case 3:
       return <WorkDetail textRef={textRef}></WorkDetail>;
     case 4:
-      return <WorkPurpose></WorkPurpose>;
+      return <WorkPurpose textRef={textRef}></WorkPurpose>;
     case 5:
       return <WorkKeyword tagRef={tagRef}></WorkKeyword>;
     case 6:
       return <WorkDeadLine textRef={textRef}></WorkDeadLine>;
     case 7:
-      return <WorkColor></WorkColor>;
+      return <WorkColor textRef={textRef}></WorkColor>;
     case 8:
-      return <WorkRef></WorkRef>;
+      return <WorkRef textRef={textRef}></WorkRef>;
     case 9:
       return <WorkEtc textRef={textRef}></WorkEtc>;
     case 10:
