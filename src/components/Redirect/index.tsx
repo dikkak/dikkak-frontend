@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { authLogin, registNewUser } from "../../apis/auth_login";
 import Menu from "../Menu";
 import {
@@ -155,7 +155,6 @@ const Redirect = () => {
         } else {
           navigate("/service_start");
         }
-        console.log(res);
       })
       .catch((e: AxiosError) => {
         if (e.response?.status === 409) {

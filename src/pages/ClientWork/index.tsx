@@ -18,8 +18,11 @@ import { getProposalList } from "../../apis/workplace";
 interface IList {
   id: number;
   title: string;
+  designerName?: string;
+  coworkingId?: number;
+  coworkingStep?: number;
 }
-export interface IContent {
+export interface IClientContent {
   type: string;
   title: string;
   contents?: IList[];
@@ -31,17 +34,35 @@ const ClientWorkPage = () => {
   const { data: workList } = useQuery("workspace-list", getProposalList, {
     enabled: !!userData,
   });
-  const [clientContent, setClientContent] = useState<IContent>({
+  const proposalList: IList[] | undefined = workList?.map((proposal) => {
+    return {
+      id: proposal.proposalId,
+      title: proposal.proposalTitle,
+    };
+  });
+  const coworkList: IList[] | undefined = workList
+    ?.filter((proposal) => proposal.coworkingId)
+    .map((proposal) => {
+      return {
+        id: proposal.proposalId,
+        title: proposal.proposalTitle,
+        designerName: proposal.designerName,
+        coworkingId: proposal.coworkingId,
+        coworkingStep: proposal.coworkingStep,
+      };
+    });
+
+  const [clientContent, setClientContent] = useState<IClientContent>({
     type: userData?.type!,
     title: "제안서",
-    contents: workList?.proposals,
+    contents: proposalList,
     workMenttion: "제안서 작업실",
     bgColor: "#905DFB",
   });
-  const [companyContent, setCompanyContent] = useState<IContent>({
+  const [companyContent, setCompanyContent] = useState<IClientContent>({
     type: "workspace",
     title: "외주 작업실",
-    contents: workList?.works,
+    contents: coworkList,
     workMenttion: "외주 작업실",
     bgColor: "#329A29",
   });
@@ -61,11 +82,18 @@ const ClientWorkPage = () => {
     setClientContent({
       type: userData?.type!,
       title: "제안서",
-      contents: workList?.proposals,
+      contents: proposalList,
       workMenttion: "제안서 작업실",
       bgColor: "#905DFB",
     });
-  }, [userData?.type, workList]);
+    setCompanyContent({
+      type: userData?.type!,
+      title: "외주 작업실",
+      contents: coworkList,
+      workMenttion: "외주 작업실",
+      bgColor: "#329A29",
+    });
+  }, [userData?.type, proposalList, coworkList]);
 
   if (isFetching) return <div>Loading...</div>;
   if (!userData && !isFetching) {
@@ -91,8 +119,11 @@ const ClientWorkPage = () => {
             <p>외주작업을 위한 {userData?.username} 클라이언트 작업실 입니다</p>
           </Title>
           <DocumentContainer>
-            <Document content={clientContent} onDelete={onDelete}></Document>
-            <Document content={companyContent}></Document>
+            <Document
+              clientContent={clientContent}
+              onDelete={onDelete}
+            ></Document>
+            <Document clientContent={companyContent}></Document>
           </DocumentContainer>
         </Wrapper>
       </Container>

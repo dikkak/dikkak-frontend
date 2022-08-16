@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
@@ -28,6 +28,7 @@ import {
   KAKAO_AUTH_LOGOUT_URL,
   KAKAO_AUTH_URL,
 } from "../../OAuth";
+import Admin from "../../components/Admin";
 
 const Start = () => {
   const [checkUserLoading, setCheckUserLoading] = useState(false);
@@ -77,6 +78,9 @@ const Start = () => {
   }
 
   if (isLoading || checkUserLoading) <div>Loading...</div>;
+  if (data.type === "ADMIN") {
+    return <Admin />;
+  }
   return (
     <>
       {isLogoutClicked && (
@@ -119,7 +123,9 @@ const Start = () => {
                 ) : (
                   <>
                     <ContentDesc>
-                      {data?.username} {data?.type}님 안녕하세요!
+                      {data?.username}{" "}
+                      {data?.type === "CLIENT" ? "클라이언트" : "디자이너"}님
+                      안녕하세요!
                     </ContentDesc>
                     <ServiceButton
                       username={data.username}
