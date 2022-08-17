@@ -35,9 +35,7 @@ const DesignerWorkPage = () => {
   const { data: workList } = useQuery("workspace-list", getWorkplaceList, {
     enabled: !!userData,
   });
-  const completeList: IList[] | undefined = workList
-    ?.filter((item) => item.coworkingStep === 10)
-    .map((item) => {
+  const completeList: IList[] | undefined = workList?.complete.map((item) => {
       return {
         id: item.proposalId,
         title: item.proposalTitle,
@@ -46,9 +44,7 @@ const DesignerWorkPage = () => {
         coworkingStep: item.coworkingStep,
       };
     });
-  const workplaceList: IList[] | undefined = workList
-    ?.filter((item) => item.coworkingStep !== 10)
-    .map((item) => {
+  const workplaceList: IList[] | undefined = workList?.progress.map((item) => {
       return {
         id: item.proposalId,
         title: item.proposalTitle,
@@ -83,6 +79,7 @@ const DesignerWorkPage = () => {
       };
     });
   };
+  console.log(workList);
   useEffect(() => {
     setCompleteWork({
       type: userData?.type!,

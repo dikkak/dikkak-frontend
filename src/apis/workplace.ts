@@ -13,7 +13,7 @@ export const getWorkplaceList = async () => {
   const response = await axios.get<IDesignerWorkspaceList>(
     "/workplace/designer/list"
   );
-  return response.data.desigerWorkplace;
+  return response.data;
 };
 
 export interface IClientWorkspaceItem {
@@ -35,5 +35,6 @@ export interface IDesignerWorkspaceItem {
   coworkingStep: number;
 }
 export interface IDesignerWorkspaceList {
-  desigerWorkplace: IDesignerWorkspaceItem[];
+  complete: IDesignerWorkspaceItem[];
+  progress: IDesignerWorkspaceItem[];
 }

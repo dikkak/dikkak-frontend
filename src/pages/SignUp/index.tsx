@@ -34,9 +34,7 @@ const SignUp = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   function handleCallbackResponse(response: object | any) {
-    console.log("Encoded JWT ID token : " + response.credential);
     let userObj: JSON = jwt_decode(response.credential);
-    console.log(userObj);
 
     if (userObj) {
       window.location.href = GOOGLE_AUTH_URL;
@@ -44,7 +42,6 @@ const SignUp = () => {
   }
 
   useEffect(() => {
-    /* global google */
     window.google.accounts.id.initialize({
       client_id:
         "207947649222-dg6cnt4v9mgfh094d28t2a0544s50uk1.apps.googleusercontent.com",
@@ -56,9 +53,7 @@ const SignUp = () => {
       text: "signup_with",
       shape: "rectangular",
     });
-
-    window.google.accounts.id.prompt();
-  }, [window.google]);
+  }, []);
 
   if (data) {
     return <Navigate replace to="/service_start" />;

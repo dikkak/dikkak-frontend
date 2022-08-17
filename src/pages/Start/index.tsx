@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
@@ -29,6 +29,7 @@ import {
   KAKAO_AUTH_URL,
 } from "../../OAuth";
 import Admin from "../../components/Admin";
+import { setChannelTalkUser } from "../../utils/setChannelTalkService";
 
 const Start = () => {
   const [checkUserLoading, setCheckUserLoading] = useState(false);
@@ -66,6 +67,11 @@ const Start = () => {
         return "err";
     }
   };
+
+  useEffect(() => {
+    data && setChannelTalkUser(data.email, data.username, data.type, );
+  }, [data]);
+
   if (!data) {
     return <Navigate to="/login" />;
   }
