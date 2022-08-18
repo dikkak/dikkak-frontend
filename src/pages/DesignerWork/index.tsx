@@ -79,7 +79,6 @@ const DesignerWorkPage = () => {
       };
     });
   };
-  console.log(workList);
   useEffect(() => {
     setCompleteWork({
       type: userData?.type!,

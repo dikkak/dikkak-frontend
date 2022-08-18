@@ -28,7 +28,7 @@ import {
   KAKAO_AUTH_LOGOUT_URL,
   KAKAO_AUTH_URL,
 } from "../../OAuth";
-import Admin from "../../components/Admin";
+import Admin from "../Admin";
 import { setChannelTalkUser } from "../../utils/setChannelTalkService";
 
 const Start = () => {
