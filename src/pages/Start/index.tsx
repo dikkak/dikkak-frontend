@@ -48,7 +48,7 @@ const Start = () => {
         case "KAKAO":
           return (window.location.href = KAKAO_AUTH_LOGOUT_URL);
         case "GOOGLE":
-          return navigate("/signup");
+          return navigate("/");
         case "FACEBOOK":
           return (window.location.href = KAKAO_AUTH_LOGOUT_URL);
       }
