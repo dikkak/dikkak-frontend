@@ -15,7 +15,7 @@ export const Title = styled.h2`
   font-family: "Inter";
 `;
 
-export const ListContainer = styled.ul`
+export const ListContainer = styled.div`
   padding: 0 10px;
   border-radius: 5px;
   border: 1px solid #c4c4c4;
@@ -24,12 +24,19 @@ export const ListContainer = styled.ul`
   position: relative;
 `;
 
+export const ListInnerContainer = styled.ul`
+  width: 100%;
+  height: 80%;
+  overflow-y: scroll;
+`;
+
 export const List = styled.li`
   padding: 15px 0;
   font-size: 15px;
   font-family: "Inter";
   color: #717171;
   position: relative;
+  overflow-y: scroll;
 
   a {
     color: inherit;

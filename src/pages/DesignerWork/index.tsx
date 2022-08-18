@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import Document from "../../components/Document";
@@ -13,12 +13,16 @@ import {
 } from "./styles";
 import { useQuery } from "react-query";
 import { userInfo } from "../../apis/auth_login";
+import { getWorkplaceList } from "../../apis/workplace";
 
 interface IList {
   id: number;
   title: string;
+  clientName: string;
+  coworkingId: number;
+  coworkingStep: number;
 }
-export interface IContent {
+export interface IDesignerContent {
   type: string;
   title: string;
   contents?: IList[];
@@ -28,39 +32,38 @@ export interface IContent {
 
 const DesignerWorkPage = () => {
   const { data: userData, isFetching } = useQuery("user-info", userInfo);
-  const [completeWork, setCompleteWork] = useState<IContent>({
-    type: "designer",
+  const { data: workList } = useQuery("workspace-list", getWorkplaceList, {
+    enabled: !!userData,
+  });
+  const completeList: IList[] | undefined = workList?.complete.map((item) => {
+      return {
+        id: item.proposalId,
+        title: item.proposalTitle,
+        clientName: item.clientName,
+        coworkingId: item.coworkingId,
+        coworkingStep: item.coworkingStep,
+      };
+    });
+  const workplaceList: IList[] | undefined = workList?.progress.map((item) => {
+      return {
+        id: item.proposalId,
+        title: item.proposalTitle,
+        clientName: item.clientName,
+        coworkingId: item.coworkingId,
+        coworkingStep: item.coworkingStep,
+      };
+    });
+  const [completeWork, setCompleteWork] = useState<IDesignerContent>({
+    type: userData?.type!,
     title: "완료된 작업",
-    contents: [
-      {
-        id: 1,
-        title: "스파르타 코리안 ZEP / 스파르타코리안",
-      },
-      {
-        id: 2,
-        title: "상세페이지 / 캠퍼스소싱",
-      },
-      {
-        id: 3,
-        title: "홍보 포스터 제작 / 플랜잇",
-      },
-    ],
-    workMenttion: "제안서 작업실",
+    contents: completeList,
+    workMenttion: "한번에 내려받기.zip",
     bgColor: "#905DFB",
   });
-  const [companyContent, setCompanyContent] = useState<IContent>({
-    type: "workspace",
+  const [companyContent, setCompanyContent] = useState<IDesignerContent>({
+    type: userData?.type!,
     title: "외주 작업실",
-    contents: [
-      {
-        id: 1,
-        title: "디깍 로고 제작 / 클라이언트명 / 2차 작업중",
-      },
-      {
-        id: 2,
-        title: "SNS굿 로고 제작 / 클라이언트명 / 작업 완료",
-      },
-    ],
+    contents: workplaceList,
     workMenttion: "외주 작업실",
     bgColor: "#329A29",
   });
@@ -76,6 +79,22 @@ const DesignerWorkPage = () => {
       };
     });
   };
+  useEffect(() => {
+    setCompleteWork({
+      type: userData?.type!,
+      title: "완료된 작업",
+      contents: completeList,
+      workMenttion: "한번에 내려받기.zip",
+      bgColor: "#905DFB",
+    });
+    setCompanyContent({
+      type: userData?.type!,
+      title: "외주 작업실",
+      contents: workplaceList,
+      workMenttion: "외주 작업실",
+      bgColor: "#329A29",
+    });
+  }, [userData?.type, completeList, workplaceList]);
   if (isFetching) return <div>Loading...</div>;
   if (!userData && !isFetching) {
     return <Navigate to="/login" />;
@@ -107,8 +126,11 @@ const DesignerWorkPage = () => {
             </p>
           </Title>
           <DocumentContainer>
-            <Document content={completeWork} onDelete={onDelete}></Document>
-            <Document content={companyContent}></Document>
+            <Document
+              designerContent={completeWork}
+              onDelete={onDelete}
+            ></Document>
+            <Document designerContent={companyContent}></Document>
           </DocumentContainer>
         </Wrapper>
       </Container>

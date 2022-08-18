@@ -12,6 +12,11 @@ import DesignerWorkPage from "./pages/DesignerWork";
 import Redirect from "./components/Redirect";
 import WorkSpaceClient from "./pages/WorkSpace_client";
 import Proposal from "./pages/Proposal";
+import ChannelService from "./utils/channelTalk";
+
+ChannelService.boot({
+  pluginKey: process.env.REACT_APP_CHANNELTALK_PLUGIN_KEY, //please fill with your plugin key
+});
 
 const Router = () => {
   return (

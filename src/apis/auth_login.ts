@@ -37,6 +37,7 @@ export const authLogout = async () => {
 };
 
 interface IUserInfo {
+  email: string;
   username: string;
   type: string;
   provider: string;

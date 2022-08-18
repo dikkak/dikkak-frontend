@@ -28,6 +28,8 @@ import {
   KAKAO_AUTH_LOGOUT_URL,
   KAKAO_AUTH_URL,
 } from "../../OAuth";
+import Admin from "../Admin";
+import { setChannelTalkUser } from "../../utils/setChannelTalkService";
 
 const Start = () => {
   const [checkUserLoading, setCheckUserLoading] = useState(false);
@@ -46,7 +48,7 @@ const Start = () => {
         case "KAKAO":
           return (window.location.href = KAKAO_AUTH_LOGOUT_URL);
         case "GOOGLE":
-          return navigate("/signup");
+          return navigate("/");
         case "FACEBOOK":
           return (window.location.href = KAKAO_AUTH_LOGOUT_URL);
       }
@@ -65,6 +67,11 @@ const Start = () => {
         return "err";
     }
   };
+
+  useEffect(() => {
+    data && setChannelTalkUser(data.email, data.username, data.type, );
+  }, [data]);
+
   if (!data) {
     return <Navigate to="/login" />;
   }
@@ -77,6 +84,9 @@ const Start = () => {
   }
 
   if (isLoading || checkUserLoading) <div>Loading...</div>;
+  if (data.type === "ADMIN") {
+    return <Admin />;
+  }
   return (
     <>
       {isLogoutClicked && (
@@ -119,7 +129,9 @@ const Start = () => {
                 ) : (
                   <>
                     <ContentDesc>
-                      {data?.username} {data?.type}님 안녕하세요!
+                      {data?.username}{" "}
+                      {data?.type === "CLIENT" ? "클라이언트" : "디자이너"}님
+                      안녕하세요!
                     </ContentDesc>
                     <ServiceButton
                       username={data.username}
