@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Menu from "../../components/Menu";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
@@ -16,6 +16,7 @@ import {
   SocialLogo,
   Title,
   Wrapper,
+  GoogleButton,
 } from "./styles";
 import facebook from "../../assets/logoImage/facebookLogin.svg";
 import kakao from "../../assets/logoImage/kakaoLogin.svg";
@@ -28,10 +29,23 @@ import {
 import { useQuery } from "react-query";
 import { userInfo } from "../../apis/auth_login";
 import Footer from "../../components/Footer";
+import GoogleOauth from "../../apis/google_login_logic";
 
 const Login = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const gapi = new GoogleOauth(
+      "300",
+      "rectangular",
+      document.getElementById("g_id_signin")
+    );
+    console.log(gapi);
+    gapi.init();
+    gapi.render();
+  }, [window.google]);
+
   if (isFetching) return <div>Loading...</div>;
   if (data) {
     return <Navigate to="/service_start" />;
@@ -61,10 +75,14 @@ const Login = () => {
                   <SocialLogo src={kakao} />
                   <p>kakao</p>
                 </SocialLogin>
-                <SocialLogin as="a" href={GOOGLE_AUTH_URL}>
+                {/* <SocialLogin as="a" href={GOOGLE_AUTH_URL}>
                   <SocialLogo src={google} />
                   <p>google</p>
-                </SocialLogin>
+                </SocialLogin> */}
+                <GoogleButton id="g_id_signin">
+                  {/* <SocialLogo src={google} /> */}
+                  <p>Google</p>
+                </GoogleButton>
 
                 <SocialLogin as="a" href={FACEBOOK_AUTH_URL}>
                   <SocialLogo src={facebook} />

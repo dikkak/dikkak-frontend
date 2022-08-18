@@ -58,11 +58,11 @@ export const keyWordListAtom = atom<string[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const isTagInputSubmittedAtom =atom<boolean>({
+export const isTagInputSubmittedAtom = atom<boolean>({
   key: "isTagInputSubmitted",
   default: false,
   effects_UNSTABLE: [persistAtom],
-})
+});
 
 export const deadLineAtom = atom<string | undefined>({
   key: "deadLine",
@@ -155,6 +155,16 @@ export const workStepAtom = atom<IWorkStep>({
     submitStep: "yet",
   },
   effects_UNSTABLE: [persistAtom],
+});
+
+export const isTermsOfUseAtom = atom<boolean>({
+  key: "isTermsOfUse",
+  default: false,
+});
+
+export const isTermsOfPersonalAtom = atom<boolean>({
+  key: "isTermsOfPersonal",
+  default: false,
 });
 
 export interface IEtc {

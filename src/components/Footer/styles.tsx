@@ -28,10 +28,19 @@ export const FooterLeft = styled.div`
 `;
 export const FooterLeftFirst = styled.div`
   display: flex;
-  p {
-    margin-right: 5em;
-    font-weight: bold;
-  }
+`;
+
+export const FooterP = styled.p`
+  cursor: pointer;
+  margin-right: 3em;
+  font-weight: bold;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-size: 10px;
+  color: #717171;
+
+  text-decoration-color: #717171;
+  line-height: 14px;
 `;
 export const FooterLeftSecond = styled(FooterLeftFirst)`
   flex-direction: column;

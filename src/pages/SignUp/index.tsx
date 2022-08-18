@@ -5,7 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import kakaoImg from "../../assets/logoImage/kakaoBtnImg.svg";
 import googleImg from "../../assets/logoImage/googleBtnImg.svg";
 import facebookImg from "../../assets/logoImage/faceboonBtnImg.svg";
-import jwt_decode from "jwt-decode";
+import GoogleOauth from "../../apis/google_login_logic";
 
 import {
   BackButton,
@@ -31,29 +31,16 @@ import { userInfo } from "../../apis/auth_login";
 const SignUp = () => {
   const { data } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  function handleCallbackResponse(response: object | any) {
-    let userObj: JSON = jwt_decode(response.credential);
-
-    if (userObj) {
-      window.location.href = GOOGLE_AUTH_URL;
-    }
-  }
 
   useEffect(() => {
-    window.google.accounts.id.initialize({
-      client_id:
-        "207947649222-dg6cnt4v9mgfh094d28t2a0544s50uk1.apps.googleusercontent.com",
-      callback: handleCallbackResponse,
-    });
-
-    window.google.accounts.id.renderButton(buttonRef.current, {
-      width: "373",
-      text: "signup_with",
-      shape: "rectangular",
-    });
-  }, []);
+    const gapi = new GoogleOauth(
+      "373",
+      "rectangular",
+      document.getElementById("g_id_signin")
+    );
+    gapi.init();
+    gapi.render();
+  }, [window.google]);
 
   if (data) {
     return <Navigate replace to="/service_start" />;
@@ -90,12 +77,7 @@ const SignUp = () => {
                 <BrandLogo url={kakaoImg}></BrandLogo>
                 <p>카카오톡 간편 가입하기</p>
               </Button>
-              <GoogleButton
-                ref={buttonRef}
-                bgColor="#fff"
-                textColor="#000"
-                id="g_id_signin"
-              >
+              <GoogleButton bgColor="#fff" textColor="#000" id="g_id_signin">
                 <BrandLogo url={googleImg}></BrandLogo>
                 <p>구글 간편 가입하기</p>
               </GoogleButton>

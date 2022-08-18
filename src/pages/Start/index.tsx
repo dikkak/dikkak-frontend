@@ -50,7 +50,7 @@ const Start = () => {
         case "GOOGLE":
           return navigate("/");
         case "FACEBOOK":
-          return (window.location.href = KAKAO_AUTH_LOGOUT_URL);
+          return navigate("/");
       }
     });
   };
