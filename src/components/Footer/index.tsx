@@ -1,20 +1,39 @@
-import React from "react";
-import { FooterContainer, FooterLeft, FooterLeftFirst, FooterLeftSecond, FooterLeftThird, FooterRight, FooterWrapper } from './styles';
+import React, { useState } from "react";
+import {
+  FooterContainer,
+  FooterP,
+  FooterLeft,
+  FooterLeftFirst,
+  FooterLeftSecond,
+  FooterLeftThird,
+  FooterRight,
+  FooterWrapper,
+} from "./styles";
 import instagram from "../../assets/mainPageImage/instagram.png";
 import facebook from "../../assets/mainPageImage/facebook.png";
+import { useRecoilState } from "recoil";
+import { isTermsOfUseAtom, isTermsOfPersonalAtom } from "../../atoms";
 
 interface FooterProps {
   bgColor: string;
 }
 
 const Footer = ({ bgColor }: FooterProps) => {
+  const [termOfUse, setTermOfUse] = useRecoilState(isTermsOfUseAtom);
+  const [termsOfPersonal, setTermsOfPersonal] = useRecoilState(
+    isTermsOfPersonalAtom
+  );
   return (
     <FooterWrapper bgColor={bgColor}>
       <FooterContainer>
         <FooterLeft>
           <FooterLeftFirst>
-            <p>이용약관</p>
-            <p>개인정보 처리방침</p>
+            <FooterP onClick={() => setTermOfUse((prev) => !prev)}>
+              이용약관
+            </FooterP>
+            <FooterP onClick={() => setTermsOfPersonal((prev) => !prev)}>
+              개인정보 처리방침
+            </FooterP>
           </FooterLeftFirst>
           <FooterLeftSecond>
             <p>서울시 OOO</p>
