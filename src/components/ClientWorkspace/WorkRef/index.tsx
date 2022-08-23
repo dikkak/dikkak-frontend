@@ -31,7 +31,7 @@ import {
   UploadBox,
   UploadContainer,
   DeleteButton,
-} from "./style";
+} from "./styles";
 
 interface IWorkRefProps {
   textRef: RefObject<HTMLTextAreaElement>;

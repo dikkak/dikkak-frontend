@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Menu from "../../components/Menu";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
@@ -9,6 +9,7 @@ import {
   Container,
   Contents,
   FindIDPW,
+  LoadingContainer,
   LogoImage,
   SignUp,
   SocialLogin,
@@ -16,7 +17,6 @@ import {
   SocialLogo,
   Title,
   Wrapper,
-  GoogleButton,
 } from "./styles";
 import facebook from "../../assets/logoImage/facebookLogin.svg";
 import kakao from "../../assets/logoImage/kakaoLogin.svg";
@@ -29,24 +29,20 @@ import {
 import { useQuery } from "react-query";
 import { userInfo } from "../../apis/auth_login";
 import Footer from "../../components/Footer";
-import GoogleOauth from "../../apis/google_login_logic";
+import { FaSpinner } from "react-icons/fa";
 
 const Login = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const gapi = new GoogleOauth(
-      "300",
-      "rectangular",
-      document.getElementById("g_id_signin")
+  if (isFetching)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
     );
-    console.log(gapi);
-    gapi.init();
-    gapi.render();
-  }, [window.google]);
-
-  if (isFetching) return <div>Loading...</div>;
   if (data) {
     return <Navigate to="/service_start" />;
   }
@@ -75,15 +71,10 @@ const Login = () => {
                   <SocialLogo src={kakao} />
                   <p>kakao</p>
                 </SocialLogin>
-                {/* <SocialLogin as="a" href={GOOGLE_AUTH_URL}>
+                <SocialLogin as="a" href={GOOGLE_AUTH_URL}>
                   <SocialLogo src={google} />
                   <p>google</p>
-                </SocialLogin> */}
-                <GoogleButton id="g_id_signin">
-                  {/* <SocialLogo src={google} /> */}
-                  <p>Google</p>
-                </GoogleButton>
-
+                </SocialLogin>
                 <SocialLogin as="a" href={FACEBOOK_AUTH_URL}>
                   <SocialLogo src={facebook} />
                   <p>facebook</p>

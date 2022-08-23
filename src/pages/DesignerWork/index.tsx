@@ -7,6 +7,7 @@ import {
   BackButton,
   Container,
   DocumentContainer,
+  LoadingContainer,
   LogoImage,
   Title,
   Wrapper,
@@ -14,6 +15,7 @@ import {
 import { useQuery } from "react-query";
 import { userInfo } from "../../apis/auth_login";
 import { getWorkplaceList } from "../../apis/workplace";
+import { FaSpinner } from "react-icons/fa";
 
 interface IList {
   id: number;
@@ -36,23 +38,23 @@ const DesignerWorkPage = () => {
     enabled: !!userData,
   });
   const completeList: IList[] | undefined = workList?.complete.map((item) => {
-      return {
-        id: item.proposalId,
-        title: item.proposalTitle,
-        clientName: item.clientName,
-        coworkingId: item.coworkingId,
-        coworkingStep: item.coworkingStep,
-      };
-    });
+    return {
+      id: item.proposalId,
+      title: item.proposalTitle,
+      clientName: item.clientName,
+      coworkingId: item.coworkingId,
+      coworkingStep: item.coworkingStep,
+    };
+  });
   const workplaceList: IList[] | undefined = workList?.progress.map((item) => {
-      return {
-        id: item.proposalId,
-        title: item.proposalTitle,
-        clientName: item.clientName,
-        coworkingId: item.coworkingId,
-        coworkingStep: item.coworkingStep,
-      };
-    });
+    return {
+      id: item.proposalId,
+      title: item.proposalTitle,
+      clientName: item.clientName,
+      coworkingId: item.coworkingId,
+      coworkingStep: item.coworkingStep,
+    };
+  });
   const [completeWork, setCompleteWork] = useState<IDesignerContent>({
     type: userData?.type!,
     title: "완료된 작업",
@@ -95,7 +97,14 @@ const DesignerWorkPage = () => {
       bgColor: "#329A29",
     });
   }, [userData?.type, completeList, workplaceList]);
-  if (isFetching) return <div>Loading...</div>;
+  if (isFetching)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   if (!userData && !isFetching) {
     return <Navigate to="/login" />;
   }

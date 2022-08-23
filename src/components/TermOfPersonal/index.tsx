@@ -1,11 +1,11 @@
 import React from "react";
 import { Header, Box, Content } from "./styles";
 import { isTermsOfUseAtom } from "../../atoms";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import xButton from "../../assets/logoImage/X.svg";
 
 const TermOfPersonal = () => {
-  const [termOfUse, setTermOfUse] = useRecoilState(isTermsOfUseAtom);
+  const setTermOfUse = useSetRecoilState(isTermsOfUseAtom);
   return (
     <Box>
       <Header>
@@ -19,7 +19,8 @@ const TermOfPersonal = () => {
               top: "0",
             }}
             src={xButton}
-          ></img>
+            alt="xbutton"
+          />
         </button>
       </Header>
       <Content>

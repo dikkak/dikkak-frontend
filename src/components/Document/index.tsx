@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IClientContent } from "../../pages/ClientWork";
 import { IDesignerContent } from "../../pages/DesignerWork";
@@ -29,19 +29,19 @@ const Document = ({
   const navigate = useNavigate();
   const [isDelete, setIsDelete] = useState(false);
   const [checkedInput, setCheckedInput] = useState<number[]>([]);
-  const onChange = (id: number) => {
+  const onChange = useCallback((id: number) => {
     setCheckedInput((prev) => [...prev, id]);
-  };
-  const onDeleteButtonClick = () => {
+  }, []);
+  const onDeleteButtonClick = useCallback(() => {
     if (onDelete) onDelete(checkedInput);
     setIsDelete((prev) => !prev);
     setCheckedInput([]);
-  };
-  const onMoveButtonClick = () => {
+  }, [checkedInput, onDelete]);
+  const onMoveButtonClick = useCallback(() => {
     if (clientContent?.type === "CLIENT") {
       navigate("/workspace_client");
     }
-  };
+  }, [clientContent?.type, navigate]);
   return (
     <Container>
       <Title>
@@ -113,7 +113,7 @@ const Document = ({
                       <span
                         style={{ fontWeight: "900" }}
                       >{`${content.clientName}`}</span>
-                      <span>{`디자이너 / ${content.coworkingStep}차 작업중`}</span>
+                      <span>{`클라이언트 / ${content.coworkingStep}차 작업중`}</span>
                       <p></p>
                     </Link>
                     <LinkImage />
@@ -121,7 +121,6 @@ const Document = ({
                 )))}
           {(clientContent?.title === "제안서" ||
             designerContent?.title === "완료된 작업") &&
-          (clientContent?.contents || designerContent?.contents) &&
           !isDelete &&
           (clientContent?.contents?.length !== 0 ||
             designerContent?.contents?.length !== 0) ? (
@@ -162,4 +161,4 @@ const Document = ({
   );
 };
 
-export default Document;
+export default React.memo(Document);

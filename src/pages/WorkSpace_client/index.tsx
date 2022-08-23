@@ -62,7 +62,7 @@ import {
   isTagInputSubmittedAtom,
 } from "../../atoms";
 import NavigationGuard from "../../components/NavigationGuard/NavigationGuard";
-import Done from "../Done";
+import Done from "../../components/ClientWorkspace/Done";
 
 const WorkSpaceClient = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);

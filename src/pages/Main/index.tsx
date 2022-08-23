@@ -18,6 +18,7 @@ import {
   DikkakStart,
   JumboCotainer,
   Jumbotron,
+  LoadingContainer,
   MainButtons,
   MainDikkakSignUp,
   MainDikkakStart,
@@ -27,11 +28,19 @@ import {
   Section,
   SectionContainer,
 } from "./styles";
+import { FaSpinner } from "react-icons/fa";
 
 const Main = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
-  if (isFetching) <div>Loading...</div>;
+  if (isFetching)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   if (data) {
     return <Navigate to="/service_start" />;
   }

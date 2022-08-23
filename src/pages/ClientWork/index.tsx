@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import Document from "../../components/Document";
@@ -7,6 +7,7 @@ import {
   BackButton,
   Container,
   DocumentContainer,
+  LoadingContainer,
   LogoImage,
   Title,
   Wrapper,
@@ -14,6 +15,7 @@ import {
 import { useQuery } from "react-query";
 import { userInfo } from "../../apis/auth_login";
 import { getProposalList } from "../../apis/workplace";
+import { FaSpinner } from "react-icons/fa";
 
 interface IList {
   id: number;
@@ -33,69 +35,76 @@ const ClientWorkPage = () => {
   const { data: userData, isFetching } = useQuery("user-info", userInfo);
   const { data: workList } = useQuery("workspace-list", getProposalList, {
     enabled: !!userData,
+    refetchOnMount: true,
   });
-  const proposalList: IList[] | undefined = workList?.map((proposal) => {
-    return {
-      id: proposal.proposalId,
-      title: proposal.proposalTitle,
-    };
-  });
-  const coworkList: IList[] | undefined = workList
-    ?.filter((proposal) => proposal.coworkingId)
-    .map((proposal) => {
-      return {
-        id: proposal.proposalId,
-        title: proposal.proposalTitle,
-        designerName: proposal.designerName,
-        coworkingId: proposal.coworkingId,
-        coworkingStep: proposal.coworkingStep,
-      };
-    });
 
-  const [clientContent, setClientContent] = useState<IClientContent>({
-    type: userData?.type!,
-    title: "제안서",
-    contents: proposalList,
-    workMenttion: "제안서 작업실",
-    bgColor: "#905DFB",
-  });
-  const [companyContent, setCompanyContent] = useState<IClientContent>({
-    type: "workspace",
-    title: "외주 작업실",
-    contents: coworkList,
-    workMenttion: "외주 작업실",
-    bgColor: "#329A29",
-  });
+  const [clientContent, setClientContent] = useState<
+    IClientContent | undefined
+  >();
+  const [companyContent, setCompanyContent] = useState<
+    IClientContent | undefined
+  >();
   const navigate = useNavigate();
-  const onDelete = (id: number[]) => {
-    const newList = clientContent.contents!.filter(
-      (content) => !id.includes(content.id)
-    );
-    setClientContent((prev) => {
-      return {
-        ...prev,
-        contents: newList,
-      };
-    });
-  };
+  const onDelete = useCallback(
+    (id: number[]) => {
+      const newList = clientContent?.contents!.filter(
+        (content) => !id.includes(content.id)
+      );
+      setClientContent((prev) => {
+        if (prev) {
+          return {
+            ...prev,
+            contents: newList,
+          };
+        }
+      });
+    },
+    [clientContent?.contents]
+  );
   useEffect(() => {
-    setClientContent({
-      type: userData?.type!,
-      title: "제안서",
-      contents: proposalList,
-      workMenttion: "제안서 작업실",
-      bgColor: "#905DFB",
-    });
-    setCompanyContent({
-      type: userData?.type!,
-      title: "외주 작업실",
-      contents: coworkList,
-      workMenttion: "외주 작업실",
-      bgColor: "#329A29",
-    });
-  }, [userData?.type, proposalList, coworkList]);
+    if (workList) {
+      const proposalList: IList[] | undefined = workList?.map((proposal) => {
+        return {
+          id: proposal.proposalId,
+          title: proposal.proposalTitle,
+        };
+      });
+      const coworkList: IList[] | undefined = workList
+        ?.filter((proposal) => proposal.coworkingId)
+        .map((proposal) => {
+          return {
+            id: proposal.proposalId,
+            title: proposal.proposalTitle,
+            designerName: proposal.designerName,
+            coworkingId: proposal.coworkingId,
+            coworkingStep: proposal.coworkingStep,
+          };
+        });
+      setClientContent({
+        type: userData?.type!,
+        title: "제안서",
+        contents: proposalList,
+        workMenttion: "제안서 작업실",
+        bgColor: "#905DFB",
+      });
+      setCompanyContent({
+        type: userData?.type!,
+        title: "외주 작업실",
+        contents: coworkList,
+        workMenttion: "외주 작업실",
+        bgColor: "#329A29",
+      });
+    }
+  }, [userData?.type, workList]);
 
-  if (isFetching) return <div>Loading...</div>;
+  if (isFetching)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   if (!userData && !isFetching) {
     return <Navigate to="/login" />;
   }
@@ -132,4 +141,4 @@ const ClientWorkPage = () => {
   );
 };
 
-export default ClientWorkPage;
+export default React.memo(ClientWorkPage);

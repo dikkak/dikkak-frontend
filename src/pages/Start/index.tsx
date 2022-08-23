@@ -13,6 +13,7 @@ import {
   JumboCotainer,
   Jumbotron,
   LetterLogo,
+  LoadingContainer,
   LogoImage,
   PaintLogo,
   Title,
@@ -30,6 +31,7 @@ import {
 } from "../../OAuth";
 import Admin from "../Admin";
 import { setChannelTalkUser } from "../../utils/setChannelTalkService";
+import { FaSpinner } from "react-icons/fa";
 
 const Start = () => {
   const [checkUserLoading, setCheckUserLoading] = useState(false);
@@ -69,7 +71,15 @@ const Start = () => {
   };
 
   useEffect(() => {
-    data && setChannelTalkUser(data.email, data.username, data.type, );
+    data &&
+      setChannelTalkUser(
+        data.email,
+        data.username,
+        data.type,
+        data.phoneNumber,
+        data.marketingMessage,
+        data.popUpMessage
+      );
   }, [data]);
 
   if (!data) {
@@ -83,7 +93,14 @@ const Start = () => {
     setCheckUserLoading(false);
   }
 
-  if (isLoading || checkUserLoading) <div>Loading...</div>;
+  if (isLoading || checkUserLoading)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   if (data.type === "ADMIN") {
     return <Admin />;
   }

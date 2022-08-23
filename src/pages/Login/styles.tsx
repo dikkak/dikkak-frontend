@@ -177,22 +177,6 @@ export const SocialLogin = styled.div`
   }
 `;
 
-export const GoogleButton = styled.button`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-  p {
-    margin-top: 0.5em;
-    color: #717171;
-    font-size: 0.8rem;
-  }
-`;
-
 export const Buttons = styled.div`
   display: flex;
   flex-direction: column;
@@ -220,4 +204,13 @@ export const FindIDPW = styled.button`
 export const SignUp = styled(FindIDPW)`
   background-color: ${(props) => props.theme.mainColor};
   margin-top: 1em;
+`;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 `;

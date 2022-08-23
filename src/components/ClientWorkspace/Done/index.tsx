@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import doneImg from "../../assets/workspaceImage/doneImg.svg";
-import anotherlinkImg from "../../assets/workspaceImage/anotherlinkImg.svg";
+import doneImg from "../../../assets/workspaceImage/doneImg.svg";
+import anotherlinkImg from "../../../assets/workspaceImage/anotherlinkImg.svg";
 import { useNavigate } from "react-router-dom";
 import { useResetRecoilState } from "recoil";
 import {
@@ -20,7 +20,7 @@ import {
   workEtcAtom,
   workspaceNumAtom,
   workStepAtom,
-} from "../../atoms";
+} from "../../../atoms";
 
 const BoxContainer = styled.div`
   width: 100%;

@@ -41,6 +41,9 @@ interface IUserInfo {
   username: string;
   type: string;
   provider: string;
+  phoneNumber: string;
+  marketingMessage: boolean;
+  popUpMessage: boolean;
 }
 
 interface ILogin {

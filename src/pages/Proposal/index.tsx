@@ -251,8 +251,8 @@ const ButtonsBox = styled(CommonBox)`
   align-items: baseline;
 `;
 const ImageBox = styled.div`
-  width: 500px;
-  height: 550px;
+  width: 100%;
+  height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
