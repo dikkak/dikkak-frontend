@@ -12,7 +12,7 @@ import Proposal from "./pages/Proposal";
 import ChannelService from "./utils/channelTalk";
 
 ChannelService.boot({
-  pluginKey: process.env.REACT_APP_CHANNELTALK_PLUGIN_KEY, //please fill with your plugin key
+  pluginKey: process.env.REACT_APP_CHANNELTALK_PLUGIN_KEY,
 });
 
 const Router = () => {
