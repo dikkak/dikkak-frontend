@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -29,10 +29,17 @@ import {
   SectionContainer,
 } from "./styles";
 import { FaSpinner } from "react-icons/fa";
+import ChannelService from "../../utils/channelTalk";
 
 const Main = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
+  useEffect(() => {
+    ChannelService.shutdown();
+    ChannelService.boot({
+      pluginKey: process.env.REACT_APP_CHANNELTALK_PLUGIN_KEY,
+    });
+  }, []);
   if (isFetching)
     return (
       <LoadingContainer>

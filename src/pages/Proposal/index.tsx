@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getProposal } from "../../apis/proposal";
@@ -30,6 +30,7 @@ import ProposalAddRequirement from "../../components/ProposalComponents/Proposal
 import Footer from "../../components/Footer";
 import { useRef } from "react";
 import styled from "styled-components";
+import Toast from "../../components/Toast";
 
 const Proposal = () => {
   const params = useParams(); // 제안서의 id를 받아오기 위한 params
@@ -43,6 +44,8 @@ const Proposal = () => {
       retry: 0,
     }
   );
+
+  const [isActive, setIsActive] = useState(false);
 
   // 레퍼런스 이미지 파일의 미리보기의 클릭 상태
   const [isRefClicked, setIsRefClicked] = useState(false);
@@ -69,6 +72,32 @@ const Proposal = () => {
   const referenceRef = useRef<HTMLHeadingElement>(null);
   const etcRef = useRef<HTMLHeadingElement>(null);
   const addtionalRef = useRef<HTMLHeadingElement>(null);
+
+  const onDownload = (url: string) => {
+    setIsActive(true);
+    const fetchUrl = url.split(
+      "https://dikkak.s3.ap-northeast-2.amazonaws.com"
+    )[1];
+    fetch(fetchUrl, { method: "GET" })
+      .then((res) => {
+        return res.blob();
+      })
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = clickedImage.fileName;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          window.URL.revokeObjectURL(url);
+        }, 60000);
+        a.remove();
+      })
+      .catch((err) => {
+        console.error("err: ", err);
+      });
+  };
 
   // step에서 클릭된 스텝의 컴포넌트로 스크롤하는 함수
   const onMoveToElement = (step: string) => {
@@ -196,9 +225,14 @@ const Proposal = () => {
             </ImageBox>
           </ContentBox>
           <ButtonsBox>
-            <Download />
+            <Download onClick={() => onDownload(clickedImage.url)} />
             <Close onClick={() => setIsRefClicked(false)} />
           </ButtonsBox>
+          <Toast
+            isActive={isActive}
+            setIsActive={setIsActive}
+            message={"파일 다운로드가 완료되었습니다!"}
+          />
         </Overlay>
       )}
     </>
@@ -260,6 +294,10 @@ const ImageBox = styled.div`
 `;
 const Download = styled.img.attrs({ src: downloadImg, alt: "downloadImg" })`
   margin-right: 15px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 const Close = styled.img.attrs({ src: closeImg, alt: "closeImg" })`
   cursor: pointer;

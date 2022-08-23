@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import logoImg from "../../assets/logoImage/popupLogo.png";
+import logoImg from "../../assets/workspaceImage/doneImg.svg";
 
 export const fadein = keyframes`
   0% { bottom: 0px; opacity: 0; } 
