@@ -8,10 +8,10 @@ import {
   Buttons,
   Container,
   Contents,
-  FindIDPW,
   LoadingContainer,
   LogoImage,
   SignUp,
+  Slogan,
   SocialLogin,
   SocialLoginSection,
   SocialLogo,
@@ -69,21 +69,19 @@ const Login = () => {
               <SocialLoginSection>
                 <SocialLogin as="a" href={KAKAO_AUTH_URL}>
                   <SocialLogo src={kakao} />
-                  <p>kakao</p>
+                  <p>카카오</p>
                 </SocialLogin>
                 <SocialLogin as="a" href={GOOGLE_AUTH_URL}>
                   <SocialLogo src={google} />
-                  <p>google</p>
+                  <p>구글</p>
                 </SocialLogin>
                 <SocialLogin as="a" href={FACEBOOK_AUTH_URL}>
                   <SocialLogo src={facebook} />
-                  <p>facebook</p>
+                  <p>페이스북</p>
                 </SocialLogin>
               </SocialLoginSection>
               <Buttons>
-                <FindIDPW onClick={() => navigate("/findAccount")}>
-                  회원가입한 계정 찾기
-                </FindIDPW>
+                <Slogan>빠르고 쉬운 아웃소싱 플랫폼 DIKKAK</Slogan>
                 <SignUp onClick={() => navigate("/signup")}>
                   아직 회원이 아니신가요?👉3초안에 가입하기
                 </SignUp>
