@@ -67,6 +67,7 @@ const ClientWorkPage = () => {
         return {
           id: proposal.proposalId,
           title: proposal.proposalTitle,
+          coworkingId: proposal.coworkingId,
         };
       });
       const coworkList: IList[] | undefined = workList

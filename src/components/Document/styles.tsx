@@ -55,7 +55,8 @@ export const List = styled.li`
   }
 `;
 
-export const InputBox = styled.input`
+export const InputBox = styled.input<{ isMatched: boolean }>`
+  display: ${(props) => (props.isMatched ? "none" : "inline")};
   position: absolute;
   right: 2%;
   width: 15px;

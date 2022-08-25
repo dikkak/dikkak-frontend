@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { deleteProposal } from "../../apis/proposal";
 import { IClientContent } from "../../pages/ClientWork";
 import { IDesignerContent } from "../../pages/DesignerWork";
 import {
@@ -33,10 +34,13 @@ const Document = ({
     setCheckedInput((prev) => [...prev, id]);
   }, []);
   const onDeleteButtonClick = useCallback(() => {
-    if (onDelete) onDelete(checkedInput);
-    setIsDelete((prev) => !prev);
-    setCheckedInput([]);
-  }, [checkedInput, onDelete]);
+    // if (onDelete) onDelete(checkedInput);
+    deleteProposal(checkedInput).then((res) => {
+      console.log(res);
+      setIsDelete((prev) => !prev);
+      setCheckedInput([]);
+    });
+  }, [checkedInput]);
   const onMoveButtonClick = useCallback(() => {
     if (clientContent?.type === "CLIENT") {
       navigate("/workspace_client");
@@ -60,6 +64,7 @@ const Document = ({
                     </Link>
                     {isDelete ? (
                       <InputBox
+                        isMatched={Boolean(content.coworkingId)}
                         type="checkbox"
                         onChange={() => onChange(content.id)}
                       />
@@ -95,6 +100,7 @@ const Document = ({
                     </Link>
                     {isDelete ? (
                       <InputBox
+                        isMatched={content.coworkingId !== undefined}
                         type="checkbox"
                         onChange={() => onChange(content.id)}
                       />
