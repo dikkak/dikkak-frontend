@@ -1,8 +1,8 @@
 export const onDownload = (url: string, fileName: string) => {
-  const fetchUrl = url.split(
-    "https://dikkak.s3.ap-northeast-2.amazonaws.com"
-  )[1];
-  fetch(fetchUrl, { method: "GET" })
+  // const fetchUrl = url.split(
+  //   "https://dikkak.s3.ap-northeast-2.amazonaws.com"
+  // )[1];
+  fetch(url, { method: "GET" })
     .then((res) => {
       return res.blob();
     })

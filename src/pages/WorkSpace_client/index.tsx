@@ -430,9 +430,6 @@ const WorkSpaceClient = () => {
                       <SubmitButton onClick={() => onSubmit(workspaceNum)}>
                         전송하기
                       </SubmitButton>
-                      {/* <EditButton onClick={() => onEdit(workspaceNum)}>
-                        수정하기
-                      </EditButton> */}
                     </SubmitArea>
                   </TextContainer>
                 </BoxContent>
@@ -453,8 +450,6 @@ const WorkSpaceClient = () => {
                   position: "relative",
                   top: "10px",
                   height: "75%",
-                  // overflowY: "scroll",
-                  // overflowX: "hidden",
                 }}
               >
                 {refFileRenderFnc() ? (

@@ -40,8 +40,10 @@ const Done = ({ proposalId }: IDoneProps) => {
   const copyUrl = () => {
     setIsActive(true);
     navigator.clipboard.writeText(
-      `http://localhost:3000/proposal/${proposalId}`
-    ); // 개발서버 도메인
+      `https://www.98o7.com/proposal/${proposalId}`
+    );
+    // `http://localhost:3000/proposal/${proposalId}`
+    // 개발서버 도메인
   };
   const resetTitle = useResetRecoilState(titleMessageAtom);
   const resetChoice = useResetRecoilState(workChoiceAtom);
