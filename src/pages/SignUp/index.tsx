@@ -53,7 +53,7 @@ const SignUp = () => {
                 <h1>회원가입</h1>
                 <LogoImage></LogoImage>
               </div>
-              <p>디깎은 디자이너의 성장을 도모합니다</p>
+              <p>디깍은 디자이너의 성장을 도모합니다</p>
             </Title>
             <ButtonGroup>
               <Button

@@ -122,8 +122,8 @@ const Document = ({
           {(clientContent?.title === "제안서" ||
             designerContent?.title === "완료된 작업") &&
           !isDelete &&
-          (clientContent?.contents?.length !== 0 ||
-            designerContent?.contents?.length !== 0) ? (
+          clientContent?.contents?.length !== 0 &&
+          designerContent?.contents?.length !== 0 ? (
             <StartBtnContainer>
               <RemoveBtn onClick={() => setIsDelete((prev) => !prev)}>
                 삭제하기

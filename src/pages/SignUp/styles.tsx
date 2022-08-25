@@ -149,6 +149,9 @@ export const Button = styled.button<ButtonColorProps>`
   align-items: center;
   font-family: "Inter";
   font-weight: 700;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export const BrandLogo = styled.img.attrs((props: ImgUrlProps) => ({

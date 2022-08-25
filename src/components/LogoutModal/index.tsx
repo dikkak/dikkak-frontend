@@ -1,5 +1,4 @@
-import { authLogout, userInfo } from "../../apis/auth_login";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   CloseButton,
   Container,
@@ -8,7 +7,6 @@ import {
   ModalFoot,
   PopupLogo,
 } from "./styles";
-import { useQuery } from "react-query";
 
 interface ILogoutModal {
   onLogout: () => void;
@@ -16,8 +14,6 @@ interface ILogoutModal {
 }
 
 const LogoutModal = ({ onLogout, setIsLogoutClicked }: ILogoutModal) => {
-  const { data, isLoading } = useQuery("user-info", userInfo);
-
   return (
     <Container>
       <InnerModal>

@@ -1,25 +1,30 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import {Container, WorkSpace, Logout} from './styles';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Container, WorkSpace, Logout } from "./styles";
 interface IServiceButtonProps {
   username: string;
   type: string;
   setIsLogoutClicked: React.Dispatch<React.SetStateAction<boolean>>;
   onLogout: () => void;
 }
-const ServiceButton = ({username, type, setIsLogoutClicked, onLogout}: IServiceButtonProps) => {
+const ServiceButton = ({
+  username,
+  type,
+  setIsLogoutClicked,
+  onLogout,
+}: IServiceButtonProps) => {
   const navigate = useNavigate();
   const goWorkspace = () => {
     const userType = type.toLowerCase();
-    navigate(`/${userType}_workspace1`);
+    navigate(`/${userType}_workspace`);
   };
   const onButtonClick = () => {
-    if(type === 'CLIENT') {
+    if (type === "CLIENT") {
       setIsLogoutClicked(true);
     } else {
       onLogout();
     }
-  }
+  };
   return (
     <Container>
       <WorkSpace onClick={goWorkspace}>
