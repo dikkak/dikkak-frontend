@@ -124,7 +124,7 @@ const WorkSubmit = ({ textRef, setProposalId }: ISubmitProps) => {
           color="#905DFB"
           style={{ display: "inline-block", marginRight: "5px" }}
         />
-        #0b090f 제출하기
+        제출하기
       </Title>
       <SystemMessage>
         좌측 STEP창을 눌러 내용을 다시 한번 확인한 후 제출하기 버튼을 눌러주세요

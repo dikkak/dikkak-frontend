@@ -88,7 +88,7 @@ const Done = ({ proposalId }: IDoneProps) => {
           <GotoClientBtn
             onClick={() => {
               setAtomInit();
-              navigate("/client_workspace1");
+              navigate("/client_workspace");
             }}
           >
             클라이언트 작업실로 돌아가기

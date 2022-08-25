@@ -178,6 +178,8 @@ const TextContainer = styled.div`
   align-items: center;
   border-radius: 5px;
   border: 0px;
+  white-space: pre-wrap;
+  word-break: break-all;
 `;
 const PreviewImg = styled.div<{ url?: string }>`
   background-image: url(${(props) => props.url || ""});

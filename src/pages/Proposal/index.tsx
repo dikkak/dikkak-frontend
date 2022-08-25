@@ -31,6 +31,7 @@ import Footer from "../../components/Footer";
 import { useRef } from "react";
 import styled from "styled-components";
 import Toast from "../../components/Toast";
+import { onDownload } from "../../utils/onDownload";
 
 const Proposal = () => {
   const params = useParams(); // 제안서의 id를 받아오기 위한 params
@@ -72,32 +73,6 @@ const Proposal = () => {
   const referenceRef = useRef<HTMLHeadingElement>(null);
   const etcRef = useRef<HTMLHeadingElement>(null);
   const addtionalRef = useRef<HTMLHeadingElement>(null);
-
-  const onDownload = (url: string) => {
-    setIsActive(true);
-    const fetchUrl = url.split(
-      "https://dikkak.s3.ap-northeast-2.amazonaws.com"
-    )[1];
-    fetch(fetchUrl, { method: "GET" })
-      .then((res) => {
-        return res.blob();
-      })
-      .then((blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = clickedImage.fileName;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => {
-          window.URL.revokeObjectURL(url);
-        }, 60000);
-        a.remove();
-      })
-      .catch((err) => {
-        console.error("err: ", err);
-      });
-  };
 
   // step에서 클릭된 스텝의 컴포넌트로 스크롤하는 함수
   const onMoveToElement = (step: string) => {
@@ -225,7 +200,12 @@ const Proposal = () => {
             </ImageBox>
           </ContentBox>
           <ButtonsBox>
-            <Download onClick={() => onDownload(clickedImage.url)} />
+            <Download
+              onClick={() => {
+                setIsActive(true);
+                onDownload(clickedImage.url, clickedImage.fileName);
+              }}
+            />
             <Close onClick={() => setIsRefClicked(false)} />
           </ButtonsBox>
           <Toast
