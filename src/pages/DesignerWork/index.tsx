@@ -70,17 +70,6 @@ const DesignerWorkPage = () => {
     bgColor: "#329A29",
   });
   const navigate = useNavigate();
-  const onDelete = (id: number[]) => {
-    const newList = completeWork.contents!.filter(
-      (content) => !id.includes(content.id)
-    );
-    setCompleteWork((prev) => {
-      return {
-        ...prev,
-        contents: newList,
-      };
-    });
-  };
   useEffect(() => {
     setCompleteWork({
       type: userData?.type!,
@@ -135,10 +124,7 @@ const DesignerWorkPage = () => {
             </p>
           </Title>
           <DocumentContainer>
-            <Document
-              designerContent={completeWork}
-              onDelete={onDelete}
-            ></Document>
+            <Document designerContent={completeWork}></Document>
             <Document designerContent={companyContent}></Document>
           </DocumentContainer>
         </Wrapper>

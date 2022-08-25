@@ -89,6 +89,7 @@ const Start = () => {
     setCheckUserLoading(true);
     let authURL = getProviderUrl(data.provider);
     if (authURL === "err") return <Navigate to="/login" />;
+    console.log(getProviderUrl(data.provider));
     window.location.href = getProviderUrl(data.provider);
     setCheckUserLoading(false);
   }

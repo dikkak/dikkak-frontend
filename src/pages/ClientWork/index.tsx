@@ -12,10 +12,11 @@ import {
   Title,
   Wrapper,
 } from "./styles";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { userInfo } from "../../apis/auth_login";
 import { getProposalList } from "../../apis/workplace";
 import { FaSpinner } from "react-icons/fa";
+import { deleteProposal } from "../../apis/proposal";
 
 interface IList {
   id: number;
@@ -37,7 +38,7 @@ const ClientWorkPage = () => {
     enabled: !!userData,
     refetchOnMount: true,
   });
-
+  const queryClient = useQueryClient();
   const [clientContent, setClientContent] = useState<
     IClientContent | undefined
   >();
@@ -45,22 +46,12 @@ const ClientWorkPage = () => {
     IClientContent | undefined
   >();
   const navigate = useNavigate();
-  const onDelete = useCallback(
-    (id: number[]) => {
-      const newList = clientContent?.contents!.filter(
-        (content) => !id.includes(content.id)
-      );
-      setClientContent((prev) => {
-        if (prev) {
-          return {
-            ...prev,
-            contents: newList,
-          };
-        }
-      });
-    },
-    [clientContent?.contents]
-  );
+  const onDelete = (list: number[], callback: () => void) => {
+    deleteProposal(list).then(() => {
+      queryClient.invalidateQueries("workspace-list");
+      callback();
+    });
+  };
   useEffect(() => {
     if (workList) {
       const proposalList: IList[] | undefined = workList?.map((proposal) => {

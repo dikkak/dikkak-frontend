@@ -19,7 +19,7 @@ import {
 interface ContentProps {
   clientContent?: IClientContent;
   designerContent?: IDesignerContent;
-  onDelete?: (id: number[]) => void;
+  onDelete?: (list: number[], callback: () => void) => void;
 }
 
 const Document = ({
@@ -33,14 +33,13 @@ const Document = ({
   const onChange = useCallback((id: number) => {
     setCheckedInput((prev) => [...prev, id]);
   }, []);
+  const callback = () => {
+    setIsDelete((prev) => !prev);
+    setCheckedInput([]);
+  };
   const onDeleteButtonClick = useCallback(() => {
-    // if (onDelete) onDelete(checkedInput);
-    deleteProposal(checkedInput).then((res) => {
-      console.log(res);
-      setIsDelete((prev) => !prev);
-      setCheckedInput([]);
-    });
-  }, [checkedInput]);
+    onDelete && onDelete(checkedInput, callback);
+  }, [checkedInput, onDelete]);
   const onMoveButtonClick = useCallback(() => {
     if (clientContent?.type === "CLIENT") {
       navigate("/workspace_client");
