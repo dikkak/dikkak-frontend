@@ -1,4 +1,4 @@
-import React, { RefObject, useState } from "react";
+import React, { RefObject, useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { submitProposal } from "../../../apis/proposal";
@@ -109,6 +109,13 @@ const WorkSubmit = ({ textRef, setProposalId }: ISubmitProps) => {
       );
     });
   };
+  useEffect(() => {
+    textRef.current?.setAttribute("disabled", "disabled");
+    textRef.current?.setAttribute(
+      "placeholder",
+      "마우스를 이용해 선택해주세요"
+    );
+  }, [textRef]);
   if (isLoading)
     return (
       <LoadingContainer>

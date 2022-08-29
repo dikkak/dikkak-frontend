@@ -68,6 +68,10 @@ export const LinkImage = styled.img.attrs({ src: linkImg })`
   right: 2%;
   width: 15px;
   height: 15px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export const StartBtnContainer = styled.div`

@@ -21,7 +21,7 @@ import {
 import { useQuery, useQueryClient } from "react-query";
 import { authLogout, userInfo } from "../../apis/auth_login";
 import ServiceButton from "../../components/ServiceButton";
-import LogoutModal from "../../components/LogoutModal";
+import Modal from "../../components/Modal";
 import axios from "axios";
 import {
   FACEBOOK_AUTH_URL,
@@ -108,10 +108,7 @@ const Start = () => {
   return (
     <>
       {isLogoutClicked && (
-        <LogoutModal
-          onLogout={onLogout}
-          setIsLogoutClicked={setIsLogoutClicked}
-        />
+        <Modal onLogout={onLogout} setIsLogoutClicked={setIsLogoutClicked} />
       )}
       <Menu />
       <Container>

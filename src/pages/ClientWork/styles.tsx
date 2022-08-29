@@ -113,3 +113,11 @@ export const LoadingContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const Popup = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 150px;
+`;

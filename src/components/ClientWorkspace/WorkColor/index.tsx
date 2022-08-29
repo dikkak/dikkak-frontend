@@ -9,6 +9,7 @@ import {
   workStepAtom,
 } from "../../../atoms";
 import {
+  AddColorButton,
   Box,
   Circle,
   ClientMessage,
@@ -191,12 +192,9 @@ const WorkColor = ({ textRef }: IWorkColorProps) => {
             )}
           </Fragment>
         ))}
-        <ClientMessage
-          style={{ justifyContent: "center", marginBottom: "20px" }}
-          onClick={onAddClick}
-        >
+        <AddColorButton onClick={onAddClick}>
           <p style={{ color: "#905DFB", fontSize: "24px" }}>+</p>
-        </ClientMessage>
+        </AddColorButton>
         {mainColor.color && (
           <div style={{ display: "flex", justifyContent: "center" }}>
             <NextStepButton onClick={onNextStep}>

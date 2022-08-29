@@ -38,9 +38,11 @@ const FileBox = ({ referenceFile, etcFile }: IFileBoxProps) => {
             등록
           </h3>
           {fileClickState &&
-            referenceFile?.map((item) => {
+            referenceFile?.map((item, index) => {
               return item.fileName !== undefined ? (
-                <li key={item.url}>{item.fileName.slice(0, 19)}</li>
+                <li key={index}>
+                  <FileName>{item.fileName}</FileName>
+                </li>
               ) : null;
             })}
         </FileContainer>
@@ -55,9 +57,11 @@ const FileBox = ({ referenceFile, etcFile }: IFileBoxProps) => {
             업로드(선택)
           </h3>
           {etcClickState &&
-            etcFile?.map((item) => {
+            etcFile?.map((item, index) => {
               return item.fileName !== undefined ? (
-                <li key={item.url}>{item.fileName.slice(0, 19)}</li>
+                <li key={index}>
+                  <FileName>{item.fileName}</FileName>
+                </li>
               ) : null;
             })}
         </EtcFileContainer>
@@ -120,4 +124,16 @@ const FileContainer = styled.ul`
 
 const EtcFileContainer = styled(FileContainer)`
   margin-top: 18px;
+`;
+
+const FileName = styled.p`
+  position: relative;
+  bottom: -5px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+  width: 70px;
+  height: 20px;
 `;

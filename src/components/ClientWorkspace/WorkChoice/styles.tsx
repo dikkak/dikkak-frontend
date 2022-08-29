@@ -57,6 +57,8 @@ export const GridChildren = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  font-size: 15px;
+  font-weight: 500;
   &:hover {
     cursor: pointer;
   }

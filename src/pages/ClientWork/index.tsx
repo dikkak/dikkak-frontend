@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Menu from "../../components/Menu";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Document from "../../components/Document";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ import {
   DocumentContainer,
   LoadingContainer,
   LogoImage,
+  Popup,
   Title,
   Wrapper,
 } from "./styles";
@@ -17,6 +17,7 @@ import { userInfo } from "../../apis/auth_login";
 import { getProposalList } from "../../apis/workplace";
 import { FaSpinner } from "react-icons/fa";
 import { deleteProposal } from "../../apis/proposal";
+import Toast from "../../components/Toast";
 
 interface IList {
   id: number;
@@ -39,6 +40,7 @@ const ClientWorkPage = () => {
     refetchOnMount: true,
   });
   const queryClient = useQueryClient();
+  const [isActive, setIsActive] = useState(false);
   const [clientContent, setClientContent] = useState<
     IClientContent | undefined
   >();
@@ -105,7 +107,6 @@ const ClientWorkPage = () => {
   }
   return (
     <>
-      <Menu></Menu>
       <Container>
         <Wrapper>
           <BackButton onClick={() => navigate("/service_start")}>
@@ -122,10 +123,18 @@ const ClientWorkPage = () => {
           <DocumentContainer>
             <Document
               clientContent={clientContent}
+              setIsActive={setIsActive}
               onDelete={onDelete}
             ></Document>
             <Document clientContent={companyContent}></Document>
           </DocumentContainer>
+          <Popup>
+            <Toast
+              isActive={isActive}
+              setIsActive={setIsActive}
+              message={"링크 복사가 완료되었습니다!"}
+            />
+          </Popup>
         </Wrapper>
       </Container>
       <Footer bgColor="#fff"></Footer>

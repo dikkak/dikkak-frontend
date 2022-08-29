@@ -35,10 +35,7 @@ const ProposalEtc = ({ etcFile, etcRef }: IProposalEtcProps) => {
               <FileImgContainer>
                 <FileUploadImg></FileUploadImg>
               </FileImgContainer>
-              <Text
-                // onClick={() => window.open(item.url, "_blank")}
-                onClick={() => onDownload(item.url, item.fileName)}
-              >
+              <Text onClick={() => onDownload(item.url, item.fileName)}>
                 {item.fileName}
               </Text>
             </InputBoxLabel>

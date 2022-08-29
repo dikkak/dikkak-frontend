@@ -120,6 +120,15 @@ export const ClientMessage = styled.div`
   }
 `;
 
+export const AddColorButton = styled(ClientMessage)`
+  justify-content: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 export const NextStepButton = styled.button`
   display: flex;
   justify-content: space-between;

@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import popupLogo from '../../assets/logoImage/popupLogo.png';
+import styled from "styled-components";
+import popupLogo from "../../assets/logoImage/popupLogo.png";
 
 export const Container = styled.div`
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
   bottom: 0;
@@ -16,6 +16,7 @@ export const Container = styled.div`
 export const InnerModal = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -25,9 +26,10 @@ export const InnerModal = styled.div`
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
   background-color: #717171;
 `;
-export const PopupLogo = styled.img.attrs({src: popupLogo})`
-  position: relative;
-  left: -80px;
+export const PopupLogo = styled.img.attrs({ src: popupLogo })`
+  position: absolute;
+  top: 40px;
+  left: 20px;
 `;
 export const ModalBody = styled.div`
   display: flex;
@@ -38,11 +40,15 @@ export const ModalBody = styled.div`
   font-size: 12px;
   font-weight: 400;
   line-height: 21.72px;
+  margin-bottom: 20px;
 `;
 export const ModalFoot = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  bottom: 15px;
+
   button {
     width: 110px;
     height: 25px;
@@ -54,13 +60,13 @@ export const ModalFoot = styled.div`
     &:hover {
       opacity: 0.8;
     }
-  };
+  }
   .logout-btn {
     color: white;
-    background-color: ${props => props.theme.mainColor};
+    background-color: ${(props) => props.theme.mainColor};
   }
   .cancel-btn {
-    color: ${props => props.theme.mainColor};
+    color: ${(props) => props.theme.mainColor};
   }
 `;
 export const CloseButton = styled.button`

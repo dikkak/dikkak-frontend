@@ -88,9 +88,12 @@ const SignUp = () => {
                 bgColor="#000"
                 textColor="#fff"
               >
-                <p style={{ textDecoration: "none", color: "#fff" }}>
+                <a
+                  style={{ textDecoration: "none", color: "#fff" }}
+                  href="https://open.kakao.com/o/sUAISbxe"
+                >
                   가입 문의하기
-                </p>
+                </a>
               </Button>
             </ButtonGroup>
           </Board>

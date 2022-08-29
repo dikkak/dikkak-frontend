@@ -65,6 +65,11 @@ const GlobalStyle = createGlobalStyle`
   }
   * {
     box-sizing: border-box;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   a {color: #fff; text-decoration: none; outline: none}
   a:hover, a:active {text-decoration: none;}

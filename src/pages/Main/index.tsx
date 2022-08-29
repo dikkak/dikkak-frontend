@@ -139,8 +139,12 @@ const Main = () => {
         <Section>
           <MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</MainText>
           <MainButtons>
-            <MainDikkakSignUp>⏰ DIKKAK 가입하기</MainDikkakSignUp>
-            <MainDikkakStart>DIKKAK 시작하기</MainDikkakStart>
+            <MainDikkakSignUp onClick={() => navigate("/signup")}>
+              ⏰ DIKKAK 가입하기
+            </MainDikkakSignUp>
+            <MainDikkakStart onClick={() => navigate("/login")}>
+              DIKKAK 시작하기
+            </MainDikkakStart>
           </MainButtons>
         </Section>
       </SectionContainer>
