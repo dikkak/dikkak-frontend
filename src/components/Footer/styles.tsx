@@ -33,12 +33,11 @@ export const FooterLeftFirst = styled.div`
 export const FooterP = styled.p`
   cursor: pointer;
   margin-right: 3em;
-  font-weight: bold;
   font-family: "Noto Sans KR";
   font-style: normal;
   font-size: 10px;
+  font-weight: 900;
   color: #717171;
-
   text-decoration-color: #717171;
   line-height: 14px;
 `;

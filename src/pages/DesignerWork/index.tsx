@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import Document from "../../components/Document";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -7,6 +6,7 @@ import {
   BackButton,
   Container,
   DocumentContainer,
+  LoadingContainer,
   LogoImage,
   Title,
   Wrapper,
@@ -14,6 +14,7 @@ import {
 import { useQuery } from "react-query";
 import { userInfo } from "../../apis/auth_login";
 import { getWorkplaceList } from "../../apis/workplace";
+import { FaSpinner } from "react-icons/fa";
 
 interface IList {
   id: number;
@@ -36,23 +37,23 @@ const DesignerWorkPage = () => {
     enabled: !!userData,
   });
   const completeList: IList[] | undefined = workList?.complete.map((item) => {
-      return {
-        id: item.proposalId,
-        title: item.proposalTitle,
-        clientName: item.clientName,
-        coworkingId: item.coworkingId,
-        coworkingStep: item.coworkingStep,
-      };
-    });
+    return {
+      id: item.proposalId,
+      title: item.proposalTitle,
+      clientName: item.clientName,
+      coworkingId: item.coworkingId,
+      coworkingStep: item.coworkingStep,
+    };
+  });
   const workplaceList: IList[] | undefined = workList?.progress.map((item) => {
-      return {
-        id: item.proposalId,
-        title: item.proposalTitle,
-        clientName: item.clientName,
-        coworkingId: item.coworkingId,
-        coworkingStep: item.coworkingStep,
-      };
-    });
+    return {
+      id: item.proposalId,
+      title: item.proposalTitle,
+      clientName: item.clientName,
+      coworkingId: item.coworkingId,
+      coworkingStep: item.coworkingStep,
+    };
+  });
   const [completeWork, setCompleteWork] = useState<IDesignerContent>({
     type: userData?.type!,
     title: "완료된 작업",
@@ -68,17 +69,6 @@ const DesignerWorkPage = () => {
     bgColor: "#329A29",
   });
   const navigate = useNavigate();
-  const onDelete = (id: number[]) => {
-    const newList = completeWork.contents!.filter(
-      (content) => !id.includes(content.id)
-    );
-    setCompleteWork((prev) => {
-      return {
-        ...prev,
-        contents: newList,
-      };
-    });
-  };
   useEffect(() => {
     setCompleteWork({
       type: userData?.type!,
@@ -95,7 +85,14 @@ const DesignerWorkPage = () => {
       bgColor: "#329A29",
     });
   }, [userData?.type, completeList, workplaceList]);
-  if (isFetching) return <div>Loading...</div>;
+  if (isFetching)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   if (!userData && !isFetching) {
     return <Navigate to="/login" />;
   }
@@ -104,7 +101,6 @@ const DesignerWorkPage = () => {
   }
   return (
     <>
-      <Menu></Menu>
       <Container>
         <Wrapper>
           <BackButton onClick={() => navigate("/service_start")}>
@@ -119,17 +115,13 @@ const DesignerWorkPage = () => {
             <p>외주작업을 위한 {userData?.username} 디자이너 작업실 입니다</p>
             <p>
               최초 사용자의 경우{" "}
-              <a href="https://open.kakao.com/o/gxhDqKSd">
-                https://open.kakao.com/o/gxhDqKSd
-              </a>{" "}
-              오픈채팅방에 접속해주세요!
+              <a href="https://forms.gle/AUwRdVzFUfkS2m3x5">구글 설문지</a> 를
+              통해 참여 코드를 요청해주세요!(1-2분 내 이메일로 코드 자동
+              발송해드립니다)
             </p>
           </Title>
           <DocumentContainer>
-            <Document
-              designerContent={completeWork}
-              onDelete={onDelete}
-            ></Document>
+            <Document designerContent={completeWork}></Document>
             <Document designerContent={companyContent}></Document>
           </DocumentContainer>
         </Wrapper>

@@ -13,6 +13,7 @@ import {
   JumboCotainer,
   Jumbotron,
   LetterLogo,
+  LoadingContainer,
   LogoImage,
   PaintLogo,
   Title,
@@ -20,7 +21,7 @@ import {
 import { useQuery, useQueryClient } from "react-query";
 import { authLogout, userInfo } from "../../apis/auth_login";
 import ServiceButton from "../../components/ServiceButton";
-import LogoutModal from "../../components/LogoutModal";
+import Modal from "../../components/Modal";
 import axios from "axios";
 import {
   FACEBOOK_AUTH_URL,
@@ -30,6 +31,7 @@ import {
 } from "../../OAuth";
 import Admin from "../Admin";
 import { setChannelTalkUser } from "../../utils/setChannelTalkService";
+import { FaSpinner } from "react-icons/fa";
 
 const Start = () => {
   const [checkUserLoading, setCheckUserLoading] = useState(false);
@@ -69,7 +71,15 @@ const Start = () => {
   };
 
   useEffect(() => {
-    data && setChannelTalkUser(data.email, data.username, data.type, );
+    data &&
+      setChannelTalkUser(
+        data.email,
+        data.username,
+        data.type,
+        data.phoneNumber,
+        data.marketingMessage,
+        data.popUpMessage
+      );
   }, [data]);
 
   if (!data) {
@@ -79,21 +89,26 @@ const Start = () => {
     setCheckUserLoading(true);
     let authURL = getProviderUrl(data.provider);
     if (authURL === "err") return <Navigate to="/login" />;
+    console.log(getProviderUrl(data.provider));
     window.location.href = getProviderUrl(data.provider);
     setCheckUserLoading(false);
   }
 
-  if (isLoading || checkUserLoading) <div>Loading...</div>;
+  if (isLoading || checkUserLoading)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   if (data.type === "ADMIN") {
     return <Admin />;
   }
   return (
     <>
       {isLogoutClicked && (
-        <LogoutModal
-          onLogout={onLogout}
-          setIsLogoutClicked={setIsLogoutClicked}
-        />
+        <Modal onLogout={onLogout} setIsLogoutClicked={setIsLogoutClicked} />
       )}
       <Menu />
       <Container>

@@ -2,7 +2,10 @@ import ChannelService from "./channelTalk";
 export const setChannelTalkUser = (
   email: string,
   username: string,
-  type: string
+  type: string,
+  mobileNumber: string,
+  marketingMessage: boolean,
+  popUpMessage: boolean
 ) => {
   ChannelService.boot({
     pluginKey: process.env.REACT_APP_CHANNELTALK_PLUGIN_KEY, //please fill with your plugin key
@@ -11,6 +14,9 @@ export const setChannelTalkUser = (
       name: username, //fill with user name
       email,
       type,
+      mobileNumber,
+      marketingSmsAgree: marketingMessage,
+      popUpAgree: popUpMessage,
     },
   });
 };

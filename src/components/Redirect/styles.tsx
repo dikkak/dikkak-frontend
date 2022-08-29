@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import logoImg from "../../assets/logoImage/logoBasic.svg";
 
 export const Container = styled.div`
@@ -33,10 +33,10 @@ export const CheckBox = styled(InputBox)`
 `;
 
 export const NameLabel = styled.label.attrs({ htmlFor: "username" })`
-margin-left: 0.8em;
-font-size: 0.8rem;
-color: #717171;
-margin-bottom: 1em;
+  margin-left: 0.8em;
+  font-size: 0.8rem;
+  color: #717171;
+  margin-bottom: 1em;
 `;
 
 export const NameInput = styled.input.attrs({
@@ -54,10 +54,10 @@ export const NameInput = styled.input.attrs({
   }
 `;
 export const PhoneLabel = styled.label.attrs({ htmlFor: "phoneNumber" })`
-margin-left: 0.8em;
-font-size: 0.8rem;
-color: #717171;
-margin-bottom: 1em;
+  margin-left: 0.8em;
+  font-size: 0.8rem;
+  color: #717171;
+  margin-bottom: 1em;
 `;
 
 export const PhoneInput = styled.input.attrs({
@@ -76,12 +76,15 @@ export const PhoneInput = styled.input.attrs({
 `;
 export const ErrorMessage = styled.span`
   position: absolute;
-  font-size: .5rem;
+  font-size: 0.5rem;
   color: red;
   margin-left: 1em;
   bottom: -2em;
 `;
-export const AllCheckBox = styled.input.attrs({ type: "checkbox", id: "allAgree" })`
+export const AllCheckBox = styled.input.attrs({
+  type: "checkbox",
+  id: "allAgree",
+})`
   width: 25px;
   height: 25px;
   margin-right: 1em;
@@ -94,7 +97,11 @@ export const AllCheckBox = styled.input.attrs({ type: "checkbox", id: "allAgree"
   }
 `;
 
-export const CheckBox1Label = styled.label.attrs({ htmlFor: "termsConditions" })`font-size: 12px;`
+export const CheckBox1Label = styled.label.attrs({
+  htmlFor: "termsConditions",
+})`
+  font-size: 12px;
+`;
 export const ChekcBox1Input = styled.input.attrs({
   type: "checkbox",
   id: "termsConditions",
@@ -111,7 +118,9 @@ export const ChekcBox1Input = styled.input.attrs({
     outline: none;
   }
 `;
-export const CheckBox2Label = styled.label.attrs({ htmlFor: "dataPolicy" })`font-size: 12px;`
+export const CheckBox2Label = styled.label.attrs({ htmlFor: "dataPolicy" })`
+  font-size: 12px;
+`;
 export const ChekcBox2Input = styled.input.attrs({
   type: "checkbox",
   id: "dataPolicy",
@@ -131,7 +140,9 @@ export const ChekcBox2Input = styled.input.attrs({
 export const CheckBox3Label = styled.label.attrs({ htmlFor: "popUpMessage" })`
   font-size: 12px;
 `;
-export const CheckBox3SubLabel = styled.label.attrs({ htmlFor: "popUpMessage" })`
+export const CheckBox3SubLabel = styled.label.attrs({
+  htmlFor: "popUpMessage",
+})`
   font-size: 0.2rem;
   color: #717171;
   margin-top: 1.2em;
@@ -152,7 +163,11 @@ export const ChekcBox3Input = styled.input.attrs({
     outline: none;
   }
 `;
-export const CheckBox4Label = styled.label.attrs({ htmlFor: "marketingMessage" })`font-size: 12px;`;
+export const CheckBox4Label = styled.label.attrs({
+  htmlFor: "marketingMessage",
+})`
+  font-size: 12px;
+`;
 
 export const CheckBox4Input = styled.input.attrs({
   type: "checkbox",
@@ -325,8 +340,16 @@ export const TitleBox = styled.p`
 `;
 
 export const CheckBoxBackground = styled.div`
-  background-color: #E9E9E9;
+  background-color: #e9e9e9;
   padding: 1em;
   margin-bottom: 1em;
   border-radius: 10px;
+`;
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 `;

@@ -1,11 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import { Navigate, useNavigate } from "react-router-dom";
 import kakaoImg from "../../assets/logoImage/kakaoBtnImg.svg";
 import googleImg from "../../assets/logoImage/googleBtnImg.svg";
 import facebookImg from "../../assets/logoImage/faceboonBtnImg.svg";
-import GoogleOauth from "../../apis/google_login_logic";
 
 import {
   BackButton,
@@ -18,7 +17,6 @@ import {
   LogoImage,
   Title,
   Wrapper,
-  GoogleButton,
 } from "./styles";
 import {
   KAKAO_AUTH_URL,
@@ -31,16 +29,6 @@ import { userInfo } from "../../apis/auth_login";
 const SignUp = () => {
   const { data } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const gapi = new GoogleOauth(
-      "373",
-      "rectangular",
-      document.getElementById("g_id_signin")
-    );
-    gapi.init();
-    gapi.render();
-  }, [window.google]);
 
   if (data) {
     return <Navigate replace to="/service_start" />;
@@ -65,7 +53,7 @@ const SignUp = () => {
                 <h1>회원가입</h1>
                 <LogoImage></LogoImage>
               </div>
-              <p>디깎은 디자이너의 성장을 도모합니다</p>
+              <p>디깍은 디자이너의 성장을 도모합니다</p>
             </Title>
             <ButtonGroup>
               <Button
@@ -77,10 +65,15 @@ const SignUp = () => {
                 <BrandLogo url={kakaoImg}></BrandLogo>
                 <p>카카오톡 간편 가입하기</p>
               </Button>
-              <GoogleButton bgColor="#fff" textColor="#000" id="g_id_signin">
+              <Button
+                as="a"
+                href={GOOGLE_AUTH_URL}
+                bgColor="#ffffff"
+                textColor="#000"
+              >
                 <BrandLogo url={googleImg}></BrandLogo>
                 <p>구글 간편 가입하기</p>
-              </GoogleButton>
+              </Button>
               <Button
                 as="a"
                 href={FACEBOOK_AUTH_URL}
@@ -90,15 +83,17 @@ const SignUp = () => {
                 <BrandLogo url={facebookImg}></BrandLogo>
                 <p>페이스북 간편 가입하기</p>
               </Button>
-
               <Button
                 style={{ marginTop: "10px" }}
                 bgColor="#000"
                 textColor="#fff"
               >
-                <p style={{ textDecoration: "none", color: "#fff" }}>
+                <a
+                  style={{ textDecoration: "none", color: "#fff" }}
+                  href="https://open.kakao.com/o/sUAISbxe"
+                >
                   가입 문의하기
-                </p>
+                </a>
               </Button>
             </ButtonGroup>
           </Board>

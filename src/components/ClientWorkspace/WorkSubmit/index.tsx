@@ -1,6 +1,8 @@
-import React, { RefObject } from "react";
+import React, { RefObject, useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import styled from "styled-components";
 import { submitProposal } from "../../../apis/proposal";
+import { FaSpinner } from "react-icons/fa";
 import {
   deadLineAtom,
   isDoneAtom,
@@ -23,7 +25,7 @@ import {
   SystemMessage,
   NextStepButton,
   Circle,
-} from "./style";
+} from "./styles";
 
 interface ISubmitProps {
   textRef: RefObject<HTMLTextAreaElement>;
@@ -43,6 +45,8 @@ const WorkSubmit = ({ textRef, setProposalId }: ISubmitProps) => {
   const requestMessage = useRecoilValue(requestMessageAtom);
   const setIsDone = useSetRecoilState(isDoneAtom);
   const workEtcContents = useRecoilValue(workEtcAtom);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   // 데이터 가공
   let category;
@@ -94,7 +98,9 @@ const WorkSubmit = ({ textRef, setProposalId }: ISubmitProps) => {
   workEtcContents.map((item) => formData.append("etcFile", item.file!));
 
   const onClick = () => {
+    setIsLoading(true);
     submitProposal(formData).then((res) => {
+      setIsLoading(false);
       setProposalId(res.proposalId);
       setIsDone((prev) => !prev);
       textRef.current?.setAttribute(
@@ -103,7 +109,21 @@ const WorkSubmit = ({ textRef, setProposalId }: ISubmitProps) => {
       );
     });
   };
-
+  useEffect(() => {
+    textRef.current?.setAttribute("disabled", "disabled");
+    textRef.current?.setAttribute(
+      "placeholder",
+      "마우스를 이용해 선택해주세요"
+    );
+  }, [textRef]);
+  if (isLoading)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   return (
     <MessageBox>
       <Title>
@@ -128,3 +148,12 @@ const WorkSubmit = ({ textRef, setProposalId }: ISubmitProps) => {
 };
 
 export default WorkSubmit;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;

@@ -1,14 +1,13 @@
 import React from "react";
-import { useQueryClient } from 'react-query';
-import { registType } from '../../apis/auth_login';
-import {Container, Client, Designer} from './styles';
+import { useQueryClient } from "react-query";
+import { registType } from "../../apis/auth_login";
+import { Container, Client, Designer } from "./styles";
 
 const ClientOrDesigner = () => {
   const queryClient = useQueryClient();
   const onClick = (data: string) => {
-    registType(data)
-    .then(() => queryClient.fetchQuery('user-info'));
-  }
+    registType(data).then(() => queryClient.fetchQuery("user-info"));
+  };
   return (
     <Container>
       <Client onClick={() => onClick("CLIENT")}>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Menu from "../../components/Menu";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
@@ -8,15 +8,15 @@ import {
   Buttons,
   Container,
   Contents,
-  FindIDPW,
+  LoadingContainer,
   LogoImage,
   SignUp,
+  Slogan,
   SocialLogin,
   SocialLoginSection,
   SocialLogo,
   Title,
   Wrapper,
-  GoogleButton,
 } from "./styles";
 import facebook from "../../assets/logoImage/facebookLogin.svg";
 import kakao from "../../assets/logoImage/kakaoLogin.svg";
@@ -29,24 +29,20 @@ import {
 import { useQuery } from "react-query";
 import { userInfo } from "../../apis/auth_login";
 import Footer from "../../components/Footer";
-import GoogleOauth from "../../apis/google_login_logic";
+import { FaSpinner } from "react-icons/fa";
 
 const Login = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const gapi = new GoogleOauth(
-      "300",
-      "rectangular",
-      document.getElementById("g_id_signin")
+  if (isFetching)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
     );
-    console.log(gapi);
-    gapi.init();
-    gapi.render();
-  }, [window.google]);
-
-  if (isFetching) return <div>Loading...</div>;
   if (data) {
     return <Navigate to="/service_start" />;
   }
@@ -73,26 +69,19 @@ const Login = () => {
               <SocialLoginSection>
                 <SocialLogin as="a" href={KAKAO_AUTH_URL}>
                   <SocialLogo src={kakao} />
-                  <p>kakao</p>
+                  <p>카카오</p>
                 </SocialLogin>
-                {/* <SocialLogin as="a" href={GOOGLE_AUTH_URL}>
+                <SocialLogin as="a" href={GOOGLE_AUTH_URL}>
                   <SocialLogo src={google} />
-                  <p>google</p>
-                </SocialLogin> */}
-                <GoogleButton id="g_id_signin">
-                  {/* <SocialLogo src={google} /> */}
-                  <p>Google</p>
-                </GoogleButton>
-
+                  <p>구글</p>
+                </SocialLogin>
                 <SocialLogin as="a" href={FACEBOOK_AUTH_URL}>
                   <SocialLogo src={facebook} />
-                  <p>facebook</p>
+                  <p>페이스북</p>
                 </SocialLogin>
               </SocialLoginSection>
               <Buttons>
-                <FindIDPW onClick={() => navigate("/findAccount")}>
-                  회원가입한 계정 찾기
-                </FindIDPW>
+                <Slogan>빠르고 쉬운 아웃소싱 플랫폼 DIKKAK</Slogan>
                 <SignUp onClick={() => navigate("/signup")}>
                   아직 회원이 아니신가요?👉3초안에 가입하기
                 </SignUp>

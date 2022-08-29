@@ -149,8 +149,8 @@ export const NextText = styled.div`
 `;
 
 export const SocialLogo = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
 `;
 
 export const SocialLoginSection = styled.div`
@@ -177,22 +177,6 @@ export const SocialLogin = styled.div`
   }
 `;
 
-export const GoogleButton = styled.button`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-  p {
-    margin-top: 0.5em;
-    color: #717171;
-    font-size: 0.8rem;
-  }
-`;
-
 export const Buttons = styled.div`
   display: flex;
   flex-direction: column;
@@ -201,23 +185,46 @@ export const Buttons = styled.div`
   width: 100%;
 `;
 
-export const FindIDPW = styled.button`
+export const Slogan = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
   width: 100%;
+  height: 42px;
+  padding: 0.5em;
+  color: ${(props) => props.theme.mainColor};
+  background-color: white;
+  font-size: 0.8rem;
+  font-weight: 900;
+  border: 1px solid ${(props) => props.theme.mainColor};
+  border-radius: 5px;
+  outline: none;
+`;
+export const SignUp = styled.button`
+  margin-top: 1em;
+  width: 100%;
+  height: 42px;
   padding: 0.5em;
   color: white;
-  background-color: black;
-  font-weight: 500;
+  background-color: ${(props) => props.theme.mainColor};
   font-size: 0.8rem;
+  font-weight: bold;
   border: none;
-  outline: none;
   border-radius: 5px;
+  outline: none;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   &:hover {
     opacity: 0.8;
   }
 `;
-export const SignUp = styled(FindIDPW)`
-  background-color: ${(props) => props.theme.mainColor};
-  margin-top: 1em;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 `;

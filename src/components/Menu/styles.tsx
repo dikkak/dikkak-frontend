@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import logoImg from "../../assets/logoImage/logoBasic.svg";
-import talkImg from "../../assets/menuImage/kakaotalk.svg";
 
 export const Container = styled.div`
   position: fixed;
@@ -47,8 +46,4 @@ export const LogoName = styled.p`
 export const LogoSubName = styled.p`
   font-size: 10px;
   color: #717171;
-`;
-export const Talk = styled.img.attrs({ src: talkImg })`
-  width: 80px;
-  cursor: pointer;
 `;

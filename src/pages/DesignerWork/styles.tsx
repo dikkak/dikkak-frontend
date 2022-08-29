@@ -113,3 +113,12 @@ export const companyContent = {
   workMenttion: "외주 작업실",
   bgColor: "#329A29",
 };
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;

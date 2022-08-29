@@ -193,3 +193,12 @@ export const MainText = styled.div`
   color: #717171;
   border: 2px solid #717171;
 `;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;

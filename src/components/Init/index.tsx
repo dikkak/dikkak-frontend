@@ -1,13 +1,22 @@
-import React, { useEffect } from "react";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import React from "react";
+import { createGlobalStyle, keyframes, ThemeProvider } from "styled-components";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Router from "../../Router";
 import { theme } from "../../theme";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { isTermsOfUseAtom, isTermsOfPersonalAtom } from "../../atoms";
 import { TermsOfModal, TermsOfContent } from "./styles";
 import TermOfUseContent from "../TermOfUseContent";
 import TermOfPersonal from "../TermOfPersonal";
+
+const spinAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+`;
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -56,9 +65,17 @@ const GlobalStyle = createGlobalStyle`
   }
   * {
     box-sizing: border-box;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   a {color: #fff; text-decoration: none; outline: none}
   a:hover, a:active {text-decoration: none;}
+  .spinner {
+    animation: ${spinAnimation} 2s infinite;
+  }
 `;
 
 const Init = () => {

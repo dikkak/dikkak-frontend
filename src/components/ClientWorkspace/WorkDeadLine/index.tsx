@@ -18,7 +18,7 @@ interface IWorkDeadLineProps {
 }
 moment.locale("ko");
 const WorkDeadLine = ({ textRef }: IWorkDeadLineProps) => {
-  const setWorkStep = useSetRecoilState(workStepAtom);
+  const [workStep, setWorkStep] = useRecoilState(workStepAtom);
   const setWorkspaceNum = useSetRecoilState(workspaceNumAtom);
   const [deadLine, setDeadLine] = useRecoilState(deadLineAtom);
   const [value, setValue] = useState(new Date());
@@ -28,13 +28,15 @@ const WorkDeadLine = ({ textRef }: IWorkDeadLineProps) => {
   };
   const onClick = () => {
     setWorkspaceNum((prev) => prev + 1);
-    setWorkStep((prev) => {
-      return {
-        ...prev,
-        deadLineStep: "done",
-        colorStep: "now",
-      };
-    });
+    if (workStep.deadLineStep !== "done") {
+      setWorkStep((prev) => {
+        return {
+          ...prev,
+          deadLineStep: "done",
+          colorStep: "now",
+        };
+      });
+    }
   };
   useEffect(() => {
     textRef.current?.setAttribute(

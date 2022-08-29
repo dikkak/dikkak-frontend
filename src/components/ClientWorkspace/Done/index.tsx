@@ -1,7 +1,4 @@
-import React from "react";
-import styled from "styled-components";
-import doneImg from "../../assets/workspaceImage/doneImg.svg";
-import anotherlinkImg from "../../assets/workspaceImage/anotherlinkImg.svg";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useResetRecoilState } from "recoil";
 import {
@@ -20,96 +17,33 @@ import {
   workEtcAtom,
   workspaceNumAtom,
   workStepAtom,
-} from "../../atoms";
-
-const BoxContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ContentsContainer = styled.div`
-  background: transparent;
-  height: 240px;
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-`;
-
-const ButtonContainer = styled.div`
-  height: 95px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  font-size: 20px;
-  height: 40px;
-  border: 0;
-  color: #fff;
-  margin-bottom: 15px;
-  padding: 7px 0px;
-  cursor: pointer;
-  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Noto Sans KR";
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-const LinkCopyBtn = styled(Button)`
-  background-color: ${(props) => props.theme.mainColor};
-`;
-const GotoClientBtn = styled(Button)`
-  background-color: ${(props) => props.theme.subColor};
-`;
-const DoneImg = styled.img.attrs({
-  src: doneImg,
-})`
-  width: 42px;
-  height: 44px;
-`;
-const Description = styled.p`
-  width: 100%;
-  text-align: center;
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: 500;
-  margin-bottom: 40px;
-  margin-top: 10px;
-  color: #717171;
-  font-size: 30px;
-`;
-
-const LinkImg = styled.img.attrs({
-  src: anotherlinkImg,
-})`
-  width: 20px;
-  height: 20px;
-  margin-left: 5px;
-`;
+} from "../../../atoms";
+import Toast from "../../Toast";
+import {
+  BoxContainer,
+  ButtonContainer,
+  ContentsContainer,
+  Description,
+  DoneImg,
+  GotoClientBtn,
+  LinkCopyBtn,
+  LinkImg,
+} from "./styles";
 
 interface IDoneProps {
   proposalId: string;
 }
 
 const Done = ({ proposalId }: IDoneProps) => {
+  const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
   const copyUrl = () => {
+    setIsActive(true);
     navigator.clipboard.writeText(
-      `http://localhost:3000/proposal/${proposalId}`
-    ); // 개발서버 도메인
+      `https://www.98o7.com/proposal/${proposalId}`
+    );
+    // `http://localhost:3000/proposal/${proposalId}`
+    // 개발서버 도메인
   };
   const resetTitle = useResetRecoilState(titleMessageAtom);
   const resetChoice = useResetRecoilState(workChoiceAtom);
@@ -146,21 +80,27 @@ const Done = ({ proposalId }: IDoneProps) => {
   return (
     <BoxContainer>
       <ContentsContainer>
-        <DoneImg></DoneImg>
+        <DoneImg />
         <Description>제안서 작업이 완료되었습니다!</Description>
         <ButtonContainer>
           <LinkCopyBtn onClick={copyUrl}>
-            링크 복사하기<LinkImg></LinkImg>
+            링크 복사하기
+            <LinkImg />
           </LinkCopyBtn>
           <GotoClientBtn
             onClick={() => {
               setAtomInit();
-              navigate("/client_workspace1");
+              navigate("/client_workspace");
             }}
           >
             클라이언트 작업실로 돌아가기
           </GotoClientBtn>
         </ButtonContainer>
+        <Toast
+          isActive={isActive}
+          setIsActive={setIsActive}
+          message={"링크 복사가 완료되었습니다!"}
+        />
       </ContentsContainer>
     </BoxContainer>
   );

@@ -22,14 +22,14 @@ export const Wrapper = styled.div`
 
 export const Header = styled.header`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   height: 40px;
-  align-items: center;
   margin-bottom: 30px;
 `;
 
 export const BackButton = styled.div`
+  align-self: center;
   position: relative;
   top: 0px;
   left: 0px;
@@ -58,13 +58,14 @@ export const BackButton = styled.div`
 `;
 
 export const Title = styled.div`
+  justify-self: center;
+  align-self: center;
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
   display: flex;
   align-items: center;
-
   h1 {
     font-family: "Noto Sans KR";
     font-style: normal;
@@ -78,34 +79,6 @@ export const LogoImage = styled.img.attrs({ src: logoImg })`
   margin-left: 0.7em;
   width: 30px;
   height: 30px;
-`;
-
-export const StoreBtn = styled.div`
-  position: relative;
-  top: 0px;
-  left: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 170px;
-  padding: 5px 10px;
-  background-color: #717171;
-  border-radius: 5px;
-  color: #fff;
-  height: 30px;
-
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-  p {
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 22px;
-    text-align: center;
-  }
 `;
 
 export const Content = styled.div`
@@ -415,7 +388,7 @@ export const WholeBox = styled.div`
   outline: none;
   resize: none;
   color: #c4c4c4;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 export const TagItem = styled.span`
   display: flex;
@@ -464,6 +437,8 @@ export const TagInput = styled.input`
 `;
 export const TagBox = styled.div`
   display: flex;
+  flex: 1;
+  flex-grow: 1;
   align-items: center;
   flex-wrap: wrap;
 `;
@@ -504,7 +479,6 @@ export const FileContainer = styled.ul`
     top: -12px;
     max-width: 83px;
     max-height: 42px;
-
     &::before {
       content: "";
       position: absolute;
@@ -520,4 +494,15 @@ export const FileContainer = styled.ul`
 
 export const EtcFileContainer = styled(FileContainer)`
   margin-top: 18px;
+`;
+export const FileName = styled.p`
+  position: relative;
+  bottom: -5px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+  width: 70px;
+  height: 20px;
 `;

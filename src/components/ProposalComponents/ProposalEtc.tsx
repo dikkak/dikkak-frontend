@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { IEtcFile } from "../../apis/proposal";
 import linkImg from "../../assets/workspaceImage/linkImage.png";
+import { onDownload } from "../../utils/onDownload";
 import {
   Circle,
   ClientMessage,
@@ -34,7 +35,7 @@ const ProposalEtc = ({ etcFile, etcRef }: IProposalEtcProps) => {
               <FileImgContainer>
                 <FileUploadImg></FileUploadImg>
               </FileImgContainer>
-              <Text onClick={() => window.open(item.url, "_blank")}>
+              <Text onClick={() => onDownload(item.url, item.fileName)}>
                 {item.fileName}
               </Text>
             </InputBoxLabel>

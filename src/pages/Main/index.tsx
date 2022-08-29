@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -18,6 +18,7 @@ import {
   DikkakStart,
   JumboCotainer,
   Jumbotron,
+  LoadingContainer,
   MainButtons,
   MainDikkakSignUp,
   MainDikkakStart,
@@ -27,11 +28,26 @@ import {
   Section,
   SectionContainer,
 } from "./styles";
+import { FaSpinner } from "react-icons/fa";
+import ChannelService from "../../utils/channelTalk";
 
 const Main = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);
   const navigate = useNavigate();
-  if (isFetching) <div>Loading...</div>;
+  useEffect(() => {
+    ChannelService.shutdown();
+    ChannelService.boot({
+      pluginKey: process.env.REACT_APP_CHANNELTALK_PLUGIN_KEY,
+    });
+  }, []);
+  if (isFetching)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   if (data) {
     return <Navigate to="/service_start" />;
   }
@@ -123,8 +139,12 @@ const Main = () => {
         <Section>
           <MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</MainText>
           <MainButtons>
-            <MainDikkakSignUp>⏰ DIKKAK 가입하기</MainDikkakSignUp>
-            <MainDikkakStart>DIKKAK 시작하기</MainDikkakStart>
+            <MainDikkakSignUp onClick={() => navigate("/signup")}>
+              ⏰ DIKKAK 가입하기
+            </MainDikkakSignUp>
+            <MainDikkakStart onClick={() => navigate("/login")}>
+              DIKKAK 시작하기
+            </MainDikkakStart>
           </MainButtons>
         </Section>
       </SectionContainer>

@@ -7,7 +7,6 @@ import {
   LogoSubName,
   LogoTitle,
   MenuCotainer,
-  Talk,
   Title,
 } from "./styles";
 
@@ -27,7 +26,6 @@ const Menu = () => {
             <LogoSubName>: 디자인을 깎다</LogoSubName>
           </LogoTitle>
         </Title>
-        <Talk />
       </MenuCotainer>
     </Container>
   );

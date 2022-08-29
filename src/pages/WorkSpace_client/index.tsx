@@ -9,7 +9,6 @@ import {
   BackButton,
   Title,
   LogoImage,
-  StoreBtn,
   Content,
   BlurPin,
   BlurBackground,
@@ -43,6 +42,7 @@ import {
   FileContainer,
   EtcFileContainer,
   TextOverlay,
+  FileName,
 } from "./styles";
 import WorkspaceRender from "../../components/ClientWorkspace/WorkspaceRender";
 import { useQuery } from "react-query";
@@ -62,7 +62,7 @@ import {
   isTagInputSubmittedAtom,
 } from "../../atoms";
 import NavigationGuard from "../../components/NavigationGuard/NavigationGuard";
-import Done from "../Done";
+import Done from "../../components/ClientWorkspace/Done";
 
 const WorkSpaceClient = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);
@@ -101,6 +101,9 @@ const WorkSpaceClient = () => {
     }
   };
   const submitTagItem = () => {
+    if (inputList.filter((input) => input === tagItem).length > 0) {
+      return;
+    }
     setInputList((prev) => [...prev, tagItem]);
     setTagItem("");
   };
@@ -140,6 +143,18 @@ const WorkSpaceClient = () => {
     setInput("");
   };
 
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (
+      e.currentTarget.value.length !== 0 &&
+      e.key === "Enter" &&
+      !e.shiftKey &&
+      e.nativeEvent.isComposing === false
+    ) {
+      e.preventDefault();
+      onSubmit(workspaceNum);
+    }
+  };
+
   const refFileRenderFnc = () => {
     const trueOrFalse = referenceContents.find((item) => item.imgName !== "");
     return trueOrFalse ? true : false;
@@ -174,7 +189,6 @@ const WorkSpaceClient = () => {
               <h1>제안서 작업실</h1>
               <LogoImage></LogoImage>
             </Title>
-            <StoreBtn>저장하기</StoreBtn>
           </Header>
           <Content>
             <BlurBackground>
@@ -393,10 +407,15 @@ const WorkSpaceClient = () => {
                       workspaceNum === 6 ||
                       workspaceNum === 7 ||
                       workspaceNum === 8 ||
-                      workspaceNum === 9) && <TextOverlay></TextOverlay>}
+                      workspaceNum === 9 ||
+                      workspaceNum === 11) && <TextOverlay></TextOverlay>}
                     <InputArea>
                       {workspaceNum === 5 ? (
-                        <WholeBox>
+                        <WholeBox
+                          onClick={() => {
+                            tagRef.current?.focus();
+                          }}
+                        >
                           <TagBox>
                             {inputList.map((keywordItem, index) => {
                               return (
@@ -421,6 +440,7 @@ const WorkSpaceClient = () => {
                       ) : (
                         <Text
                           ref={textRef}
+                          onKeyDown={onKeyDown}
                           onChange={onInputChange}
                           value={input}
                         />
@@ -430,9 +450,6 @@ const WorkSpaceClient = () => {
                       <SubmitButton onClick={() => onSubmit(workspaceNum)}>
                         전송하기
                       </SubmitButton>
-                      {/* <EditButton onClick={() => onEdit(workspaceNum)}>
-                        수정하기
-                      </EditButton> */}
                     </SubmitArea>
                   </TextContainer>
                 </BoxContent>
@@ -453,8 +470,6 @@ const WorkSpaceClient = () => {
                   position: "relative",
                   top: "10px",
                   height: "75%",
-                  // overflowY: "scroll",
-                  // overflowX: "hidden",
                 }}
               >
                 {refFileRenderFnc() ? (
@@ -469,9 +484,11 @@ const WorkSpaceClient = () => {
                       등록
                     </h3>
                     {fileClickState &&
-                      referenceContents.map((item) => {
+                      referenceContents.map((item, index) => {
                         return item.imgName !== "" ? (
-                          <li>{item.imgName.slice(0, 19)}</li>
+                          <li key={index}>
+                            <FileName>{item.imgName}</FileName>
+                          </li>
                         ) : null;
                       })}
                   </FileContainer>
@@ -488,9 +505,11 @@ const WorkSpaceClient = () => {
                       업로드(선택)
                     </h3>
                     {etcClickState &&
-                      workEtc.map((item) => {
+                      workEtc.map((item, index) => {
                         return item.fileName !== "" ? (
-                          <li>{item.fileName.slice(0, 19)}</li>
+                          <li key={index}>
+                            <FileName>{item.fileName}</FileName>
+                          </li>
                         ) : null;
                       })}
                   </EtcFileContainer>

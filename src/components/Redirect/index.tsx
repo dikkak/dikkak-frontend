@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { authLogin, registNewUser } from "../../apis/auth_login";
+import { FaSpinner } from "react-icons/fa";
 import Menu from "../Menu";
 import {
   AllCheckBox,
@@ -36,6 +37,7 @@ import {
   RightContents,
   TitleBox,
   CheckBoxBackground,
+  LoadingContainer,
 } from "./styles";
 
 interface IForm {
@@ -166,7 +168,14 @@ const Redirect = () => {
         }
       });
   }, [code, navigate, provider]);
-  if (isLoading) <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   return isNew ? (
     <>
       <Menu />
