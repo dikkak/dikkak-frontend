@@ -1,9 +1,14 @@
 import styled from "styled-components";
 import mainBackgroundImg from "../../assets/mainPageImage/jumbotron.svg";
+import mobile_mainBackgroundImg from "../../assets/mainPageImage/m_jumbotron.svg";
 import blurPin from "../../assets/mainPageImage/blurPin.png";
 import blurLogo from "../../assets/logoImage/blurLogo.svg";
 import stepImg from "../../assets/mainPageImage/nextStep.svg";
 import mowImg from "../../assets/mainPageImage/mow.svg";
+import firstImg from "../../assets/mainPageImage/firstImage.png";
+import secondImg from "../../assets/mainPageImage/secondImage.png";
+import thirdImg from "../../assets/mainPageImage/thirdImage.png";
+import fourthImg from "../../assets/mainPageImage/fourthImage.png";
 
 export const JumboCotainer = styled.div`
   max-width: 1440px;
@@ -12,6 +17,11 @@ export const JumboCotainer = styled.div`
   margin-top: 150px;
   padding: 0 80px;
   overflow-x: hidden;
+
+  @media screen and (max-width: 500px) {
+    padding: 0 30px;
+    height: auto;
+  }
 `;
 
 export const Jumbotron = styled.div`
@@ -25,6 +35,13 @@ export const Jumbotron = styled.div`
   background-image: url(${mainBackgroundImg});
   background-repeat: no-repeat;
   background-size: cover;
+
+  @media screen and (max-width: 500px) {
+    max-width: 450px;
+    flex-direction: column;
+    height: auto;
+    background-image: url(${mobile_mainBackgroundImg});
+  }
 `;
 
 export const BlurBackground = styled.div`
@@ -44,6 +61,15 @@ export const BlurBackground = styled.div`
   box-shadow: 5px 5px 15px #ccc;
   &:first-child {
     margin-right: 5rem;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    height: auto;
+    &:first-child {
+      margin-right: 0;
+      margin-bottom: 30px;
+    }
   }
 `;
 
@@ -68,7 +94,12 @@ export const BlurPin = styled.img.attrs({ src: blurPin })`
     right: 20px;
   }
 `;
-export const BlurLogo = styled.img.attrs({ src: blurLogo })``;
+export const BlurLogo = styled.img.attrs({ src: blurLogo })`
+  @media screen and (max-width: 500px) {
+    width: 45%;
+    margin-top: 30px;
+  }
+`;
 export const BlurInfo = styled.div`
   position: relative;
   display: flex;
@@ -103,12 +134,27 @@ export const BlurInfo = styled.div`
       margin-bottom: 4em;
     }
   }
+
+  @media screen and (max-width: 500px) {
+    & > div:first-child {
+      margin-top: 30px;
+      margin-bottom: 15px;
+      & > h1 {
+        font-size: 1rem;
+      }
+    }
+  }
 `;
 
 export const MowImage = styled.img.attrs({ src: mowImg })`
   position: absolute;
   bottom: 4em;
   right: -5em;
+
+  @media screen and (max-width: 500px) {
+    width: 45%;
+    bottom: 3.5em;
+  }
 `;
 
 export const BlurButtons = styled.div`
@@ -116,6 +162,9 @@ export const BlurButtons = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  @media screen and (max-width: 500px) {
+    align-items: center;
+  }
 `;
 export const DikkakSignUp = styled.button`
   width: 100%;
@@ -130,10 +179,17 @@ export const DikkakSignUp = styled.button`
   &:hover {
     opacity: 0.8;
   }
+  @media screen and (max-width: 500px) {
+    width: 80%;
+    margin-top: 15px;
+  }
 `;
 export const DikkakStart = styled(DikkakSignUp)`
   margin-top: 1em;
   background-color: ${(props) => props.theme.subColor};
+  @media screen and (max-width: 500px) {
+    margin-bottom: 3em;
+  }
 `;
 
 export const SectionContainer = styled.div`
@@ -142,7 +198,6 @@ export const SectionContainer = styled.div`
   align-items: center;
   max-width: 1440px;
   margin: 0 auto;
-  overflow-x: hidden;
 `;
 
 export const NextStep = styled.img.attrs({ src: stepImg })`
@@ -168,6 +223,37 @@ export const Section = styled.div`
     margin-bottom: 2em;
     font-size: 1.2rem;
   }
+
+  @media screen and (max-width: 500px) {
+    padding: 0 30px;
+    h3 {
+      font-size: 1.5rem;
+    }
+    p {
+      font-size: 1rem;
+      text-align: center;
+    }
+  }
+`;
+export const SectionFirstImage = styled.img.attrs({ src: firstImg })`
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
+`;
+export const SectionSecondImage = styled.img.attrs({ src: secondImg })`
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
+`;
+export const SectionThirdImage = styled.img.attrs({ src: thirdImg })`
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
+`;
+export const SectionFourthImage = styled.img.attrs({ src: fourthImg })`
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
 `;
 export const MainButtons = styled.div`
   display: flex;
@@ -177,11 +263,13 @@ export const MainButtons = styled.div`
 `;
 export const MainDikkakSignUp = styled(DikkakSignUp)`
   width: 48%;
-  margin-top: 1.5em;
+  margin: 0;
+  margin-top: 1.5rem;
 `;
 export const MainDikkakStart: any = styled(DikkakStart)`
   width: 48%;
-  margin-top: 1.5em;
+  margin: 0;
+  margin-top: 1.5rem;
 `;
 export const MainText = styled.div`
   width: 100%;
@@ -192,6 +280,10 @@ export const MainText = styled.div`
   line-height: 3em;
   color: #717171;
   border: 2px solid #717171;
+
+  @media screen and (max-width: 500px) {
+    font-size: 1rem;
+  }
 `;
 
 export const LoadingContainer = styled.div`

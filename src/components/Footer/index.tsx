@@ -1,17 +1,8 @@
-import React, { useState } from "react";
-import {
-  FooterContainer,
-  FooterP,
-  FooterLeft,
-  FooterLeftFirst,
-  FooterLeftSecond,
-  FooterLeftThird,
-  FooterRight,
-  FooterWrapper,
-} from "./styles";
+import React from "react";
+import * as S from "./styles";
 import instagram from "../../assets/mainPageImage/instagram.png";
 import facebook from "../../assets/mainPageImage/facebook.png";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { isTermsOfUseAtom, isTermsOfPersonalAtom } from "../../atoms";
 
 interface FooterProps {
@@ -19,23 +10,21 @@ interface FooterProps {
 }
 
 const Footer = ({ bgColor }: FooterProps) => {
-  const [termOfUse, setTermOfUse] = useRecoilState(isTermsOfUseAtom);
-  const [termsOfPersonal, setTermsOfPersonal] = useRecoilState(
-    isTermsOfPersonalAtom
-  );
+  const setTermOfUse = useSetRecoilState(isTermsOfUseAtom);
+  const setTermsOfPersonal = useSetRecoilState(isTermsOfPersonalAtom);
   return (
-    <FooterWrapper bgColor={bgColor}>
-      <FooterContainer>
-        <FooterLeft>
-          <FooterLeftFirst>
-            <FooterP onClick={() => setTermOfUse((prev) => !prev)}>
+    <S.FooterWrapper bgColor={bgColor}>
+      <S.FooterContainer>
+        <S.FooterLeft>
+          <S.FooterLeftFirst>
+            <S.FooterP onClick={() => setTermOfUse((prev) => !prev)}>
               이용약관
-            </FooterP>
-            <FooterP onClick={() => setTermsOfPersonal((prev) => !prev)}>
+            </S.FooterP>
+            <S.FooterP onClick={() => setTermsOfPersonal((prev) => !prev)}>
               개인정보 처리방침
-            </FooterP>
-          </FooterLeftFirst>
-          <FooterLeftSecond>
+            </S.FooterP>
+          </S.FooterLeftFirst>
+          <S.FooterLeftSecond>
             <div>
               <p>주식회사 98점7도</p>
             </div>
@@ -45,13 +34,13 @@ const Footer = ({ bgColor }: FooterProps) => {
               <p>대표이사 : 염정원</p>
               <p>정보보호책임자 : 염정원</p>
             </div>
-          </FooterLeftSecond>
-          <FooterLeftThird>
+          </S.FooterLeftSecond>
+          <S.FooterLeftThird>
             <p>Contact</p>
             <p>support@98o7.com</p>
-          </FooterLeftThird>
-        </FooterLeft>
-        <FooterRight>
+          </S.FooterLeftThird>
+        </S.FooterLeft>
+        <S.FooterRight>
           <a href="https://www.instagram.com/98o7do/">
             <img
               style={{ cursor: "pointer" }}
@@ -62,9 +51,9 @@ const Footer = ({ bgColor }: FooterProps) => {
           <a href="https://www.facebook.com/profile.php?id=100085252114306">
             <img style={{ cursor: "pointer" }} src={facebook} alt="facebook" />
           </a>
-        </FooterRight>
-      </FooterContainer>
-    </FooterWrapper>
+        </S.FooterRight>
+      </S.FooterContainer>
+    </S.FooterWrapper>
   );
 };
 

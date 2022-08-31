@@ -202,8 +202,13 @@ const Proposal = () => {
           <ButtonsBox>
             <Download
               onClick={() => {
-                setIsActive(true);
-                onDownload(clickedImage.url, clickedImage.fileName);
+                onDownload(
+                  clickedImage.url.split(
+                    "https://dikkak.s3.ap-northeast-2.amazonaws.com/"
+                  )[1],
+                  clickedImage.fileName,
+                  setIsActive
+                );
               }}
             />
             <Close onClick={() => setIsRefClicked(false)} />
