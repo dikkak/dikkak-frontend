@@ -6,18 +6,7 @@ import kakaoImg from "../../assets/logoImage/kakaoBtnImg.svg";
 import googleImg from "../../assets/logoImage/googleBtnImg.svg";
 import facebookImg from "../../assets/logoImage/faceboonBtnImg.svg";
 
-import {
-  BackButton,
-  BlurPin,
-  Board,
-  BrandLogo,
-  Button,
-  ButtonGroup,
-  Container,
-  LogoImage,
-  Title,
-  Wrapper,
-} from "./styles";
+import * as S from "./styles";
 import {
   KAKAO_AUTH_URL,
   GOOGLE_AUTH_URL,
@@ -37,53 +26,53 @@ const SignUp = () => {
   return (
     <>
       <Menu />
-      <Container>
-        <Wrapper>
-          <BackButton onClick={() => navigate(-1)}>
+      <S.Container>
+        <S.Wrapper>
+          <S.BackButton onClick={() => navigate(-1)}>
             <p>◀︎</p>
             <p>이전으로 돌아가기</p>
-          </BackButton>
-          <Board>
-            <BlurPin />
-            <BlurPin />
-            <BlurPin />
-            <BlurPin />
-            <Title>
+          </S.BackButton>
+          <S.Board>
+            <S.BlurPin />
+            <S.BlurPin />
+            <S.BlurPin />
+            <S.BlurPin />
+            <S.Title>
               <div>
                 <h1>회원가입</h1>
-                <LogoImage></LogoImage>
+                <S.LogoImage />
               </div>
               <p>디깍은 디자이너의 성장을 도모합니다</p>
-            </Title>
-            <ButtonGroup>
-              <Button
+            </S.Title>
+            <S.ButtonGroup>
+              <S.Button
                 as="a"
                 href={KAKAO_AUTH_URL}
                 bgColor="#f7e600"
                 textColor="#000"
               >
-                <BrandLogo url={kakaoImg}></BrandLogo>
+                <S.BrandLogo url={kakaoImg} />
                 <p>카카오톡 간편 가입하기</p>
-              </Button>
-              <Button
+              </S.Button>
+              <S.Button
                 as="a"
                 href={GOOGLE_AUTH_URL}
                 bgColor="#ffffff"
                 textColor="#000"
               >
-                <BrandLogo url={googleImg}></BrandLogo>
+                <S.BrandLogo url={googleImg} />
                 <p>구글 간편 가입하기</p>
-              </Button>
-              <Button
+              </S.Button>
+              <S.Button
                 as="a"
                 href={FACEBOOK_AUTH_URL}
                 bgColor="#1877F2"
                 textColor="#fff"
               >
-                <BrandLogo url={facebookImg}></BrandLogo>
+                <S.BrandLogo url={facebookImg} />
                 <p>페이스북 간편 가입하기</p>
-              </Button>
-              <Button
+              </S.Button>
+              <S.Button
                 style={{ marginTop: "10px" }}
                 bgColor="#000"
                 textColor="#fff"
@@ -94,11 +83,11 @@ const SignUp = () => {
                 >
                   가입 문의하기
                 </a>
-              </Button>
-            </ButtonGroup>
-          </Board>
-        </Wrapper>
-      </Container>
+              </S.Button>
+            </S.ButtonGroup>
+          </S.Board>
+        </S.Wrapper>
+      </S.Container>
       <Footer bgColor="#fff" />
     </>
   );

@@ -61,6 +61,12 @@ export const BackButton = styled.div`
     font-size: 0.8rem;
     color: white;
   }
+  @media screen and (max-width: 500px) {
+    width: 120px;
+    p {
+      font-size: 0.5rem;
+    }
+  }
 `;
 
 export const BlurPin = styled.img.attrs({ src: blurPin })`
@@ -114,12 +120,24 @@ export const Title = styled.div`
     color: #717171;
     font-family: "Noto Sans KR";
   }
+  @media screen and (max-width: 500px) {
+    & > div > h1 {
+      font-size: 1rem;
+    }
+    & > p {
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 export const LogoImage = styled.img.attrs({ src: logoImg })`
   margin-left: 1em;
   width: 30px;
   height: 30px;
+  @media screen and (max-width: 500px) {
+    width: 25px;
+    height: 25px;
+  }
 `;
 
 export const ButtonGroup = styled.div`
@@ -151,6 +169,12 @@ export const Button = styled.button<ButtonColorProps>`
   font-weight: 700;
   &:hover {
     opacity: 0.8;
+  }
+  @media screen and (max-width: 500px) {
+    width: 70%;
+    & > p {
+      font-size: 0.8rem;
+    }
   }
 `;
 
