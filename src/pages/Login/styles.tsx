@@ -48,6 +48,13 @@ export const BackButton = styled.div`
     font-size: 0.8rem;
     color: white;
   }
+
+  @media screen and (max-width: 500px) {
+    width: 120px;
+    p {
+      font-size: 0.5rem;
+    }
+  }
 `;
 export const BlurPin = styled.img.attrs({ src: blurPin })`
   position: absolute;
@@ -76,6 +83,9 @@ export const Contents = styled.div`
   flex-direction: column;
   align-items: center;
   width: 33%;
+  @media screen and (max-width: 500px) {
+    width: 70%;
+  }
 `;
 export const Title = styled.div`
   display: flex;
@@ -85,11 +95,18 @@ export const Title = styled.div`
   margin-bottom: 30px;
   font-size: 1.8rem;
   font-weight: 900;
+  @media screen and (max-width: 500px) {
+    font-size: 1rem;
+  }
 `;
 export const LogoImage = styled.img.attrs({ src: logoImg })`
   margin-left: 1em;
   width: 30px;
   height: 30px;
+  @media screen and (max-width: 500px) {
+    width: 25px;
+    height: 25px;
+  }
 `;
 export const LogInForm = styled.form`
   display: flex;
@@ -151,6 +168,10 @@ export const NextText = styled.div`
 export const SocialLogo = styled.img`
   width: 100px;
   height: 100px;
+  @media screen and (max-width: 500px) {
+    width: 50px;
+    heigth: 50px;
+  }
 `;
 
 export const SocialLoginSection = styled.div`
@@ -159,6 +180,9 @@ export const SocialLoginSection = styled.div`
   align-items: center;
   width: 100%;
   margin: 2em 0;
+  @media screen and (max-width: 500px) {
+    margin: 1em 0;
+  }
 `;
 
 export const SocialLogin = styled.div`
@@ -200,6 +224,9 @@ export const Slogan = styled.div`
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 5px;
   outline: none;
+  @media screen and (max-width: 500px) {
+    font-size: 0.5rem;
+  }
 `;
 export const SignUp = styled.button`
   margin-top: 1em;
@@ -217,6 +244,9 @@ export const SignUp = styled.button`
   cursor: pointer;
   &:hover {
     opacity: 0.8;
+  }
+  @media screen and (max-width: 500px) {
+    font-size: 0.5rem;
   }
 `;
 

@@ -1,23 +1,7 @@
 import React from "react";
 import Menu from "../../components/Menu";
 import { Navigate, useNavigate } from "react-router-dom";
-import {
-  BackButton,
-  BlurPin,
-  Board,
-  Buttons,
-  Container,
-  Contents,
-  LoadingContainer,
-  LogoImage,
-  SignUp,
-  Slogan,
-  SocialLogin,
-  SocialLoginSection,
-  SocialLogo,
-  Title,
-  Wrapper,
-} from "./styles";
+import * as S from "./styles";
 import facebook from "../../assets/logoImage/facebookLogin.svg";
 import kakao from "../../assets/logoImage/kakaoLogin.svg";
 import google from "../../assets/logoImage/googleLogin.svg";
@@ -37,11 +21,11 @@ const Login = () => {
 
   if (isFetching)
     return (
-      <LoadingContainer>
+      <S.LoadingContainer>
         <FaSpinner size={36} className="spinner" />
         <br></br>
         <h1>잠시만 기다려주세요</h1>
-      </LoadingContainer>
+      </S.LoadingContainer>
     );
   if (data) {
     return <Navigate to="/service_start" />;
@@ -50,46 +34,46 @@ const Login = () => {
   return (
     <>
       <Menu />
-      <Container>
-        <Wrapper>
-          <BackButton onClick={() => navigate(-1)}>
+      <S.Container>
+        <S.Wrapper>
+          <S.BackButton onClick={() => navigate(-1)}>
             <p>◀︎</p>
             <p>이전으로 돌아가기</p>
-          </BackButton>
-          <Board>
-            <BlurPin />
-            <BlurPin />
-            <BlurPin />
-            <BlurPin />
-            <Contents>
-              <Title>
+          </S.BackButton>
+          <S.Board>
+            <S.BlurPin />
+            <S.BlurPin />
+            <S.BlurPin />
+            <S.BlurPin />
+            <S.Contents>
+              <S.Title>
                 <h1 style={{ display: "inline-block" }}>로그인</h1>
-                <LogoImage />
-              </Title>
-              <SocialLoginSection>
-                <SocialLogin as="a" href={KAKAO_AUTH_URL}>
-                  <SocialLogo src={kakao} />
+                <S.LogoImage />
+              </S.Title>
+              <S.SocialLoginSection>
+                <S.SocialLogin as="a" href={KAKAO_AUTH_URL}>
+                  <S.SocialLogo src={kakao} />
                   <p>카카오</p>
-                </SocialLogin>
-                <SocialLogin as="a" href={GOOGLE_AUTH_URL}>
-                  <SocialLogo src={google} />
+                </S.SocialLogin>
+                <S.SocialLogin as="a" href={GOOGLE_AUTH_URL}>
+                  <S.SocialLogo src={google} />
                   <p>구글</p>
-                </SocialLogin>
-                <SocialLogin as="a" href={FACEBOOK_AUTH_URL}>
-                  <SocialLogo src={facebook} />
+                </S.SocialLogin>
+                <S.SocialLogin as="a" href={FACEBOOK_AUTH_URL}>
+                  <S.SocialLogo src={facebook} />
                   <p>페이스북</p>
-                </SocialLogin>
-              </SocialLoginSection>
-              <Buttons>
-                <Slogan>빠르고 쉬운 아웃소싱 플랫폼 DIKKAK</Slogan>
-                <SignUp onClick={() => navigate("/signup")}>
+                </S.SocialLogin>
+              </S.SocialLoginSection>
+              <S.Buttons>
+                <S.Slogan>빠르고 쉬운 아웃소싱 플랫폼 DIKKAK</S.Slogan>
+                <S.SignUp onClick={() => navigate("/signup")}>
                   아직 회원이 아니신가요?👉3초안에 가입하기
-                </SignUp>
-              </Buttons>
-            </Contents>
-          </Board>
-        </Wrapper>
-      </Container>
+                </S.SignUp>
+              </S.Buttons>
+            </S.Contents>
+          </S.Board>
+        </S.Wrapper>
+      </S.Container>
       <Footer bgColor="#fff" />
     </>
   );
