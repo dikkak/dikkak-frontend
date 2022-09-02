@@ -29,6 +29,15 @@ export const Box = styled.div`
   &:hover {
     cursor: pointer;
   }
+  @media screen and (max-width: 500px) {
+    & p {
+      font-size: 0.8rem;
+    }
+    & span {
+      margin-top: 10px;
+      font-size: 0.2rem;
+    }
+  }
 `;
 
 export const Client = styled(Box)`

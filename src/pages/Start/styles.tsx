@@ -146,6 +146,7 @@ export const BackButton = styled.div`
     color: white;
   }
   @media screen and (max-width: 500px) {
+    left: 10%;
     width: 120px;
     p {
       font-size: 0.5rem;
@@ -202,9 +203,10 @@ export const PaintLogo = styled.img.attrs({ src: paintLogo })`
   width: 140px;
   height: 90px;
   @media screen and (max-width: 500px) {
+    top: 10px;
     right: 3%;
-    width: 120px;
-    height: 70px;
+    width: 100px;
+    height: 50px;
   }
 `;
 

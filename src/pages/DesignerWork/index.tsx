@@ -2,15 +2,7 @@ import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Document from "../../components/Document";
 import { Navigate, useNavigate } from "react-router-dom";
-import {
-  BackButton,
-  Container,
-  DocumentContainer,
-  LoadingContainer,
-  LogoImage,
-  Title,
-  Wrapper,
-} from "./styles";
+import * as S from "./styles";
 import { useQuery } from "react-query";
 import { userInfo } from "../../apis/auth_login";
 import { getWorkplaceList } from "../../apis/workplace";
@@ -87,11 +79,11 @@ const DesignerWorkPage = () => {
   }, [userData?.type, completeList, workplaceList]);
   if (isFetching)
     return (
-      <LoadingContainer>
+      <S.LoadingContainer>
         <FaSpinner size={36} className="spinner" />
         <br></br>
         <h1>잠시만 기다려주세요</h1>
-      </LoadingContainer>
+      </S.LoadingContainer>
     );
   if (!userData && !isFetching) {
     return <Navigate to="/login" />;
@@ -101,16 +93,16 @@ const DesignerWorkPage = () => {
   }
   return (
     <>
-      <Container>
-        <Wrapper>
-          <BackButton onClick={() => navigate("/service_start")}>
+      <S.Container>
+        <S.Wrapper>
+          <S.BackButton onClick={() => navigate("/service_start")}>
             <p>◀︎</p>
             <p>이전으로 돌아가기</p>
-          </BackButton>
-          <Title>
+          </S.BackButton>
+          <S.Title>
             <div>
               <h1>디자이너 작업실</h1>
-              <LogoImage></LogoImage>
+              <S.LogoImage />
             </div>
             <p>외주작업을 위한 {userData?.username} 디자이너 작업실 입니다</p>
             <p>
@@ -119,13 +111,13 @@ const DesignerWorkPage = () => {
               통해 참여 코드를 요청해주세요!(1-2분 내 이메일로 코드 자동
               발송해드립니다)
             </p>
-          </Title>
-          <DocumentContainer>
+          </S.Title>
+          <S.DocumentContainer>
             <Document designerContent={completeWork}></Document>
             <Document designerContent={companyContent}></Document>
-          </DocumentContainer>
-        </Wrapper>
-      </Container>
+          </S.DocumentContainer>
+        </S.Wrapper>
+      </S.Container>
       <Footer bgColor="#fff"></Footer>
     </>
   );

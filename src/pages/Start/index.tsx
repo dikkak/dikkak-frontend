@@ -18,6 +18,7 @@ import {
 import Admin from "../Admin";
 import { setChannelTalkUser } from "../../utils/setChannelTalkService";
 import { FaSpinner } from "react-icons/fa";
+import { debounce } from "lodash";
 
 const Start = () => {
   const [checkUserLoading, setCheckUserLoading] = useState(false);
@@ -25,7 +26,7 @@ const Start = () => {
   const queryClient = useQueryClient();
   const [isLogoutClicked, setIsLogoutClicked] = useState(false);
   const navigate = useNavigate();
-
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const onLogout = () => {
     authLogout().then(() => {
       delete axios.defaults.headers.common["Authorization"];
@@ -42,7 +43,9 @@ const Start = () => {
       }
     });
   };
-
+  const resizeWindow = debounce(() => {
+    setInnerWidth(window.innerWidth);
+  }, 1000);
   const getProviderUrl = (provider: string) => {
     switch (provider) {
       case "KAKAO":
@@ -55,7 +58,6 @@ const Start = () => {
         return "err";
     }
   };
-
   useEffect(() => {
     data &&
       setChannelTalkUser(
@@ -67,7 +69,12 @@ const Start = () => {
         data.popUpMessage
       );
   }, [data]);
-
+  useEffect(() => {
+    window.addEventListener("resize", resizeWindow);
+    return () => {
+      window.removeEventListener("resize", resizeWindow);
+    };
+  }, [resizeWindow]);
   if (!data) {
     return <Navigate to="/login" />;
   }
@@ -137,6 +144,7 @@ const Start = () => {
                     <ServiceButton
                       username={data.username}
                       type={data.type}
+                      innerWidth={innerWidth}
                       setIsLogoutClicked={setIsLogoutClicked}
                       onLogout={onLogout}
                     />

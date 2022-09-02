@@ -18,6 +18,9 @@ export const Wrapper = styled.div`
   width: 70%;
   height: 660px;
   padding: 40px 0;
+  @media screen and (max-width: 500px) {
+    height: auto;
+  }
 `;
 
 export const Title = styled.div`
@@ -50,6 +53,16 @@ export const Title = styled.div`
     color: #717171;
     font-family: "Noto Sans KR";
   }
+
+  @media screen and (max-width: 500px) {
+    & div h1 {
+      font-size: 26px;
+    }
+    & p {
+      font-size: 12px;
+      line-height: 20px;
+    }
+  }
 `;
 
 export const BackButton = styled.div`
@@ -72,6 +85,15 @@ export const BackButton = styled.div`
     font-size: 0.8rem;
     color: white;
   }
+
+  @media screen and (max-width: 500px) {
+    width: 120px;
+    top: -20px;
+    left: -20px;
+    p {
+      font-size: 0.5rem;
+    }
+  }
 `;
 
 export const DocumentContainer = styled.div`
@@ -79,6 +101,13 @@ export const DocumentContainer = styled.div`
   justify-content: space-between;
   width: 790px;
   margin-bottom: 60px;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+  }
 `;
 
 //Logo

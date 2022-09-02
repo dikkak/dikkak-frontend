@@ -3,18 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IClientContent } from "../../pages/ClientWork";
 import { IDesignerContent } from "../../pages/DesignerWork";
 import Modal from "../Modal";
-import {
-  Container,
-  InputBox,
-  LinkImage,
-  List,
-  ListContainer,
-  ListInnerContainer,
-  MoveBtn,
-  RemoveBtn,
-  StartBtnContainer,
-  Title,
-} from "./styles";
+import * as S from "./styles";
 
 interface ContentProps {
   clientContent?: IClientContent;
@@ -36,7 +25,9 @@ const Document = ({
   const onLinkClick = (proposalId: number) => {
     setIsActive && setIsActive(true);
     navigator.clipboard.writeText(
-      `https://www.98o7.com/proposal/${proposalId}`
+      process.env.NODE_ENV === "production"
+        ? `https://www.98o7.com/proposal/${proposalId}`
+        : `https://dev.98o7.com/proposal/${proposalId}`
     );
     // `http://localhost:3000/proposal/${proposalId}`
     // 개발서버 도메인
@@ -82,17 +73,17 @@ const Document = ({
           setIsDeleteClicked={setIsDeleteClicked}
         />
       )}
-      <Container>
+      <S.Container>
         {/* 클라이언트 작업실 */}
-        <Title>
+        <S.Title>
           {clientContent?.title ? clientContent.title : designerContent?.title}
-        </Title>
-        <ListContainer>
-          <ListInnerContainer>
+        </S.Title>
+        <S.ListContainer>
+          <S.ListInnerContainer>
             {clientContent &&
               (clientContent.title === "제안서"
                 ? clientContent.contents?.map((content, index) => (
-                    <List key={content.id}>
+                    <S.List key={content.id}>
                       {/* 클라이언트 작업실 제안서 리스트*/}
                       <Link to={`/proposal/${content.id}`}>
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>{" "}
@@ -100,18 +91,18 @@ const Document = ({
                         <p></p>
                       </Link>
                       {isDelete ? (
-                        <InputBox
+                        <S.InputBox
                           isMatched={Boolean(content.coworkingId)}
                           type="checkbox"
                           onChange={() => onChange(content.id)}
                         />
                       ) : (
-                        <LinkImage onClick={() => onLinkClick(content.id)} />
+                        <S.LinkImage onClick={() => onLinkClick(content.id)} />
                       )}
-                    </List>
+                    </S.List>
                   ))
                 : clientContent.contents?.map((content, index) => (
-                    <List key={content.id}>
+                    <S.List key={content.id}>
                       {/* 클라이언트 작업실 외주작업실 리스트*/}
                       <Link to="#">
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
@@ -124,15 +115,15 @@ const Document = ({
                         <span>{`디자이너 / ${content.coworkingStep}차 작업중`}</span>
                         <p></p>
                       </Link>
-                      <LinkImage />
-                    </List>
+                      <S.LinkImage />
+                    </S.List>
                   )))}
 
             {/* 디자이너 작업실 */}
             {designerContent &&
               (designerContent.title === "완료된 작업"
                 ? designerContent.contents?.map((content, index) => (
-                    <List key={content.id}>
+                    <S.List key={content.id}>
                       {/* 디자이너 작업실 완료된 작업 리스트*/}
                       <Link to={"#"}>
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>{" "}
@@ -140,18 +131,18 @@ const Document = ({
                         <p></p>
                       </Link>
                       {isDelete ? (
-                        <InputBox
+                        <S.InputBox
                           isMatched={content.coworkingId !== undefined}
                           type="checkbox"
                           onChange={() => onChange(content.id)}
                         />
                       ) : (
-                        <LinkImage />
+                        <S.LinkImage />
                       )}
-                    </List>
+                    </S.List>
                   ))
                 : designerContent.contents?.map((content, index) => (
-                    <List key={content.id}>
+                    <S.List key={content.id}>
                       {/* 디자이너 작업실 외주작업실 리스트*/}
                       <Link to={"#"}>
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
@@ -164,8 +155,8 @@ const Document = ({
                         <span>{`클라이언트 / ${content.coworkingStep}차 작업중`}</span>
                         <p></p>
                       </Link>
-                      <LinkImage />
-                    </List>
+                      <S.LinkImage />
+                    </S.List>
                   )))}
 
             {/* 클라이언트 작업실의 제안서, 디자이너 작업실의 완료된 작업 삭제 버튼*/}
@@ -174,16 +165,16 @@ const Document = ({
             !isDelete &&
             clientContent?.contents?.length !== 0 &&
             designerContent?.contents?.length !== 0 ? (
-              <StartBtnContainer>
-                <RemoveBtn onClick={() => setIsDelete(true)}>
+              <S.StartBtnContainer>
+                <S.RemoveBtn onClick={() => setIsDelete(true)}>
                   삭제하기
-                </RemoveBtn>
-              </StartBtnContainer>
+                </S.RemoveBtn>
+              </S.StartBtnContainer>
             ) : null}
-          </ListInnerContainer>
-        </ListContainer>
+          </S.ListInnerContainer>
+        </S.ListContainer>
         {isDelete ? (
-          <MoveBtn
+          <S.MoveBtn
             onClick={() => {
               if (checkedInput.length > 0) {
                 setIsDeleteClicked(true);
@@ -198,9 +189,9 @@ const Document = ({
             }}
           >
             삭제하기
-          </MoveBtn>
+          </S.MoveBtn>
         ) : (
-          <MoveBtn
+          <S.MoveBtn
             onClick={onMoveButtonClick}
             style={{
               backgroundColor: clientContent?.bgColor
@@ -211,9 +202,9 @@ const Document = ({
             {clientContent?.workMenttion
               ? clientContent.workMenttion
               : designerContent?.workMenttion}
-          </MoveBtn>
+          </S.MoveBtn>
         )}
-      </Container>
+      </S.Container>
     </>
   );
 };

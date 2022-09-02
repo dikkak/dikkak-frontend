@@ -2,16 +2,7 @@ import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Document from "../../components/Document";
 import { Navigate, useNavigate } from "react-router-dom";
-import {
-  BackButton,
-  Container,
-  DocumentContainer,
-  LoadingContainer,
-  LogoImage,
-  Popup,
-  Title,
-  Wrapper,
-} from "./styles";
+import * as S from "./styles";
 import { useQuery, useQueryClient } from "react-query";
 import { userInfo } from "../../apis/auth_login";
 import { getProposalList } from "../../apis/workplace";
@@ -93,11 +84,11 @@ const ClientWorkPage = () => {
 
   if (isFetching)
     return (
-      <LoadingContainer>
+      <S.LoadingContainer>
         <FaSpinner size={36} className="spinner" />
         <br></br>
         <h1>잠시만 기다려주세요</h1>
-      </LoadingContainer>
+      </S.LoadingContainer>
     );
   if (!userData && !isFetching) {
     return <Navigate to="/login" />;
@@ -107,36 +98,36 @@ const ClientWorkPage = () => {
   }
   return (
     <>
-      <Container>
-        <Wrapper>
-          <BackButton onClick={() => navigate("/service_start")}>
+      <S.Container>
+        <S.Wrapper>
+          <S.BackButton onClick={() => navigate("/service_start")}>
             <p>◀︎</p>
             <p>이전으로 돌아가기</p>
-          </BackButton>
-          <Title>
+          </S.BackButton>
+          <S.Title>
             <div>
               <h1>클라이언트 작업실</h1>
-              <LogoImage></LogoImage>
+              <S.LogoImage />
             </div>
             <p>외주작업을 위한 {userData?.username} 클라이언트 작업실 입니다</p>
-          </Title>
-          <DocumentContainer>
+          </S.Title>
+          <S.DocumentContainer>
             <Document
               clientContent={clientContent}
               setIsActive={setIsActive}
               onDelete={onDelete}
             ></Document>
             <Document clientContent={companyContent}></Document>
-          </DocumentContainer>
-          <Popup>
+          </S.DocumentContainer>
+          <S.Popup>
             <Toast
               isActive={isActive}
               setIsActive={setIsActive}
               message={"링크 복사가 완료되었습니다!"}
             />
-          </Popup>
-        </Wrapper>
-      </Container>
+          </S.Popup>
+        </S.Wrapper>
+      </S.Container>
       <Footer bgColor="#fff"></Footer>
     </>
   );

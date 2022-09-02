@@ -4,12 +4,14 @@ import * as S from "./styles";
 interface IServiceButtonProps {
   username: string;
   type: string;
+  innerWidth: number;
   setIsLogoutClicked: React.Dispatch<React.SetStateAction<boolean>>;
   onLogout: () => void;
 }
 const ServiceButton = ({
   username,
   type,
+  innerWidth,
   setIsLogoutClicked,
   onLogout,
 }: IServiceButtonProps) => {
@@ -28,7 +30,7 @@ const ServiceButton = ({
   return (
     <S.Container>
       <S.WorkSpace onClick={goWorkspace}>
-        <p>{username}님의 작업실 바로가기</p>
+        <p>{innerWidth > 600 ? `${username}님의` : ""}작업실 바로가기</p>
         <span>아웃소싱 작업실로 입장합니다.</span>
       </S.WorkSpace>
       <S.Logout onClick={onButtonClick}>
