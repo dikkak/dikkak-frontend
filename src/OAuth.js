@@ -1,10 +1,22 @@
 const KAKAO_API_KEY = process.env.REACT_APP_KAKAO_API_KEY;
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 const FACEBOOK_API_KEY = process.env.REACT_APP_FACEBOOK_API_KEY;
-const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
-const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
-const FACEBOOK_REDIRECT_URI = process.env.REACT_APP_FACEBOOK_REDIRECT_URI;
-const LOGOUT_REDIRECT_URI = process.env.REACT_APP_KAKAO_LOGOUT_REDIRECT_URI;
+const KAKAO_REDIRECT_URI =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_KAKAO_REDIRECT_URI
+    : process.env.REACT_APP_KAKAO_DEV_REDIRECT_URI;
+const GOOGLE_REDIRECT_URI =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_GOOGLE_REDIRECT_URI
+    : process.env.REACT_APP_GOOGLE_DEV_REDIRECT_URI;
+const FACEBOOK_REDIRECT_URI =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_FACEBOOK_REDIRECT_URI
+    : process.env.REACT_APP_FACEBOOK_DEV_REDIRECT_URI;
+const LOGOUT_REDIRECT_URI =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_KAKAO_LOGOUT_REDIRECT_URI
+    : process.env.REACT_APP_KAKAO_DEV_LOGOUT_REDIRECT_URI;
 
 // eslint-disable-next-line no-useless-concat
 const google_scope =

@@ -5,40 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { authLogin, registNewUser } from "../../apis/auth_login";
 import { FaSpinner } from "react-icons/fa";
 import Menu from "../Menu";
-import {
-  AllCheckBox,
-  CheckBox1Label,
-  CheckBox2Label,
-  CheckBox3Label,
-  CheckBox3SubLabel,
-  CheckBox4Input,
-  CheckBox4Label,
-  ChekcBox1Input,
-  ChekcBox2Input,
-  ChekcBox3Input,
-  Container,
-  ErrorMessage,
-  FormContainer,
-  InputBox,
-  RegisterButton,
-  CheckBox,
-  NameLabel,
-  NameInput,
-  PhoneLabel,
-  PhoneInput,
-  Wrapper,
-  BackButton,
-  Contents,
-  TimeLine,
-  TimeStep,
-  Outer,
-  LogoImage,
-  Title,
-  RightContents,
-  TitleBox,
-  CheckBoxBackground,
-  LoadingContainer,
-} from "./styles";
+import * as S from "./styles";
+import Footer from "../Footer";
 
 interface IForm {
   username: string;
@@ -170,47 +138,47 @@ const Redirect = () => {
   }, [code, navigate, provider]);
   if (isLoading)
     return (
-      <LoadingContainer>
+      <S.LoadingContainer>
         <FaSpinner size={36} className="spinner" />
         <br></br>
         <h1>잠시만 기다려주세요</h1>
-      </LoadingContainer>
+      </S.LoadingContainer>
     );
   return isNew ? (
     <>
       <Menu />
-      <Container>
-        <Wrapper>
-          <BackButton onClick={() => navigate(-1)}>
+      <S.Container>
+        <S.Wrapper>
+          <S.BackButton onClick={() => navigate(-1)}>
             <p>◀︎</p>
             <p>이전으로 돌아가기</p>
-          </BackButton>
-          <Contents>
-            <TimeLine>
-              <Outer>
-                <TimeStep step={step.first}>정보입력</TimeStep>
-                <TimeStep step={step.second}>약관동의</TimeStep>
-                <TimeStep step={step.third}>가입완료</TimeStep>
-              </Outer>
-            </TimeLine>
-            <RightContents>
-              <Title>
+          </S.BackButton>
+          <S.Contents>
+            <S.TimeLine>
+              <S.Outer>
+                <S.TimeStep step={step.first}>정보입력</S.TimeStep>
+                <S.TimeStep step={step.second}>약관동의</S.TimeStep>
+                <S.TimeStep step={step.third}>가입완료</S.TimeStep>
+              </S.Outer>
+            </S.TimeLine>
+            <S.RightContents>
+              <S.Title>
                 <h1>회원가입</h1>
-                <LogoImage></LogoImage>
-              </Title>
-              <FormContainer onSubmit={handleSubmit(onValid)}>
-                <TitleBox>STEP 1 정보입력</TitleBox>
-                <InputBox>
-                  <NameLabel>이름</NameLabel>
-                  <NameInput
+                <S.LogoImage />
+              </S.Title>
+              <S.FormContainer onSubmit={handleSubmit(onValid)}>
+                <S.TitleBox>STEP 1 정보입력</S.TitleBox>
+                <S.InputBox>
+                  <S.NameLabel>이름</S.NameLabel>
+                  <S.NameInput
                     {...register("username", { required: "이름을 입력하세요" })}
                     onChange={(e) => onChangeName(e)}
                   />
-                  <ErrorMessage>{errors.username?.message}</ErrorMessage>
-                </InputBox>
-                <InputBox>
-                  <PhoneLabel>휴대폰 번호</PhoneLabel>
-                  <PhoneInput
+                  <S.ErrorMessage>{errors.username?.message}</S.ErrorMessage>
+                </S.InputBox>
+                <S.InputBox>
+                  <S.PhoneLabel>휴대폰 번호</S.PhoneLabel>
+                  <S.PhoneInput
                     {...register("phoneNumber", {
                       required: "전화번호를 입력하세요",
                       pattern: {
@@ -220,11 +188,11 @@ const Redirect = () => {
                     })}
                     onChange={(e) => onChangePhone(e)}
                   />
-                  <ErrorMessage>{errors.phoneNumber?.message}</ErrorMessage>
-                </InputBox>
-                <TitleBox>STEP 2 약관동의</TitleBox>
-                <CheckBox style={{ marginBottom: "1em" }}>
-                  <AllCheckBox
+                  <S.ErrorMessage>{errors.phoneNumber?.message}</S.ErrorMessage>
+                </S.InputBox>
+                <S.TitleBox>STEP 2 약관동의</S.TitleBox>
+                <S.CheckBox style={{ marginBottom: "1em" }}>
+                  <S.AllCheckBox
                     onChange={checkAllBox}
                     type="checkbox"
                     id="allAgree"
@@ -232,10 +200,10 @@ const Redirect = () => {
                   <label style={{ fontSize: "12px" }} htmlFor="allAgree">
                     모두 동의합니다.
                   </label>
-                </CheckBox>
-                <CheckBoxBackground>
-                  <CheckBox>
-                    <ChekcBox1Input
+                </S.CheckBox>
+                <S.CheckBoxBackground>
+                  <S.CheckBox>
+                    <S.ChekcBox1Input
                       {...register("termsConditions", {
                         required: "필수 선택입니다.",
                       })}
@@ -243,15 +211,15 @@ const Redirect = () => {
                       id="termsConditions"
                       onChange={(e) => onCheckedTermsConditions(e)}
                     />
-                    <CheckBox1Label>
+                    <S.CheckBox1Label>
                       이용약관에 동의합니다. (필수)
-                    </CheckBox1Label>
-                    <ErrorMessage>
+                    </S.CheckBox1Label>
+                    <S.ErrorMessage>
                       {errors.termsConditions?.message}
-                    </ErrorMessage>
-                  </CheckBox>
-                  <CheckBox>
-                    <ChekcBox2Input
+                    </S.ErrorMessage>
+                  </S.CheckBox>
+                  <S.CheckBox>
+                    <S.ChekcBox2Input
                       {...register("dataPolicy", {
                         required: "필수 선택입니다.",
                       })}
@@ -259,43 +227,46 @@ const Redirect = () => {
                       id="dataPolicy"
                       onChange={(e) => onCheckedDataPolicy(e)}
                     />
-                    <CheckBox2Label>
+                    <S.CheckBox2Label>
                       개인정보 처리 방침에 동의합니다. (필수)
-                    </CheckBox2Label>
-                    <ErrorMessage>{errors.dataPolicy?.message}</ErrorMessage>
-                  </CheckBox>
-                  <CheckBox>
-                    <ChekcBox3Input
+                    </S.CheckBox2Label>
+                    <S.ErrorMessage>
+                      {errors.dataPolicy?.message}
+                    </S.ErrorMessage>
+                  </S.CheckBox>
+                  <S.CheckBox>
+                    <S.ChekcBox3Input
                       {...register("popUpMessage")}
                       type="checkbox"
                       id="popUpMessage"
                     />
                     <div style={{ display: "flex", flexDirection: "column" }}>
-                      <CheckBox3Label>
+                      <S.CheckBox3Label>
                         팝업메세지 제공에 동의합니다. (선택)
-                      </CheckBox3Label>
-                      <CheckBox3SubLabel>
+                      </S.CheckBox3Label>
+                      <S.CheckBox3SubLabel>
                         동의 하지 않을시 최적화된 작업환경 제공이 불가합니다.
-                      </CheckBox3SubLabel>
+                      </S.CheckBox3SubLabel>
                     </div>
-                  </CheckBox>
-                  <CheckBox>
-                    <CheckBox4Input
+                  </S.CheckBox>
+                  <S.CheckBox>
+                    <S.CheckBox4Input
                       {...register("marketingMessage")}
                       type="checkbox"
                       id="marketingMessage"
                     />
-                    <CheckBox4Label>
+                    <S.CheckBox4Label>
                       마케팅 메세지 수신에 동의합니다. (선택)
-                    </CheckBox4Label>
-                  </CheckBox>
-                </CheckBoxBackground>
-                <RegisterButton>가입하기</RegisterButton>
-              </FormContainer>
-            </RightContents>
-          </Contents>
-        </Wrapper>
-      </Container>
+                    </S.CheckBox4Label>
+                  </S.CheckBox>
+                </S.CheckBoxBackground>
+                <S.RegisterButton>가입하기</S.RegisterButton>
+              </S.FormContainer>
+            </S.RightContents>
+          </S.Contents>
+        </S.Wrapper>
+      </S.Container>
+      <Footer bgColor="#fff" />
     </>
   ) : null;
 };

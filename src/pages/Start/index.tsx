@@ -3,21 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import ClientOrDesigner from "../../components/ClientOrDesigner";
-import {
-  BackButton,
-  BlurBackground,
-  BlurPin,
-  Container,
-  Content,
-  ContentDesc,
-  JumboCotainer,
-  Jumbotron,
-  LetterLogo,
-  LoadingContainer,
-  LogoImage,
-  PaintLogo,
-  Title,
-} from "./styles";
+import * as S from "./styles";
 import { useQuery, useQueryClient } from "react-query";
 import { authLogout, userInfo } from "../../apis/auth_login";
 import ServiceButton from "../../components/ServiceButton";
@@ -96,11 +82,11 @@ const Start = () => {
 
   if (isLoading || checkUserLoading)
     return (
-      <LoadingContainer>
+      <S.LoadingContainer>
         <FaSpinner size={36} className="spinner" />
         <br></br>
         <h1>잠시만 기다려주세요</h1>
-      </LoadingContainer>
+      </S.LoadingContainer>
     );
   if (data.type === "ADMIN") {
     return <Admin />;
@@ -111,43 +97,43 @@ const Start = () => {
         <Modal onLogout={onLogout} setIsLogoutClicked={setIsLogoutClicked} />
       )}
       <Menu />
-      <Container>
-        <BackButton onClick={() => navigate(-1)}>
+      <S.Container>
+        <S.BackButton onClick={() => navigate(-1)}>
           <p>◀︎</p>
           <p>이전으로 돌아가기</p>
-        </BackButton>
-        <JumboCotainer>
-          <Jumbotron>
-            <BlurBackground>
-              <BlurPin />
-              <BlurPin />
-              <BlurPin />
-              <BlurPin />
-              <Title>
+        </S.BackButton>
+        <S.JumboCotainer>
+          <S.Jumbotron>
+            <S.BlurBackground>
+              <S.BlurPin />
+              <S.BlurPin />
+              <S.BlurPin />
+              <S.BlurPin />
+              <S.Title>
                 <div>
-                  <LogoImage></LogoImage>
+                  <S.LogoImage />
                   <div>
-                    <LetterLogo></LetterLogo>
+                    <S.LetterLogo />
                     <p>: 디자인을 깎다</p>
                   </div>
-                  <PaintLogo></PaintLogo>
+                  <S.PaintLogo />
                 </div>
-              </Title>
-              <Content>
+              </S.Title>
+              <S.Content>
                 {data?.type === "UNDEFINED" ? (
                   <>
-                    <ContentDesc>
+                    <S.ContentDesc>
                       MZ가 작업하는 빠르고-쉬운 디자인 아웃소싱 플랫폼
-                    </ContentDesc>
-                    <ClientOrDesigner></ClientOrDesigner>
+                    </S.ContentDesc>
+                    <ClientOrDesigner />
                   </>
                 ) : (
                   <>
-                    <ContentDesc>
+                    <S.ContentDesc>
                       {data?.username}{" "}
                       {data?.type === "CLIENT" ? "클라이언트" : "디자이너"}님
                       안녕하세요!
-                    </ContentDesc>
+                    </S.ContentDesc>
                     <ServiceButton
                       username={data.username}
                       type={data.type}
@@ -156,12 +142,12 @@ const Start = () => {
                     />
                   </>
                 )}
-              </Content>
-            </BlurBackground>
-          </Jumbotron>
-        </JumboCotainer>
+              </S.Content>
+            </S.BlurBackground>
+          </S.Jumbotron>
+        </S.JumboCotainer>
         <Footer bgColor="#fff" />
-      </Container>
+      </S.Container>
     </>
   );
 };
