@@ -40,7 +40,9 @@ const Done = ({ proposalId }: IDoneProps) => {
   const copyUrl = () => {
     setIsActive(true);
     navigator.clipboard.writeText(
-      `https://www.98o7.com/proposal/${proposalId}`
+      process.env.NODE_ENV === "production"
+        ? `https://www.98o7.com/proposal/${proposalId}`
+        : `https://dev.98o7.com/proposal/${proposalId}`
     );
     // `http://localhost:3000/proposal/${proposalId}`
     // 개발서버 도메인

@@ -6,6 +6,8 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width: 500px) {
+  }
 `;
 
 export const Box = styled.div`
@@ -28,6 +30,15 @@ export const Box = styled.div`
   }
   &:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 500px) {
+    & p {
+      font-size: 0.8rem;
+    }
+    & span {
+      margin-top: 10px;
+      font-size: 0.2rem;
+    }
   }
 `;
 

@@ -1,15 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, WorkSpace, Logout } from "./styles";
+import * as S from "./styles";
 interface IServiceButtonProps {
   username: string;
   type: string;
+  innerWidth: number;
   setIsLogoutClicked: React.Dispatch<React.SetStateAction<boolean>>;
   onLogout: () => void;
 }
 const ServiceButton = ({
   username,
   type,
+  innerWidth,
   setIsLogoutClicked,
   onLogout,
 }: IServiceButtonProps) => {
@@ -26,16 +28,16 @@ const ServiceButton = ({
     }
   };
   return (
-    <Container>
-      <WorkSpace onClick={goWorkspace}>
-        <p>{username}님의 작업실 바로가기</p>
+    <S.Container>
+      <S.WorkSpace onClick={goWorkspace}>
+        <p>{innerWidth > 600 ? `${username}님의` : ""}작업실 바로가기</p>
         <span>아웃소싱 작업실로 입장합니다.</span>
-      </WorkSpace>
-      <Logout onClick={onButtonClick}>
+      </S.WorkSpace>
+      <S.Logout onClick={onButtonClick}>
         <p>로그아웃</p>
         <span>작업을 종료합니다.</span>
-      </Logout>
-    </Container>
+      </S.Logout>
+    </S.Container>
   );
 };
 

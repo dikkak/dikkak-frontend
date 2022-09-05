@@ -5,6 +5,16 @@ export const Container = styled.div`
   height: 370px;
   width: 50%;
   max-width: 373px;
+  @media screen and (max-width: 500px) {
+    width: 85%;
+    margin-bottom: 200px;
+    &:first-child {
+      margin-top: 50px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 `;
 
 export const Title = styled.h2`

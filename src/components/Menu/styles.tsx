@@ -21,6 +21,11 @@ export const MenuCotainer = styled.nav`
   height: 50px;
   padding: 0 80px;
   margin: 0 auto;
+
+  @media screen and (max-width: 500px) {
+    max-width: 500px;
+    padding: 0 30px;
+  }
 `;
 export const Title = styled.div`
   display: flex;
@@ -31,6 +36,11 @@ export const LogoImage = styled.img.attrs({ src: logoImg })`
   width: 30px;
   height: 30px;
   margin-right: 0.3em;
+
+  @media screen and (max-width: 500px) {
+    width: 25px;
+    height: 25px;
+  }
 `;
 export const LogoTitle = styled.div`
   flex-grow: 1;
@@ -42,8 +52,15 @@ export const LogoName = styled.p`
   font-size: 15px;
   font-weight: 100;
   color: #717171;
+  @media screen and (max-width: 500px) {
+    font-size: 12px;
+  }
 `;
 export const LogoSubName = styled.p`
   font-size: 10px;
   color: #717171;
+
+  @media screen and (max-width: 500px) {
+    font-size: 8px;
+  }
 `;

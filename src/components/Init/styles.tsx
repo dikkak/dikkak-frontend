@@ -19,4 +19,7 @@ export const TermsOfContent = styled.div`
   background-color: #fff;
   border-radius: 5px;
   color: rgba(0, 0, 0, 0.65);
+  @media screen and (max-width: 500px) {
+    width: 300px;
+  }
 `;

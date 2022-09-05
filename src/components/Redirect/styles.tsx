@@ -206,6 +206,11 @@ export const Wrapper = styled.div`
   justify-content: center;
   width: 70%;
   height: 660px;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+  }
 `;
 export const BackButton = styled.div`
   position: relative;
@@ -219,7 +224,6 @@ export const BackButton = styled.div`
   background-color: #717171;
   border-radius: 5px;
   height: 30px;
-
   cursor: pointer;
   &:hover {
     opacity: 0.8;
@@ -233,6 +237,12 @@ export const BackButton = styled.div`
 
     color: white;
   }
+  @media screen and (max-width: 500px) {
+    width: 120px;
+    p {
+      font-size: 0.5rem;
+    }
+  }
 `;
 export const Contents = styled.div`
   max-width: 834px;
@@ -240,6 +250,11 @@ export const Contents = styled.div`
   height: auto;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    margin-left: 10px;
+    margin-top: 50px;
+  }
 `;
 export const TimeLine = styled.div`
   width: 20%;
@@ -322,6 +337,10 @@ export const RightContents = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    padding-right: 0;
+  }
 `;
 
 export const TitleBox = styled.p`

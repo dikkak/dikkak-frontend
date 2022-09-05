@@ -35,7 +35,16 @@ const ProposalEtc = ({ etcFile, etcRef }: IProposalEtcProps) => {
               <FileImgContainer>
                 <FileUploadImg></FileUploadImg>
               </FileImgContainer>
-              <Text onClick={() => onDownload(item.url, item.fileName)}>
+              <Text
+                onClick={() =>
+                  onDownload(
+                    item.url.split(
+                      "https://dikkak.s3.ap-northeast-2.amazonaws.com/"
+                    )[1],
+                    item.fileName
+                  )
+                }
+              >
                 {item.fileName}
               </Text>
             </InputBoxLabel>
