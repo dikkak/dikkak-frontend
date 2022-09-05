@@ -1,37 +1,27 @@
 import React from "react";
-import { Header, Box, Content } from "./styles";
-import { isTermsOfUseAtom } from "../../atoms";
+import * as S from "./styles";
+import { isTermsOfPersonalAtom } from "../../atoms";
 import { useSetRecoilState } from "recoil";
-import xButton from "../../assets/logoImage/X.svg";
 
 const TermOfPersonal = () => {
-  const setTermOfUse = useSetRecoilState(isTermsOfUseAtom);
+  const setTermsOfPersonal = useSetRecoilState(isTermsOfPersonalAtom);
   return (
-    <Box>
-      <Header>
+    <S.Box>
+      <S.Header>
         <p>개인정보처리방침</p>
-        <button onClick={() => setTermOfUse((prev) => !prev)}>
-          <img
-            style={{
-              width: "18px",
-              height: "18px",
-              position: "relative",
-              top: "0",
-            }}
-            src={xButton}
-            alt="xbutton"
-          />
+        <button onClick={() => setTermsOfPersonal((prev) => !prev)}>
+          <S.CloseImg />
         </button>
-      </Header>
-      <Content>
+      </S.Header>
+      <S.Content>
         <div>
           주식회사 98점7도(이하 ‘회사’라 한다)는 개인정보 보호법 제30조에 따라
           정보 주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게
           처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리지침을 수립,
           공개합니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           제1조 (개인정보의 처리목적)
         </p>
@@ -41,8 +31,8 @@ const TermOfPersonal = () => {
           변경되는 경우에는 개인정보보호법 제18조에 따라 별도의 동의를 받는 등
           필요한 조치를 이행할 예정입니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>1. 홈페이지 회원 가입 및 관리</p>
         <div>
           회원 가입 의사 확인, 회원제 서비스 제공에 따른 본인 식별․인증,
@@ -51,26 +41,26 @@ const TermOfPersonal = () => {
           여부 확인, 각종 고지․통지, 고충 처리 등을 목적으로 개인정보를
           처리합니다.
         </div>
-      </Content>
+      </S.Content>
 
-      <Content>
+      <S.Content>
         <p>2. 재화 또는 서비스 제공</p>
         <div>
           물품 배송, 서비스 제공, 계약서 및 청구서 발송, 콘텐츠 제공, 맞춤서비스
           제공, 본인인증, 연령인증, 요금 결제 및 정산, 채권추심 등을 목적으로
           개인정보를 처리합니다.
         </div>
-      </Content>
+      </S.Content>
 
-      <Content>
+      <S.Content>
         <p>3. 고충 처리</p>
         <div>
           민원인의 신원 확인, 민원사항 확인, 사실조사를 위한 연락․통지, 처리
           결과 통보 등의 목적으로 개인정보를 처리합니다.
         </div>
-      </Content>
+      </S.Content>
 
-      <Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           제2조 (개인정보의 처리 및 보유기간)
         </p>
@@ -80,9 +70,9 @@ const TermOfPersonal = () => {
           개인정보를 처리, 보유합니다.
           <br />② 각각의 개인정보 처리 및 보유 기간은 다음과 같습니다.
         </div>
-      </Content>
+      </S.Content>
 
-      <Content>
+      <S.Content>
         <p>1. 홈페이지 회원 가입 및 관리 : 사업자/단체 홈페이지 탈퇴 시까지</p>
         <div>
           다만, 다음의 사유에 해당하는 경우에는 해당 사유 종료 시까지
@@ -95,9 +85,9 @@ const TermOfPersonal = () => {
           <br />
           <br />
         </div>
-      </Content>
+      </S.Content>
 
-      <Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           제5조(이용자 및 법정대리인의 권리와 그 행사 방법)
         </p>
@@ -132,8 +122,8 @@ const TermOfPersonal = () => {
           <br />
           <br />
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           제6조(처리하는 개인정보 항목)
         </p>
@@ -156,8 +146,8 @@ const TermOfPersonal = () => {
           <br />
           IP주소, 쿠키, MAC주소, 서비스 이용기록, 방문기록, 불량 이용기록 등
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           제7조(개인정보의 파기)
         </p>
@@ -184,8 +174,8 @@ const TermOfPersonal = () => {
           종이 문서에 기록․저장된 개인정보는 분쇄기로 분쇄하거나 소각하여
           파기합니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           제8조(개인정보의 안전성 확보조치)
         </p>
@@ -200,8 +190,8 @@ const TermOfPersonal = () => {
           <br />
           3. 물리적 조치 : 전산실, 자료보관실 등의 접근통제
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           제9조(개인정보 자동 수집 장치의 설치∙운영 및 거부에 관한 사항)
         </p>
@@ -223,8 +213,8 @@ const TermOfPersonal = () => {
           다. 쿠키 저장을 거부할 경우 맞춤형 서비스 이용에 어려움이 발생할 수
           있습니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           {" "}
           <br />
@@ -235,8 +225,8 @@ const TermOfPersonal = () => {
           처리와 관련한 정보주체의 불만 처리 및 피해구제 등을 위하여 아래와 같이
           개인정보 보호책임자를 지정하고 있습니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>▶ 개인정보 보호책임자</p>
         <div>
           성명 : 염정원
@@ -246,8 +236,8 @@ const TermOfPersonal = () => {
           연락처 : 010-6333-4649, support@98o7.com
           <br />※ 개인정보 보호 담당부서로 연결됩니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>▶ 개인정보 보호 담당부서</p>
         <div>
           부서명 : 운영지원팀
@@ -261,8 +251,8 @@ const TermOfPersonal = () => {
           개인정보 보호책임자 및 담당부서로 문의하실 수 있습니다. 회사는
           정보주체의 문의에 대해 지체없이 답변 및 처리해드릴 것입니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           제11조(개인정보 열람청구)
         </p>
@@ -280,8 +270,8 @@ const TermOfPersonal = () => {
           <br />
           연락처 : 010-6333-4649, support@98o7.com
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           제12조(권익침해 구제 방법)
         </p>
@@ -319,14 +309,14 @@ const TermOfPersonal = () => {
           <br />
           <br />
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p style={{ fontWeight: "bold", color: "#000" }}>
           제13조(개인정보 처리방침 시행 및 변경)
         </p>
         <div>이 개인정보 처리방침은 2022.06.15부터 적용됩니다.</div>
-      </Content>
-    </Box>
+      </S.Content>
+    </S.Box>
   );
 };
 

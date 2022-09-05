@@ -1,35 +1,25 @@
 import React from "react";
-import { Header, Box, Content } from "./styles";
+import * as S from "./styles";
 import { isTermsOfUseAtom } from "../../atoms";
 import { useSetRecoilState } from "recoil";
-import xButton from "../../assets/logoImage/X.svg";
 const TermOfUseContent = () => {
   const setTermOfUse = useSetRecoilState(isTermsOfUseAtom);
   return (
-    <Box>
-      <Header>
+    <S.Box>
+      <S.Header>
         <p>이용약관</p>
         <button onClick={() => setTermOfUse((prev) => !prev)}>
-          <img
-            style={{
-              width: "18px",
-              height: "18px",
-              position: "relative",
-              top: "0",
-            }}
-            src={xButton}
-            alt="xButton"
-          ></img>
+          <S.CloseImg />
         </button>
-      </Header>
-      <Content>
+      </S.Header>
+      <S.Content>
         <p>제 1조 목적</p>
         <div>
           본 이용약관은 “주식회사 98점7도”(이하 "사이트")의 서비스의 이용조건과
           운영에 관한 제반 사항 규정을 목적으로 합니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제2조 용어의 정의</p>
         <div>
           본 약관에서 사용되는 주요한 용어의 정의는 다음과 같습니다.
@@ -45,16 +35,16 @@ const TermOfUseContent = () => {
           <br />⑤ 운영자 : 서비스에 홈페이지를 개설하여 운영하는 운영자를
           말합니다. <br />⑥ 해지 : 회원이 이용계약을 해약하는 것을 말합니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제3조 약관 외 준칙</p>
         <div>
           운영자는 필요한 경우 별도로 운영정책을 공지 안내할 수 있으며, 본
           약관과 운영정책이 중첩될 경우 운영정책이 우선 적용됩니다.
         </div>
-      </Content>
+      </S.Content>
 
-      <Content>
+      <S.Content>
         <p>제4조 이용계약 체결</p>
         <div>
           ① 이용계약은 회원으로 등록하여 사이트를 이용하려는 자의 본 약관 내용에
@@ -63,9 +53,9 @@ const TermOfUseContent = () => {
           본 약관을 읽고 아래에 있는 "동의합니다"를 선택하는 것으로 본 약관에
           대한 동의 의사 표시를 합니다.
         </div>
-      </Content>
+      </S.Content>
 
-      <Content>
+      <S.Content>
         <p>제5조 서비스 이용 신청</p>
         <div>
           ① 회원으로 등록하여 사이트를 이용하려는 이용자는 사이트에서 요청하는
@@ -74,9 +64,9 @@ const TermOfUseContent = () => {
           진정한 정보를 등록하지 않은 회원은 사이트 이용과 관련하여 아무런
           권리를 주장할 수 없으며, 관계 법령에 따라 처벌받을 수 있습니다.
         </div>
-      </Content>
+      </S.Content>
 
-      <Content>
+      <S.Content>
         <p>제6조 개인정보처리방침</p>
         <div>
           사이트 및 운영자는 회원가입 시 제공한 개인정보 중 비밀번호를 가지고
@@ -95,9 +85,9 @@ const TermOfUseContent = () => {
           요청이 있을 시 회원의 자료를 열람 및 해당 자료를 관련 기관에 제출할 수
           있습니다.
         </div>
-      </Content>
+      </S.Content>
 
-      <Content>
+      <S.Content>
         <p>제7조 운영자의 의무</p>
         <div>
           ① 운영자는 이용회원으로부터 제기되는 의견이나 불만이 정당하다고 인정할
@@ -110,9 +100,9 @@ const TermOfUseContent = () => {
           운영자에 부득이한 사유가 있는 경우, 사이트 운영을 일시 정지할 수
           있습니다.
         </div>
-      </Content>
+      </S.Content>
 
-      <Content>
+      <S.Content>
         <p>제8조 회원의 의무</p>
         <div>
           ① 회원은 본 약관에서 규정하는 사항과 운영자가 정한 제반 규정, 공지사항
@@ -130,8 +120,8 @@ const TermOfUseContent = () => {
           <br />④ 회원은 운영자와 사이트 및 제3자의 지적 재산권을 침해해서는 안
           됩니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제9조 서비스 이용 시간</p>
         <div>
           ① 서비스 이용 시간은 업무상 또는 기술상 특별한 지장이 없는 한 연중무휴
@@ -156,8 +146,8 @@ const TermOfUseContent = () => {
           서비스의 중단에 대하여 사전공지가 불가능한 경우에는 사후공지로
           대신합니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제10조 서비스 이용 해지</p>
         <div>
           ① 회원이 사이트와의 이용계약을 해지하고자 하는 경우에는 회원 본인이
@@ -167,8 +157,8 @@ const TermOfUseContent = () => {
           회원 관리 화면에서 자동적으로 삭제됨으로 운영자는 더 이상 해지신청자의
           정보를 볼 수 없습니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제11조 서비스 이용 제한</p>
         <div>
           회원은 다음 각호에 해당하는 행위를 하여서는 아니 되며 해당 행위를 한
@@ -190,8 +180,8 @@ const TermOfUseContent = () => {
           ⑦ 범죄와 결부된다고 객관적으로 판단되는 행위
           <br />⑧ 기타 관련 법령에 위배되는 행위
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제12조 게시물의 관리</p>
         <div>
           ① 사이트의 게시물과 자료의 관리 및 운영의 책임은 운영자에게 있습니다.
@@ -227,16 +217,16 @@ const TermOfUseContent = () => {
           등록자 간에 소송, 합의 기타 이에 준하는 관련 기관의 결정 등이 이루어져
           사이트에 접수된 경우 이에 따릅니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제13조 게시물의 보관</p>
         <div>
           사이트 운영자가 불가피한 사정으로 본 사이트를 중단하게 될 경우,
           회원에게 사전 공지를 하고 게시물의 이전이 쉽도록 모든 조치를 하기 위해
           노력합니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제14조 게시물에 대한 저작권</p>
         <div>
           ① 회원이 사이트 내에 게시한 게시물의 저작권은 게시한 회원에게
@@ -250,8 +240,8 @@ const TermOfUseContent = () => {
           내용에 대해 제12조 각호에 해당한다고 판단되는 경우 사전통지 없이
           삭제하거나 이동 또는 등록 거부할 수 있습니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제15조 손해배상</p>
         <div>
           ① 본 사이트의 발생한 모든 민, 형법상 책임은 회원 본인에게 1차적으로
@@ -260,8 +250,8 @@ const TermOfUseContent = () => {
           불가항력적이거나 회원의 고의 또는 과실로 인하여 발생한 때에는
           손해배상을 하지 않습니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제16조 면책</p>
         <div>
           ① 운영자는 회원이 사이트의 서비스 제공으로부터 기대되는 이익을 얻지
@@ -299,8 +289,8 @@ const TermOfUseContent = () => {
           개발되지 아니한 컴퓨터 바이러스 등의 유포나 기타 운영자가 통제할 수
           없는 불가항력적 사유로 인한 회원의 손해에 대하여 책임지지 않습니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>제5조 서비스 이용 신청</p>
         <div>
           ① 회원으로 등록하여 사이트를 이용하려는 이용자는 사이트에서 요청하는
@@ -309,14 +299,14 @@ const TermOfUseContent = () => {
           진정한 정보를 등록하지 않은 회원은 사이트 이용과 관련하여 아무런
           권리를 주장할 수 없으며, 관계 법령에 따라 처벌받을 수 있습니다.
         </div>
-      </Content>
-      <Content>
+      </S.Content>
+      <S.Content>
         <p>부칙</p>
         <div>
           이 약관은 {"<"} 2022.06.15 {">"} 부터 시행합니다.
         </div>
-      </Content>
-    </Box>
+      </S.Content>
+    </S.Box>
   );
 };
 

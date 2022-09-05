@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import xButton from "../../assets/logoImage/X.svg";
 
 export const Box = styled.div`
   width: 100%;
@@ -15,14 +16,17 @@ export const Header = styled.header`
   margin-bottom: 30px;
   button {
     background: transparent;
-    position: absolute;
+    position: relative;
     right: 12px;
-    top: -px;
     border: 0;
-    font-size: 3rem;
-    font-weight: 100;
     color: rgba(0, 0, 0, 0.8);
     cursor: pointer;
+  }
+  @media screen and (max-width: 500px) {
+    font-size: 1rem;
+    button {
+      right: 0;
+    }
   }
 `;
 
@@ -34,5 +38,17 @@ export const Content = styled.div`
   }
   div {
     line-height: 1.5rem;
+  }
+  @media screen and (max-width: 500px) {
+    font-size: 0.8rem;
+  }
+`;
+
+export const CloseImg = styled.img.attrs({ src: xButton })`
+  width: 18px;
+  height: 18px;
+  @media screen and (max-width: 500px) {
+    width: 12px;
+    height: 12px;
   }
 `;
