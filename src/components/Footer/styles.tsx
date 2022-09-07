@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface FooterProps {
   bgColor: string;
@@ -8,10 +8,15 @@ export const FooterWrapper = styled.div<FooterProps>`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 350px;
+  height: 250px;
   margin-top: 10em;
   padding: 3em 10em;
+  padding-bottom: 0;
   background-color: ${(props) => props.bgColor};
+
+  @media screen and (max-width: 500px) {
+    padding: 30px 30px;
+  }
 `;
 export const FooterContainer = styled.div`
   display: flex;
@@ -27,10 +32,18 @@ export const FooterLeft = styled.div`
 `;
 export const FooterLeftFirst = styled.div`
   display: flex;
-  p {
-    margin-right: 5em;
-    font-weight: bold;
-  }
+`;
+
+export const FooterP = styled.p`
+  cursor: pointer;
+  margin-right: 3em;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 900;
+  color: #717171;
+  text-decoration-color: #717171;
+  line-height: 14px;
 `;
 export const FooterLeftSecond = styled(FooterLeftFirst)`
   flex-direction: column;
@@ -43,6 +56,18 @@ export const FooterLeftSecond = styled(FooterLeftFirst)`
       line-height: 2em;
     }
   }
+
+  @media screen and (max-width: 500px) {
+    & > p {
+      line-height: 19px;
+    }
+    & > div:last-child {
+      flex-direction: column;
+      & > p:first-child {
+        line-height: 19px;
+      }
+    }
+  }
 `;
 export const FooterLeftThird = styled(FooterLeftFirst)`
   flex-direction: column;
@@ -50,6 +75,9 @@ export const FooterLeftThird = styled(FooterLeftFirst)`
   color: #7c7c7c;
   p {
     line-height: 1.5em;
+  }
+  @media screen and (max-width: 500px) {
+    margin-top: 1em;
   }
 `;
 export const FooterRight = styled.div`
@@ -59,5 +87,11 @@ export const FooterRight = styled.div`
     height: 30px;
     margin-right: 1.5em;
     justify-content: center;
+
+    @media screen and (max-width: 500px) {
+      width: 20px;
+      height: 20px;
+      margin-right: 1em;
+    }
   }
 `;

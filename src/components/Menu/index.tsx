@@ -1,23 +1,25 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Container, LogoImage, LogoName, LogoSubName, LogoTitle, MenuCotainer, Talk, Title } from './styles';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import * as S from "./styles";
 
 const Menu = () => {
   const navigate = useNavigate();
   return (
-    <Container>
-      <MenuCotainer >
-        <Title onClick={() => {navigate('/')}}>
-          <LogoImage/>
-          <LogoTitle>
-            <LogoName>DIKKAK</LogoName>
-            <LogoSubName>: 디자인을 깎다</LogoSubName>
-          </LogoTitle>
-        </Title>
-        <Talk/>
-      </MenuCotainer>
-    </Container>
-    
+    <S.Container>
+      <S.MenuCotainer>
+        <S.Title
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <S.LogoImage />
+          <S.LogoTitle>
+            <S.LogoName>DIKKAK</S.LogoName>
+            <S.LogoSubName>: 디자인을 깎다</S.LogoSubName>
+          </S.LogoTitle>
+        </S.Title>
+      </S.MenuCotainer>
+    </S.Container>
   );
 };
 

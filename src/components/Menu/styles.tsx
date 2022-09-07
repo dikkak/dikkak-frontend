@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-import logoImg from '../../assets/logoImage/logoBasic.svg';
-import talkImg from '../../assets/menuImage/kakaotalk.svg';
+import styled from "styled-components";
+import logoImg from "../../assets/logoImage/logoBasic.svg";
 
 export const Container = styled.div`
   position: fixed;
@@ -22,16 +21,26 @@ export const MenuCotainer = styled.nav`
   height: 50px;
   padding: 0 80px;
   margin: 0 auto;
+
+  @media screen and (max-width: 500px) {
+    max-width: 500px;
+    padding: 0 30px;
+  }
 `;
 export const Title = styled.div`
   display: flex;
   width: 150px;
   cursor: pointer;
 `;
-export const LogoImage = styled.img.attrs({src: logoImg})`
+export const LogoImage = styled.img.attrs({ src: logoImg })`
   width: 30px;
   height: 30px;
-  margin-right: .3em;
+  margin-right: 0.3em;
+
+  @media screen and (max-width: 500px) {
+    width: 25px;
+    height: 25px;
+  }
 `;
 export const LogoTitle = styled.div`
   flex-grow: 1;
@@ -39,16 +48,19 @@ export const LogoTitle = styled.div`
   flex-direction: column;
 `;
 export const LogoName = styled.p`
-margin-bottom: 0.2em;
+  margin-bottom: 0.2em;
   font-size: 15px;
   font-weight: 100;
   color: #717171;
+  @media screen and (max-width: 500px) {
+    font-size: 12px;
+  }
 `;
 export const LogoSubName = styled.p`
   font-size: 10px;
   color: #717171;
-`;
-export const Talk = styled.img.attrs({src: talkImg})`
-  width: 80px;
-  cursor: pointer;
+
+  @media screen and (max-width: 500px) {
+    font-size: 8px;
+  }
 `;

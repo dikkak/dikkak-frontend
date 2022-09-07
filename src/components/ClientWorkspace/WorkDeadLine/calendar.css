@@ -1,0 +1,170 @@
+.react-calendar {
+  width: 300px;
+  max-width: 100%;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  background: white;
+  border: 1px solid #905dfb;
+  border-radius: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+  padding-bottom: 10px;
+}
+.react-calendar__navigation {
+  height: 23px !important;
+}
+
+.react-calendar__navigation__label__labelText {
+  color: #905dfb;
+}
+.react-calendar--doubleView {
+  width: 700px;
+}
+.react-calendar--doubleView .react-calendar__viewContainer {
+  display: flex;
+  margin: -0.5em;
+}
+.react-calendar--doubleView .react-calendar__viewContainer > * {
+  width: 45%;
+  margin: 0.5em;
+}
+.react-calendar,
+.react-calendar *,
+.react-calendar *:before,
+.react-calendar *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.react-calendar button {
+  margin: 0;
+  border: 0;
+  outline: none;
+}
+.react-calendar button:enabled:hover {
+  cursor: pointer;
+}
+.react-calendar__navigation {
+  display: flex;
+  height: 30px;
+  margin-bottom: 0.3em;
+}
+.react-calendar__navigation button {
+  min-width: 30px;
+  background: none;
+}
+.react-calendar__navigation button:disabled {
+  background-color: #f0f0f0;
+}
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #e6e6e6;
+}
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.75em;
+}
+.react-calendar__month-view__weekdays__weekday {
+  color: #905dfb;
+  padding: 3px;
+}
+.react-calendar__month-view__weekdays__weekday:nth-child(6) {
+  color: #6475c2;
+}
+.react-calendar__month-view__weekdays__weekday:last-child {
+  color: #ff746d;
+}
+.react-calendar__month-view__days__day {
+  padding: 10px 0 3px 0 !important;
+}
+.react-calendar__month-view__weekNumbers .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+.react-calendar__month-view__days__day--weekend {
+  color: #6475c2;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #c4c4c4;
+}
+.react-calendar__year-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile {
+  padding: 1em 0.5em;
+}
+.react-calendar__tile {
+  max-width: 100%;
+  padding: 5px 6.6667px;
+  background: none;
+  text-align: center;
+  line-height: 16px;
+}
+.react-calendar__tile:disabled {
+  background-color: #f0f0f0;
+}
+.react-calendar__tile abbr:enabled:hover,
+.react-calendar__tile abbr:enabled:focus {
+  background-color: #e6e6e6;
+}
+.react-calendar__tile--now abbr {
+  position: relative;
+  padding: 2px;
+  border: 1px solid #905dfb !important;
+  border-radius: 50%;
+}
+.react-calendar__tile--now abbr::before {
+  position: absolute;
+  font-size: 5px;
+  top: -13px;
+  left: -2px;
+  color: #905dfb;
+  content: "today";
+}
+.react-calendar__tile--now abbr:enabled:hover,
+.react-calendar__tile--now abbr:enabled:focus {
+  border-radius: 50%;
+  background: #905dfb;
+  padding: 2px;
+}
+.react-calendar__tile--hasActive abbr {
+  background: #905dfb;
+  padding: 2px;
+}
+.react-calendar__tile--hasActive abbr:enabled:hover,
+.react-calendar__tile--hasActive abbr:enabled:focus {
+  border-radius: 50%;
+  background: #a9d4ff;
+}
+.react-calendar__tile--active abbr {
+  background: #905dfb;
+  padding: 2px;
+  color: white;
+  border-radius: 50%;
+}
+.react-calendar__tile--active abbr:enabled:hover,
+.react-calendar__tile--active abbr:enabled:focus {
+  border-radius: 50%;
+  padding: 2px;
+  background: #905dfb;
+}
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: #e6e6e6;
+}
+
+.react-calendar__navigation__prev-button {
+  margin-left: 10px !important;
+}
+.react-calendar__navigation__next-button {
+  margin-right: 10px !important;
+}
+.react-calendar__navigation__prev2-button {
+  display: none !important;
+}
+.react-calendar__navigation__next2-button {
+  display: none !important;
+}

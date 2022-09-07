@@ -5,6 +5,16 @@ export const Container = styled.div`
   height: 370px;
   width: 50%;
   max-width: 373px;
+  @media screen and (max-width: 500px) {
+    width: 85%;
+    margin-bottom: 200px;
+    &:first-child {
+      margin-top: 50px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 `;
 
 export const Title = styled.h2`
@@ -15,7 +25,7 @@ export const Title = styled.h2`
   font-family: "Inter";
 `;
 
-export const ListContainer = styled.ul`
+export const ListContainer = styled.div`
   padding: 0 10px;
   border-radius: 5px;
   border: 1px solid #c4c4c4;
@@ -24,12 +34,19 @@ export const ListContainer = styled.ul`
   position: relative;
 `;
 
+export const ListInnerContainer = styled.ul`
+  width: 100%;
+  height: 80%;
+  overflow-y: scroll;
+`;
+
 export const List = styled.li`
   padding: 15px 0;
   font-size: 15px;
   font-family: "Inter";
   color: #717171;
   position: relative;
+  overflow-y: scroll;
 
   a {
     color: inherit;
@@ -48,7 +65,8 @@ export const List = styled.li`
   }
 `;
 
-export const InputBox = styled.input`
+export const InputBox = styled.input<{ isMatched: boolean }>`
+  display: ${(props) => (props.isMatched ? "none" : "inline")};
   position: absolute;
   right: 2%;
   width: 15px;
@@ -60,6 +78,10 @@ export const LinkImage = styled.img.attrs({ src: linkImg })`
   right: 2%;
   width: 15px;
   height: 15px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export const StartBtnContainer = styled.div`
@@ -99,4 +121,8 @@ export const MoveBtn = styled.button`
   font-family: Noto Sans KR;
   font-weight: 700;
   margin-top: 40px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;

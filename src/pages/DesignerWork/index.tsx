@@ -1,90 +1,123 @@
-import React, { useState } from 'react';
-import Menu from "../../components/Menu";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Document from "../../components/Document";
-import { useNavigate } from "react-router-dom";
-import { BackButton, Container, DocumentContainer, LogoImage, Title, Wrapper } from './styles';
-
+import { Navigate, useNavigate } from "react-router-dom";
+import * as S from "./styles";
+import { useQuery } from "react-query";
+import { userInfo } from "../../apis/auth_login";
+import { getWorkplaceList } from "../../apis/workplace";
+import { FaSpinner } from "react-icons/fa";
 
 interface IList {
   id: number;
-  name: string;
-}
-export interface IContent {
   title: string;
-  contents: IList[];
+  clientName: string;
+  coworkingId: number;
+  coworkingStep: number;
+}
+export interface IDesignerContent {
+  type: string;
+  title: string;
+  contents?: IList[];
   workMenttion: string;
   bgColor: string;
 }
 
 const DesignerWorkPage = () => {
-  const [completeWork, setCompleteWork] = useState<IContent>({
+  const { data: userData, isFetching } = useQuery("user-info", userInfo);
+  const { data: workList } = useQuery("workspace-list", getWorkplaceList, {
+    enabled: !!userData,
+  });
+  const completeList: IList[] | undefined = workList?.complete.map((item) => {
+    return {
+      id: item.proposalId,
+      title: item.proposalTitle,
+      clientName: item.clientName,
+      coworkingId: item.coworkingId,
+      coworkingStep: item.coworkingStep,
+    };
+  });
+  const workplaceList: IList[] | undefined = workList?.progress.map((item) => {
+    return {
+      id: item.proposalId,
+      title: item.proposalTitle,
+      clientName: item.clientName,
+      coworkingId: item.coworkingId,
+      coworkingStep: item.coworkingStep,
+    };
+  });
+  const [completeWork, setCompleteWork] = useState<IDesignerContent>({
+    type: userData?.type!,
     title: "완료된 작업",
-    contents: [
-      {
-        id: 1,
-        name: '스파르타 코리안 ZEP / 스파르타코리안',
-      },
-      {
-        id: 2,
-        name: '상세페이지 / 캠퍼스소싱',
-      },
-      {
-        id: 3,
-        name: '홍보 포스터 제작 / 플랜잇',
-      },
-    ],
-    workMenttion: "제안서 작업실",
+    contents: completeList,
+    workMenttion: "한번에 내려받기.zip",
     bgColor: "#905DFB",
   });
-  const [companyContent, setCompanyContent] = useState<IContent>({
+  const [companyContent, setCompanyContent] = useState<IDesignerContent>({
+    type: userData?.type!,
     title: "외주 작업실",
-    contents: [
-      {
-        id: 1,
-        name: '디깍 로고 제작 / 클라이언트명 / 2차 작업중',
-      },
-      {
-        id: 2,
-        name: 'SNS굿 로고 제작 / 클라이언트명 / 작업 완료',
-      },
-    ],
+    contents: workplaceList,
     workMenttion: "외주 작업실",
     bgColor: "#329A29",
   });
   const navigate = useNavigate();
-  const onDelete = (id: number[]) => {
-    const newList = completeWork.contents.filter(content => !id.includes(content.id));
-    setCompleteWork(prev => {
-      return {
-        ...prev,
-        contents: newList
-      }
-    })
+  useEffect(() => {
+    setCompleteWork({
+      type: userData?.type!,
+      title: "완료된 작업",
+      contents: completeList,
+      workMenttion: "한번에 내려받기.zip",
+      bgColor: "#905DFB",
+    });
+    setCompanyContent({
+      type: userData?.type!,
+      title: "외주 작업실",
+      contents: workplaceList,
+      workMenttion: "외주 작업실",
+      bgColor: "#329A29",
+    });
+  }, [userData?.type, completeList, workplaceList]);
+  if (isFetching)
+    return (
+      <S.LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </S.LoadingContainer>
+    );
+  if (!userData && !isFetching) {
+    return <Navigate to="/login" />;
+  }
+  if (userData && !isFetching && userData.type === "CLIENT") {
+    return <Navigate to="/service_start" />;
   }
   return (
     <>
-      <Menu></Menu>
-      <Container>
-        <Wrapper>
-          <BackButton onClick={() => navigate(-1)}>
+      <S.Container>
+        <S.Wrapper>
+          <S.BackButton onClick={() => navigate("/service_start")}>
             <p>◀︎</p>
             <p>이전으로 돌아가기</p>
-          </BackButton>
-          <Title>
+          </S.BackButton>
+          <S.Title>
             <div>
               <h1>디자이너 작업실</h1>
-              <LogoImage></LogoImage>
+              <S.LogoImage />
             </div>
-            <p>외주작업을 위한 000 디자이너 작업실 입니다</p>
-            <p>최초 사용자의 경우 <a href="https://open.kakao.com/o/gxhDqKSd">https://open.kakao.com/o/gxhDqKSd</a> 오픈채팅방에 접속해주세요!</p>
-          </Title>
-          <DocumentContainer>
-            <Document content={completeWork} onDelete={onDelete}></Document>
-            <Document content={companyContent}></Document>
-          </DocumentContainer>
-        </Wrapper>
-      </Container>
+            <p>외주작업을 위한 {userData?.username} 디자이너 작업실 입니다</p>
+            <p>
+              최초 사용자의 경우{" "}
+              <a href="https://forms.gle/AUwRdVzFUfkS2m3x5">구글 설문지</a> 를
+              통해 참여 코드를 요청해주세요!(1-2분 내 이메일로 코드 자동
+              발송해드립니다)
+            </p>
+          </S.Title>
+          <S.DocumentContainer>
+            <Document designerContent={completeWork}></Document>
+            <Document designerContent={companyContent}></Document>
+          </S.DocumentContainer>
+        </S.Wrapper>
+      </S.Container>
       <Footer bgColor="#fff"></Footer>
     </>
   );

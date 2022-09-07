@@ -1,94 +1,136 @@
-import React, { useState } from "react";
-import Menu from "../../components/Menu";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Document from "../../components/Document";
-import { useNavigate } from "react-router-dom";
-import { BackButton, Container, DocumentContainer, LogoImage, Title, Wrapper } from './styles';
+import { Navigate, useNavigate } from "react-router-dom";
+import * as S from "./styles";
+import { useQuery, useQueryClient } from "react-query";
+import { userInfo } from "../../apis/auth_login";
+import { getProposalList } from "../../apis/workplace";
+import { FaSpinner } from "react-icons/fa";
+import { deleteProposal } from "../../apis/proposal";
+import Toast from "../../components/Toast";
 
 interface IList {
   id: number;
-  name: string;
-}
-export interface IContent {
   title: string;
-  contents: IList[];
+  designerName?: string;
+  coworkingId?: number;
+  coworkingStep?: number;
+}
+export interface IClientContent {
+  type: string;
+  title: string;
+  contents?: IList[];
   workMenttion: string;
   bgColor: string;
 }
 const ClientWorkPage = () => {
-  const [clientContent, setClientContent] = useState<IContent>({
-    title: "제안서",
-    contents: [
-      {
-        id: 1,
-        name: '20220418 디깍 로고제작',
-      },
-      {
-        id: 2,
-        name: '로고 제작2',
-      },
-      {
-        id: 3,
-        name: '포스터 제작(3/8)',
-      },
-    ],
-    workMenttion: "제안서 작업실",
-    bgColor: "#905DFB",
+  const { data: userData, isFetching } = useQuery("user-info", userInfo);
+  const { data: workList } = useQuery("workspace-list", getProposalList, {
+    enabled: !!userData,
+    refetchOnMount: true,
   });
-  const [companyContent, setCompanyContent] = useState<IContent>({
-    title: "외주 작업실",
-    contents: [
-      {
-        id: 1,
-        name: '디깍 로고 제작 / 000디자이너 / 2차 작업중',
-      },
-      {
-        id: 2,
-        name: '디깍 로고 제작 / 000디자이너 / 1차 작업중',
-      },
-      {
-        id: 3,
-        name: '포스터 제작',
-      },
-    ],
-    workMenttion: "외주 작업실",
-    bgColor: "#329A29",
-  });
+  const queryClient = useQueryClient();
+  const [isActive, setIsActive] = useState(false);
+  const [clientContent, setClientContent] = useState<
+    IClientContent | undefined
+  >();
+  const [companyContent, setCompanyContent] = useState<
+    IClientContent | undefined
+  >();
   const navigate = useNavigate();
-  const onDelete = (id: number[]) => {
-    const newList = clientContent.contents.filter(content => !id.includes(content.id));
-    setClientContent(prev => {
-      return {
-        ...prev,
-        contents: newList
-      }
-    })
+  const onDelete = (list: number[], callback: () => void) => {
+    deleteProposal(list).then(() => {
+      queryClient.invalidateQueries("workspace-list");
+      callback();
+    });
+  };
+  useEffect(() => {
+    if (workList) {
+      const proposalList: IList[] | undefined = workList?.map((proposal) => {
+        return {
+          id: proposal.proposalId,
+          title: proposal.proposalTitle,
+          coworkingId: proposal.coworkingId,
+        };
+      });
+      const coworkList: IList[] | undefined = workList
+        ?.filter((proposal) => proposal.coworkingId)
+        .map((proposal) => {
+          return {
+            id: proposal.proposalId,
+            title: proposal.proposalTitle,
+            designerName: proposal.designerName,
+            coworkingId: proposal.coworkingId,
+            coworkingStep: proposal.coworkingStep,
+          };
+        });
+      setClientContent({
+        type: userData?.type!,
+        title: "제안서",
+        contents: proposalList,
+        workMenttion: "제안서 작업실",
+        bgColor: "#905DFB",
+      });
+      setCompanyContent({
+        type: userData?.type!,
+        title: "외주 작업실",
+        contents: coworkList,
+        workMenttion: "외주 작업실",
+        bgColor: "#329A29",
+      });
+    }
+  }, [userData?.type, workList]);
+
+  if (isFetching)
+    return (
+      <S.LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </S.LoadingContainer>
+    );
+  if (!userData && !isFetching) {
+    return <Navigate to="/login" />;
+  }
+  if (userData && !isFetching && userData.type === "DESIGNER") {
+    return <Navigate to="/service_start" />;
   }
   return (
     <>
-      <Menu></Menu>
-      <Container>
-        <Wrapper>
-          <BackButton onClick={() => navigate(-1)}>
+      <S.Container>
+        <S.Wrapper>
+          <S.BackButton onClick={() => navigate("/service_start")}>
             <p>◀︎</p>
             <p>이전으로 돌아가기</p>
-          </BackButton>
-          <Title>
+          </S.BackButton>
+          <S.Title>
             <div>
               <h1>클라이언트 작업실</h1>
-              <LogoImage></LogoImage>
+              <S.LogoImage />
             </div>
-            <p>외주작업을 위한 000 클라이언트 작업실 입니다</p>
-          </Title>
-          <DocumentContainer>
-            <Document content={clientContent} onDelete={onDelete}></Document>
-            <Document content={companyContent}></Document>
-          </DocumentContainer>
-        </Wrapper>
-      </Container>
+            <p>외주작업을 위한 {userData?.username} 클라이언트 작업실 입니다</p>
+          </S.Title>
+          <S.DocumentContainer>
+            <Document
+              clientContent={clientContent}
+              setIsActive={setIsActive}
+              onDelete={onDelete}
+            ></Document>
+            <Document clientContent={companyContent}></Document>
+          </S.DocumentContainer>
+          <S.Popup>
+            <Toast
+              isActive={isActive}
+              setIsActive={setIsActive}
+              message={"링크 복사가 완료되었습니다!"}
+            />
+          </S.Popup>
+        </S.Wrapper>
+      </S.Container>
       <Footer bgColor="#fff"></Footer>
     </>
   );
 };
 
-export default ClientWorkPage;
+export default React.memo(ClientWorkPage);

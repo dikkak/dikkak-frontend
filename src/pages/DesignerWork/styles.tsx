@@ -18,6 +18,9 @@ export const Wrapper = styled.div`
   width: 70%;
   height: 660px;
   padding: 40px 0;
+  @media screen and (max-width: 500px) {
+    height: auto;
+  }
 `;
 
 export const Title = styled.div`
@@ -58,6 +61,24 @@ export const Title = styled.div`
       text-decoration: underline;
     }
   }
+  @media screen and (max-width: 500px) {
+    & div h1 {
+      font-size: 26px;
+    }
+    & p {
+      font-size: 12px;
+      line-height: 20px;
+    }
+    & p:last-child {
+      font-size: 8px;
+      padding-top: 0;
+      & a {
+        color: #717171;
+        font-weight: 900;
+        text-decoration: underline;
+      }
+    }
+  }
 `;
 
 export const BackButton = styled.div`
@@ -80,6 +101,14 @@ export const BackButton = styled.div`
     font-size: 0.8rem;
     color: white;
   }
+  @media screen and (max-width: 500px) {
+    width: 120px;
+    top: -30px;
+    left: -20px;
+    p {
+      font-size: 0.5rem;
+    }
+  }
 `;
 
 export const DocumentContainer = styled.div`
@@ -87,6 +116,11 @@ export const DocumentContainer = styled.div`
   justify-content: space-between;
   width: 790px;
   margin-bottom: 60px;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 230px;
+  }
 `;
 
 //Logo
@@ -113,3 +147,12 @@ export const companyContent = {
   workMenttion: "외주 작업실",
   bgColor: "#329A29",
 };
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
