@@ -40,7 +40,7 @@ jobs: # Job 설정
         if: contains(github.ref, 'develop')
         run: |
           aws deploy create-deployment \
-          --application-name dikkak-dev-deploy \
+          --application-name dikkak-deploy \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name dikkak-front-dev-deploy \
           --s3-location bucket=dikkak-dev-deploy,bundleType=zip,key=dikkak-front/$GITHUB_SHA.zip
