@@ -18,7 +18,7 @@ jobs: # Job 설정
 
       # zip 파일을 만듭니다(파일명은 자유, 대신 아래 workflow에 적을 파일명과 동일하게 맞춰주세요).
       - name: zip create
-        run: zip -qq -r ./$GITHUB_SHA.zip .
+        run: zip -qq -r ./$GITHUB_SHA.zip ./build appspec.yml
         shell: bash
 
       - name: Configure AWS credentials
