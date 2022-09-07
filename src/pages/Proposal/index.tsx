@@ -113,7 +113,7 @@ const Proposal = () => {
 
   if (isError) return <>Error</>;
   return (
-    <>
+    <PageContainer isReferenceClick={isRefClicked}>
       <Menu />
       <Container>
         <Header>
@@ -220,11 +220,17 @@ const Proposal = () => {
           />
         </Overlay>
       )}
-    </>
+    </PageContainer>
   );
 };
 
 export default Proposal;
+
+const PageContainer = styled.div<{ isReferenceClick: boolean }>`
+  width: 100%;
+  height: 100vh;
+  overflow-y: ${(props) => (props.isReferenceClick ? "hidden" : "auto")};
+`;
 
 const Overlay = styled.div`
   position: fixed;

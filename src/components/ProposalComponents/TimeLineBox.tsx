@@ -82,6 +82,7 @@ const TimeStep = styled.div`
   cursor: pointer;
   &:hover {
     opacity: 0.8;
+    color: ${(props) => props.theme.subColor};
   }
   &::before {
     content: "";

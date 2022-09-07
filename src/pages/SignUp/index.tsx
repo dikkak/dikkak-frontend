@@ -73,16 +73,15 @@ const SignUp = () => {
                 <p>페이스북 간편 가입하기</p>
               </S.Button>
               <S.Button
+                as="a"
+                href="https://open.kakao.com/o/sUAISbxe"
                 style={{ marginTop: "10px" }}
                 bgColor="#000"
                 textColor="#fff"
               >
-                <a
-                  style={{ textDecoration: "none", color: "#fff" }}
-                  href="https://open.kakao.com/o/sUAISbxe"
-                >
+                <p style={{ textDecoration: "none", color: "#fff" }}>
                   가입 문의하기
-                </a>
+                </p>
               </S.Button>
             </S.ButtonGroup>
           </S.Board>
