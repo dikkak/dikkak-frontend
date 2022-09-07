@@ -4,7 +4,6 @@ on: # Event 감지
     branches: ["master", "develop"] # 마스터 브랜치의 푸쉬가 일어날 때 CI/CD를 진행하겠다는 뜻
 jobs: # Job 설정
   build:
-	# 내 EC2는 CentOS라서 바꿔야 할 것 같지만, 여기는 아래 상태로 둔다. 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code. # Repo checkout
@@ -16,19 +15,18 @@ jobs: # Job 설정
       - name: Build # React Build
         run: yarn build
 
-# zip 파일을 만듭니다(파일명은 자유, 대신 아래 workflow에 적을 파일명과 동일하게 맞춰주세요).
-      - name: zip create 
+      # zip 파일을 만듭니다(파일명은 자유, 대신 아래 workflow에 적을 파일명과 동일하게 맞춰주세요).
+      - name: zip create
         run: zip -qq -r ./$GITHUB_SHA.zip .
         shell: bash
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-# S3에 파일 업로드
+      # S3에 파일 업로드
       - name: Upload to S3 (Dev)
         if: contains(github.ref, 'develop')
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://dikkak-dev-deploy/dikkak-front/$GITHUB_SHA.zip
@@ -37,7 +35,7 @@ jobs: # Job 설정
       #   if: contains(github.ref, 'master')
       #   run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://dikkak-prod-deploy/dikkak-front/$GITHUB_SHA.zip
 
-        # CodeDeploy 배포
+      # CodeDeploy 배포
       - name: Code Deploy (Dev)
         if: contains(github.ref, 'develop')
         run: |
