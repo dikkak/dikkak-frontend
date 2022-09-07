@@ -53,4 +53,4 @@ jobs: # Job 설정
           --application-name dikkak-deploy \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name dikkak-front-prod-deploy \
-          --s3-location bucket=dikkak-prod-deploy,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
+          --s3-location bucket=dikkak-prod-deploy,bundleType=zip,key=dikkak-front/$GITHUB_SHA.zip
