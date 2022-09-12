@@ -2,6 +2,10 @@ name: Deploy
 on:
   push:
     branches: ["master", "develop"]
+
+env:
+  PROJECT_NAME: dikkak-front
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,7 +37,7 @@ jobs:
         run: yarn build
 
       - name: zip create # zip 파일을 만듭니다
-        run: zip -qq -r ./$GITHUB_SHA.zip ./build appspec.yml
+        run: zip -r ./$GITHUB_SHA.zip ./build appspec.yml
         shell: bash
 
       - name: Configure AWS credentials
@@ -45,11 +49,11 @@ jobs:
 
       - name: Upload to S3 (Dev) # S3에 파일 업로드 (개발)
         if: contains(github.ref, 'develop')
-        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://dikkak-dev-deploy/dikkak-front/$GITHUB_SHA.zip
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://${{ secrets.S3_BUCKET_NAME_DEV }}/$PROJECT_NAME/$GITHUB_SHA.zip
 
       - name: Upload to S3 (Prod) # S3에 파일 업로드 (운영)
         if: contains(github.ref, 'master')
-        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://dikkak-prod-deploy/dikkak-front/$GITHUB_SHA.zip
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://${{ secrets.S3_BUCKET_NAME_PROD }}/$PROJECT_NAME/$GITHUB_SHA.zip
 
       - name: Code Deploy (Dev) # CodeDeploy 배포
         if: contains(github.ref, 'develop') # 개발서버
@@ -58,7 +62,7 @@ jobs:
           --application-name dikkak-deploy \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name dikkak-front-dev-deploy \
-          --s3-location bucket=dikkak-dev-deploy,bundleType=zip,key=dikkak-front/$GITHUB_SHA.zip
+          --s3-location bucket=${{ secrets.S3_BUCKET_NAME_DEV }},bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
 
       - name: Code Deploy (Prod) # 운영서버
         if: contains(github.ref, 'master')
@@ -67,4 +71,4 @@ jobs:
           --application-name dikkak-deploy \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name dikkak-front-prod-deploy \
-          --s3-location bucket=dikkak-prod-deploy,bundleType=zip,key=dikkak-front/$GITHUB_SHA.zip
+          --s3-location bucket=${{ secrets.S3_BUCKET_NAME_PROD }},bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
