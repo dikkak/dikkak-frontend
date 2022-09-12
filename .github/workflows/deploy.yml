@@ -31,7 +31,6 @@ jobs:
       - name: Setting .env
         run: |
           echo "${{ secrets.REACT_ENV }}" >> .env
-          cat .env
 
       - name: Build # React Build
         run: yarn build
