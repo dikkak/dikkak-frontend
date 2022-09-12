@@ -19,6 +19,24 @@ jobs:
       - name: Install Dependencies # 의존 파일 설치
         run: yarn install --frozen-lockfile
 
+      - name: Setting .env
+        run: |
+          echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> .env
+          echo "REACT_APP_DEV_BASE_URL=${{ secrets.REACT_APP_DEV_BASE_URL }}" >> .env
+          echo "REACT_APP_GOOGLE_API_KEY=${{ secrets.REACT_APP_GOOGLE_API_KEY }}" >> .env
+          echo "REACT_APP_KAKAO_API_KEY=${{ secrets.REACT_APP_KAKAO_API_KEY }}" >> .env
+          echo "REACT_APP_FACEBOOK_API_KEY=${{ secrets.REACT_APP_FACEBOOK_API_KEY }}" >> .env
+          echo "REACT_APP_KAKAO_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}" >> .env
+          echo "REACT_APP_KAKAO_LOGOUT_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_LOGOUT_REDIRECT_URI }}" >> .env
+          echo "REACT_APP_GOOGLE_REDIRECT_URI=${{ secrets.REACT_APP_GOOGLE_REDIRECT_URI }}" >> .env
+          echo "REACT_APP_FACEBOOK_REDIRECT_URI=${{ secrets.REACT_APP_FACEBOOK_REDIRECT_URI }}" >> .env
+          echo "REACT_APP_KAKAO_DEV_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_DEV_REDIRECT_URI }}" >> .env
+          echo "REACT_APP_KAKAO_DEV_LOGOUT_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_DEV_LOGOUT_REDIRECT_URI }}" >> .env
+          echo "REACT_APP_GOOGLE_DEV_REDIRECT_URI=${{ secrets.REACT_APP_GOOGLE_DEV_REDIRECT_URI }}" >> .env
+          echo "REACT_APP_FACEBOOK_DEV_REDIRECT_URI=${{ secrets.REACT_APP_FACEBOOK_DEV_REDIRECT_URI }}" >> .env
+          echo "REACT_APP_CHANNELTALK_PLUGIN_KEY=${{ secrets.REACT_APP_CHANNELTALK_PLUGIN_KEY }}" >> .env
+          cat .env
+
       - name: Build # React Build
         run: yarn build
 
