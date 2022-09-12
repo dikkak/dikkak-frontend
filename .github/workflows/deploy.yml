@@ -23,7 +23,7 @@ jobs:
         run: yarn build
 
       - name: zip create # zip 파일을 만듭니다
-        run: zip -qq -r ./$GITHUB_SHA.zip ./build appspec.yml
+        run: zip -qq -r ./$GITHUB_SHA.zip .
         shell: bash
 
       - name: Configure AWS credentials
