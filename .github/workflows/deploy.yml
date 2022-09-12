@@ -24,6 +24,11 @@ jobs:
       - name: Install Dependencies # 의존 파일 설치
         run: yarn install --frozen-lockfile
 
+      - name: Setting .env
+        run: |
+          echo "${{ secrets.REACT_ENV }}" >> .env
+          cat .env
+
       - name: Build # React Build
         run: yarn build
 
