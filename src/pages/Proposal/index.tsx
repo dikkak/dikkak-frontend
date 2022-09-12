@@ -63,6 +63,8 @@ const Proposal = () => {
   });
 
   // 각 step의 ref를 선언하여 step에서 단계를 클릭시 바로가기가 가능하도록 하기 위해 컴포넌트별 ref 선언
+  const containerRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const choiceRef = useRef<HTMLHeadingElement>(null);
   const detailRef = useRef<HTMLHeadingElement>(null);
@@ -78,42 +80,101 @@ const Proposal = () => {
   const onMoveToElement = (step: string) => {
     switch (step) {
       case "title":
-        titleRef.current?.scrollIntoView();
+        const offsetTitle = titleRef.current?.offsetTop;
+        if (offsetTitle) {
+          boxRef.current?.scrollTo({
+            top: offsetTitle - 165,
+            behavior: "smooth",
+          });
+        }
         break;
       case "choice":
-        choiceRef.current?.scrollIntoView();
+        const offsetChoice = choiceRef.current?.offsetTop;
+        if (offsetChoice) {
+          boxRef.current?.scrollTo({
+            top: offsetChoice - 165,
+            behavior: "smooth",
+          });
+        }
         break;
       case "detail":
-        detailRef.current?.scrollIntoView();
+        const offsetDetail = detailRef.current?.offsetTop;
+        if (offsetDetail) {
+          boxRef.current?.scrollTo({
+            top: offsetDetail - 165,
+            behavior: "smooth",
+          });
+        }
         break;
       case "purpose":
-        purposeRef.current?.scrollIntoView();
+        const offsetPurpose = purposeRef.current?.offsetTop;
+        if (offsetPurpose) {
+          boxRef.current?.scrollTo({
+            top: offsetPurpose - 165,
+            behavior: "smooth",
+          });
+        }
         break;
       case "keyword":
-        keywordRef.current?.scrollIntoView();
+        const offsetKeyword = keywordRef.current?.offsetTop;
+        if (offsetKeyword) {
+          boxRef.current?.scrollTo({
+            top: offsetKeyword - 165,
+            behavior: "smooth",
+          });
+        }
         break;
       case "deadline":
-        deadlineRef.current?.scrollIntoView();
+        const offsetDeadline = deadlineRef.current?.offsetTop;
+        if (offsetDeadline) {
+          boxRef.current?.scrollTo({
+            top: offsetDeadline - 165,
+            behavior: "smooth",
+          });
+        }
         break;
       case "color":
-        colorRef.current?.scrollIntoView();
+        const offsetColor = colorRef.current?.offsetTop;
+        if (offsetColor) {
+          boxRef.current?.scrollTo({
+            top: offsetColor - 165,
+            behavior: "smooth",
+          });
+        }
         break;
       case "reference":
-        referenceRef.current?.scrollIntoView();
+        const offsetReference = referenceRef.current?.offsetTop;
+        if (offsetReference) {
+          boxRef.current?.scrollTo({
+            top: offsetReference - 165,
+            behavior: "smooth",
+          });
+        }
         break;
       case "etc":
-        etcRef.current?.scrollIntoView();
+        const offsetEtc = etcRef.current?.offsetTop;
+        if (offsetEtc) {
+          boxRef.current?.scrollTo({
+            top: offsetEtc - 165,
+            behavior: "smooth",
+          });
+        }
         break;
       case "addtional":
-        addtionalRef.current?.scrollIntoView();
+        const offsetAdditional = addtionalRef.current?.offsetTop;
+        if (offsetAdditional) {
+          boxRef.current?.scrollTo({
+            top: offsetAdditional - 165,
+            behavior: "smooth",
+          });
+        }
         break;
     }
-    window.scrollTo(0, 0);
   };
 
   if (isError) return <>Error</>;
   return (
-    <PageContainer isReferenceClick={isRefClicked}>
+    <PageContainer ref={containerRef} isReferenceClick={isRefClicked}>
       <Menu />
       <Container>
         <Header>
@@ -124,7 +185,7 @@ const Proposal = () => {
         </Header>
         <Content>
           <TimeLineBox onMoveToElement={onMoveToElement} />
-          <Box>
+          <Box ref={boxRef}>
             <BoxContent>
               <ProposalTitle titleRef={titleRef} title={data?.title} />
               <ProposalChoice choiceRef={choiceRef} category={data?.category} />
