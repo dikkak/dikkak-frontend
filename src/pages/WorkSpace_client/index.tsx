@@ -2,48 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import { Navigate, useNavigate } from "react-router-dom";
-import {
-  Container,
-  Wrapper,
-  Header,
-  BackButton,
-  Title,
-  LogoImage,
-  Content,
-  BlurPin,
-  BlurBackground,
-  Box,
-  BoxContent,
-  TextContainer,
-  Text,
-  SideTitle,
-  TimeLine,
-  Outer,
-  InputArea,
-  SubmitArea,
-  SubmitButton,
-  TitleTimeStep,
-  WorkTimeStep,
-  DetailTimeStep,
-  PurposeTimeStep,
-  KeyWordTimeStep,
-  DeadLineTimeStep,
-  ColorTimeStep,
-  ReferenceTimeStep,
-  EtcTimeStep,
-  AdditionTimeStep,
-  SubmitTimeStep,
-  WholeBox,
-  TagItem,
-  TagText,
-  Button,
-  TagInput,
-  TagBox,
-  FileContainer,
-  EtcFileContainer,
-  TextOverlay,
-  FileName,
-} from "./styles";
+import * as S from "./styles";
 import WorkspaceRender from "../../components/ClientWorkspace/WorkspaceRender";
 import { useQuery } from "react-query";
 import { userInfo } from "../../apis/auth_login";
@@ -178,36 +137,36 @@ const WorkSpaceClient = () => {
   return (
     <>
       <Menu />
-      <Container>
-        <Wrapper>
-          <Header>
-            <BackButton onClick={() => navigate(-1)}>
+      <S.Container>
+        <S.Wrapper>
+          <S.Header>
+            <S.BackButton onClick={() => navigate(-1)}>
               <p>◀︎</p>
               <p>이전으로 돌아가기</p>
-            </BackButton>
-            <Title>
+            </S.BackButton>
+            <S.Title>
               <h1>제안서 작업실</h1>
-              <LogoImage></LogoImage>
-            </Title>
-          </Header>
-          <Content>
-            <BlurBackground>
-              <BlurPin />
-              <BlurPin />
-              <BlurPin />
-              <BlurPin />
-              <SideTitle>STEP</SideTitle>
-              <TimeLine>
-                <Outer>
-                  <TitleTimeStep
+              <S.LogoImage></S.LogoImage>
+            </S.Title>
+          </S.Header>
+          <S.Content>
+            <S.BlurBackground>
+              <S.BlurPin />
+              <S.BlurPin />
+              <S.BlurPin />
+              <S.BlurPin />
+              <S.SideTitle>STEP</S.SideTitle>
+              <S.TimeLine>
+                <S.Outer>
+                  <S.TitleTimeStep
                     onClick={() => {
                       setworkspaceNum(1);
                     }}
                     step={workStep.titleStep}
                   >
                     제목입력
-                  </TitleTimeStep>
-                  <WorkTimeStep
+                  </S.TitleTimeStep>
+                  <S.WorkTimeStep
                     onClick={() => {
                       if (workStep.titleStep === "done") {
                         setworkspaceNum(2);
@@ -216,8 +175,8 @@ const WorkSpaceClient = () => {
                     step={workStep.workChoiceStep}
                   >
                     작업선택
-                  </WorkTimeStep>
-                  <DetailTimeStep
+                  </S.WorkTimeStep>
+                  <S.DetailTimeStep
                     onClick={() => {
                       if (workChoice.OTHER) setworkspaceNum(4);
                       else if (
@@ -232,8 +191,8 @@ const WorkSpaceClient = () => {
                     세부사항
                     <br />
                     선택
-                  </DetailTimeStep>
-                  <PurposeTimeStep
+                  </S.DetailTimeStep>
+                  <S.PurposeTimeStep
                     onClick={() => {
                       if (
                         workStep.titleStep &&
@@ -246,8 +205,8 @@ const WorkSpaceClient = () => {
                     step={workStep.purposeStep}
                   >
                     사용목적
-                  </PurposeTimeStep>
-                  <KeyWordTimeStep
+                  </S.PurposeTimeStep>
+                  <S.KeyWordTimeStep
                     onClick={() => {
                       if (
                         workStep.titleStep &&
@@ -263,8 +222,8 @@ const WorkSpaceClient = () => {
                     키워드
                     <br />
                     선택
-                  </KeyWordTimeStep>
-                  <DeadLineTimeStep
+                  </S.KeyWordTimeStep>
+                  <S.DeadLineTimeStep
                     onClick={() => {
                       if (
                         workStep.titleStep &&
@@ -281,8 +240,8 @@ const WorkSpaceClient = () => {
                     마감기간
                     <br />
                     선택
-                  </DeadLineTimeStep>
-                  <ColorTimeStep
+                  </S.DeadLineTimeStep>
+                  <S.ColorTimeStep
                     onClick={() => {
                       if (
                         workStep.titleStep &&
@@ -298,8 +257,8 @@ const WorkSpaceClient = () => {
                     step={workStep.colorStep}
                   >
                     컬러선택
-                  </ColorTimeStep>
-                  <ReferenceTimeStep
+                  </S.ColorTimeStep>
+                  <S.ReferenceTimeStep
                     onClick={() => {
                       if (
                         workStep.titleStep &&
@@ -318,8 +277,8 @@ const WorkSpaceClient = () => {
                     레퍼런스
                     <br />
                     등록
-                  </ReferenceTimeStep>
-                  <EtcTimeStep
+                  </S.ReferenceTimeStep>
+                  <S.EtcTimeStep
                     onClick={() => {
                       if (
                         workStep.titleStep &&
@@ -342,8 +301,8 @@ const WorkSpaceClient = () => {
                     <p style={{ display: "inline", fontSize: "10px" }}>
                       (선택)
                     </p>
-                  </EtcTimeStep>
-                  <AdditionTimeStep
+                  </S.EtcTimeStep>
+                  <S.AdditionTimeStep
                     onClick={() => {
                       if (
                         workStep.titleStep &&
@@ -367,8 +326,8 @@ const WorkSpaceClient = () => {
                     <p style={{ display: "inline", fontSize: "10px" }}>
                       (선택)
                     </p>
-                  </AdditionTimeStep>
-                  <SubmitTimeStep
+                  </S.AdditionTimeStep>
+                  <S.SubmitTimeStep
                     onClick={() => {
                       if (
                         workStep.titleStep &&
@@ -388,44 +347,44 @@ const WorkSpaceClient = () => {
                     step={workStep.submitStep}
                   >
                     제출하기
-                  </SubmitTimeStep>
-                </Outer>
-              </TimeLine>
-            </BlurBackground>
-            <Box>
+                  </S.SubmitTimeStep>
+                </S.Outer>
+              </S.TimeLine>
+            </S.BlurBackground>
+            <S.Box>
               {!done ? (
-                <BoxContent>
+                <S.BoxContent>
                   <WorkspaceRender
                     workspaceNum={workspaceNum}
                     tagRef={tagRef}
                     textRef={textRef}
                     setProposalId={setProposalId}
                   ></WorkspaceRender>
-                  <TextContainer>
+                  <S.TextContainer>
                     {(workspaceNum === 2 ||
                       workspaceNum === 3 ||
                       workspaceNum === 6 ||
                       workspaceNum === 7 ||
                       workspaceNum === 8 ||
                       workspaceNum === 9 ||
-                      workspaceNum === 11) && <TextOverlay></TextOverlay>}
-                    <InputArea>
+                      workspaceNum === 11) && <S.TextOverlay></S.TextOverlay>}
+                    <S.InputArea>
                       {workspaceNum === 5 ? (
-                        <WholeBox
+                        <S.WholeBox
                           onClick={() => {
                             tagRef.current?.focus();
                           }}
                         >
-                          <TagBox>
+                          <S.TagBox>
                             {inputList.map((keywordItem, index) => {
                               return (
-                                <TagItem key={index}>
-                                  <TagText>{keywordItem}</TagText>
-                                  <Button onClick={deleteTagItem}>X</Button>
-                                </TagItem>
+                                <S.TagItem key={index}>
+                                  <S.TagText>{keywordItem}</S.TagText>
+                                  <S.Button onClick={deleteTagItem}>X</S.Button>
+                                </S.TagItem>
                               );
                             })}
-                            <TagInput
+                            <S.TagInput
                               ref={tagRef}
                               type="text"
                               tabIndex={2}
@@ -435,34 +394,34 @@ const WorkSpaceClient = () => {
                               value={tagItem}
                               onKeyDown={onKeyPress}
                             />
-                          </TagBox>
-                        </WholeBox>
+                          </S.TagBox>
+                        </S.WholeBox>
                       ) : (
-                        <Text
+                        <S.Text
                           ref={textRef}
                           onKeyDown={onKeyDown}
                           onChange={onInputChange}
                           value={input}
                         />
                       )}
-                    </InputArea>
-                    <SubmitArea>
-                      <SubmitButton onClick={() => onSubmit(workspaceNum)}>
+                    </S.InputArea>
+                    <S.SubmitArea>
+                      <S.SubmitButton onClick={() => onSubmit(workspaceNum)}>
                         전송하기
-                      </SubmitButton>
-                    </SubmitArea>
-                  </TextContainer>
-                </BoxContent>
+                      </S.SubmitButton>
+                    </S.SubmitArea>
+                  </S.TextContainer>
+                </S.BoxContent>
               ) : (
                 <Done proposalId={proposalId}></Done>
               )}
-            </Box>
-            <BlurBackground>
-              <BlurPin />
-              <BlurPin />
-              <BlurPin />
-              <BlurPin />
-              <SideTitle>FILE</SideTitle>
+            </S.Box>
+            <S.BlurBackground>
+              <S.BlurPin />
+              <S.BlurPin />
+              <S.BlurPin />
+              <S.BlurPin />
+              <S.SideTitle>FILE</S.SideTitle>
               <div
                 style={{
                   display: "flex",
@@ -473,7 +432,7 @@ const WorkSpaceClient = () => {
                 }}
               >
                 {refFileRenderFnc() ? (
-                  <FileContainer>
+                  <S.FileContainer>
                     <h3
                       onClick={() => {
                         setFileClickState((prev) => !prev);
@@ -487,14 +446,14 @@ const WorkSpaceClient = () => {
                       referenceContents.map((item, index) => {
                         return item.imgName !== "" ? (
                           <li key={index}>
-                            <FileName>{item.imgName}</FileName>
+                            <S.FileName>{item.imgName}</S.FileName>
                           </li>
                         ) : null;
                       })}
-                  </FileContainer>
+                  </S.FileContainer>
                 ) : null}
                 {etcFileRenderFnc() ? (
-                  <EtcFileContainer>
+                  <S.EtcFileContainer>
                     <h3
                       onClick={() => {
                         setEtcClickState((prev) => !prev);
@@ -508,17 +467,17 @@ const WorkSpaceClient = () => {
                       workEtc.map((item, index) => {
                         return item.fileName !== "" ? (
                           <li key={index}>
-                            <FileName>{item.fileName}</FileName>
+                            <S.FileName>{item.fileName}</S.FileName>
                           </li>
                         ) : null;
                       })}
-                  </EtcFileContainer>
+                  </S.EtcFileContainer>
                 ) : null}
               </div>
-            </BlurBackground>
-          </Content>
-        </Wrapper>
-      </Container>
+            </S.BlurBackground>
+          </S.Content>
+        </S.Wrapper>
+      </S.Container>
       <Footer bgColor="#fff"></Footer>
       <NavigationGuard when={navigateGuard} />
     </>

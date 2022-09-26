@@ -10,6 +10,7 @@ import Redirect from "./components/Redirect";
 import WorkSpaceClient from "./pages/WorkSpace_client";
 import Proposal from "./pages/Proposal";
 import ChannelService from "./utils/channelTalk";
+import OutsourcePage from "./pages/OutsourcePage";
 
 ChannelService.boot({
   pluginKey: process.env.REACT_APP_CHANNELTALK_PLUGIN_KEY,
@@ -26,6 +27,7 @@ const Router = () => {
         <Route path="/client_workspace" element={<ClientWorkPage />} />
         <Route path="/designer_workspace" element={<DesignerWorkPage />} />
         <Route path="/workspace_client" element={<WorkSpaceClient />} />
+        <Route path="/outsource" element={<OutsourcePage />} />
         <Route path="/proposal/:id" element={<Proposal />} />
         <Route path="/oauth/kakao/callback" element={<Redirect />} />
         <Route path="/oauth/google/callback" element={<Redirect />} />
