@@ -38,13 +38,14 @@ export const Button = styled.button`
   border: 0;
   color: #fff;
   margin-bottom: 15px;
-  padding: 7px 0px;
+  padding: 7px 20px;
   cursor: pointer;
   box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  justify-items: flex-start;
+  align-content: center;
   font-family: "Noto Sans KR";
   &:hover {
     opacity: 0.8;
@@ -53,6 +54,14 @@ export const Button = styled.button`
 
 export const LinkCopyBtn = styled(Button)`
   background-color: ${(props) => props.theme.mainColor};
+`;
+export const EstimateBtn = styled(Button)`
+  background-color: ${(props) => props.theme.mainColor};
+  opacity: 0.9;
+`;
+export const RequestBtn = styled(Button)`
+  background-color: ${(props) => props.theme.mainColor};
+  opacity: 0.7;
 `;
 export const GotoClientBtn = styled(Button)`
   background-color: ${(props) => props.theme.subColor};

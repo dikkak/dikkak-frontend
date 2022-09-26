@@ -19,16 +19,7 @@ import {
   workStepAtom,
 } from "../../../atoms";
 import Toast from "../../Toast";
-import {
-  BoxContainer,
-  ButtonContainer,
-  ContentsContainer,
-  Description,
-  DoneImg,
-  GotoClientBtn,
-  LinkCopyBtn,
-  LinkImg,
-} from "./styles";
+import * as S from "./styles";
 
 interface IDoneProps {
   proposalId: string;
@@ -80,31 +71,66 @@ const Done = ({ proposalId }: IDoneProps) => {
     resetWorkStep();
   };
   return (
-    <BoxContainer>
-      <ContentsContainer>
-        <DoneImg />
-        <Description>제안서 작업이 완료되었습니다!</Description>
-        <ButtonContainer>
-          <LinkCopyBtn onClick={copyUrl}>
-            링크 복사하기
-            <LinkImg />
-          </LinkCopyBtn>
-          <GotoClientBtn
+    <S.BoxContainer>
+      <S.ContentsContainer>
+        <S.DoneImg />
+        <S.Description>제안서 작업이 완료되었습니다!</S.Description>
+        <S.ButtonContainer>
+          <S.LinkCopyBtn onClick={copyUrl}>
+            <p>1</p>
+            <div
+              style={{
+                justifySelf: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <p>링크 복사하기</p>
+              <S.LinkImg />
+            </div>
+          </S.LinkCopyBtn>
+          <S.EstimateBtn
+            as="a"
+            onClick={() =>
+              window.open(
+                "https://di-kkak.notion.site/11556fcf5dc740168e1fb6c974d0714a",
+                "_blank"
+              )
+            }
+          >
+            <p>2</p>
+            <p style={{ justifySelf: "center" }}>예상 견적 살펴보기</p>
+          </S.EstimateBtn>
+          <S.RequestBtn
+            as="a"
+            onClick={() =>
+              window.open(
+                "https://dikkakbot.channel.io/support-bots/48169",
+                "_blank"
+              )
+            }
+          >
+            <p>3</p>
+            <p style={{ justifySelf: "center" }}>디자인 의뢰하기</p>
+          </S.RequestBtn>
+          <S.GotoClientBtn
             onClick={() => {
               setAtomInit();
               navigate("/client_workspace");
             }}
           >
-            클라이언트 작업실로 돌아가기
-          </GotoClientBtn>
-        </ButtonContainer>
+            <p>4</p>
+            <p style={{ justifySelf: "center" }}>작업실로 돌아가기</p>
+          </S.GotoClientBtn>
+        </S.ButtonContainer>
         <Toast
           isActive={isActive}
           setIsActive={setIsActive}
           message={"링크 복사가 완료되었습니다!"}
         />
-      </ContentsContainer>
-    </BoxContainer>
+      </S.ContentsContainer>
+    </S.BoxContainer>
   );
 };
 
