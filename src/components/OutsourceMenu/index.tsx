@@ -104,6 +104,9 @@ const InnerMenu = styled.div`
   margin-left: 147px;
   width: 100%;
   height: 58px;
+  @media screen and (max-width: 1400px) {
+    margin: 0;
+  }
 `;
 const InnerLeftMenu = styled.div`
   position: absolute;
@@ -113,6 +116,10 @@ const InnerLeftMenu = styled.div`
   width: 573px;
   height: 47px;
   margin-top: 15px;
+  @media screen and (max-width: 1400px) {
+    position: static;
+    margin-right: 200px;
+  }
 `;
 const Button = styled.div`
   display: flex;
@@ -152,6 +159,13 @@ const InnerRightMenu = styled.div`
   width: 304px;
   height: 64px;
   margin-top: 15px;
+  @media screen and (max-width: 1400px) {
+    position: relative;
+    flex-grow: 1;
+    justify-content: flex-end;
+    right: 0;
+    gap: 16px;
+  }
 `;
 
 const RightMenuButton = styled(Button)<{ isSelected: boolean }>`
