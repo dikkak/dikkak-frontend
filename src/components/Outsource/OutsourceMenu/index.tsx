@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import menuImage from "../../assets/menuImage/outsourceMenu.svg";
-import backLogo from "../../assets/menuImage/backLogo.svg";
-import chatLogo from "../../assets/menuImage/chatLogo.svg";
-import scheduleLogo from "../../assets/menuImage/scheduleLogo.svg";
-import checkLogo from "../../assets/menuImage/checkLogo.svg";
-import fileLogo from "../../assets/menuImage/fileLogo.svg";
-import chatSelectLogo from "../../assets/menuImage/chatSelectLogo.svg";
-import scheduleSelectLogo from "../../assets/menuImage/scheduleSelectLogo.svg";
-import checkSelectLogo from "../../assets/menuImage/checkSelectLogo.svg";
-import fileSelectLogo from "../../assets/menuImage/fileSelectLogo.svg";
+import menuImage from "../../../assets/menuImage/outsourceMenu.svg";
+import backLogo from "../../../assets/menuImage/backLogo.svg";
+import chatLogo from "../../../assets/menuImage/chatLogo.svg";
+import scheduleLogo from "../../../assets/menuImage/scheduleLogo.svg";
+import checkLogo from "../../../assets/menuImage/checkLogo.svg";
+import fileLogo from "../../../assets/menuImage/fileLogo.svg";
+import chatSelectLogo from "../../../assets/menuImage/chatSelectLogo.svg";
+import scheduleSelectLogo from "../../../assets/menuImage/scheduleSelectLogo.svg";
+import checkSelectLogo from "../../../assets/menuImage/checkSelectLogo.svg";
+import fileSelectLogo from "../../../assets/menuImage/fileSelectLogo.svg";
 import { useState } from "react";
 
 interface IOutsourceMenuProps {
