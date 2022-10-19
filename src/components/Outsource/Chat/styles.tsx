@@ -12,7 +12,7 @@ export const ChatBox = styled.div`
   position: relative;
   flex: 75;
   width: 100%;
-  padding: 8px;
+  padding: 8px 8px 0 8px;
 `;
 export const Title = styled.h1`
   color: ${(props) => props.theme.subColor};
@@ -122,26 +122,6 @@ export const EtcTimeStep = styled(TimeStep)``;
 export const AdditionTimeStep = styled(TimeStep)``;
 export const SubmitTimeStep = styled(TimeStep)``;
 
-export const NextButton = styled.button`
-  position: absolute;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  bottom: 0;
-  width: 440px;
-  height: 30px;
-  margin-bottom: 20px;
-  font-size: 20px;
-  border: none;
-  border-radius: 5px;
-  border-radius: 5px;
-  background-color: #717171;
-  color: white;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-`;
 export const Circle = styled.div<{ color: string }>`
   width: 12px;
   height: 12px;
