@@ -32,8 +32,8 @@ const Done = ({ proposalId }: IDoneProps) => {
     setIsActive(true);
     navigator.clipboard.writeText(
       process.env.NODE_ENV === "production"
-        ? `https://www.98o7.com/proposal/${proposalId}`
-        : `https://dev.98o7.com/proposal/${proposalId}`
+        ? `https://www.dikkak/proposal/${proposalId}`
+        : `https://dev.dikkak/proposal/${proposalId}`
     );
     // `http://localhost:3000/proposal/${proposalId}`
     // 개발서버 도메인
