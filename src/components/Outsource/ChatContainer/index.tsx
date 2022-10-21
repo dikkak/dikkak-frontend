@@ -8,12 +8,13 @@ import ChatOtherMessage from "../ChatOtherMessage";
 
 interface IChatContainer {
   chatList: ChatResonse[];
+  chatRef: React.RefObject<HTMLDivElement>;
 }
 
-const ChatContainer = ({ chatList }: IChatContainer) => {
+const ChatContainer = ({ chatList, chatRef }: IChatContainer) => {
   const { data } = useQuery("user-info", userInfo);
   return (
-    <Container>
+    <Container ref={chatRef}>
       {chatList.map((message, index) => {
         return message.data.email === data?.email ? (
           <div

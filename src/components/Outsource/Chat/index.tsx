@@ -3,6 +3,7 @@ import * as Stomp from "@stomp/stompjs";
 import * as S from "./styles";
 import ChatContainer from "../ChatContainer";
 import NextButton from "../NextButton";
+import axios from "axios";
 
 export interface ChatResonse {
   type: string;
@@ -11,11 +12,14 @@ export interface ChatResonse {
 }
 interface ChatData {
   email: string;
-  content: string;
-  createAt: Date;
+  content?: string;
+  fileName?: string;
+  fileUrl?: string;
+  createdAt: Date;
 }
 
 const Chat = () => {
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const [chatList, setChatList] = useState<ChatResonse[]>([]);
   const [chatText, setChatText] = useState("");
   const client = useRef<Stomp.Client>();
@@ -55,8 +59,37 @@ const Chat = () => {
   const onTyping = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setChatText(e.currentTarget.value);
   };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (
+      e.currentTarget.value.length !== 0 &&
+      e.key === "Enter" &&
+      !e.shiftKey &&
+      e.nativeEvent.isComposing === false
+    ) {
+      e.preventDefault();
+      publish(chatText);
+    }
+  };
+
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatList]);
   useEffect(() => {
     connect();
+    axios
+      .get<ChatResonse[]>("/coworking/chat?coworkingId=1&step=CHECK_PROPOSAL")
+      .then((res) => {
+        if (!res.data) return;
+        setChatList((prev) => [...prev, ...res.data]);
+      });
     return () => disconnect();
   }, [connect]);
   return (
@@ -69,14 +102,14 @@ const Chat = () => {
           />
           작업내용 확인
         </S.Title>
-        <ChatContainer chatList={chatList} />
+        <ChatContainer chatList={chatList} chatRef={chatContainerRef} />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <NextButton />
         </div>
       </S.ChatBox>
       <S.TextContainer>
         <S.InputArea>
-          <S.Text onChange={onTyping} value={chatText} />
+          <S.Text onChange={onTyping} onKeyDown={onKeyDown} value={chatText} />
           <S.AdditionalButtons>
             <S.EmojiButton />
             <S.FileButton />
