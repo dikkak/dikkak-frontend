@@ -205,3 +205,11 @@ export const Button = styled.button`
   border: none;
   cursor: pointer;
 `;
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 60vh;
+  justify-content: center;
+  align-items: center;
+`;

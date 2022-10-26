@@ -3,8 +3,25 @@ import styled from "styled-components";
 import Timeline from "../../components/Outsource/Timeline";
 import OutsourceMenu from "../../components/Outsource/OutsourceMenu";
 import MainContent from "../../components/Outsource/MainContent";
+import { useQuery } from "react-query";
+import { userInfo } from "../../apis/auth_login";
+import { Navigate, useLocation, useParams } from "react-router-dom";
+
+interface RouterState {
+  step: string;
+}
 
 const OutsourcePage = () => {
+  const params = useParams();
+  const coworkingId = params.id || "";
+  const location = useLocation();
+  const step = (location.state as RouterState).step;
+
+  const { data, isFetching } = useQuery("user-info", userInfo);
+  if (!isFetching && !data) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <div>
       <OutsourceMenu />
@@ -12,7 +29,7 @@ const OutsourcePage = () => {
         <Wrapper>
           <Content>
             <Timeline />
-            <MainContent />
+            <MainContent coworkingId={coworkingId} data={data!} step={step} />
           </Content>
         </Wrapper>
       </Container>

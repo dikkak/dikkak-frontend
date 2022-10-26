@@ -104,7 +104,10 @@ const Document = ({
                 : clientContent.contents?.map((content, index) => (
                     <S.List key={content.id}>
                       {/* 클라이언트 작업실 외주작업실 리스트*/}
-                      <Link to="#">
+                      <Link
+                        to={`/outsource/${content.coworkingId}`}
+                        state={{ step: content.coworkingStep }}
+                      >
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
                         <span
                           style={{ fontWeight: "900" }}
@@ -144,7 +147,10 @@ const Document = ({
                 : designerContent.contents?.map((content, index) => (
                     <S.List key={content.id}>
                       {/* 디자이너 작업실 외주작업실 리스트*/}
-                      <Link to={"#"}>
+                      <Link
+                        to={`/outsource/${content.coworkingId}`}
+                        state={{ step: content.coworkingStep }}
+                      >
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
                         <span
                           style={{ fontWeight: "900" }}

@@ -3,7 +3,15 @@ import * as Stomp from "@stomp/stompjs";
 import * as S from "./styles";
 import ChatContainer from "../ChatContainer";
 import NextButton from "../NextButton";
+import { IUserInfo } from "../../../apis/auth_login";
+import { FaSpinner } from "react-icons/fa";
 import axios from "axios";
+
+interface IChatProps {
+  coworkingId: string;
+  data: IUserInfo;
+  step: string;
+}
 
 export interface ChatResonse {
   type: string;
@@ -18,28 +26,29 @@ interface ChatData {
   createdAt: Date;
 }
 
-const Chat = () => {
+const Chat = ({ coworkingId, data, step }: IChatProps) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [chatList, setChatList] = useState<ChatResonse[]>([]);
   const [chatText, setChatText] = useState("");
+  const [chatListLoading, setChatListLoading] = useState<boolean>(false);
   const client = useRef<Stomp.Client>();
+  const subscribe = useCallback(() => {
+    client.current?.subscribe(`/dikkak/coworking/${coworkingId}`, (body) => {
+      const json_body = JSON.parse(body.body);
+      setChatList((_chat_list: ChatResonse[]) => [..._chat_list, json_body]);
+    });
+  }, [coworkingId]);
   const connect = useCallback(() => {
     client.current = new Stomp.Client({
-      brokerURL: "ws://localhost:8080/chat/dikkak-chat",
+      brokerURL: "wss://dev.dikkak.com/chat/dikkak-chat",
       onConnect: () => {
         subscribe();
       },
     });
     client.current.activate();
-  }, []);
+  }, [subscribe]);
   const disconnect = () => {
     client.current?.deactivate();
-  };
-  const subscribe = () => {
-    client.current?.subscribe("/dikkak/coworking/1", (body) => {
-      const json_body = JSON.parse(body.body);
-      setChatList((_chat_list: ChatResonse[]) => [..._chat_list, json_body]);
-    });
   };
   const publish = (chat: string) => {
     if (!client.current?.connected) return;
@@ -47,9 +56,9 @@ const Chat = () => {
     client.current?.publish({
       destination: "/pub/text",
       body: JSON.stringify({
-        email: "test@gmail.com",
+        email: data.email,
         content: chat,
-        coworkingId: 1,
+        coworkingId,
       }),
     });
 
@@ -83,15 +92,27 @@ const Chat = () => {
     scrollToBottom();
   }, [chatList]);
   useEffect(() => {
+    setChatListLoading(true);
     connect();
     axios
-      .get<ChatResonse[]>("/coworking/chat?coworkingId=1&step=CHECK_PROPOSAL")
+      .get<ChatResonse[]>(
+        `/coworking/chat?coworkingId=${coworkingId}&step=${step}`
+      )
       .then((res) => {
         if (!res.data) return;
-        setChatList((prev) => [...prev, ...res.data]);
+        setChatList(res.data);
+        setChatListLoading(false);
       });
     return () => disconnect();
-  }, [connect]);
+  }, [connect, coworkingId, step]);
+  if (chatListLoading || !data)
+    return (
+      <S.LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </S.LoadingContainer>
+    );
   return (
     <S.Container>
       <S.ChatBox>

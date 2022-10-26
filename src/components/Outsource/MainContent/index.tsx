@@ -1,14 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import Chat from "../Chat";
+import { IUserInfo } from "../../../apis/auth_login";
 
-const MainContent = () => {
+interface IMaintContentProps {
+  coworkingId: string;
+  data: IUserInfo;
+  step: string;
+}
+
+const MainContent = ({ coworkingId, data, step }: IMaintContentProps) => {
   return (
     <Container>
       <StepGuide>
         외주 제안서에 대한 질문사항을 확인한 뒤 NEXT STEP 버튼을 눌러주세요
       </StepGuide>
-      <Chat />
+      <Chat coworkingId={coworkingId} data={data} step={step} />
     </Container>
   );
 };
