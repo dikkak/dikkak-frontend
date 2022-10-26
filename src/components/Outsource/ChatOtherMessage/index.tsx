@@ -15,7 +15,7 @@ const ChatOtherMessage = ({ message }: IChatMessage) => {
     <Container>
       <OtherMessage>{message.data.content}</OtherMessage>
       <CreatedTime>
-        {moment.default(message.data.createAt).format("HH:mm")}
+        {moment.default(message.data.createdAt).format("HH:mm")}
       </CreatedTime>
     </Container>
   );

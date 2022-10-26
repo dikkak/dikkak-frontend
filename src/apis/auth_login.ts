@@ -36,7 +36,7 @@ export const authLogout = async () => {
   return response;
 };
 
-interface IUserInfo {
+export interface IUserInfo {
   email: string;
   username: string;
   type: string;
@@ -46,11 +46,11 @@ interface IUserInfo {
   popUpMessage: boolean;
 }
 
-interface ILogin {
+export interface ILogin {
   username: string;
   accessToken: string;
 }
-interface IForm {
+export interface IForm {
   username: string;
   phoneNumber: string;
   termsConditions: boolean;
@@ -58,6 +58,6 @@ interface IForm {
   popUpMessage: boolean;
   marketingMessage: boolean;
 }
-interface IType {
+export interface IType {
   type: string;
 }

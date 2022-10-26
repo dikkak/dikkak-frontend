@@ -40,7 +40,7 @@ export const TextOverlay = styled.div`
 `;
 
 export const Text = styled.textarea.attrs({
-  placeholder: "제목을 입력하세요",
+  placeholder: "내용을 입력하세요",
 })`
   width: 100%;
   height: 75px;
@@ -204,4 +204,12 @@ export const Button = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
+`;
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 60vh;
+  justify-content: center;
+  align-items: center;
 `;
