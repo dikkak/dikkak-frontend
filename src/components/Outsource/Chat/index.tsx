@@ -11,6 +11,7 @@ interface IChatProps {
   coworkingId: string;
   data: IUserInfo;
   step: string;
+  proposalId: number;
 }
 
 export interface ChatResonse {
@@ -26,7 +27,7 @@ interface ChatData {
   createdAt: Date;
 }
 
-const Chat = ({ coworkingId, data, step }: IChatProps) => {
+const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [chatList, setChatList] = useState<ChatResonse[]>([]);
   const [chatText, setChatText] = useState("");
@@ -123,7 +124,11 @@ const Chat = ({ coworkingId, data, step }: IChatProps) => {
           />
           작업내용 확인
         </S.Title>
-        <ChatContainer chatList={chatList} chatRef={chatContainerRef} />
+        <ChatContainer
+          chatList={chatList}
+          chatRef={chatContainerRef}
+          proposalId={proposalId}
+        />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <NextButton />
         </div>

@@ -9,6 +9,7 @@ import { Navigate, useLocation, useParams } from "react-router-dom";
 
 interface RouterState {
   step: string;
+  proposalId: number;
 }
 
 const OutsourcePage = () => {
@@ -16,12 +17,12 @@ const OutsourcePage = () => {
   const coworkingId = params.id || "";
   const location = useLocation();
   const step = (location.state as RouterState).step;
+  const proposalId = (location.state as RouterState).proposalId;
 
   const { data, isFetching } = useQuery("user-info", userInfo);
   if (!isFetching && !data) {
     return <Navigate to="/login" />;
   }
-
   return (
     <div>
       <OutsourceMenu />
@@ -29,7 +30,12 @@ const OutsourcePage = () => {
         <Wrapper>
           <Content>
             <Timeline />
-            <MainContent coworkingId={coworkingId} data={data!} step={step} />
+            <MainContent
+              coworkingId={coworkingId}
+              data={data!}
+              step={step!}
+              proposalId={proposalId}
+            />
           </Content>
         </Wrapper>
       </Container>

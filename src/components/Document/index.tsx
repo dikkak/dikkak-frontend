@@ -106,7 +106,10 @@ const Document = ({
                       {/* 클라이언트 작업실 외주작업실 리스트*/}
                       <Link
                         to={`/outsource/${content.coworkingId}`}
-                        state={{ step: content.coworkingStep }}
+                        state={{
+                          step: content.coworkingStep,
+                          proposalId: content.id,
+                        }}
                       >
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
                         <span
@@ -149,7 +152,10 @@ const Document = ({
                       {/* 디자이너 작업실 외주작업실 리스트*/}
                       <Link
                         to={`/outsource/${content.coworkingId}`}
-                        state={{ step: content.coworkingStep }}
+                        state={{
+                          step: content.coworkingStep,
+                          proposalId: content.id,
+                        }}
                       >
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
                         <span

@@ -12,14 +12,35 @@ moment.locale("ko");
 interface IChatContainer {
   chatList: ChatResonse[];
   chatRef: React.RefObject<HTMLDivElement>;
+  proposalId: number;
 }
-const ChatContainer = ({ chatList, chatRef }: IChatContainer) => {
+const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
+  const BASE_URL =
+    process.env.NODE_ENV === "production"
+      ? "https://dikkak.com"
+      : "http://localhost:3000";
   const { data } = useQuery("user-info", userInfo);
   return (
     <Container ref={chatRef}>
+      <DateIndicator style={{ alignSelf: "center" }}>
+        {moment.default(chatList[0].data.createdAt).format("YYYY년 MM월 DD일")}
+      </DateIndicator>
+      <ChatAlert>
+        <button
+          onClick={() =>
+            window.open(`${BASE_URL}/proposal/${proposalId}`, "_blank")
+          }
+        >
+          외주제안서 확인하기
+        </button>
+        <p>
+          ------------------------------- 첨부된 파일 및 링크는 상단우측의
+          파일챕터에서 확인할 수 있습니다. -------------------------------
+        </p>
+      </ChatAlert>
       {chatList.map((message, index) => {
         return message.data.email === data?.email ? (
-          index === 0 ||
+          index !== 0 &&
           Number(
             moment.default(chatList[index - 1].data.createdAt).format("YYMMDD")
           ) !==
@@ -47,7 +68,7 @@ const ChatContainer = ({ chatList, chatRef }: IChatContainer) => {
               <ChatMessage message={message} />
             </div>
           )
-        ) : index === 0 ||
+        ) : index !== 0 &&
           Number(
             moment.default(chatList[index - 1].data.createdAt).format("YYMMDD")
           ) !==
@@ -93,9 +114,35 @@ const DateIndicator = styled.div`
   width: 336px;
   height: 25px;
   background-color: #717171;
+  margin: 20px 0;
   border-radius: 10px;
   text-align: center;
   line-height: 25px;
   color: white;
   font-size: 15px;
+`;
+const ChatAlert = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 70px;
+  & > button {
+    margin-bottom: 20px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: ${(props) => props.theme.mainColor};
+    font-size: 16px;
+    font-weight: 900;
+    text-decoration-line: underline;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  & > p {
+    color: ${(props) => props.theme.mainColor};
+    font-weight: 400;
+  }
 `;
