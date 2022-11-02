@@ -21,8 +21,8 @@ const FileOtherMessage = ({ message }: IFileOtherMessage) => {
     >
       <Container>
         <OtherMessage>
-          <p style={{ marginRight: "5px" }}>{message.data.fileName}</p>
           {!message.data.isImageFile && <img src={FileImg} alt="fileImg" />}
+          <p style={{ marginLeft: "5px" }}>{message.data.fileName}</p>
         </OtherMessage>
         <CreatedTime>
           {moment.default(message.data.createdAt).format("HH:mm")}
