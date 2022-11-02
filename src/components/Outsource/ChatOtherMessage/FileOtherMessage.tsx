@@ -3,27 +3,33 @@ import styled from "styled-components";
 import "moment/locale/ko";
 import * as moment from "moment";
 import { ChatResonse } from "../Chat";
-import FileMessage from "./FileMessage";
+import FileImg from "../../../assets/workspaceImage/fileImg.svg";
 
 moment.locale("ko");
 
-interface IChatMessage {
+interface IFileOtherMessage {
   message: ChatResonse;
 }
-
-const ChatMessage = ({ message }: IChatMessage) => {
-  if (message.data.fileUrl) return <FileMessage message={message} />;
+const FileOtherMessage = ({ message }: IFileOtherMessage) => {
   return (
-    <Container>
-      <CreatedTime>
-        {moment.default(message.data.createdAt).format("HH:mm")}
-      </CreatedTime>
-      <ClientMessage>{message.data.content}</ClientMessage>
-    </Container>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <Container>
+        {message.data.fileUrl && message.data.isImageFile && (
+          <FileImage fileUrl={message.data.fileUrl} />
+        )}
+        <CreatedTime>
+          {moment.default(message.data.createdAt).format("HH:mm")}
+        </CreatedTime>
+        <ClientMessage>
+          {!message.data.isImageFile && <img src={FileImg} alt="fileImg" />}
+          <p style={{ marginLeft: "5px" }}>{message.data.fileName}</p>
+        </ClientMessage>
+      </Container>
+    </div>
   );
 };
 
-export default ChatMessage;
+export default FileOtherMessage;
 
 const Container = styled.div`
   display: flex;
@@ -78,4 +84,16 @@ const CreatedTime = styled.p`
   margin-right: 5px;
   font-size: 15px;
   color: #717171;
+`;
+
+const FileImage = styled.div<{ fileUrl: string }>`
+  align-self: flex-end;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  background-image: url(${(props) => props.fileUrl});
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
 `;

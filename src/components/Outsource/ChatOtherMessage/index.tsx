@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "moment/locale/ko";
 import * as moment from "moment";
 import { ChatResonse } from "../Chat";
+import FileOtherMessage from "./FileOtherMessage";
 
 moment.locale("ko");
 
@@ -11,6 +12,7 @@ interface IChatMessage {
 }
 
 const ChatOtherMessage = ({ message }: IChatMessage) => {
+  if (message.data.fileUrl) return <FileOtherMessage message={message} />;
   return (
     <Container>
       <OtherMessage>{message.data.content}</OtherMessage>

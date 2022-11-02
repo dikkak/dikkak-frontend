@@ -7,6 +7,8 @@ import ChatMessage from "../ChatMessage";
 import ChatOtherMessage from "../ChatOtherMessage";
 import "moment/locale/ko";
 import * as moment from "moment";
+import { Navigate } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 moment.locale("ko");
 
 interface IChatContainer {
@@ -19,12 +21,27 @@ const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
     process.env.NODE_ENV === "production"
       ? "https://dikkak.com"
       : "http://localhost:3000";
-  const { data } = useQuery("user-info", userInfo);
+  const { data, isFetching, isLoading } = useQuery("user-info", userInfo);
+  if (!isFetching && !data) {
+    return <Navigate to="/login" />;
+  }
+  if (isLoading)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   return (
     <Container ref={chatRef}>
-      <DateIndicator style={{ alignSelf: "center" }}>
-        {moment.default(chatList[0].data.createdAt).format("YYYY년 MM월 DD일")}
-      </DateIndicator>
+      {chatList.length !== 0 && (
+        <DateIndicator style={{ alignSelf: "center" }}>
+          {moment
+            .default(chatList[0].data.createdAt)
+            .format("YYYY년 MM월 DD일")}
+        </DateIndicator>
+      )}
       <ChatAlert>
         <button
           onClick={() =>
@@ -99,6 +116,15 @@ const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
 };
 
 export default ChatContainer;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Container = styled.div`
   position: absolute;

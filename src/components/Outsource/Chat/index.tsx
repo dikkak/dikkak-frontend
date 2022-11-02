@@ -24,15 +24,21 @@ interface ChatData {
   content?: string;
   fileName?: string;
   fileUrl?: string;
+  isImageFile?: boolean;
   createdAt: Date;
 }
 
 const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
+  const CHAT_BASE_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_CHAT_BASE_URL
+      : process.env.REACT_APP_DEV_CHAT_BASE_URL;
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [chatList, setChatList] = useState<ChatResonse[]>([]);
   const [chatText, setChatText] = useState("");
   const [chatListLoading, setChatListLoading] = useState<boolean>(false);
   const client = useRef<Stomp.Client>();
+  const fileRef = useRef<HTMLInputElement>(null);
   const subscribe = useCallback(() => {
     client.current?.subscribe(`/dikkak/coworking/${coworkingId}`, (body) => {
       const json_body = JSON.parse(body.body);
@@ -66,6 +72,33 @@ const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
     setChatText("");
   };
 
+  const onLoadFile = (e: React.ChangeEvent<HTMLInputElement> | undefined) => {
+    const files = e?.target.files!;
+    let formData = new FormData();
+    if (files[0]) {
+      if (!client.current?.connected) return;
+      formData.append(
+        "request",
+        new Blob(
+          [
+            JSON.stringify({
+              email: data.email,
+              coworkingId,
+            }),
+          ],
+          { type: "application/json" }
+        )
+      );
+      formData.append("file", files[0]);
+      axios({
+        method: "post",
+        url: `${CHAT_BASE_URL}pub/file`,
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return;
+    }
+  };
   const onTyping = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setChatText(e.currentTarget.value);
   };
@@ -138,7 +171,7 @@ const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
           <S.Text onChange={onTyping} onKeyDown={onKeyDown} value={chatText} />
           <S.AdditionalButtons>
             <S.EmojiButton />
-            <S.FileButton />
+            <S.FileButton onClick={() => fileRef.current?.click()} />
           </S.AdditionalButtons>
         </S.InputArea>
         <S.SubmitArea>
@@ -147,6 +180,12 @@ const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
           </S.SubmitButton>
         </S.SubmitArea>
       </S.TextContainer>
+      <input
+        ref={fileRef}
+        style={{ display: "none" }}
+        type="file"
+        onChange={onLoadFile}
+      />
     </S.Container>
   );
 };

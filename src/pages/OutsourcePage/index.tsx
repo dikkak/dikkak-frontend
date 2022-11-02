@@ -6,6 +6,7 @@ import MainContent from "../../components/Outsource/MainContent";
 import { useQuery } from "react-query";
 import { userInfo } from "../../apis/auth_login";
 import { Navigate, useLocation, useParams } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 
 interface RouterState {
   step: string;
@@ -19,10 +20,18 @@ const OutsourcePage = () => {
   const step = (location.state as RouterState).step;
   const proposalId = (location.state as RouterState).proposalId;
 
-  const { data, isFetching } = useQuery("user-info", userInfo);
+  const { data, isFetching, isLoading } = useQuery("user-info", userInfo);
   if (!isFetching && !data) {
     return <Navigate to="/login" />;
   }
+  if (isLoading)
+    return (
+      <LoadingContainer>
+        <FaSpinner size={36} className="spinner" />
+        <br></br>
+        <h1>잠시만 기다려주세요</h1>
+      </LoadingContainer>
+    );
   return (
     <div>
       <OutsourceMenu />
@@ -44,6 +53,15 @@ const OutsourcePage = () => {
 };
 
 export default OutsourcePage;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const Container = styled.div`
   max-width: 1440px;
