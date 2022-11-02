@@ -137,11 +137,12 @@ const Button = styled.div`
 `;
 const StepTitle = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 514px;
   height: 40px;
   margin-left: 12px;
+  padding-left: 20px;
   background-color: #d9d9d9;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.1);
   border-radius: 20px;

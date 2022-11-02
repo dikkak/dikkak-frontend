@@ -53,7 +53,7 @@ const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
   };
   const publish = (chat: string) => {
     if (!client.current?.connected) return;
-    if (chat === "") return;
+    if (chat.trim() === "") return;
     client.current?.publish({
       destination: "/pub/text",
       body: JSON.stringify({
@@ -72,7 +72,7 @@ const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
-      e.currentTarget.value.length !== 0 &&
+      e.currentTarget.value.trim() !== "" &&
       e.key === "Enter" &&
       !e.shiftKey &&
       e.nativeEvent.isComposing === false
