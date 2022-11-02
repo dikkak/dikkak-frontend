@@ -50,7 +50,6 @@ const ClientMessage = styled.div`
   border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
   font-size: 15px;
-  margin: 0 auto;
   margin-bottom: 5px;
   padding: 10px 10px;
   white-space: pre-wrap;
