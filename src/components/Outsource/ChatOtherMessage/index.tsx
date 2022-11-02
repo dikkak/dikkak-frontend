@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "moment/locale/ko";
 import * as moment from "moment";
 import { ChatResonse } from "../Chat";
+import FileOtherMessage from "./FileOtherMessage";
 
 moment.locale("ko");
 
@@ -11,6 +12,7 @@ interface IChatMessage {
 }
 
 const ChatOtherMessage = ({ message }: IChatMessage) => {
+  if (message.data.fileUrl) return <FileOtherMessage message={message} />;
   return (
     <Container>
       <OtherMessage>{message.data.content}</OtherMessage>
@@ -31,7 +33,7 @@ const Container = styled.div`
 const OtherMessage = styled.p`
   position: relative;
   min-height: 15px;
-  min-width: 50px;
+  min-width: 30px;
   max-width: 680px;
   background-color: white;
   color: #717171;
@@ -43,19 +45,19 @@ const OtherMessage = styled.p`
   font-size: 15px;
   margin: 0 auto;
   margin-bottom: 5px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   white-space: pre-wrap;
   word-break: break-all;
   &::before {
     content: "";
     position: absolute;
     border-style: solid;
-    border-width: 8px 13px 8px 0;
+    border-width: 8px 9px 8px 0;
     border-color: transparent ${(props) => props.theme.subColor};
     display: block;
     width: 0;
     z-index: 0;
-    left: -14px;
+    left: -10px;
     top: 9px;
   }
 
@@ -63,12 +65,12 @@ const OtherMessage = styled.p`
     content: "";
     position: absolute;
     border-style: solid;
-    border-width: 8px 13px 8px 0;
+    border-width: 8px 9px 8px 0;
     border-color: transparent #ffffff;
     display: block;
     width: 0;
     z-index: 1;
-    left: -12px;
+    left: -8px;
     top: 9px;
   }
 `;

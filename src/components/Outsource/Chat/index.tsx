@@ -11,6 +11,7 @@ interface IChatProps {
   coworkingId: string;
   data: IUserInfo;
   step: string;
+  proposalId: number;
 }
 
 export interface ChatResonse {
@@ -23,15 +24,21 @@ interface ChatData {
   content?: string;
   fileName?: string;
   fileUrl?: string;
+  isImageFile?: boolean;
   createdAt: Date;
 }
 
-const Chat = ({ coworkingId, data, step }: IChatProps) => {
+const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
+  const CHAT_BASE_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_CHAT_BASE_URL
+      : process.env.REACT_APP_DEV_CHAT_BASE_URL;
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [chatList, setChatList] = useState<ChatResonse[]>([]);
   const [chatText, setChatText] = useState("");
   const [chatListLoading, setChatListLoading] = useState<boolean>(false);
   const client = useRef<Stomp.Client>();
+  const fileRef = useRef<HTMLInputElement>(null);
   const subscribe = useCallback(() => {
     client.current?.subscribe(`/dikkak/coworking/${coworkingId}`, (body) => {
       const json_body = JSON.parse(body.body);
@@ -52,7 +59,7 @@ const Chat = ({ coworkingId, data, step }: IChatProps) => {
   };
   const publish = (chat: string) => {
     if (!client.current?.connected) return;
-    if (chat === "") return;
+    if (chat.trim() === "") return;
     client.current?.publish({
       destination: "/pub/text",
       body: JSON.stringify({
@@ -65,13 +72,40 @@ const Chat = ({ coworkingId, data, step }: IChatProps) => {
     setChatText("");
   };
 
+  const onLoadFile = (e: React.ChangeEvent<HTMLInputElement> | undefined) => {
+    const files = e?.target.files!;
+    let formData = new FormData();
+    if (files[0]) {
+      if (!client.current?.connected) return;
+      formData.append(
+        "request",
+        new Blob(
+          [
+            JSON.stringify({
+              email: data.email,
+              coworkingId,
+            }),
+          ],
+          { type: "application/json" }
+        )
+      );
+      formData.append("file", files[0]);
+      axios({
+        method: "post",
+        url: `${CHAT_BASE_URL}pub/file`,
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return;
+    }
+  };
   const onTyping = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setChatText(e.currentTarget.value);
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
-      e.currentTarget.value.length !== 0 &&
+      e.currentTarget.value.trim() !== "" &&
       e.key === "Enter" &&
       !e.shiftKey &&
       e.nativeEvent.isComposing === false
@@ -123,7 +157,11 @@ const Chat = ({ coworkingId, data, step }: IChatProps) => {
           />
           작업내용 확인
         </S.Title>
-        <ChatContainer chatList={chatList} chatRef={chatContainerRef} />
+        <ChatContainer
+          chatList={chatList}
+          chatRef={chatContainerRef}
+          proposalId={proposalId}
+        />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <NextButton />
         </div>
@@ -133,7 +171,7 @@ const Chat = ({ coworkingId, data, step }: IChatProps) => {
           <S.Text onChange={onTyping} onKeyDown={onKeyDown} value={chatText} />
           <S.AdditionalButtons>
             <S.EmojiButton />
-            <S.FileButton />
+            <S.FileButton onClick={() => fileRef.current?.click()} />
           </S.AdditionalButtons>
         </S.InputArea>
         <S.SubmitArea>
@@ -142,6 +180,12 @@ const Chat = ({ coworkingId, data, step }: IChatProps) => {
           </S.SubmitButton>
         </S.SubmitArea>
       </S.TextContainer>
+      <input
+        ref={fileRef}
+        style={{ display: "none" }}
+        type="file"
+        onChange={onLoadFile}
+      />
     </S.Container>
   );
 };

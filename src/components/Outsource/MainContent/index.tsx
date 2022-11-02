@@ -7,15 +7,26 @@ interface IMaintContentProps {
   coworkingId: string;
   data: IUserInfo;
   step: string;
+  proposalId: number;
 }
 
-const MainContent = ({ coworkingId, data, step }: IMaintContentProps) => {
+const MainContent = ({
+  coworkingId,
+  data,
+  step,
+  proposalId,
+}: IMaintContentProps) => {
   return (
     <Container>
       <StepGuide>
         외주 제안서에 대한 질문사항을 확인한 뒤 NEXT STEP 버튼을 눌러주세요
       </StepGuide>
-      <Chat coworkingId={coworkingId} data={data} step={step} />
+      <Chat
+        coworkingId={coworkingId}
+        data={data}
+        step={step}
+        proposalId={proposalId}
+      />
     </Container>
   );
 };
