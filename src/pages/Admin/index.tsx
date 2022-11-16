@@ -144,7 +144,9 @@ const Admin = () => {
                   key={proposal.proposalId}
                   onClick={() =>
                     window.open(
-                      `https://98o7.com/proposal/${proposal.proposalId}`,
+                      process.env.NODE_ENV === "production"
+                        ? `https://dikkak.com/proposal/${proposal.proposalId}`
+                        : `https://dev.dikkak.com/proposal/${proposal.proposalId}`,
                       "_blank"
                     )
                   }
