@@ -121,7 +121,6 @@ const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
       behavior: "smooth",
     });
   };
-
   useEffect(() => {
     scrollToBottom();
   }, [chatList]);

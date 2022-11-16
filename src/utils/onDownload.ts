@@ -3,6 +3,7 @@ import axios from "axios";
 export const onDownload = (
   url: string,
   fileName: string,
+  chat?: boolean,
   callback?: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const type = url.split("/")[0];
@@ -12,7 +13,10 @@ export const onDownload = (
     url:
       type === "reference"
         ? `/proposal/file/reference/${getUrl}`
-        : `/proposal/file/otherFile/${getUrl}`,
+        : // : `/proposal/file/otherFile/${getUrl}`,
+        !chat
+        ? `/proposal/file/otherFile/${getUrl}`
+        : `/coworking/file/${getUrl}`,
     headers: { "Content-Type": "multipart/form-data" },
     responseType: "blob",
   })

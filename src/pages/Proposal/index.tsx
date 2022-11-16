@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getProposal } from "../../apis/proposal";
-import logoWhite from "../../assets/logoImage/logoWhite.svg";
-import downloadImg from "../../assets/logoImage/downloadImg.svg";
-import closeImg from "../../assets/logoImage/closeImg.svg";
 import Menu from "../../components/Menu";
 import {
   Box,
@@ -30,8 +27,7 @@ import ProposalAddRequirement from "../../components/ProposalComponents/Proposal
 import Footer from "../../components/Footer";
 import { useRef } from "react";
 import styled from "styled-components";
-import Toast from "../../components/Toast";
-import { onDownload } from "../../utils/onDownload";
+import ImageOverlay from "../../components/ImageOverlay";
 
 const Proposal = () => {
   const params = useParams(); // 제안서의 id를 받아오기 위한 params
@@ -45,8 +41,6 @@ const Proposal = () => {
       retry: 0,
     }
   );
-
-  const [isActive, setIsActive] = useState(false);
 
   // 레퍼런스 이미지 파일의 미리보기의 클릭 상태
   const [isRefClicked, setIsRefClicked] = useState(false);
@@ -241,45 +235,14 @@ const Proposal = () => {
 
       {/* 레퍼런스 이미지가 클릭되면 Overlay가 보이도록 함 */}
       {isRefClicked && (
-        <Overlay>
-          <IndexBox>
-            <h1>
-              ({clickedImage.index}/{data?.referenceFile.length})
-            </h1>
-            <img src={logoWhite} alt="logoWhite" />
-          </IndexBox>
-          <ContentBox>
-            <h1>
-              제안서 작업실 {">"} 레퍼런스 등록 {">"} {clickedImage.fileName}
-            </h1>
-            <p>
-              *정확한 이미지가 아닐 수 있습니다. 다운로드 받아 정확한 이미지를
-              확인해주세요.
-            </p>
-            <ImageBox>
-              <img src={clickedImage.url} alt="clickedImage" />
-            </ImageBox>
-          </ContentBox>
-          <ButtonsBox>
-            <Download
-              onClick={() => {
-                onDownload(
-                  clickedImage.url.split(
-                    "https://dikkak.s3.ap-northeast-2.amazonaws.com/"
-                  )[1],
-                  clickedImage.fileName,
-                  setIsActive
-                );
-              }}
-            />
-            <Close onClick={() => setIsRefClicked(false)} />
-          </ButtonsBox>
-          <Toast
-            isActive={isActive}
-            setIsActive={setIsActive}
-            message={"파일 다운로드가 완료되었습니다!"}
-          />
-        </Overlay>
+        <ImageOverlay
+          proposal={true}
+          imageName={clickedImage.fileName}
+          imageUrl={clickedImage.url}
+          imageIndex={clickedImage.index}
+          fileLength={data?.referenceFile.length}
+          setIsRefClicked={setIsRefClicked}
+        />
       )}
     </PageContainer>
   );
@@ -291,69 +254,4 @@ const PageContainer = styled.div<{ isReferenceClick: boolean }>`
   width: 100%;
   height: 100vh;
   overflow-y: ${(props) => (props.isReferenceClick ? "hidden" : "auto")};
-`;
-
-const Overlay = styled.div`
-  position: fixed;
-  display: flex;
-  justify-content: space-evenly;
-  top: 50px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 50;
-`;
-const CommonBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 40px;
-  color: white;
-`;
-const IndexBox = styled(CommonBox)`
-  flex-basis: 30%;
-  & > h1 {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-`;
-const ContentBox = styled(CommonBox)`
-  flex-basis: 40%;
-  overflow: scroll;
-  & > h1 {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-  & > p {
-    font-size: 10px;
-    margin-bottom: 25px;
-  }
-`;
-const ButtonsBox = styled(CommonBox)`
-  flex-basis: 30%;
-  flex-direction: row;
-  justify-content: center;
-  align-items: baseline;
-`;
-const ImageBox = styled.div`
-  width: 100%;
-  height: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: scroll;
-`;
-const Download = styled.img.attrs({ src: downloadImg, alt: "downloadImg" })`
-  margin-right: 15px;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-const Close = styled.img.attrs({ src: closeImg, alt: "closeImg" })`
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
 `;
