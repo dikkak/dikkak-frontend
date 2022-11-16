@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import "moment/locale/ko";
 import * as moment from "moment";
 import { ChatResonse } from "../Chat";
 import FileImg from "../../../assets/workspaceImage/fileImg.svg";
+import ImageOverlay from "../../ImageOverlay";
+import { onDownload } from "../../../utils/onDownload";
 
 moment.locale("ko");
 
@@ -12,6 +14,8 @@ interface IFileMessage {
 }
 
 const FileMessage = ({ message }: IFileMessage) => {
+  // 레퍼런스 이미지 파일의 미리보기의 클릭 상태
+  const [isRefClicked, setIsRefClicked] = useState(false);
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <Container>
@@ -20,11 +24,34 @@ const FileMessage = ({ message }: IFileMessage) => {
         </CreatedTime>
         <ClientMessage>
           {!message.data.isImageFile && <img src={FileImg} alt="fileImg" />}
-          <p style={{ marginLeft: "5px" }}>{message.data.fileName}</p>
+          <FileName
+            onClick={() => {
+              onDownload(
+                message.data.fileUrl!.split(
+                  "https://dikkak.s3.ap-northeast-2.amazonaws.com/"
+                )[1],
+                message.data.fileName!,
+                true
+              );
+            }}
+          >
+            {message.data.fileName}
+          </FileName>
         </ClientMessage>
       </Container>
       {message.data.fileUrl && message.data.isImageFile && (
-        <FileImage fileUrl={message.data.fileUrl} />
+        <FileImage
+          fileUrl={message.data.fileUrl}
+          onClick={() => setIsRefClicked(true)}
+        />
+      )}
+      {isRefClicked && (
+        <ImageOverlay
+          chat={true}
+          imageName={message.data.fileName!}
+          imageUrl={message.data.fileUrl!}
+          setIsRefClicked={setIsRefClicked}
+        />
       )}
     </div>
   );
@@ -85,7 +112,13 @@ const CreatedTime = styled.p`
   font-size: 15px;
   color: #717171;
 `;
-
+const FileName = styled.p`
+  margin-left: 5px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
 const FileImage = styled.div<{ fileUrl: string }>`
   align-self: flex-end;
   width: 150px;
@@ -96,4 +129,8 @@ const FileImage = styled.div<{ fileUrl: string }>`
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;

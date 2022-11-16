@@ -98,7 +98,7 @@ const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
                 .default(message.data.createdAt)
                 .format("YYYY월 MM월 DD월")}
             </DateIndicator>
-            <div style={{ alignSelf: "flex-end", marginRight: "13px" }}>
+            <div style={{ alignSelf: "flex-start", marginLeft: "13px" }}>
               <ChatOtherMessage message={message} />
             </div>
           </div>
