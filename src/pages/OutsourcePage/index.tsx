@@ -11,6 +11,7 @@ import { FaSpinner } from "react-icons/fa";
 interface RouterState {
   step: string;
   proposalId: number;
+  title: string;
 }
 
 const OutsourcePage = () => {
@@ -19,6 +20,7 @@ const OutsourcePage = () => {
   const location = useLocation();
   const step = (location.state as RouterState).step;
   const proposalId = (location.state as RouterState).proposalId;
+  const title = (location.state as RouterState).title;
 
   const { data, isFetching, isLoading } = useQuery("user-info", userInfo);
   if (!isFetching && !data) {
@@ -34,7 +36,7 @@ const OutsourcePage = () => {
     );
   return (
     <div>
-      <OutsourceMenu />
+      <OutsourceMenu stepTitle={title} step={step} />
       <Container>
         <Wrapper>
           <Content>

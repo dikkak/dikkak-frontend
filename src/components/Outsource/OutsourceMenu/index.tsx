@@ -10,23 +10,31 @@ import scheduleSelectLogo from "../../../assets/menuImage/scheduleSelectLogo.svg
 import checkSelectLogo from "../../../assets/menuImage/checkSelectLogo.svg";
 import fileSelectLogo from "../../../assets/menuImage/fileSelectLogo.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IOutsourceMenuProps {
-  stepTitle?: string;
+  stepTitle: string;
+  step: string;
 }
 
-const OutsourceMenu = ({ stepTitle = "hello" }: IOutsourceMenuProps) => {
+const OutsourceMenu = ({ stepTitle, step }: IOutsourceMenuProps) => {
   const tapArr = ["chat", "schedule", "check", "file"];
   const [selectedTap, setSelectedTap] = useState(tapArr[0]);
+  const navigate = useNavigate();
+  if (step === "CHECK_PROPOSAL") {
+    step = "작업내용 확인";
+  }
   return (
     <Container>
       <MenuContainer>
         <InnerMenu>
           <InnerLeftMenu>
-            <Button>
+            <Button onClick={() => navigate(-1)}>
               <img src={backLogo} alt="backLogo" />
             </Button>
-            <StepTitle>디깍 로고 제작 / OOO디자이너 / 작업내용 확인</StepTitle>
+            <StepTitle>
+              {stepTitle} / OOO디자이너 / {step}
+            </StepTitle>
           </InnerLeftMenu>
           <InnerRightMenu>
             <RightMenuButton

@@ -15,7 +15,7 @@ interface IList {
   title: string;
   designerName?: string;
   coworkingId?: number;
-  coworkingStep?: number;
+  coworkingStep?: string;
 }
 export interface IClientContent {
   type: string;

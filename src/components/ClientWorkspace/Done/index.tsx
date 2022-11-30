@@ -26,14 +26,18 @@ interface IDoneProps {
 }
 
 const Done = ({ proposalId }: IDoneProps) => {
+  const DOMAIN_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_DOMAIN_URL
+      : process.env.REACT_APP_DEV_DOMAIN_URL;
   const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
   const copyUrl = () => {
     setIsActive(true);
     navigator.clipboard.writeText(
       process.env.NODE_ENV === "production"
-        ? `https://www.dikkak/proposal/${proposalId}`
-        : `https://dev.dikkak/proposal/${proposalId}`
+        ? `${DOMAIN_URL}/proposal/${proposalId}`
+        : `${DOMAIN_URL}/proposal/${proposalId}`
     );
     // `http://localhost:3000/proposal/${proposalId}`
     // 개발서버 도메인

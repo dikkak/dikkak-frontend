@@ -21,7 +21,7 @@ export interface IClientWorkspaceItem {
   proposalTitle: string;
   coworkingId?: number;
   designerName?: string;
-  coworkingStep?: number;
+  coworkingStep?: string;
 }
 export interface IClientWorkspcaeList {
   clientWorkplace: IClientWorkspaceItem[];
@@ -32,7 +32,7 @@ export interface IDesignerWorkspaceItem {
   proposalTitle: string;
   coworkingId: number;
   clientName: string;
-  coworkingStep: number;
+  coworkingStep: string;
 }
 export interface IDesignerWorkspaceList {
   complete: IDesignerWorkspaceItem[];

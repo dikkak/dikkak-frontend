@@ -18,6 +18,10 @@ const Document = ({
   onDelete,
   setIsActive,
 }: ContentProps) => {
+  const DOMAIN_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_DOMAIN_URL
+      : process.env.REACT_APP_DEV_DOMAIN_URL;
   const navigate = useNavigate();
   const [isDelete, setIsDelete] = useState(false);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
@@ -26,8 +30,8 @@ const Document = ({
     setIsActive && setIsActive(true);
     navigator.clipboard.writeText(
       process.env.NODE_ENV === "production"
-        ? `https://www.dikkak.com/proposal/${proposalId}`
-        : `https://dev.dikkak.com/proposal/${proposalId}`
+        ? `${DOMAIN_URL}/proposal/${proposalId}`
+        : `${DOMAIN_URL}/proposal/${proposalId}`
     );
     // `http://localhost:3000/proposal/${proposalId}`
     // 개발서버 도메인
@@ -109,6 +113,7 @@ const Document = ({
                         state={{
                           step: content.coworkingStep,
                           proposalId: content.id,
+                          title: content.title,
                         }}
                       >
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
@@ -118,7 +123,11 @@ const Document = ({
                         <span
                           style={{ fontWeight: "900" }}
                         >{`${content.designerName}`}</span>
-                        <span>{`디자이너 / ${content.coworkingStep}차 작업중`}</span>
+                        <span>{`디자이너 / ${
+                          content.coworkingStep === "CHECK_PROPOSAL"
+                            ? "작업내용 확인"
+                            : ""
+                        }중`}</span>
                         <p></p>
                       </Link>
                       <S.LinkImage />
@@ -155,6 +164,7 @@ const Document = ({
                         state={{
                           step: content.coworkingStep,
                           proposalId: content.id,
+                          title: content.title,
                         }}
                       >
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
@@ -164,7 +174,11 @@ const Document = ({
                         <span
                           style={{ fontWeight: "900" }}
                         >{`${content.clientName}`}</span>
-                        <span>{`클라이언트 / ${content.coworkingStep}차 작업중`}</span>
+                        <span>{`클라이언트 / ${
+                          content.coworkingStep === "CHECK_PROPOSAL"
+                            ? "작업내용 확인"
+                            : ""
+                        }중`}</span>
                         <p></p>
                       </Link>
                       <S.LinkImage />
