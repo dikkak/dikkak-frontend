@@ -5,12 +5,16 @@ import blurPin from "../../assets/mainPageImage/blurPin.png";
 import blurLogo from "../../assets/logoImage/blurLogo.svg";
 import stepImg from "../../assets/mainPageImage/nextStep.svg";
 import mowImg from "../../assets/mainPageImage/mow.svg";
-import firstImg from "../../assets/mainPageImage/firstImage.png";
-import secondImg from "../../assets/mainPageImage/secondImage.png";
-import thirdImg from "../../assets/mainPageImage/thirdImage.png";
-import fourthImg from "../../assets/mainPageImage/fourthImage.png";
+import firstSection1 from "../../assets/mainPageImage/firstSection1.svg";
+import firstSection2 from "../../assets/mainPageImage/firstSection2.svg";
+import firstSection3 from "../../assets/mainPageImage/firstSection3.svg";
+import secondSection1 from "../../assets/mainPageImage/secondSection1.svg";
+import secondSection2 from "../../assets/mainPageImage/secondSection2.svg";
+import thirdSection1 from "../../assets/mainPageImage/thirdSection1.svg";
+import thirdSection2 from "../../assets/mainPageImage/thirdSection2.svg";
+import { motion } from "framer-motion";
 
-export const JumboCotainer = styled.div`
+export const JumboCotainer = styled(motion.div)`
   max-width: 1440px;
   height: 485px;
   margin: 0 auto;
@@ -198,6 +202,10 @@ export const SectionContainer = styled.div`
   align-items: center;
   max-width: 1440px;
   margin: 0 auto;
+  padding: 0 80px;
+  @media screen and (max-width: 500px) {
+    padding: 0 30px;
+  }
 `;
 
 export const NextStep = styled.img.attrs({ src: stepImg })`
@@ -210,22 +218,33 @@ export const Section = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  padding: 0 20em;
+  width: 90%;
+  padding-top: 5em;
+  padding-bottom: 8em;
+  padding-left: min(15vw, 5em);
+  padding-right: min(15vw, 5em);
   margin-top: 8em;
   margin-bottom: 1em;
+  background: #ffffff;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
   h3 {
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
+    color: ${(props) => props.theme.textColor};
+    & > b {
+      color: ${(props) => props.theme.mainColor};
+    }
   }
   p {
-    margin-top: 2em;
+    margin-top: 1.5em;
     margin-bottom: 2em;
     font-size: 1.2rem;
+    color: ${(props) => props.theme.subColor};
   }
 
   @media screen and (max-width: 500px) {
-    padding: 0 30px;
+    font-size: 10px;
     h3 {
       font-size: 1.5rem;
     }
@@ -235,25 +254,71 @@ export const Section = styled.div`
     }
   }
 `;
-export const SectionFirstImage = styled.img.attrs({ src: firstImg })`
-  @media screen and (max-width: 500px) {
+export const SectionImageBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 40vw;
+  height: 25vw;
+  max-width: 800px;
+  max-height: 500px;
+  border-radius: 15px;
+  background: linear-gradient(
+    55.55deg,
+    rgba(243, 243, 243, 0.25) -1.66%,
+    rgba(243, 243, 243, 0.0225) 98.34%
+  );
+  box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(20px);
+  /* @media screen and (max-width: 500px) {
     width: 100%;
-  }
+  } */
 `;
-export const SectionSecondImage = styled.img.attrs({ src: secondImg })`
-  @media screen and (max-width: 500px) {
-    width: 100%;
-  }
+export const FirstSectionImage1 = styled.img.attrs({ src: firstSection1 })`
+  position: absolute;
+  height: 80%;
+  top: 10%;
+  left: -15%;
 `;
-export const SectionThirdImage = styled.img.attrs({ src: thirdImg })`
-  @media screen and (max-width: 500px) {
-    width: 100%;
-  }
+export const FirstSectionImage2 = styled(motion.img).attrs({
+  src: firstSection2,
+})`
+  width: 80%;
 `;
-export const SectionFourthImage = styled.img.attrs({ src: fourthImg })`
-  @media screen and (max-width: 500px) {
-    width: 100%;
-  }
+export const FirstSectionImage3 = styled(motion.img).attrs({
+  src: firstSection3,
+})`
+  width: 50%;
+  position: absolute;
+  bottom: -15%;
+  right: -20%;
+`;
+export const SecondSectionImage1 = styled(motion.img).attrs({
+  src: secondSection1,
+})`
+  width: 80%;
+`;
+export const SecondSectionImage2 = styled(motion.img).attrs({
+  src: secondSection2,
+})`
+  width: 25%;
+  position: absolute;
+  top: 19%;
+  left: 14%;
+`;
+export const ThirdSectionImage1 = styled(motion.img).attrs({
+  src: thirdSection1,
+})`
+  width: 80%;
+`;
+export const ThirdSectionImage2 = styled(motion.img).attrs({
+  src: thirdSection2,
+})`
+  width: 15%;
+  position: absolute;
+  top: 59%;
+  left: 31.8%;
 `;
 export const MainButtons = styled.div`
   display: flex;
@@ -293,4 +358,19 @@ export const LoadingContainer = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
+`;
+
+export const ArcadeBox = styled.div`
+  position: relative;
+  padding-bottom: calc(46.979166666666664% + 40px);
+  height: 0;
+  width: 90%;
+  margin-top: 8em;
+`;
+export const ArcadeFrame = styled.iframe`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;

@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import * as S from "./styles";
 import { FaSpinner } from "react-icons/fa";
 import ChannelService from "../../utils/channelTalk";
+import { opacityVariants } from "../../utils/variants";
 
 const Main = () => {
   const { data, isFetching } = useQuery("user-info", userInfo);
@@ -31,7 +32,11 @@ const Main = () => {
   return (
     <>
       <Menu />
-      <S.JumboCotainer>
+      <S.JumboCotainer
+        variants={opacityVariants}
+        initial="initial"
+        animate="mount"
+      >
         <S.Jumbotron>
           <S.BlurBackground>
             <S.BlurPin />
@@ -86,44 +91,94 @@ const Main = () => {
       <S.SectionContainer>
         <S.NextStep />
         <S.Section>
-          <h3>1. 빠르게 맡기세요</h3>
+          <h3>
+            쉽고, 빠르게 <b>맡기세요</b>
+          </h3>
+          <p>#간편 #외주제안서 #맞춤형 #매칭서비스 #성공경험 #기회비용절감</p>
+          <S.SectionImageBox>
+            <S.FirstSectionImage1 />
+            <S.FirstSectionImage2
+              initial={{ opacity: 0 }}
+              whileInView={{
+                opacity: 1,
+                transition: { duration: 0.8 },
+              }}
+            />
+            <S.FirstSectionImage3
+              initial={{ opacity: 0 }}
+              whileInView={{
+                opacity: 1,
+                transition: { duration: 0.8, delay: 0.5 },
+              }}
+            />
+          </S.SectionImageBox>
+        </S.Section>
+        <S.NextStep />
+        <S.Section>
+          <h3>
+            쉽고, 빠르게 <b>소통하세요</b>
+          </h3>
           <p>
-            쉽게 완성되는 외주 제안서 등록을 통해 맞춤형 매칭 서비스를
-            경험하세요
+            #쉬운소통 #디자인 #아웃소싱 #특화 #커뮤니케이션서비스 #우리가
+            #알려줄게요
           </p>
-          <S.SectionFirstImage />
+          <S.SectionImageBox>
+            <S.SecondSectionImage1 />
+            <S.SecondSectionImage2
+              initial={{ left: "35%" }}
+              whileInView={{
+                left: "14%",
+                transition: { duration: 0.5, delay: 0.3 },
+              }}
+            />
+          </S.SectionImageBox>
         </S.Section>
         <S.NextStep />
         <S.Section>
-          <h3>2. 쉽게 소통하세요</h3>
-          <p>아웃소싱에 특화된 커뮤니케이션 UI를 통해 쉽게 소통하세요</p>
-          <S.SectionSecondImage />
-        </S.Section>
-        <S.NextStep />
-        <S.Section>
-          <h3>3. 쉽게 관리하세요</h3>
+          <h3>
+            쉽고, 빠르게 <b>관리하세요</b>
+          </h3>
           <p>
-            외주 작업에 최적화된 UI를 통해 작업/ 파일/ 시간 을 쉽게 관리하세요
+            #디자인 #아웃소싱 #최적화 #채팅시스템 #효율적 #작업/파일/시간 #관리
           </p>
-          <S.SectionThirdImage />
+          <S.SectionImageBox>
+            <S.ThirdSectionImage1
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.8 },
+              }}
+            />
+            <S.ThirdSectionImage2
+              initial={{ opacity: 0 }}
+              whileInView={{
+                opacity: 1,
+                transition: { duration: 0.8, delay: 0.5 },
+              }}
+            />
+          </S.SectionImageBox>
         </S.Section>
         <S.NextStep />
-        <S.Section>
-          <h3>4. 쉽게 쌓으세요</h3>
-          <p>찾기도, 도전하기도 힘들었던 디자인 실무경험을 쉽게 쌓으세요</p>
-          <S.SectionFourthImage />
-        </S.Section>
-        <S.Section>
-          <S.MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</S.MainText>
-          <S.MainButtons>
-            <S.MainDikkakSignUp onClick={() => navigate("/signup")}>
-              ⏰ DIKKAK 가입하기
-            </S.MainDikkakSignUp>
-            <S.MainDikkakStart onClick={() => navigate("/login")}>
-              DIKKAK 시작하기
-            </S.MainDikkakStart>
-          </S.MainButtons>
-        </S.Section>
+        <S.ArcadeBox>
+          <S.ArcadeFrame
+            title="1"
+            src="https://demo.arcade.software/7FwITGQAUv3CRIld2m9U?embed"
+            frameBorder="0"
+            loading="lazy"
+            allowFullScreen
+          ></S.ArcadeFrame>
+        </S.ArcadeBox>
+        <S.NextStep />
+        <S.MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</S.MainText>
+        <S.MainButtons>
+          <S.MainDikkakSignUp onClick={() => navigate("/signup")}>
+            ⏰ DIKKAK 가입하기
+          </S.MainDikkakSignUp>
+          <S.MainDikkakStart onClick={() => navigate("/login")}>
+            DIKKAK 시작하기
+          </S.MainDikkakStart>
+        </S.MainButtons>
       </S.SectionContainer>
       <Footer bgColor="#EFEFEF" />
     </>
