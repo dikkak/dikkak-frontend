@@ -284,6 +284,7 @@ export const FirstSectionImage1 = styled.img.attrs({ src: firstSection1 })`
 export const FirstSectionImage2 = styled(motion.img).attrs({
   src: firstSection2,
 })`
+  margin-top: 5%;
   width: 80%;
 `;
 export const FirstSectionImage3 = styled(motion.img).attrs({
@@ -310,11 +311,13 @@ export const SecondSectionImage2 = styled(motion.img).attrs({
 export const ThirdSectionImage1 = styled(motion.img).attrs({
   src: thirdSection1,
 })`
+  margin-top: 5%;
   width: 80%;
 `;
 export const ThirdSectionImage2 = styled(motion.img).attrs({
   src: thirdSection2,
 })`
+  margin-top: 2.5%;
   width: 15%;
   position: absolute;
   top: 59%;
@@ -373,4 +376,7 @@ export const ArcadeFrame = styled.iframe`
   left: 0;
   width: 100%;
   height: 100%;
+`;
+export const BottomMain = styled.div`
+  width: 75%;
 `;

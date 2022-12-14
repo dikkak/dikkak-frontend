@@ -101,14 +101,14 @@ const Main = () => {
               initial={{ opacity: 0 }}
               whileInView={{
                 opacity: 1,
-                transition: { duration: 0.8 },
+                transition: { duration: 1.2, delay: 0.2 },
               }}
             />
             <S.FirstSectionImage3
               initial={{ opacity: 0 }}
               whileInView={{
                 opacity: 1,
-                transition: { duration: 0.8, delay: 0.5 },
+                transition: { duration: 1.2, delay: 1 },
               }}
             />
           </S.SectionImageBox>
@@ -170,15 +170,17 @@ const Main = () => {
           ></S.ArcadeFrame>
         </S.ArcadeBox>
         <S.NextStep />
-        <S.MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</S.MainText>
-        <S.MainButtons>
-          <S.MainDikkakSignUp onClick={() => navigate("/signup")}>
-            ⏰ DIKKAK 가입하기
-          </S.MainDikkakSignUp>
-          <S.MainDikkakStart onClick={() => navigate("/login")}>
-            DIKKAK 시작하기
-          </S.MainDikkakStart>
-        </S.MainButtons>
+        <S.BottomMain>
+          <S.MainText>빠르고-쉬운 디자인 아웃소싱 플랫폼</S.MainText>
+          <S.MainButtons>
+            <S.MainDikkakSignUp onClick={() => navigate("/signup")}>
+              ⏰ DIKKAK 가입하기
+            </S.MainDikkakSignUp>
+            <S.MainDikkakStart onClick={() => navigate("/login")}>
+              DIKKAK 시작하기
+            </S.MainDikkakStart>
+          </S.MainButtons>
+        </S.BottomMain>
       </S.SectionContainer>
       <Footer bgColor="#EFEFEF" />
     </>
