@@ -34,13 +34,7 @@ const Done = ({ proposalId }: IDoneProps) => {
   const navigate = useNavigate();
   const copyUrl = () => {
     setIsActive(true);
-    navigator.clipboard.writeText(
-      process.env.NODE_ENV === "production"
-        ? `${DOMAIN_URL}/proposal/${proposalId}`
-        : `${DOMAIN_URL}/proposal/${proposalId}`
-    );
-    // `http://localhost:3000/proposal/${proposalId}`
-    // 개발서버 도메인
+    navigator.clipboard.writeText(`${DOMAIN_URL}/proposal/${proposalId}`);
   };
   const resetTitle = useResetRecoilState(titleMessageAtom);
   const resetChoice = useResetRecoilState(workChoiceAtom);

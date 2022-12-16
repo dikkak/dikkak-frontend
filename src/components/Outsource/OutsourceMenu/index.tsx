@@ -1,29 +1,20 @@
 import styled from "styled-components";
 import menuImage from "../../../assets/menuImage/outsourceMenu.svg";
 import backLogo from "../../../assets/menuImage/backLogo.svg";
-import chatLogo from "../../../assets/menuImage/chatLogo.svg";
-import scheduleLogo from "../../../assets/menuImage/scheduleLogo.svg";
-import checkLogo from "../../../assets/menuImage/checkLogo.svg";
-import fileLogo from "../../../assets/menuImage/fileLogo.svg";
-import chatSelectLogo from "../../../assets/menuImage/chatSelectLogo.svg";
-import scheduleSelectLogo from "../../../assets/menuImage/scheduleSelectLogo.svg";
-import checkSelectLogo from "../../../assets/menuImage/checkSelectLogo.svg";
-import fileSelectLogo from "../../../assets/menuImage/fileSelectLogo.svg";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IUserInfo } from "../../../apis/auth_login";
 
 interface IOutsourceMenuProps {
   stepTitle: string;
-  step: string;
+  coworker: string;
+  userInfo: IUserInfo;
 }
-
-const OutsourceMenu = ({ stepTitle, step }: IOutsourceMenuProps) => {
-  const tapArr = ["chat", "schedule", "check", "file"];
-  const [selectedTap, setSelectedTap] = useState(tapArr[0]);
+const OutsourceMenu = ({
+  stepTitle,
+  coworker,
+  userInfo,
+}: IOutsourceMenuProps) => {
   const navigate = useNavigate();
-  if (step === "CHECK_PROPOSAL") {
-    step = "작업내용 확인";
-  }
   return (
     <Container>
       <MenuContainer>
@@ -33,49 +24,10 @@ const OutsourceMenu = ({ stepTitle, step }: IOutsourceMenuProps) => {
               <img src={backLogo} alt="backLogo" />
             </Button>
             <StepTitle>
-              {stepTitle} / OOO디자이너 / {step}
+              {stepTitle} / {coworker}
+              {userInfo.type === "CLIENT" ? "디자이너" : "클라이언트"}
             </StepTitle>
           </InnerLeftMenu>
-          <InnerRightMenu>
-            <RightMenuButton
-              isSelected={selectedTap === "chat"}
-              onClick={() => setSelectedTap(tapArr[0])}
-            >
-              <img
-                src={selectedTap === "chat" ? chatSelectLogo : chatLogo}
-                alt="chatLogo"
-              />
-            </RightMenuButton>
-            <RightMenuButton
-              isSelected={selectedTap === "schedule"}
-              onClick={() => setSelectedTap(tapArr[1])}
-            >
-              <img
-                src={
-                  selectedTap === "schedule" ? scheduleSelectLogo : scheduleLogo
-                }
-                alt="scheduleLogo"
-              />
-            </RightMenuButton>
-            <RightMenuButton
-              isSelected={selectedTap === "check"}
-              onClick={() => setSelectedTap(tapArr[2])}
-            >
-              <img
-                src={selectedTap === "check" ? checkSelectLogo : checkLogo}
-                alt="checkLogo"
-              />
-            </RightMenuButton>
-            <RightMenuButton
-              isSelected={selectedTap === "file"}
-              onClick={() => setSelectedTap(tapArr[3])}
-            >
-              <img
-                src={selectedTap === "file" ? fileSelectLogo : fileLogo}
-                alt="fileLogo"
-              />
-            </RightMenuButton>
-          </InnerRightMenu>
         </InnerMenu>
       </MenuContainer>
     </Container>
@@ -100,7 +52,7 @@ const MenuContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 1440px;
-  height: 105px;
+  height: 88px;
   background-image: url(${menuImage});
   background-position: center center;
   background-size: cover;
@@ -121,7 +73,8 @@ const InnerLeftMenu = styled.div`
   display: flex;
   justify-content: space-between;
   left: 147px;
-  width: 573px;
+  width: 70%;
+  max-width: 573px;
   height: 47px;
   margin-top: 15px;
   @media screen and (max-width: 1400px) {
@@ -158,33 +111,4 @@ const StepTitle = styled.div`
   font-size: 15px;
   line-height: 18px;
   color: #717171;
-`;
-
-const InnerRightMenu = styled.div`
-  position: absolute;
-  right: 153px;
-  display: flex;
-  justify-content: space-between;
-  width: 304px;
-  height: 64px;
-  margin-top: 15px;
-  @media screen and (max-width: 1400px) {
-    position: relative;
-    flex-grow: 1;
-    justify-content: flex-end;
-    right: 0;
-    gap: 16px;
-  }
-`;
-
-const RightMenuButton = styled(Button)<{ isSelected: boolean }>`
-  width: 64px;
-  height: 64px;
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(0, 0, 0, 0.12) 100%
-  );
-  background-color: ${(props) =>
-    props.isSelected ? props.theme.mainColor : "#EFEFEF"};
 `;

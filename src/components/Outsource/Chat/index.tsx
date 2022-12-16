@@ -10,7 +10,6 @@ import axios from "axios";
 interface IChatProps {
   coworkingId: string;
   data: IUserInfo;
-  step: string;
   proposalId: number;
 }
 
@@ -28,7 +27,7 @@ interface ChatData {
   createdAt: Date;
 }
 
-const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
+const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
   const CHAT_BASE_URL =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_CHAT_BASE_URL
@@ -128,16 +127,14 @@ const Chat = ({ coworkingId, data, step, proposalId }: IChatProps) => {
     setChatListLoading(true);
     connect();
     axios
-      .get<ChatResonse[]>(
-        `/coworking/chat?coworkingId=${coworkingId}&step=${step}`
-      )
+      .get<ChatResonse[]>(`/coworking/chat?coworkingId=${coworkingId}`)
       .then((res) => {
         if (!res.data) return;
         setChatList(res.data);
         setChatListLoading(false);
       });
     return () => disconnect();
-  }, [connect, coworkingId, step]);
+  }, [connect, coworkingId]);
   if (chatListLoading || !data)
     return (
       <S.LoadingContainer>

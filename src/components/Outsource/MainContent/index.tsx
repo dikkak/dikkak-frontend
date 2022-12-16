@@ -6,27 +6,16 @@ import { IUserInfo } from "../../../apis/auth_login";
 interface IMaintContentProps {
   coworkingId: string;
   data: IUserInfo;
-  step: string;
   proposalId: number;
 }
 
-const MainContent = ({
-  coworkingId,
-  data,
-  step,
-  proposalId,
-}: IMaintContentProps) => {
+const MainContent = ({ coworkingId, data, proposalId }: IMaintContentProps) => {
   return (
     <Container>
       <StepGuide>
         외주 제안서에 대한 질문사항을 확인한 뒤 NEXT STEP 버튼을 눌러주세요
       </StepGuide>
-      <Chat
-        coworkingId={coworkingId}
-        data={data}
-        step={step}
-        proposalId={proposalId}
-      />
+      <Chat coworkingId={coworkingId} data={data} proposalId={proposalId} />
     </Container>
   );
 };
@@ -36,7 +25,7 @@ export default MainContent;
 const Container = styled.div`
   display: flex;
   position: relative;
-  width: 83%;
+  flex: 1;
   height: 100%;
   padding: 12px;
   background-color: #fafafa;

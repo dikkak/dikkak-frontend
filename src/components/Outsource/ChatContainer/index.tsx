@@ -17,10 +17,10 @@ interface IChatContainer {
   proposalId: number;
 }
 const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
-  const BASE_URL =
+  const DOMAIN_URL =
     process.env.NODE_ENV === "production"
-      ? "https://dikkak.com"
-      : "http://localhost:3000";
+      ? process.env.REACT_APP_DOMAIN_URL
+      : process.env.REACT_APP_DEV_DOMAIN_URL;
   const { data, isFetching, isLoading } = useQuery("user-info", userInfo);
   if (!isFetching && !data) {
     return <Navigate to="/login" />;
@@ -45,7 +45,7 @@ const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
       <ChatAlert>
         <button
           onClick={() =>
-            window.open(`${BASE_URL}/proposal/${proposalId}`, "_blank")
+            window.open(`${DOMAIN_URL}/proposal/${proposalId}`, "_blank")
           }
         >
           외주제안서 확인하기

@@ -3,7 +3,7 @@ import axios from "axios";
 // 클라이언트 작업실 리스트 조회 api
 export const getProposalList = async () => {
   const response = await axios.get<IClientWorkspcaeList>(
-    "/workplace/client/list"
+    "/workspace/client/list"
   );
   return response.data.clientWorkplace;
 };
