@@ -111,9 +111,9 @@ const Document = ({
                       <Link
                         to={`/outsource/${content.coworkingId}`}
                         state={{
-                          step: content.coworkingStep,
                           proposalId: content.id,
                           title: content.title,
+                          coworker: content.designerName,
                         }}
                       >
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
@@ -123,11 +123,7 @@ const Document = ({
                         <span
                           style={{ fontWeight: "900" }}
                         >{`${content.designerName}`}</span>
-                        <span>{`디자이너 / ${
-                          content.coworkingStep === "CHECK_PROPOSAL"
-                            ? "작업내용 확인"
-                            : ""
-                        }중`}</span>
+                        <span>{`디자이너`}</span>
                         <p></p>
                       </Link>
                       <S.LinkImage />
@@ -162,9 +158,9 @@ const Document = ({
                       <Link
                         to={`/outsource/${content.coworkingId}`}
                         state={{
-                          step: content.coworkingStep,
                           proposalId: content.id,
                           title: content.title,
+                          coworker: content.clientName,
                         }}
                       >
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
@@ -174,11 +170,7 @@ const Document = ({
                         <span
                           style={{ fontWeight: "900" }}
                         >{`${content.clientName}`}</span>
-                        <span>{`클라이언트 / ${
-                          content.coworkingStep === "CHECK_PROPOSAL"
-                            ? "작업내용 확인"
-                            : ""
-                        }중`}</span>
+                        <span>{`클라이언트`}</span>
                         <p></p>
                       </Link>
                       <S.LinkImage />

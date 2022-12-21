@@ -1,27 +1,23 @@
 import styled from "styled-components";
 import blurPin from "../../../assets/mainPageImage/blurPin.png";
+import rightArrow from "../../../assets/outSource/rightArrow.svg";
+import leftArrow from "../../../assets/outSource/leftArrow.svg";
 
-export const BlurBackground = styled.div`
+export const BlurBackground = styled.div<{ isFold: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  /* width: 170px; */
-  width: 15%;
+  width: ${(props) => (props.isFold ? "6%" : "15%")};
   height: 100%;
   background-color: transparent;
   backdrop-filter: blur(30px);
-  /* border: 1px solid #000; */
   border-radius: 5px;
   background-color: #fafafa;
-
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
-  /* &:first-child {
-    margin-right: 5rem;
-  } */
+  transition: all 0.3s;
 `;
 export const BlurPin = styled.img.attrs({ src: blurPin })`
   position: absolute;
@@ -47,6 +43,28 @@ export const BlurPin = styled.img.attrs({ src: blurPin })`
     right: 10px;
   }
 `;
+export const RightArrow = styled.img.attrs({ src: rightArrow })`
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+export const LeftArrow = styled.img.attrs({ src: leftArrow })`
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
 export const SideTitle = styled.h1`
   position: absolute;
   top: 40px;
@@ -55,7 +73,7 @@ export const SideTitle = styled.h1`
   color: #717171;
 `;
 export const TimeLine = styled.div`
-  width: 55%;
+  width: 35%;
   margin: 50px auto;
   height: 70%;
 `;
@@ -67,8 +85,8 @@ export const Outer = styled.div`
 export const TimeStep = styled.h3`
   color: #717171;
   position: relative;
-  padding: 0 0 0 15px;
-  font-size: 10px;
+  padding: 0 0 0 20px;
+  font-size: 15px;
   border-left: 1px solid #c4c4c4;
   cursor: pointer;
   &:hover {
@@ -85,13 +103,3 @@ export const TimeStep = styled.h3`
     left: -8.5px;
   }
 `;
-export const TitleTimeStep = styled(TimeStep)``;
-export const WorkTimeStep = styled(TimeStep)``;
-export const DetailTimeStep = styled(TimeStep)``;
-export const PurposeTimeStep = styled(TimeStep)``;
-export const KeyWordTimeStep = styled(TimeStep)``;
-export const DeadLineTimeStep = styled(TimeStep)``;
-export const ColorTimeStep = styled(TimeStep)``;
-export const ReferenceTimeStep = styled(TimeStep)``;
-export const EtcTimeStep = styled(TimeStep)``;
-export const SubmitTimeStep = styled(TimeStep)``;

@@ -17,10 +17,10 @@ interface IChatContainer {
   proposalId: number;
 }
 const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
-  const BASE_URL =
+  const DOMAIN_URL =
     process.env.NODE_ENV === "production"
-      ? "https://dikkak.com"
-      : "http://localhost:3000";
+      ? process.env.REACT_APP_DOMAIN_URL
+      : process.env.REACT_APP_DEV_DOMAIN_URL;
   const { data, isFetching, isLoading } = useQuery("user-info", userInfo);
   if (!isFetching && !data) {
     return <Navigate to="/login" />;
@@ -45,15 +45,16 @@ const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
       <ChatAlert>
         <button
           onClick={() =>
-            window.open(`${BASE_URL}/proposal/${proposalId}`, "_blank")
+            window.open(`${DOMAIN_URL}/proposal/${proposalId}`, "_blank")
           }
         >
           외주제안서 확인하기
         </button>
-        <p>
-          ------------------------------- 첨부된 파일 및 링크는 상단우측의
-          파일챕터에서 확인할 수 있습니다. -------------------------------
-        </p>
+        <AlertMessage>
+          <p>
+            첨부된 파일 및 링크는 상단우측의 파일챕터에서 확인할 수 있습니다.
+          </p>
+        </AlertMessage>
       </ChatAlert>
       {chatList.map((message, index) => {
         return message.data.email === data?.email ? (
@@ -167,8 +168,25 @@ const ChatAlert = styled.div`
       opacity: 0.8;
     }
   }
+`;
+const AlertMessage = styled.div`
+  display: flex;
+  width: 90%;
+  align-items: center;
+  &::after {
+    flex: 1;
+    content: "";
+    border-top: 2px dashed ${(props) => props.theme.mainColor};
+  }
+  &::before {
+    flex: 1;
+    content: "";
+    border-top: 2px dashed ${(props) => props.theme.mainColor};
+  }
   & > p {
     color: ${(props) => props.theme.mainColor};
     font-weight: 400;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 `;
