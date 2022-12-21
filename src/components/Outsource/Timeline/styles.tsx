@@ -73,7 +73,7 @@ export const SideTitle = styled.h1`
   color: #717171;
 `;
 export const TimeLine = styled.div`
-  width: 55%;
+  width: 35%;
   margin: 50px auto;
   height: 70%;
 `;
@@ -85,8 +85,8 @@ export const Outer = styled.div`
 export const TimeStep = styled.h3`
   color: #717171;
   position: relative;
-  padding: 0 0 0 15px;
-  font-size: 10px;
+  padding: 0 0 0 20px;
+  font-size: 15px;
   border-left: 1px solid #c4c4c4;
   cursor: pointer;
   &:hover {
@@ -103,13 +103,3 @@ export const TimeStep = styled.h3`
     left: -8.5px;
   }
 `;
-export const TitleTimeStep = styled(TimeStep)``;
-export const WorkTimeStep = styled(TimeStep)``;
-export const DetailTimeStep = styled(TimeStep)``;
-export const PurposeTimeStep = styled(TimeStep)``;
-export const KeyWordTimeStep = styled(TimeStep)``;
-export const DeadLineTimeStep = styled(TimeStep)``;
-export const ColorTimeStep = styled(TimeStep)``;
-export const ReferenceTimeStep = styled(TimeStep)``;
-export const EtcTimeStep = styled(TimeStep)``;
-export const SubmitTimeStep = styled(TimeStep)``;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Timeline from "../../components/Outsource/Timeline";
 import OutsourceMenu from "../../components/Outsource/OutsourceMenu";
@@ -8,6 +8,7 @@ import { userInfo } from "../../apis/auth_login";
 import { Navigate, useLocation, useParams } from "react-router-dom";
 import { FaSpinner } from "react-icons/fa";
 import WindowTab from "../../components/Outsource/WindowTab";
+import { MenuType } from "../../schemas/outsource";
 
 interface RouterState {
   step: string;
@@ -20,6 +21,10 @@ const OutsourcePage = () => {
   const params = useParams();
   const coworkingId = params.id || "";
   const location = useLocation();
+
+  /** window 메뉴 상태관리 */
+  const [window, setWindow] = useState<MenuType>("CHAT");
+
   const proposalId = (location.state as RouterState).proposalId;
   const title = (location.state as RouterState).title;
   const coworker = (location.state as RouterState).coworker;
@@ -47,8 +52,9 @@ const OutsourcePage = () => {
               coworkingId={coworkingId}
               data={data!}
               proposalId={proposalId}
+              window={window}
             />
-            <WindowTab />
+            <WindowTab window={window} setWindow={setWindow} />
           </Content>
         </Wrapper>
       </Container>

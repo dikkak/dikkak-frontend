@@ -22,30 +22,16 @@ const Timeline = () => {
           <S.SideTitle>진척도</S.SideTitle>
           <S.TimeLine>
             <S.Outer>
-              <S.TitleTimeStep>
-                작업내용
-                <br />
-                확인
-              </S.TitleTimeStep>
-              <S.WorkTimeStep>
-                커뮤니케이션
-                <br />
-                일정확인
-              </S.WorkTimeStep>
-              <S.DetailTimeStep>1차 작업</S.DetailTimeStep>
-              <S.PurposeTimeStep>1차 컨펌</S.PurposeTimeStep>
-              <S.KeyWordTimeStep>2차 작업</S.KeyWordTimeStep>
-              <S.DeadLineTimeStep>2차 컨펌</S.DeadLineTimeStep>
-              <S.ColorTimeStep>3차 작업</S.ColorTimeStep>
-              <S.ReferenceTimeStep>3차 컨펌</S.ReferenceTimeStep>
-              <S.EtcTimeStep>
-                최종 작업물
-                <br />
-                전달 및 수령
-                <br />
-                (잔금수령)
-              </S.EtcTimeStep>
-              <S.SubmitTimeStep>제출하기</S.SubmitTimeStep>
+              <S.TimeStep>10%</S.TimeStep>
+              <S.TimeStep>20%</S.TimeStep>
+              <S.TimeStep>30%</S.TimeStep>
+              <S.TimeStep>40%</S.TimeStep>
+              <S.TimeStep>50%</S.TimeStep>
+              <S.TimeStep>60%</S.TimeStep>
+              <S.TimeStep>70%</S.TimeStep>
+              <S.TimeStep>80%</S.TimeStep>
+              <S.TimeStep>90%</S.TimeStep>
+              <S.TimeStep>100%</S.TimeStep>
             </S.Outer>
           </S.TimeLine>
         </>

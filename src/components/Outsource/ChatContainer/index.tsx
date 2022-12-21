@@ -50,10 +50,11 @@ const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
         >
           외주제안서 확인하기
         </button>
-        <p>
-          ------------------------------- 첨부된 파일 및 링크는 상단우측의
-          파일챕터에서 확인할 수 있습니다. -------------------------------
-        </p>
+        <AlertMessage>
+          <p>
+            첨부된 파일 및 링크는 상단우측의 파일챕터에서 확인할 수 있습니다.
+          </p>
+        </AlertMessage>
       </ChatAlert>
       {chatList.map((message, index) => {
         return message.data.email === data?.email ? (
@@ -167,8 +168,25 @@ const ChatAlert = styled.div`
       opacity: 0.8;
     }
   }
+`;
+const AlertMessage = styled.div`
+  display: flex;
+  width: 90%;
+  align-items: center;
+  &::after {
+    flex: 1;
+    content: "";
+    border-top: 2px dashed ${(props) => props.theme.mainColor};
+  }
+  &::before {
+    flex: 1;
+    content: "";
+    border-top: 2px dashed ${(props) => props.theme.mainColor};
+  }
   & > p {
     color: ${(props) => props.theme.mainColor};
     font-weight: 400;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 `;
