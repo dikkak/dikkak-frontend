@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import "moment/locale/ko";
 import * as moment from "moment";
-import { ChatResonse } from "../Chat";
+import { ChatContent } from "../Chat";
 import FileImg from "../../../assets/workspaceImage/fileImg.svg";
 import ImageOverlay from "../../ImageOverlay";
 import { onDownload } from "../../../utils/onDownload";
@@ -10,7 +10,7 @@ import { onDownload } from "../../../utils/onDownload";
 moment.locale("ko");
 
 interface IFileMessage {
-  message: ChatResonse;
+  message: ChatContent;
 }
 
 const FileMessage = ({ message }: IFileMessage) => {

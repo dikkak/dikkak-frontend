@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import "moment/locale/ko";
 import * as moment from "moment";
-import { ChatResonse } from "../Chat";
+import { ChatContent } from "../Chat";
 import FileOtherMessage from "./FileOtherMessage";
 
 moment.locale("ko");
 
 interface IChatMessage {
-  message: ChatResonse;
+  message: ChatContent;
 }
 
 const ChatOtherMessage = ({ message }: IChatMessage) => {

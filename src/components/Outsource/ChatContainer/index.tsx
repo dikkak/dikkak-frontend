@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { userInfo } from "../../../apis/auth_login";
-import { ChatResonse } from "../Chat";
+import { ChatContent } from "../Chat";
 import ChatMessage from "../ChatMessage";
 import ChatOtherMessage from "../ChatOtherMessage";
 import "moment/locale/ko";
@@ -12,7 +12,7 @@ import { FaSpinner } from "react-icons/fa";
 moment.locale("ko");
 
 interface IChatContainer {
-  chatList: ChatResonse[];
+  chatList: ChatContent[];
   chatRef: React.RefObject<HTMLDivElement>;
   proposalId: number;
 }
