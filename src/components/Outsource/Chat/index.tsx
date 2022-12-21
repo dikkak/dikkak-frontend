@@ -14,6 +14,13 @@ interface IChatProps {
 }
 
 export interface ChatResonse {
+  content: ChatContent[];
+  hasNext: boolean;
+  hasPrev: boolean;
+  next: number;
+  prev: number;
+}
+export interface ChatContent {
   type: string;
   coworkingId: number;
   data: ChatData;
@@ -33,7 +40,7 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
       ? process.env.REACT_APP_CHAT_BASE_URL
       : process.env.REACT_APP_DEV_CHAT_BASE_URL;
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const [chatList, setChatList] = useState<ChatResonse[]>([]);
+  const [chatList, setChatList] = useState<ChatContent[]>([]);
   const [chatText, setChatText] = useState("");
   const [chatListLoading, setChatListLoading] = useState<boolean>(false);
   const client = useRef<Stomp.Client>();
@@ -41,7 +48,7 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
   const subscribe = useCallback(() => {
     client.current?.subscribe(`/dikkak/coworking/${coworkingId}`, (body) => {
       const json_body = JSON.parse(body.body);
-      setChatList((_chat_list: ChatResonse[]) => [..._chat_list, json_body]);
+      setChatList((_chat_list: ChatContent[]) => [..._chat_list, json_body]);
     });
   }, [coworkingId]);
   const connect = useCallback(() => {
@@ -127,10 +134,10 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
     setChatListLoading(true);
     connect();
     axios
-      .get<ChatResonse[]>(`/coworking/chat?coworkingId=${coworkingId}`)
+      .get<ChatResonse>(`/coworking/chat?coworkingId=${coworkingId}`)
       .then((res) => {
         if (!res.data) return;
-        setChatList(res.data);
+        setChatList(res.data.content);
         setChatListLoading(false);
       });
     return () => disconnect();
