@@ -32,7 +32,7 @@ const Start = () => {
       delete axios.defaults.headers.common["Authorization"];
       queryClient.clear();
       localStorage.removeItem("recoil-persist");
-
+      localStorage.removeItem("token");
       switch (data?.provider) {
         case "KAKAO":
           return (window.location.href = KAKAO_AUTH_LOGOUT_URL);

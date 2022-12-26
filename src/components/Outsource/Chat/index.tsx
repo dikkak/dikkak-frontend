@@ -35,10 +35,6 @@ interface ChatData {
 }
 
 const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
-  const CHAT_BASE_URL =
-    process.env.NODE_ENV === "production"
-      ? process.env.REACT_APP_CHAT_BASE_URL
-      : process.env.REACT_APP_DEV_CHAT_BASE_URL;
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [chatList, setChatList] = useState<ChatContent[]>([]);
   const [chatText, setChatText] = useState("");
@@ -46,14 +42,17 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
   const client = useRef<Stomp.Client>();
   const fileRef = useRef<HTMLInputElement>(null);
   const subscribe = useCallback(() => {
-    client.current?.subscribe(`/dikkak/coworking/${coworkingId}`, (body) => {
+    client.current?.subscribe(`/sub/coworking/${coworkingId}`, (body) => {
       const json_body = JSON.parse(body.body);
       setChatList((_chat_list: ChatContent[]) => [..._chat_list, json_body]);
     });
   }, [coworkingId]);
   const connect = useCallback(() => {
     client.current = new Stomp.Client({
-      brokerURL: "wss://dev.dikkak.com/chat/dikkak-chat",
+      brokerURL: "wss://dev.dikkak.com/api/dikkak-chat",
+      connectHeaders: {
+        Authorization: localStorage.getItem("token") || "",
+      },
       onConnect: () => {
         subscribe();
       },
@@ -98,7 +97,7 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
       formData.append("file", files[0]);
       axios({
         method: "post",
-        url: `${CHAT_BASE_URL}pub/file`,
+        url: "/pub/file",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });

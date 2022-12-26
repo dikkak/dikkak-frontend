@@ -62,6 +62,8 @@ export const BlurBackground = styled.div`
   background-color: transparent;
   backdrop-filter: blur(30px);
   border: 0.5px solid #eee;
+  // FIXME: border-radius 수정 가능
+  /* border-radius: 10px; */
   box-shadow: 5px 5px 15px #ccc;
   &:first-child {
     margin-right: 5rem;
