@@ -1,10 +1,25 @@
 # Dikkak : 디자인을 깎다
+---
+디자인 아웃소싱 플랫폼 디깍입니다.
+
 
 [디깍](https://www.dikkak.com) 서비스의 프론트엔드 프로젝트
 
 [사용법](https://demo.arcade.software/7FwITGQAUv3CRIld2m9U?embed) 참고
 
 <br/>
+
+## Tech Stack
+
+<div align =center>
+
+Area| Tech Stack|
+:--------:|:------------------------------:|
+**Frontend** | <img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/ReactQuery-FF4154.svg?&style=for-the-badge&logo=ReactQuery&logoColor=white"> <img src="https://img.shields.io/badge/React Router-CA4245.svg?&style=for-the-badge&logo=reactrouter&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-0075EB.svg?&style=for-the-badge&logo=recoil&logoColor=white"> <img src="https://img.shields.io/badge/Styledcomponents-DB7093?&style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Framer Motion-0055FF?&style=for-the-badge&logo=framer&logoColor=white"> <img src="https://img.shields.io/badge/StompJS-010101?&style=for-the-badge&logo=socketdotio&logoColor=white">
+**DevOps** | <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=black">  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/Github_Actions-2088FF?style=for-the-badge&logo=Github-Actions&logoColor=black"> <img src="https://img.shields.io/badge/Amazon_EC2-FF9900?style=for-the-badge&logo=Amazon-EC2&logoColor=black">
+</div>
+  
+*** 
 
 ## 1. 소셜 로그인 및 회원가입
 
@@ -36,3 +51,9 @@
 
 <img width="500px" src="https://user-images.githubusercontent.com/75151848/206829409-be9ca671-2d3e-424d-9344-51dd036a9dac.png"/>
 <img width="500px" src="https://user-images.githubusercontent.com/75151848/206829419-fe1fad90-a531-4aa5-a6ae-d2c20db53866.png"/>
+
+## 4. 외주 작업실
+
+- 외주 작업실을 통해 클라이언트와 디자이너가 소통하고 니즈를 빠르게 파악할 수 있는 작업 툴을 제공합니다.
+
+<img width="500px" src="https://user-images.githubusercontent.com/83197138/230636290-a82447dc-98bb-41fc-a63e-c8218cb0af1f.png"/>
