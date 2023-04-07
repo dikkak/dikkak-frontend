@@ -4,7 +4,6 @@ import * as S from "./styles";
 import ChatContainer from "../ChatContainer";
 import NextButton from "../NextButton";
 import { IUserInfo } from "../../../apis/auth_login";
-import { FaSpinner } from "react-icons/fa";
 import axios from "axios";
 
 interface IChatProps {
@@ -35,25 +34,23 @@ interface ChatData {
 }
 
 const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
-  const CHAT_BASE_URL =
-    process.env.NODE_ENV === "production"
-      ? process.env.REACT_APP_CHAT_BASE_URL
-      : process.env.REACT_APP_DEV_CHAT_BASE_URL;
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [chatList, setChatList] = useState<ChatContent[]>([]);
   const [chatText, setChatText] = useState("");
-  const [chatListLoading, setChatListLoading] = useState<boolean>(false);
   const client = useRef<Stomp.Client>();
   const fileRef = useRef<HTMLInputElement>(null);
   const subscribe = useCallback(() => {
-    client.current?.subscribe(`/dikkak/coworking/${coworkingId}`, (body) => {
+    client.current?.subscribe(`/sub/coworking/${coworkingId}`, (body) => {
       const json_body = JSON.parse(body.body);
       setChatList((_chat_list: ChatContent[]) => [..._chat_list, json_body]);
     });
   }, [coworkingId]);
   const connect = useCallback(() => {
     client.current = new Stomp.Client({
-      brokerURL: "wss://dev.dikkak.com/chat/dikkak-chat",
+      brokerURL: "wss://dev.dikkak.com/api/dikkak-chat",
+      connectHeaders: {
+        Authorization: localStorage.getItem("token") || "",
+      },
       onConnect: () => {
         subscribe();
       },
@@ -78,6 +75,15 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
     setChatText("");
   };
 
+  // const [connect, disconnect] = useStomp(
+  //   client,
+  //   `/sub/coworking/${coworkingId}`,
+  //   (body) => {
+  //     const json_body = JSON.parse(body.body);
+  //     setChatList((_chat_list: ChatContent[]) => [..._chat_list, json_body]);
+  //   }
+  // );
+
   const onLoadFile = (e: React.ChangeEvent<HTMLInputElement> | undefined) => {
     const files = e?.target.files!;
     let formData = new FormData();
@@ -98,7 +104,7 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
       formData.append("file", files[0]);
       axios({
         method: "post",
-        url: `${CHAT_BASE_URL}pub/file`,
+        url: "/pub/file",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -131,25 +137,29 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
     scrollToBottom();
   }, [chatList]);
   useEffect(() => {
-    setChatListLoading(true);
     connect();
-    axios
-      .get<ChatResonse>(`/coworking/chat?coworkingId=${coworkingId}`)
-      .then((res) => {
-        if (!res.data) return;
-        setChatList(res.data.content);
-        setChatListLoading(false);
-      });
     return () => disconnect();
-  }, [connect, coworkingId]);
-  if (chatListLoading || !data)
-    return (
-      <S.LoadingContainer>
-        <FaSpinner size={36} className="spinner" />
-        <br></br>
-        <h1>잠시만 기다려주세요</h1>
-      </S.LoadingContainer>
-    );
+  }, [connect]);
+  // useEffect(() => {
+  //   setChatListLoading(true);
+  //   connect();
+  //   axios
+  //     .get<ChatResonse>(`/coworking/chat?coworkingId=${coworkingId}`)
+  //     .then((res) => {
+  //       if (!res.data) return;
+  //       setChatList(res.data.content);
+  //       setChatListLoading(false);
+  //     });
+  //   return () => disconnect();
+  // }, [connect, coworkingId]);
+  // if (chatListLoading || !data)
+  //   return (
+  //     <S.LoadingContainer>
+  //       <FaSpinner size={36} className="spinner" />
+  //       <br></br>
+  //       <h1>잠시만 기다려주세요</h1>
+  //     </S.LoadingContainer>
+  //   );
   return (
     <S.Container>
       <S.ChatBox>
@@ -162,6 +172,7 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
         </S.Title>
         <ChatContainer
           chatList={chatList}
+          setChatList={setChatList}
           chatRef={chatContainerRef}
           proposalId={proposalId}
         />

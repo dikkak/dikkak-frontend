@@ -30,12 +30,10 @@ const ServiceButton = ({
   return (
     <S.Container>
       <S.WorkSpace onClick={goWorkspace}>
-        <p>{innerWidth > 600 ? `${username}님의` : ""}작업실 바로가기</p>
-        <span>아웃소싱 작업실로 입장합니다.</span>
+        <p>{innerWidth > 600 ? `${username}님의` : ""} 작업실 바로가기</p>
       </S.WorkSpace>
       <S.Logout onClick={onButtonClick}>
         <p>로그아웃</p>
-        <span>작업을 종료합니다.</span>
       </S.Logout>
     </S.Container>
   );

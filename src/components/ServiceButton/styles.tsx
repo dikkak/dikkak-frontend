@@ -2,25 +2,26 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
-  top: 20px;
+  top: 40px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
   @media screen and (max-width: 500px) {
   }
 `;
 
 export const Box = styled.div`
-  width: 48.5%;
-  height: 80px;
-  border-radius: 5px;
+  width: 70%;
+  height: 65px;
+  border-radius: 10px;
   display: flex;
   text-align: center;
   justify-content: center;
   flex-direction: column;
   color: #fff;
   box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
-
+  cursor: pointer;
   & p {
     font-size: 1rem;
   }
@@ -29,7 +30,7 @@ export const Box = styled.div`
     font-size: 0.3rem;
   }
   &:hover {
-    cursor: pointer;
+    opacity: 0.8;
   }
   @media screen and (max-width: 500px) {
     & p {
@@ -44,6 +45,7 @@ export const Box = styled.div`
 
 export const WorkSpace = styled(Box)`
   background-color: ${(props) => props.theme.mainColor};
+  margin-bottom: 1rem;
 `;
 
 export const Logout = styled(Box)`

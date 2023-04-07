@@ -116,6 +116,7 @@ const Redirect = () => {
   useEffect(() => {
     authLogin(provider, code || "")
       .then((res) => {
+        localStorage.setItem("token", `Bearer ${res.accessToken}`);
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${res.accessToken}`;
