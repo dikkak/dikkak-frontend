@@ -13,7 +13,7 @@ interface IList {
   title: string;
   clientName: string;
   coworkingId: number;
-  coworkingStep: number;
+  coworkingStep: string;
 }
 export interface IDesignerContent {
   type: string;

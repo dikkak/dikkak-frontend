@@ -27,7 +27,7 @@ const Router = () => {
         <Route path="/client_workspace" element={<ClientWorkPage />} />
         <Route path="/designer_workspace" element={<DesignerWorkPage />} />
         <Route path="/workspace_client" element={<WorkSpaceClient />} />
-        <Route path="/outsource" element={<OutsourcePage />} />
+        <Route path="/outsource/:id" element={<OutsourcePage />} />
         <Route path="/proposal/:id" element={<Proposal />} />
         <Route path="/oauth/kakao/callback" element={<Redirect />} />
         <Route path="/oauth/google/callback" element={<Redirect />} />

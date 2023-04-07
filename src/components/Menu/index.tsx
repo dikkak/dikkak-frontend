@@ -15,7 +15,6 @@ const Menu = () => {
           <S.LogoImage />
           <S.LogoTitle>
             <S.LogoName>DIKKAK</S.LogoName>
-            <S.LogoSubName>: 디자인을 깎다</S.LogoSubName>
           </S.LogoTitle>
         </S.Title>
       </S.MenuCotainer>

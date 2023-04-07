@@ -45,22 +45,13 @@ export const LogoImage = styled.img.attrs({ src: logoImg })`
 export const LogoTitle = styled.div`
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
+  align-items: center;
 `;
 export const LogoName = styled.p`
-  margin-bottom: 0.2em;
-  font-size: 15px;
-  font-weight: 100;
+  font-size: 20px;
+  font-weight: 500;
   color: #717171;
   @media screen and (max-width: 500px) {
     font-size: 12px;
-  }
-`;
-export const LogoSubName = styled.p`
-  font-size: 10px;
-  color: #717171;
-
-  @media screen and (max-width: 500px) {
-    font-size: 8px;
   }
 `;

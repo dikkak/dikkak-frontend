@@ -18,6 +18,10 @@ const Document = ({
   onDelete,
   setIsActive,
 }: ContentProps) => {
+  const DOMAIN_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_DOMAIN_URL
+      : process.env.REACT_APP_DEV_DOMAIN_URL;
   const navigate = useNavigate();
   const [isDelete, setIsDelete] = useState(false);
   const [isDeleteClicked, setIsDeleteClicked] = useState(false);
@@ -26,8 +30,8 @@ const Document = ({
     setIsActive && setIsActive(true);
     navigator.clipboard.writeText(
       process.env.NODE_ENV === "production"
-        ? `https://www.dikkak.com/proposal/${proposalId}`
-        : `https://dev.dikkak.com/proposal/${proposalId}`
+        ? `${DOMAIN_URL}/proposal/${proposalId}`
+        : `${DOMAIN_URL}/proposal/${proposalId}`
     );
     // `http://localhost:3000/proposal/${proposalId}`
     // 개발서버 도메인
@@ -104,7 +108,14 @@ const Document = ({
                 : clientContent.contents?.map((content, index) => (
                     <S.List key={content.id}>
                       {/* 클라이언트 작업실 외주작업실 리스트*/}
-                      <Link to="#">
+                      <Link
+                        to={`/outsource/${content.coworkingId}`}
+                        state={{
+                          proposalId: content.id,
+                          title: content.title,
+                          coworker: content.designerName,
+                        }}
+                      >
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
                         <span
                           style={{ fontWeight: "900" }}
@@ -112,7 +123,7 @@ const Document = ({
                         <span
                           style={{ fontWeight: "900" }}
                         >{`${content.designerName}`}</span>
-                        <span>{`디자이너 / ${content.coworkingStep}차 작업중`}</span>
+                        <span>{`디자이너`}</span>
                         <p></p>
                       </Link>
                       <S.LinkImage />
@@ -144,7 +155,14 @@ const Document = ({
                 : designerContent.contents?.map((content, index) => (
                     <S.List key={content.id}>
                       {/* 디자이너 작업실 외주작업실 리스트*/}
-                      <Link to={"#"}>
+                      <Link
+                        to={`/outsource/${content.coworkingId}`}
+                        state={{
+                          proposalId: content.id,
+                          title: content.title,
+                          coworker: content.clientName,
+                        }}
+                      >
                         <span style={{ marginRight: "5px" }}>{index + 1}</span>
                         <span
                           style={{ fontWeight: "900" }}
@@ -152,7 +170,7 @@ const Document = ({
                         <span
                           style={{ fontWeight: "900" }}
                         >{`${content.clientName}`}</span>
-                        <span>{`클라이언트 / ${content.coworkingStep}차 작업중`}</span>
+                        <span>{`클라이언트`}</span>
                         <p></p>
                       </Link>
                       <S.LinkImage />

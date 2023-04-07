@@ -3,7 +3,7 @@ import axios from "axios";
 // 클라이언트 작업실 리스트 조회 api
 export const getProposalList = async () => {
   const response = await axios.get<IClientWorkspcaeList>(
-    "/workplace/client/list"
+    "/workspace/client/list"
   );
   return response.data.clientWorkplace;
 };
@@ -21,7 +21,7 @@ export interface IClientWorkspaceItem {
   proposalTitle: string;
   coworkingId?: number;
   designerName?: string;
-  coworkingStep?: number;
+  coworkingStep?: string;
 }
 export interface IClientWorkspcaeList {
   clientWorkplace: IClientWorkspaceItem[];
@@ -32,7 +32,7 @@ export interface IDesignerWorkspaceItem {
   proposalTitle: string;
   coworkingId: number;
   clientName: string;
-  coworkingStep: number;
+  coworkingStep: string;
 }
 export interface IDesignerWorkspaceList {
   complete: IDesignerWorkspaceItem[];

@@ -15,6 +15,10 @@ import Menu from "../../components/Menu";
 import * as moment from "moment";
 
 const Admin = () => {
+  const DOMAIN_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_DOMAIN_URL
+      : process.env.REACT_APP_DEV_DOMAIN_URL;
   const [totalPage, setTotalPage] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const { data: userData } = useQuery("user-info", userInfo);
@@ -145,8 +149,8 @@ const Admin = () => {
                   onClick={() =>
                     window.open(
                       process.env.NODE_ENV === "production"
-                        ? `https://dikkak.com/proposal/${proposal.proposalId}`
-                        : `https://dev.dikkak.com/proposal/${proposal.proposalId}`,
+                        ? `${DOMAIN_URL}/proposal/${proposal.proposalId}`
+                        : `${DOMAIN_URL}/proposal/${proposal.proposalId}`,
                       "_blank"
                     )
                   }
