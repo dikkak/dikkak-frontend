@@ -5,6 +5,8 @@ import blurPin from "../../assets/mainPageImage/blurPin.png";
 import blurLogo from "../../assets/logoImage/blurLogo.svg";
 import stepImg from "../../assets/mainPageImage/nextStep.svg";
 import mowImg from "../../assets/mainPageImage/mow.svg";
+import zeroSection1 from "../../assets/mainPageImage/zeroSection.svg";
+import zeroSection2 from "../../assets/logoImage/logotrans.svg";
 import firstSection1 from "../../assets/mainPageImage/firstSection1.svg";
 import firstSection2 from "../../assets/mainPageImage/firstSection2.svg";
 import firstSection3 from "../../assets/mainPageImage/firstSection3.svg";
@@ -16,15 +18,19 @@ import { motion } from "framer-motion";
 
 export const JumboCotainer = styled(motion.div)`
   max-width: 1440px;
-  height: 485px;
+  height: 520px;
   margin: 0 auto;
   margin-top: 150px;
   padding: 0 80px;
   overflow-x: hidden;
+  background-image: url(${mainBackgroundImg});
+  background-repeat: no-repeat;
+  background-size: cover;
 
   @media screen and (max-width: 500px) {
     padding: 0 30px;
     height: auto;
+    background-image: url(${mobile_mainBackgroundImg});
   }
 `;
 
@@ -33,18 +39,14 @@ export const Jumbotron = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1116px;
+  max-width: 1000px;
   height: 100%;
   margin: 0 auto;
-  background-image: url(${mainBackgroundImg});
-  background-repeat: no-repeat;
-  background-size: cover;
 
   @media screen and (max-width: 500px) {
     max-width: 450px;
     flex-direction: column;
     height: auto;
-    background-image: url(${mobile_mainBackgroundImg});
   }
 `;
 
@@ -55,19 +57,22 @@ export const BlurBackground = styled.div`
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  width: 350px;
-  height: 85%;
+  /* width: 350px; */
+  &:first-child {
+    flex: 0.6;
+    margin-right: 1.5rem;
+  }
+  &:nth-child(2) {
+    flex: 0.4;
+  }
+  height: 450px;
   padding-left: 3em;
   padding-right: 3em;
   background-color: transparent;
   backdrop-filter: blur(30px);
   border: 0.5px solid #eee;
-  // FIXME: border-radius 수정 가능
-  /* border-radius: 10px; */
+  border-radius: 20px;
   box-shadow: 5px 5px 15px #ccc;
-  &:first-child {
-    margin-right: 5rem;
-  }
 
   @media screen and (max-width: 500px) {
     width: 100%;
@@ -115,7 +120,7 @@ export const BlurInfo = styled.div`
   justify-content: space-evenly;
   align-items: center;
   h1 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 900;
     line-height: 1.7em;
     span {
@@ -167,18 +172,20 @@ export const BlurButtons = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   @media screen and (max-width: 500px) {
     align-items: center;
   }
 `;
 export const DikkakSignUp = styled.button`
-  width: 100%;
+  width: 70%;
   height: 4em;
-  margin-top: 5em;
+  margin-top: 3em;
   background-color: ${(props) => props.theme.mainColor};
   color: white;
   border: none;
+  border-radius: 10px;
   outline: none;
   cursor: pointer;
   box-shadow: 5px 5px 10px #888;
@@ -191,7 +198,7 @@ export const DikkakSignUp = styled.button`
   }
 `;
 export const DikkakStart = styled(DikkakSignUp)`
-  margin-top: 1em;
+  margin-top: 1.5em;
   background-color: ${(props) => props.theme.subColor};
   @media screen and (max-width: 500px) {
     margin-bottom: 3em;
@@ -220,9 +227,9 @@ export const Section = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  padding-top: 5em;
-  padding-bottom: 8em;
+  width: 80%;
+  padding-top: 3em;
+  padding-bottom: 5em;
   padding-left: min(15vw, 5em);
   padding-right: min(15vw, 5em);
   margin-top: 8em;
@@ -255,6 +262,19 @@ export const Section = styled.div`
       text-align: center;
     }
   }
+`;
+export const ZeroSectionImage1 = styled(motion.img).attrs({
+  src: zeroSection1,
+})`
+  width: 40vw;
+  max-width: 800px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+`;
+export const ZeroSectionImage2 = styled.img.attrs({ src: zeroSection2 })`
+  width: 20vw;
+  max-width: 300px;
+  position: absolute;
 `;
 export const SectionImageBox = styled.div`
   display: flex;
@@ -334,11 +354,13 @@ export const MainButtons = styled.div`
 export const MainDikkakSignUp = styled(DikkakSignUp)`
   width: 48%;
   margin: 0;
+  font-size: 1rem;
   margin-top: 1.5rem;
 `;
 export const MainDikkakStart: any = styled(DikkakStart)`
   width: 48%;
   margin: 0;
+  font-size: 1rem;
   margin-top: 1.5rem;
 `;
 export const MainText = styled.div`
@@ -346,10 +368,12 @@ export const MainText = styled.div`
   height: 3em;
   margin-top: 2.5em;
   font-size: 1.5rem;
+  font-weight: 700;
   text-align: center;
   line-height: 3em;
   color: #717171;
   border: 2px solid #717171;
+  border-radius: 10px;
 
   @media screen and (max-width: 500px) {
     font-size: 1rem;
@@ -380,5 +404,5 @@ export const ArcadeFrame = styled.iframe`
   height: 100%;
 `;
 export const BottomMain = styled.div`
-  width: 75%;
+  width: 60%;
 `;

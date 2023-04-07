@@ -4,7 +4,6 @@ import * as S from "./styles";
 import ChatContainer from "../ChatContainer";
 import NextButton from "../NextButton";
 import { IUserInfo } from "../../../apis/auth_login";
-import { FaSpinner } from "react-icons/fa";
 import axios from "axios";
 
 interface IChatProps {
@@ -38,7 +37,6 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [chatList, setChatList] = useState<ChatContent[]>([]);
   const [chatText, setChatText] = useState("");
-  const [chatListLoading, setChatListLoading] = useState<boolean>(false);
   const client = useRef<Stomp.Client>();
   const fileRef = useRef<HTMLInputElement>(null);
   const subscribe = useCallback(() => {
@@ -76,6 +74,15 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
 
     setChatText("");
   };
+
+  // const [connect, disconnect] = useStomp(
+  //   client,
+  //   `/sub/coworking/${coworkingId}`,
+  //   (body) => {
+  //     const json_body = JSON.parse(body.body);
+  //     setChatList((_chat_list: ChatContent[]) => [..._chat_list, json_body]);
+  //   }
+  // );
 
   const onLoadFile = (e: React.ChangeEvent<HTMLInputElement> | undefined) => {
     const files = e?.target.files!;
@@ -130,25 +137,29 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
     scrollToBottom();
   }, [chatList]);
   useEffect(() => {
-    setChatListLoading(true);
     connect();
-    axios
-      .get<ChatResonse>(`/coworking/chat?coworkingId=${coworkingId}`)
-      .then((res) => {
-        if (!res.data) return;
-        setChatList(res.data.content);
-        setChatListLoading(false);
-      });
     return () => disconnect();
-  }, [connect, coworkingId]);
-  if (chatListLoading || !data)
-    return (
-      <S.LoadingContainer>
-        <FaSpinner size={36} className="spinner" />
-        <br></br>
-        <h1>잠시만 기다려주세요</h1>
-      </S.LoadingContainer>
-    );
+  }, [connect]);
+  // useEffect(() => {
+  //   setChatListLoading(true);
+  //   connect();
+  //   axios
+  //     .get<ChatResonse>(`/coworking/chat?coworkingId=${coworkingId}`)
+  //     .then((res) => {
+  //       if (!res.data) return;
+  //       setChatList(res.data.content);
+  //       setChatListLoading(false);
+  //     });
+  //   return () => disconnect();
+  // }, [connect, coworkingId]);
+  // if (chatListLoading || !data)
+  //   return (
+  //     <S.LoadingContainer>
+  //       <FaSpinner size={36} className="spinner" />
+  //       <br></br>
+  //       <h1>잠시만 기다려주세요</h1>
+  //     </S.LoadingContainer>
+  //   );
   return (
     <S.Container>
       <S.ChatBox>
@@ -161,6 +172,7 @@ const Chat = ({ coworkingId, data, proposalId }: IChatProps) => {
         </S.Title>
         <ChatContainer
           chatList={chatList}
+          setChatList={setChatList}
           chatRef={chatContainerRef}
           proposalId={proposalId}
         />

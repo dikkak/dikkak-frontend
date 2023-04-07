@@ -123,7 +123,6 @@ const Start = () => {
                     <S.LetterLogo />
                     <p>: 디자인을 깎다</p>
                   </div>
-                  <S.PaintLogo />
                 </div>
               </S.Title>
               <S.Content>
@@ -135,22 +134,29 @@ const Start = () => {
                     <ClientOrDesigner />
                   </>
                 ) : (
-                  <>
-                    <S.ContentDesc>
-                      {data?.username}{" "}
-                      {data?.type === "CLIENT" ? "클라이언트" : "디자이너"}님
-                      안녕하세요!
-                    </S.ContentDesc>
-                    <ServiceButton
-                      username={data.username}
-                      type={data.type}
-                      innerWidth={innerWidth}
-                      setIsLogoutClicked={setIsLogoutClicked}
-                      onLogout={onLogout}
-                    />
-                  </>
+                  <ServiceButton
+                    username={data.username}
+                    type={data.type}
+                    innerWidth={innerWidth}
+                    setIsLogoutClicked={setIsLogoutClicked}
+                    onLogout={onLogout}
+                  />
                 )}
               </S.Content>
+            </S.BlurBackground>
+            <S.BlurBackground>
+              <S.BlurInfo>
+                <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+                  <h1>✋안녕하세요!</h1>
+                  <h1>쉽고 빠른</h1>
+                  <h1>디자인 외주 플랫폼</h1>
+                  <h1>
+                    <span>D</span>
+                    <span>IKKAK</span> 입니다.
+                  </h1>
+                </div>
+                <S.MowImage />
+              </S.BlurInfo>
             </S.BlurBackground>
           </S.Jumbotron>
         </S.JumboCotainer>

@@ -90,6 +90,21 @@ const Main = () => {
       </S.JumboCotainer>
       <S.SectionContainer>
         <S.NextStep />
+        <S.Section style={{ position: "relative", paddingTop: "5em" }}>
+          <S.BlurPin />
+          <S.BlurPin />
+          <S.BlurPin />
+          <S.BlurPin />
+          <S.ZeroSectionImage1
+            initial={{ opacity: 0 }}
+            whileInView={{
+              opacity: 1,
+              transition: { duration: 1.2, delay: 0.2 },
+            }}
+          />
+          <S.ZeroSectionImage2 />
+        </S.Section>
+        <S.NextStep />
         <S.Section>
           <h3>
             쉽고, 빠르게 <b>맡기세요</b>
@@ -108,7 +123,7 @@ const Main = () => {
               initial={{ opacity: 0 }}
               whileInView={{
                 opacity: 1,
-                transition: { duration: 1.2, delay: 1 },
+                transition: { duration: 1.2, delay: 0.8 },
               }}
             />
           </S.SectionImageBox>

@@ -13,16 +13,26 @@ moment.locale("ko");
 
 interface IChatContainer {
   chatList: ChatContent[];
+  setChatList: React.Dispatch<React.SetStateAction<ChatContent[]>>;
   chatRef: React.RefObject<HTMLDivElement>;
   proposalId: number;
 }
-const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
+const ChatContainer = ({
+  chatList,
+  chatRef,
+  proposalId,
+  setChatList,
+}: IChatContainer) => {
   const DOMAIN_URL =
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_DOMAIN_URL
       : process.env.REACT_APP_DEV_DOMAIN_URL;
-  const { data, isFetching, isLoading } = useQuery("user-info", userInfo);
-  if (!isFetching && !data) {
+  const {
+    data: userData,
+    isFetching,
+    isLoading,
+  } = useQuery("user-info", userInfo);
+  if (!isFetching && !userData) {
     return <Navigate to="/login" />;
   }
   if (isLoading)
@@ -56,8 +66,9 @@ const ChatContainer = ({ chatList, chatRef, proposalId }: IChatContainer) => {
           </p>
         </AlertMessage>
       </ChatAlert>
+
       {chatList.map((message, index) => {
-        return message.data.email === data?.email ? (
+        return message.data.email === userData?.email ? (
           index !== 0 &&
           Number(
             moment.default(chatList[index - 1].data.createdAt).format("YYMMDD")
