@@ -18,10 +18,6 @@ Area| Tech Stack|
 **Frontend** | <img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/ReactQuery-FF4154.svg?&style=for-the-badge&logo=ReactQuery&logoColor=white"> <img src="https://img.shields.io/badge/React Router-CA4245.svg?&style=for-the-badge&logo=reactrouter&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-0075EB.svg?&style=for-the-badge&logo=recoil&logoColor=white"> <img src="https://img.shields.io/badge/Styledcomponents-DB7093?&style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Framer Motion-0055FF?&style=for-the-badge&logo=framer&logoColor=white"> <img src="https://img.shields.io/badge/StompJS-010101?&style=for-the-badge&logo=socketdotio&logoColor=white">
 **DevOps** | <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=black">  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/Github_Actions-2088FF?style=for-the-badge&logo=Github-Actions&logoColor=black"> <img src="https://img.shields.io/badge/Amazon_EC2-FF9900?style=for-the-badge&logo=Amazon-EC2&logoColor=black">
 </div>
-  
-*** ![1]()
-![2]()
-
 
 ## 1. 소셜 로그인 및 회원가입
 <div>
